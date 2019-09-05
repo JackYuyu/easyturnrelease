@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class ETMineViewModel;
 NS_ASSUME_NONNULL_BEGIN
+@protocol ETMineHeaderViewDelegate <NSObject>
+
+- (void)eTMineHeaderviewDidSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
 
 @interface ETMineHeaderView : UIView
-
+- (void)makeMineHeaderViewWithETMineViewModel:(ETMineViewModel *)model;
+@property (nonatomic, weak) id<ETMineHeaderViewDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

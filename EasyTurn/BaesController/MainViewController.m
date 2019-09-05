@@ -141,8 +141,8 @@ static MainViewController *vcMain = nil;
         NSLog(@"");
     };
     [_controllers addObject:_navMessage];
-    
-    ETMinesViewController *vcMine = [[ETMinesViewController alloc] init];
+    ETMineViewController *vcMine = [[ETMineViewController alloc] init];
+//    ETMinesViewController *vcMine = [[ETMinesViewController alloc] init];
     _navMine = [[SSNavigationController alloc] initWithRootViewController:vcMine];
     _navMine.tabCode = TabCode_Mine;
     [self setNaviController:_navMine title:@"我的" defautImage:[UIImage ak_imageNamed:@"我的_未选中"] selectedImage:[UIImage ak_imageNamed:@"我的_选中"]];

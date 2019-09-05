@@ -225,6 +225,7 @@ static NSString *const pathActivity = @"/activity";
 static NSString *const pathInformation = @"/information";
 static NSString *const pathSpike = @"/spike";
 static NSString *const pathBroadcast = @"/broadcast";
+static NSString *const pathRelease = @"/release";
 @interface SSJewelryCore : NSObject
 
 /* 是否有效点击 */

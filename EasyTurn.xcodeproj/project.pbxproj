@@ -211,6 +211,12 @@
 		00986CD52321310300B1131E /* ico_listup.png in Resources */ = {isa = PBXBuildFile; fileRef = 00986CCB2321310300B1131E /* ico_listup.png */; };
 		00986CD62321310300B1131E /* ico_listdown.png in Resources */ = {isa = PBXBuildFile; fileRef = 00986CCC2321310300B1131E /* ico_listdown.png */; };
 		00986CD72321310300B1131E /* ExpandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CCD2321310300B1131E /* ExpandCell.m */; };
+		00986CDA2321438400B1131E /* ETMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CD92321438400B1131E /* ETMineViewController.m */; };
+		00986CDD2321438B00B1131E /* ETMineListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CDC2321438B00B1131E /* ETMineListViewController.m */; };
+		00986CE4232143CA00B1131E /* ETMineGridCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CDE232143C900B1131E /* ETMineGridCollectionCell.m */; };
+		00986CE5232143CA00B1131E /* ETMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CE2232143C900B1131E /* ETMineHeaderView.m */; };
+		00986CE6232143CA00B1131E /* ETMineListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CE3232143CA00B1131E /* ETMineListViewCell.m */; };
+		00986CE9232143DB00B1131E /* ETMineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CE8232143DB00B1131E /* ETMineViewModel.m */; };
 		009A3C3F2301A0C600EF897E /* XMRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */; };
 		009A3C402301A0C600EF897E /* XMRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */; };
 		009A3C4323029BE100EF897E /* ETWxPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C4223029BE100EF897E /* ETWxPhoneViewController.m */; };
@@ -291,11 +297,9 @@
 		2E0A984E22F853A700DD8B28 /* ETPaymentStagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A984D22F853A600DD8B28 /* ETPaymentStagesVC.m */; };
 		2E0A985122F8547D00DD8B28 /* ETPaymentStatesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A985022F8547C00DD8B28 /* ETPaymentStatesCell.m */; };
 		2E0B3582231D17A0001A9BDB /* ETMineViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B3581231D17A0001A9BDB /* ETMineViewCell.m */; };
-		2E0B3585231D18CC001A9BDB /* ETMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B3584231D18CC001A9BDB /* ETMineHeaderView.m */; };
 		2E0B592022F51DFD00F549BA /* ETNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B591F22F51DFD00F549BA /* ETNameViewController.m */; };
 		2E0C35B423013BC2001B5E8A /* ETBphoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C35B323013BC2001B5E8A /* ETBphoneViewController.m */; };
 		2E0C6E96231B733000D28C37 /* ETViphuiyuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6E95231B733000D28C37 /* ETViphuiyuanModel.m */; };
-		2E0C6E99231BC99700D28C37 /* ETMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C6E98231BC99700D28C37 /* ETMineViewController.m */; };
 		2E0CDF0C22E83C1F00783952 /* ETBusinessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0CDF0B22E83C1F00783952 /* ETBusinessViewController.m */; };
 		2E0CDF0F22E83C3E00783952 /* ETTaxationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0CDF0E22E83C3E00783952 /* ETTaxationViewController.m */; };
 		2E0CDF1222E83C5500783952 /* ETAdministrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0CDF1122E83C5500783952 /* ETAdministrationViewController.m */; };
@@ -798,6 +802,18 @@
 		00986CCB2321310300B1131E /* ico_listup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico_listup.png; sourceTree = "<group>"; };
 		00986CCC2321310300B1131E /* ico_listdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ico_listdown.png; sourceTree = "<group>"; };
 		00986CCD2321310300B1131E /* ExpandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandCell.m; sourceTree = "<group>"; };
+		00986CD82321438300B1131E /* ETMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMineViewController.h; sourceTree = "<group>"; };
+		00986CD92321438400B1131E /* ETMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineViewController.m; sourceTree = "<group>"; };
+		00986CDB2321438B00B1131E /* ETMineListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMineListViewController.h; sourceTree = "<group>"; };
+		00986CDC2321438B00B1131E /* ETMineListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineListViewController.m; sourceTree = "<group>"; };
+		00986CDE232143C900B1131E /* ETMineGridCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineGridCollectionCell.m; sourceTree = "<group>"; };
+		00986CDF232143C900B1131E /* ETMineGridCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMineGridCollectionCell.h; sourceTree = "<group>"; };
+		00986CE0232143C900B1131E /* ETMineListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMineListViewCell.h; sourceTree = "<group>"; };
+		00986CE1232143C900B1131E /* ETMineHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMineHeaderView.h; sourceTree = "<group>"; };
+		00986CE2232143C900B1131E /* ETMineHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineHeaderView.m; sourceTree = "<group>"; };
+		00986CE3232143CA00B1131E /* ETMineListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineListViewCell.m; sourceTree = "<group>"; };
+		00986CE7232143DB00B1131E /* ETMineViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMineViewModel.h; sourceTree = "<group>"; };
+		00986CE8232143DB00B1131E /* ETMineViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineViewModel.m; sourceTree = "<group>"; };
 		009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshHeader.m; sourceTree = "<group>"; };
 		009A3C3C2301A0C600EF897E /* XMRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMRefreshFooter.h; sourceTree = "<group>"; };
 		009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshFooter.m; sourceTree = "<group>"; };
@@ -949,16 +965,12 @@
 		2E0A985022F8547C00DD8B28 /* ETPaymentStatesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPaymentStatesCell.m; sourceTree = "<group>"; };
 		2E0B3580231D17A0001A9BDB /* ETMineViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETMineViewCell.h; sourceTree = "<group>"; };
 		2E0B3581231D17A0001A9BDB /* ETMineViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETMineViewCell.m; sourceTree = "<group>"; };
-		2E0B3583231D18CC001A9BDB /* ETMineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETMineHeaderView.h; sourceTree = "<group>"; };
-		2E0B3584231D18CC001A9BDB /* ETMineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETMineHeaderView.m; sourceTree = "<group>"; };
 		2E0B591E22F51DFD00F549BA /* ETNameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETNameViewController.h; sourceTree = "<group>"; };
 		2E0B591F22F51DFD00F549BA /* ETNameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETNameViewController.m; sourceTree = "<group>"; };
 		2E0C35B223013BC2001B5E8A /* ETBphoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETBphoneViewController.h; sourceTree = "<group>"; };
 		2E0C35B323013BC2001B5E8A /* ETBphoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETBphoneViewController.m; sourceTree = "<group>"; };
 		2E0C6E94231B733000D28C37 /* ETViphuiyuanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETViphuiyuanModel.h; sourceTree = "<group>"; };
 		2E0C6E95231B733000D28C37 /* ETViphuiyuanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETViphuiyuanModel.m; sourceTree = "<group>"; };
-		2E0C6E97231BC99700D28C37 /* ETMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETMineViewController.h; sourceTree = "<group>"; };
-		2E0C6E98231BC99700D28C37 /* ETMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETMineViewController.m; sourceTree = "<group>"; };
 		2E0CDF0A22E83C1F00783952 /* ETBusinessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETBusinessViewController.h; sourceTree = "<group>"; };
 		2E0CDF0B22E83C1F00783952 /* ETBusinessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETBusinessViewController.m; sourceTree = "<group>"; };
 		2E0CDF0D22E83C3E00783952 /* ETTaxationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETTaxationViewController.h; sourceTree = "<group>"; };
@@ -1311,8 +1323,10 @@
 			children = (
 				0046AA5622EACDE20038CA11 /* ETMinesViewController.h */,
 				0046AA3522EACDE20038CA11 /* ETMinesViewController.m */,
-				2E0C6E97231BC99700D28C37 /* ETMineViewController.h */,
-				2E0C6E98231BC99700D28C37 /* ETMineViewController.m */,
+				00986CD82321438300B1131E /* ETMineViewController.h */,
+				00986CD92321438400B1131E /* ETMineViewController.m */,
+				00986CDB2321438B00B1131E /* ETMineListViewController.h */,
+				00986CDC2321438B00B1131E /* ETMineListViewController.m */,
 				0046AA3422EACDE20038CA11 /* ETAboutViewController.h */,
 				0046AA5722EACDE20038CA11 /* ETAboutViewController.m */,
 				0046AA4822EACDE20038CA11 /* ETAccountViewController.h */,
@@ -2644,8 +2658,12 @@
 		2E1CDA7E22EAD09600174F08 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2E0B3583231D18CC001A9BDB /* ETMineHeaderView.h */,
-				2E0B3584231D18CC001A9BDB /* ETMineHeaderView.m */,
+				00986CE1232143C900B1131E /* ETMineHeaderView.h */,
+				00986CE2232143C900B1131E /* ETMineHeaderView.m */,
+				00986CE0232143C900B1131E /* ETMineListViewCell.h */,
+				00986CE3232143CA00B1131E /* ETMineListViewCell.m */,
+				00986CDF232143C900B1131E /* ETMineGridCollectionCell.h */,
+				00986CDE232143C900B1131E /* ETMineGridCollectionCell.m */,
 				2E0B3580231D17A0001A9BDB /* ETMineViewCell.h */,
 				2E0B3581231D17A0001A9BDB /* ETMineViewCell.m */,
 				2E1CDA8922EAD09600174F08 /* ETMineVIew.h */,
@@ -2674,6 +2692,8 @@
 		2E1CDA8C22EAD09600174F08 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				00986CE7232143DB00B1131E /* ETMineViewModel.h */,
+				00986CE8232143DB00B1131E /* ETMineViewModel.m */,
 				2E1CDA8D22EAD09600174F08 /* ETMineModel.m */,
 				2E1CDA8E22EAD09600174F08 /* ETMineModel.h */,
 				00245BBF230542FF002B42B2 /* YueModel.h */,
@@ -3158,6 +3178,7 @@
 				A6A544AF22F7451200C7FDC5 /* LZCSinglePickerView.m in Sources */,
 				0046AA5A22EACDE30038CA11 /* ETAccountViewController.m in Sources */,
 				007FAD9822E05228001EC5F2 /* ACToastView.m in Sources */,
+				00986CE9232143DB00B1131E /* ETMineViewModel.m in Sources */,
 				0046AA6822EACDE30038CA11 /* UserSaleViewCell.m in Sources */,
 				0046AA6B22EACDE30038CA11 /* ETTouchMeinViewController.m in Sources */,
 				2ED2F6D72318D63F00FA9F89 /* ETLawViewController.m in Sources */,
@@ -3177,6 +3198,7 @@
 				00E5C30122EDC5EB00009241 /* CXSearchModel.m in Sources */,
 				00199BC522F288EF00FACC24 /* PinyinFormatter.m in Sources */,
 				2E13654022F02D190083E850 /* YHDetailsTabController.m in Sources */,
+				00986CDD2321438B00B1131E /* ETMineListViewController.m in Sources */,
 				009A3C3F2301A0C600EF897E /* XMRefreshHeader.m in Sources */,
 				0046AA5822EACDE30038CA11 /* ETPassWordViewController.m in Sources */,
 				A6A544AE22F7451200C7FDC5 /* PickerToolBar.m in Sources */,
@@ -3216,6 +3238,7 @@
 				00E5C30022EDC5EB00009241 /* CXSearchSectionModel.m in Sources */,
 				007FAE3F22E0539F001EC5F2 /* DCCheckRegular.m in Sources */,
 				007FADF022E052C3001EC5F2 /* SVRadialGradientLayer.m in Sources */,
+				00986CE5232143CA00B1131E /* ETMineHeaderView.m in Sources */,
 				2E38EE11230EB32F0028BC25 /* ETProductDetailVC.m in Sources */,
 				007FAE5022E05640001EC5F2 /* SSPayUtils.m in Sources */,
 				00E5C2FF22EDC5EB00009241 /* CXSearchController.m in Sources */,
@@ -3321,6 +3344,7 @@
 				2E087A1323115337002374E9 /* MCPageViewSub3ViewController.m in Sources */,
 				009AAFE222F867500071D09B /* MD5.m in Sources */,
 				007FADAA22E05228001EC5F2 /* LGAlertView.m in Sources */,
+				00986CE6232143CA00B1131E /* ETMineListViewCell.m in Sources */,
 				00245C092306F383002B42B2 /* FBBaseModel.m in Sources */,
 				2EF11F752314206A00561103 /* ETUnsubscribeViewController.m in Sources */,
 				49B5646D22FBE2D40019EE8F /* ETEnterpriseServiceListSegment.m in Sources */,
@@ -3376,7 +3400,6 @@
 				007FADFD22E052C3001EC5F2 /* WXApiManager.m in Sources */,
 				00841558231F9F64009589A5 /* UILabel+ZZExtension.m in Sources */,
 				2E087A1523115337002374E9 /* MCPageViewSub1ViewController.m in Sources */,
-				2E0C6E99231BC99700D28C37 /* ETMineViewController.m in Sources */,
 				A6A544A122F7433500C7FDC5 /* LQPickerView.m in Sources */,
 				00E5C32C22EEFC1300009241 /* ProductInfoCell.m in Sources */,
 				0046AA6022EACDE30038CA11 /* ETSetUserViewController.m in Sources */,
@@ -3410,6 +3433,7 @@
 				2E087A1423115337002374E9 /* MCPageViewSub2ViewController.m in Sources */,
 				007FADEF22E052C3001EC5F2 /* OTDynamicGridView.m in Sources */,
 				2EF11F792314215800561103 /* ETunsTableViewCell.m in Sources */,
+				00986CDA2321438400B1131E /* ETMineViewController.m in Sources */,
 				007FAE4122E0539F001EC5F2 /* DCPlaceholderTextView.m in Sources */,
 				007FAE5C22E05E2D001EC5F2 /* ETMessageCenterController.m in Sources */,
 				2ED2F6DD2318D68A00FA9F89 /* ETStillViewController.m in Sources */,
@@ -3419,11 +3443,11 @@
 				0046AA5922EACDE30038CA11 /* ETCashOutViewController.m in Sources */,
 				00199BAB22F288E400FACC24 /* ButtonGroupView.m in Sources */,
 				2E0CDF1522E83C7000783952 /* ETFinancialViewController.m in Sources */,
-				2E0B3585231D18CC001A9BDB /* ETMineHeaderView.m in Sources */,
 				00A9462D23181DF2003A2B66 /* DCCycleScrollView.m in Sources */,
 				007FADA022E05228001EC5F2 /* AHKAlertView.m in Sources */,
 				00E5C2E522ED6E9E00009241 /* ETEnterpriseServiceTableViewCell1.m in Sources */,
 				007FAE2622E052FD001EC5F2 /* UIView+AZGradient.m in Sources */,
+				00986CE4232143CA00B1131E /* ETMineGridCollectionCell.m in Sources */,
 				0046AA5E22EACDE30038CA11 /* ETUserViewController.m in Sources */,
 				00986CCE2321310300B1131E /* ExpandTableViewController.m in Sources */,
 				0084155E231F9F64009589A5 /* ZZCutGridLayer.m in Sources */,

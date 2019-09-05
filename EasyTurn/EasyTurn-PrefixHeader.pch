@@ -24,6 +24,7 @@
 #import "ACToastView.h"
 #import "ACAlertView.h"
 #import "WRNavigationBar.h"
+#import "IANshowLoading.h"
 /* 分类 */
 #import "UIView+Extension.h"
 #import "UIImage+AHKit.h"
