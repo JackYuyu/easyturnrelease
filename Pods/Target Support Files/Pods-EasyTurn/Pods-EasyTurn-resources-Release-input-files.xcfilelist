@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-EasyTurn/Pods-EasyTurn-resources.sh
+${PODS_ROOT}/EaseUILite/EaseUI/resources/EaseUIResource.bundle
+${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle
+${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/MWPhotoBrowser/MWPhotoBrowser.bundle

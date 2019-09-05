@@ -1,0 +1,60 @@
+//
+//  EasyTurn-PrefixHeader.pch
+//  EasyTurn
+//
+//  Created by 程立 on 2019/7/18.
+//  Copyright © 2019 EasyTurn. All rights reserved.
+//
+
+#ifndef EasyTurn_PrefixHeader_pch
+#define EasyTurn_PrefixHeader_pch
+
+#import "SSJewelryCore.h"
+/* 第三方 */
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <Masonry/Masonry.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <AFNetworking/AFNetworking.h>
+#import "MJExtension.h"
+#import "SVProgressHUD.h"
+#import "MJRefresh.h"
+#import <YYModel.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+#import "ACToastView.h"
+#import "ACAlertView.h"
+#import "WRNavigationBar.h"
+/* 分类 */
+#import "UIView+Extension.h"
+#import "UIImage+AHKit.h"
+#import "UIView+AHkit.h"
+#import "UIImage+GradientColor.h"
+#import "NSString+AHKit.h"
+#import "UIColor+Extension.h"
+/* 工具类 */
+#import "DCSpeedy.h"
+#import "SSNotificationCenterName.h" //通知
+#import "STApiHelper.h"
+#import "UserInfoModel.h"
+#import "SSCacheManager.h"
+#import "SSUserLoginModel.h"
+#import "HttpTool.h"
+#import "OSSImageUploader.h"
+#import "MBProgressHUD+Add.h"
+#import "MySingleton.h"
+/*聊天*/
+#import <HyphenateLite/HyphenateLite.h>
+#import <EaseUI.h>
+#import "PublicFunc.h"
+#import "AppDelegate.h"
+#import "BGFMDB.h"
+//
+#import "UGameManager.h"
+//
+#import "UIView+ZZExtension.h"
+#import "UIColor+ZZExtension.h"
+#import "UILabel+ZZExtension.h"
+#import "UIButton+ZZExtension.h"
+#import <Masonry.h>
+
+#endif /* EasyTurn_PrefixHeader_pch */
