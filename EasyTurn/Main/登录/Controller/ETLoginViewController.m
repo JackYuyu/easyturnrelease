@@ -41,7 +41,9 @@ typedef NS_ENUM(NSUInteger, ETLoginViewControllerType) {
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, assign) int messageVerify;
-
+//
+@property(assign, nonatomic) NSInteger timeCount;
+@property(strong, nonatomic) NSTimer *timer;
 @end
 
 @implementation ETLoginViewController
@@ -169,7 +171,7 @@ typedef NS_ENUM(NSUInteger, ETLoginViewControllerType) {
     _btnSecurityCode = [UIButton buttonWithType:UIButtonTypeCustom];
     _btnSecurityCode.hidden = YES;
     [_btnSecurityCode setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [_btnSecurityCode addTarget:self action:@selector(sendcode) forControlEvents:UIControlEventTouchUpInside];
+    [_btnSecurityCode addTarget:self action:@selector(getValidCode:) forControlEvents:UIControlEventTouchUpInside];
     [_btnSecurityCode setTitleColor:kACColorRGB(20, 138, 236) forState:UIControlStateNormal];
     _btnSecurityCode.titleLabel.font = kFontSize(12);
     [self.view addSubview:_btnSecurityCode];
@@ -249,7 +251,40 @@ typedef NS_ENUM(NSUInteger, ETLoginViewControllerType) {
     _btnWechat.hidden=YES;
     }
 }
+- (void)getValidCode:(UIButton *)sender
+{
+    if ([_tfUserName.text isEqualToString:@""])
+    {
+        return;
+    }
+    else if (_tfUserName.text.length <11)
+    {
+        return;
+    }
+    //__weak MMZCHMViewController *weakSelf = self;
+    sender.userInteractionEnabled = NO;
+    self.timeCount = 60;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reduceTime:) userInfo:sender repeats:YES];
+    [self sendcode];
+}
 
+
+- (void)reduceTime:(NSTimer *)codeTimer {
+    self.timeCount--;
+    if (self.timeCount == 0) {
+        [_btnSecurityCode setTitle:@"重新获取验证码" forState:UIControlStateNormal];
+        [_btnSecurityCode setTitleColor:[UIColor colorWithRed:248/255.0f green:144/255.0f blue:34/255.0f alpha:1] forState:UIControlStateNormal];
+        UIButton *info = codeTimer.userInfo;
+        info.enabled = YES;
+        _btnSecurityCode.userInteractionEnabled = YES;
+        [self.timer invalidate];
+    } else {
+        NSString *str = [NSString stringWithFormat:@"%lu秒后重新获取", self.timeCount];
+        [_btnSecurityCode setTitle:str forState:UIControlStateNormal];
+        _btnSecurityCode.userInteractionEnabled = NO;
+        
+    }
+}
 -(void)sendcode
 {
     NSDictionary *params = @{
