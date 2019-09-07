@@ -9,12 +9,20 @@
 #import "ETFootViewController.h"
 #import "ETEnterpriseServiceTableViewCell1.h"
 #import "ETProductModel.h"
+#import "ETFootListCell.h"
+#import "ETServiceDetailController.h"
+#import "ETSaleDetailController.h"
+#import "ETPoctoryqgViewController.h"
+#import "XMRefreshFooter.h"
 @interface ETFootViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tab;
 @property(nonatomic,strong)UIButton *loadingBtn;
 @property(nonatomic,strong)NSMutableArray*products;
 @property(nonatomic,strong)UIButton *deleBtn;
 @property(nonatomic,strong)ETProductModel *m;
+
+@property(nonatomic, assign)NSInteger pageSize;
+@property(nonatomic, assign)NSInteger page;
 @end
 
 @implementation ETFootViewController
@@ -30,7 +38,15 @@
     [self.view addSubview:self.tab];
 //    [self.view addSubview:self.loadingBtn];
     [self.tab registerClass:[ETEnterpriseServiceTableViewCell1 class] forCellReuseIdentifier:@"cell"];
+    self.pageSize = 10;
+    self.page = 1;
      [self PostUI:@"1"];
+    _products=[NSMutableArray new];
+    WEAKSELF
+    _tab.mj_footer = [XMRefreshFooter xm_footerWithRefreshingBlock:^{
+//        self.page += 1;
+        [weakSelf PostUI:@"1"];
+    }];
 }
 
 
@@ -59,7 +75,10 @@
 }
 
 
-
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [ETFootListCell cellHeight];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _products.count;
@@ -67,75 +86,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ETEnterpriseServiceTableViewCell1*cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (_products.count>0) {
-        _m=[_products objectAtIndex:indexPath.row];
-        cell.serviceLab.text=_m.desc;
-        cell.giveserviceLab.text=_m.title;
-        if ([_m.releaseId isEqualToString:@"1001"]) {
-            cell.serviceLab.text=@"出售";
-        }else if ([_m.releaseId isEqualToString:@"1002"]) {
-            cell.serviceLab.text=@"求购";
-        }else if ([_m.releaseId isEqualToString:@"1003"]) {
-            cell.serviceLab.text=@"服务";
-        }
-        cell.moneyLab.text=[NSString stringWithFormat:@"¥%@",_m.price];
-        
-        cell.addressLab.text=_m.cityName;
-        cell.detailsLab.text=_m.business;
-        [cell.comImg sd_setImageWithURL:[NSURL URLWithString:_m.imageList]];
-        if ([_m.releaseTypeId isEqualToString:@"1"]) {
-            UIImageView* jiao=[UIImageView new];
-            [jiao setImage:[UIImage imageNamed:@"首页_出售"]];
-            [cell.comImg addSubview:jiao];
-            [jiao mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(0);
-                make.top.mas_equalTo(0);
-                make.width.mas_equalTo(35);
-                make.height.mas_equalTo(35);
-            }];
-        }
-        if ([_m.releaseTypeId isEqualToString:@"3"]) {
-            UIImageView* jiao=[UIImageView new];
-            [jiao setImage:[UIImage imageNamed:@"首页_企服者"]];
-            [cell.comImg addSubview:jiao];
-            [jiao mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(0);
-                make.top.mas_equalTo(0);
-                make.width.mas_equalTo(35);
-                make.height.mas_equalTo(35);
-            }];
-        }
-        if ([_m.releaseTypeId isEqualToString:@"2"]) {
-            UIImageView* jiao=[UIImageView new];
-            [jiao setImage:[UIImage imageNamed:@"首页_求购"]];
-            [cell.comImg addSubview:jiao];
-            [jiao mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(0);
-                make.top.mas_equalTo(0);
-                make.width.mas_equalTo(35);
-                make.height.mas_equalTo(35);
-            }];
-        }
-        
-    }
-    _deleBtn =[[UIButton alloc]init];
-    [_deleBtn setTitle:@"删除" forState:UIControlStateNormal];
-    [_deleBtn setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [cell addSubview:self.deleBtn];
-    _deleBtn.layer.borderWidth=1;
-    _deleBtn.layer.cornerRadius=4;
-    _deleBtn.titleLabel.font=[UIFont systemFontOfSize:13 weight:9];
-    _deleBtn.layer.borderColor=[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0].CGColor;
-    _deleBtn.tag=indexPath.row;
-    [_deleBtn addTarget:self action:@selector(aaaa:) forControlEvents:UIControlEventTouchUpInside];
-    [_deleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(120);
-        make.right.mas_equalTo(-15);
-        make.size.mas_equalTo(CGSizeMake(60, 26));
-    }];
-    return cell;
+    return [ETFootListCell dynamicListCell:tableView dict:_products[indexPath.row]];
 }
 - (void)aaaa:(UIButton*)sender {
     [self PostUI1:sender.tag];
@@ -149,27 +100,68 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     // 3点击没有颜色改变
     cell.selected = NO;
+    NSDictionary *dict =[_products objectAtIndex:indexPath.row];
+    NSMutableDictionary* temp0=[dict mutableCopy];
+
+    dict=dict[@"releases"];
+    NSMutableDictionary* temp=[dict mutableCopy];
+    [temp setObject:temp0[@"releaseId"] forKey:@"releaseId"];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:temp];
+    if ([p.releaseTypeId isEqualToString:@"3"]) {
+        ETServiceDetailController * detail=[ETServiceDetailController serviceDetailController:temp];
+        detail.product=p;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+    else if([p.releaseTypeId isEqualToString:@"1"]){
+        ETSaleDetailController* detail=[ETSaleDetailController saleDetailController:temp];
+        detail.product=p;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+    else{
+        ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
+        ETProductModel* p=[ETProductModel mj_objectWithKeyValues:temp];
+        pur.releaseId=p.releaseId;
+        pur.releaseId = temp[@"releaseId"];
+        pur.product = [ETProductModel mj_objectWithKeyValues:temp];
+        [self.navigationController pushViewController:pur animated:YES];
+    }
 }
 
 - (void)PostUI:(NSString*)head {
     NSDictionary *params = @{
+                             @"page": @(self.page),
+                             @"size": @(self.pageSize)
                              };
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     
-    [HttpTool get:[NSString stringWithFormat:@"collect/my"] params:params success:^(NSDictionary *response) {
-        //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-        //        NSLog(@"%@",jsonDict);
-        _products=[NSMutableArray new];
-        NSDictionary* a=response[@"data"];
-        for (NSDictionary* prod in response[@"data"]) {
-          
-            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
-            if (p) {
-                [_products addObject:p];
-               
+    [HttpTool get:[NSString stringWithFormat:@"releaseHistory/findAll"] params:params success:^(NSDictionary *response) {
+
+        if (response && [response isKindOfClass:[NSDictionary class]]) {
+
+            
+            NSInteger total = [[response objectForKey:@"data"][@"total"] integerValue];
+            total=total/10+1;
+            self.page++;
+            
+            if(self.page<=total){
+                
+                if (!_tab.mj_footer) {
+                    WeakSelf(self);
+                    _tab.mj_footer = [MJRefreshBackGifFooter footerWithRefreshingBlock:^{
+                        [weakself PostUI:@"1"];
+
+                    }];
+                }
+            }
+            else{
+                _tab.mj_footer = nil;
+            }
+            NSArray *array = [response objectForKey:@"data"][@"rows"];
+            if(array && ![array isKindOfClass:[NSNull class]]){
+                [_products addObjectsFromArray:array];
+                [_tab reloadData];
             }
         }
-        [_tab reloadData];
     } failure:^(NSError *error) {
         
     }];

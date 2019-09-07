@@ -82,10 +82,12 @@
     UITableViewCell *cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSArray*arr=@[@"姓名",@"支付宝账号"];
-    EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
+//    EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
     ETProductModel* p=[_products objectAtIndex:indexPath.row];
     cell.imageView.image=[UIImage imageNamed:@"dropdown_loading_01"];
     if (_index==0) {
+        EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
+
         if (indexPath.row==0) {
             cell.textLabel.text=@"欢迎来到易转!!";
         }

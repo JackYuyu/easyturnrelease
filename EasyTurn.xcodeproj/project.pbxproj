@@ -224,6 +224,7 @@
 		00986CFA232298B100B1131E /* MyOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CF8232298B100B1131E /* MyOrderCell.m */; };
 		00986CFB232298B100B1131E /* MyOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00986CF9232298B100B1131E /* MyOrderCell.xib */; };
 		00986CFE2322A37F00B1131E /* ETFootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CFD2322A37F00B1131E /* ETFootViewController.m */; };
+		00986D0123238CB600B1131E /* ETFootListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986D0023238CB600B1131E /* ETFootListCell.m */; };
 		009A3C3F2301A0C600EF897E /* XMRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */; };
 		009A3C402301A0C600EF897E /* XMRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */; };
 		009A3C4323029BE100EF897E /* ETWxPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C4223029BE100EF897E /* ETWxPhoneViewController.m */; };
@@ -833,6 +834,8 @@
 		00986CF9232298B100B1131E /* MyOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyOrderCell.xib; sourceTree = "<group>"; };
 		00986CFC2322A37F00B1131E /* ETFootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFootViewController.h; sourceTree = "<group>"; };
 		00986CFD2322A37F00B1131E /* ETFootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFootViewController.m; sourceTree = "<group>"; };
+		00986CFF23238CB600B1131E /* ETFootListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFootListCell.h; sourceTree = "<group>"; };
+		00986D0023238CB600B1131E /* ETFootListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFootListCell.m; sourceTree = "<group>"; };
 		009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshHeader.m; sourceTree = "<group>"; };
 		009A3C3C2301A0C600EF897E /* XMRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMRefreshFooter.h; sourceTree = "<group>"; };
 		009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshFooter.m; sourceTree = "<group>"; };
@@ -2349,6 +2352,8 @@
 		00986CF123223AC700B1131E /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
+				00986CFF23238CB600B1131E /* ETFootListCell.h */,
+				00986D0023238CB600B1131E /* ETFootListCell.m */,
 				00986CF223223AC700B1131E /* OrderCell.xib */,
 				00986CF323223AC700B1131E /* OrderCell.h */,
 				00986CF423223AC700B1131E /* OrderCell.m */,
@@ -3230,6 +3235,7 @@
 				0046AA5A22EACDE30038CA11 /* ETAccountViewController.m in Sources */,
 				007FAD9822E05228001EC5F2 /* ACToastView.m in Sources */,
 				00986CE9232143DB00B1131E /* ETMineViewModel.m in Sources */,
+				00986D0123238CB600B1131E /* ETFootListCell.m in Sources */,
 				0046AA6822EACDE30038CA11 /* UserSaleViewCell.m in Sources */,
 				0046AA6B22EACDE30038CA11 /* ETTouchMeinViewController.m in Sources */,
 				2ED2F6D72318D63F00FA9F89 /* ETLawViewController.m in Sources */,

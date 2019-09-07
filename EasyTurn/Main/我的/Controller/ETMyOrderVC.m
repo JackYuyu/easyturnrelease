@@ -104,10 +104,45 @@
     cell.status.text=p.tradStatus;
     
     
+    NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
+    NSString* b=[user objectForKey:@"uid"];
+    NSString* temp=p.tradStatus;
+    if ([p.userId isEqualToString:b]) {//卖家
+        if ([temp isEqualToString:@"1"]) {
+            cell.status.text=@"买家已确认";
+        }else if ([temp isEqualToString:@"2"]){
+            cell.status.text=@"等待买方支付";
+        }
+        else if ([temp isEqualToString:@"3"]){
+            cell.status.text=@"支付已完成";
+        }
+        else if ([temp isEqualToString:@"4"]){
+            cell.status.text=@"等待买家确认";
+        }
+        else if ([temp isEqualToString:@"5"]){
+            cell.status.text=@"交易完成";
+        }
+    }
+    else {
+        if ([temp isEqualToString:@"1"]) {
+            cell.status.text=@"等待卖家确认";
+        }else if ([temp isEqualToString:@"2"]){
+            cell.status.text=@"卖家已确认";
+        }
+        else if ([temp isEqualToString:@"3"]){
+            cell.status.text=@"支付已完成";
+        }
+        else if ([temp isEqualToString:@"4"]){
+            cell.status.text=@"卖家已发起完成";
+        }
+        else if ([temp isEqualToString:@"5"]){
+            cell.status.text=@"交易完成";
+        }
+    }
+    
+    
     
     cell.payprice.text=[NSString stringWithFormat:@"共支付: %@",p.price];
-    
-    
     NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:cell.payprice.text];
     
     NSRange rangel = [[textColor string] rangeOfString:[cell.payprice.text substringWithRange:NSMakeRange(3, cell.payprice.text.length-3)]];
