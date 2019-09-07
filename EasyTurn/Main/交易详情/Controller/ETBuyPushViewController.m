@@ -71,7 +71,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
-        return 6;
+        return 5;
     }else if (section==1) {
         return 2;
     }

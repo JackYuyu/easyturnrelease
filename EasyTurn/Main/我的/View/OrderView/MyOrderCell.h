@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) IBOutlet UILabel *payprice;
 @property (nonatomic, strong) IBOutlet UIButton *paybtn;
+@property (nonatomic, strong) IBOutlet UIButton *delbtn;
 
 @end
 

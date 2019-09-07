@@ -708,7 +708,7 @@
         //
         NSDictionary* d=[jsonDict copy];
         NSLog(@"");
-        [MBProgressHUD showMBProgressHud:self.view withText:@"提交成功" withTime:1];
+        [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -732,7 +732,7 @@
         //
         NSDictionary* d=[jsonDict copy];
         NSLog(@"");
-        [MBProgressHUD showMBProgressHud:self.view withText:@"提交成功" withTime:1];
+        [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -757,7 +757,7 @@
         //
         NSDictionary* d=[jsonDict copy];
         NSLog(@"");
-        [MBProgressHUD showMBProgressHud:self.view withText:@"提交成功" withTime:1];
+        [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
 
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
