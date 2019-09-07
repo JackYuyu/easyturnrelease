@@ -205,8 +205,6 @@
     self.serviceIdarr=[NSMutableArray array];
     [self createSubViewsAndConstraints];
     [self requestDate];
-//    [self.vHomeHeader addSubview:self.marqueeView];
-//    [self PostUI];
     [self location];
     WEAKSELF
     _tbHome.mj_header = [XMRefreshHeader xm_headerWithRefreshingBlock:^{
@@ -237,17 +235,6 @@
         [_tbHome.mj_header endRefreshing];
         [_tbHome.mj_footer endRefreshing];
         [IANshowLoading hideLoadingForView:self.view];
-
-//        NSDictionary* a=responseObj[@"data"];
-//        for (NSDictionary* prod in responseObj[@"data"][@"rows"]) {
-//            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
-//            [_products addObject:p];
-//            if ([p.serviceId isEqualToString:@"2"]) {
-//                [_serviceIdarr addObject:p];
-//            }
-//        }
-////        NSLog(@"");
-//        [_tbHome reloadData];
         
         if (responseObj && [responseObj isKindOfClass:[NSDictionary class]]) {
             NSArray *array = responseObj[@"data"][@"rows"];
@@ -258,10 +245,12 @@
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
+        [IANshowLoading hideLoadingForView:self.view];
         [_tbHome.mj_header endRefreshing];
         [_tbHome.mj_footer endRefreshing];
     }];
 }
+
 //实时动态
 -(void)postDylist
 {
@@ -288,11 +277,6 @@
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"全部 %d 条",[c integerValue]]];
             NSString* b=[NSString stringWithFormat:@"%d",[c integerValue]];
             [str addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(3,b.length)];
-//            [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(6,12)];
-//            [str addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(19,6)];
-//            [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Arial-BoldItalicMT" size:30.0] range:NSMakeRange(0, 5)];
-//            [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0] range:NSMakeRange(6, 12)];
-//            [str addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Courier-BoldOblique" size:30.0] range:NSMakeRange(19, 6)];
             
             self.vHomeHeader.laAllQiugou.attributedText=str;
 
@@ -410,12 +394,10 @@
 #pragma mark - 请求网络
 - (void)requestDate {
     WEAKSELF
-    //    [[ACToastView toastView]showLoadingCircleViewWithStatus:@"正在加载中"];
     [IANshowLoading showLoadingForView:self.view];
     [ETHomeModel requestGetIndexBannerSuccess:^(id request, STResponseModel *response, id resultObject) {
+        [IANshowLoading hideLoadingForView:self.view];
         if (response.code == 0) {
-    //            [[ACToastView toastView]hide];
-            [IANshowLoading hideLoadingForView:self.view];
             ETHomeModel *model = response.data;
             NSMutableArray *imageGroupArray = [NSMutableArray array];
             [model.adList enumerateObjectsUsingBlock:^(AdListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -425,7 +407,7 @@
             [weakSelf.tbHome reloadData];
         }
     } failure:^(id request, NSError *error) {
-        
+        [IANshowLoading hideLoadingForView:self.view];
     }];
 }
 

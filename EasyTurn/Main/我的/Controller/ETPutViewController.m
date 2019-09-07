@@ -48,14 +48,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
-    // Do any additional setup after loading the view, typically from a nib.
+    self.title = @"设置";
+    [self enableLeftBackWhiteButton];
     self.view.backgroundColor=[UIColor whiteColor];
-    self.title=@"设置";
-    self.navigationController.navigationBar.titleTextAttributes=
-    @{NSForegroundColorAttributeName:[UIColor whiteColor],
-      NSFontAttributeName:[UIFont systemFontOfSize:18]};
-    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:47/255.0 green:134/255.0 blue:251/255.0 alpha:1.0];
     [self.view addSubview:self.tab];
     [self btnController];
     [self PostissignUI];

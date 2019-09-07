@@ -20,7 +20,8 @@
 #import "ETAuthenticateViewController.h"
 #import "ETAccountViewController.h"
 #import "ETStoreUpViewController.h"
-
+#import "ETPutViewController.h"
+#import "ETViphuiyuanViewController.h"
 static NSString *const kETMineViewCell = @"ETMineViewCell";
 @interface ETMineViewController ()<ETMineHeaderViewDelegate, JXPagerViewDelegate, JXCategoryViewDelegate>
 ///根控制器
@@ -36,6 +37,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 @property (nonatomic, strong) NSMutableArray<UserInfosReleaseModel *> *arrDataSource;
 ///item选择当前索引
 @property (nonatomic, assign) NSInteger categoryViewSelectedIndex;
+@property (nonatomic, strong) ETMineViewModel *eTMineViewModel;
 @end
 
 @implementation ETMineViewController
@@ -111,6 +113,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
         [IANshowLoading hideLoadingForView:self.view];
         if (response.code == 0) {
             ETMineViewModel *model = response.data;
+            weakSelf.eTMineViewModel = model;
             [weakSelf.userHeaderView makeMineHeaderViewWithETMineViewModel:model];
 
         }else{
@@ -163,8 +166,13 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 #pragma mark - ETMineHeaderViewDelegate
 - (void)eTMineHeaderviewDidSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        MCPageViewViewController *vc = [[MCPageViewViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        if ([self.eTMineViewModel.userInfo.isChecked isEqualToString:@"5"]) {
+            MCPageViewViewController *vc = [[MCPageViewViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"您还未进行企业法人认证,快去身份认证吧!" withTime:2];
+        }
+       
     }else if (indexPath.row == 1){
         ETAuthenticateViewController* a=[ETAuthenticateViewController new];
         [self.navigationController pushViewController:a animated:YES];
@@ -187,6 +195,16 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     }else if (indexPath.row == 7){
         
     }
+}
+
+- (void)eTMineHeaderviewOnClickHeaderEdit {
+    ETPutViewController *vc = [[ETPutViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)eTMineHeaderviewOnClickPayVip {
+    ETViphuiyuanViewController *vc = [[ETViphuiyuanViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - JXPagingViewDelegate

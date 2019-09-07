@@ -34,12 +34,8 @@ static NSInteger const code1001 = 1001;
     
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",@"text/json",@"text/plain",@"text/xml",@"application/xml",@"image/jpeg", nil];
-//    [manager setRequestSerializer:[AFJSONRequestSerializer serializer]];
     NSString *token = [UserInfoModel loadUserInfoModel].token;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
     [manager POST:url
        parameters:param
          progress:^(NSProgress * _Nonnull uploadProgress) {

@@ -86,6 +86,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
     [self.laName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.imagevHeader);
         make.left.equalTo(self.imagevHeader.mas_right).offset(15);
+        make.right.mas_equalTo(-130);
         make.height.mas_equalTo(21);
     }];
     
@@ -190,16 +191,45 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
 }
 
 - (void)makeMineHeaderViewWithETMineViewModel:(ETMineViewModel *)model {
-    [self.imagevHeader sd_setImageWithURL:[NSURL URLWithString:model.userInfo.portrait]];
+    if (model.userInfo.portrait == nil) {
+        self.imagevHeader.image = [UIImage imageNamed:@"我的_默认头像"];
+    }else {
+        [self.imagevHeader sd_setImageWithURL:[NSURL URLWithString:model.userInfo.portrait]];
+    }
+    
     self.laName.text = model.userInfo.name;
-    if ([model.userInfo.vip isEqualToString:@"0"]) {
+    if (model.userInfo.vip == nil) {
         self.laVip.text = @"您还不是易转会员";
-    }else if ([model.userInfo.vip isEqualToString:@"1"]){
+    }else{
         NSString *strfommt = [DCSpeedy getDateStringWithTimeStr:model.userInfo.vipExpiryDate];
         self.laVip.text = [NSString stringWithFormat:@"VIP到期时间 %@",strfommt];
     }
     self.laSurplusrRefreshCount.text = model.userInfo.refreshCount;
+    
+    if ([model.userInfo.isChecked isEqualToString:@"0"]) {
+        self.laIdAuthentication.text = @"未认证";
+    }else {
+        self.laIdAuthentication.text = @"已认证";
+    }
+    if (model.userInfo.vip == nil) {
+        [self.btnPayVip setImage:[UIImage imageNamed:@"我的_购买VIP"] forState:UIControlStateNormal];
+    }else{
+        [self.btnPayVip setImage:[UIImage imageNamed:@"我的_续费VIP"] forState:UIControlStateNormal];
+    }
 }
+
+- (void)onClickEdit {
+    if ([_delegate respondsToSelector:@selector(eTMineHeaderviewOnClickHeaderEdit)]) {
+        [_delegate eTMineHeaderviewOnClickHeaderEdit];
+    }
+}
+
+- (void)onClickPayVip {
+    if ([_delegate respondsToSelector:@selector(eTMineHeaderviewOnClickPayVip)]) {
+        [_delegate eTMineHeaderviewOnClickPayVip];
+    }
+}
+
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -211,7 +241,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     ETMineGridCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kETMineGridCollectionCell forIndexPath:indexPath];
     cell.laGirdTitle.text = self.arrItemTitle[indexPath.row];
     cell.imagevGrid.image = [UIImage imageNamed:self.arrItemImage[indexPath.row]];
@@ -238,8 +268,11 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
 - (UIImageView *)imagevHeader {
     if (!_imagevHeader) {
         _imagevHeader = [[UIImageView alloc]init];
+        _imagevHeader.userInteractionEnabled = YES;
         [_imagevHeader addCornerRadiusWithRadius:4.0f];
         _imagevHeader.image = [UIImage imageNamed:@"我的_默认头像"];
+        UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickEdit)];
+        [_imagevHeader addGestureRecognizer:tap];
     }
     return _imagevHeader;
 }
@@ -290,8 +323,9 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
 - (UIButton *)btnPayVip {
     if (!_btnPayVip) {
         _btnPayVip = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_btnPayVip setImage:[UIImage imageNamed:@"我的_续费VIP"] forState:UIControlStateNormal];
-        [_btnPayVip setImage:[UIImage imageNamed:@"我的_续费VIP"] forState:UIControlStateHighlighted];
+        [_btnPayVip setImage:[UIImage imageNamed:@"我的_购买VIP"] forState:UIControlStateNormal];
+        [_btnPayVip setImage:[UIImage imageNamed:@"我的_购买VIP"] forState:UIControlStateHighlighted];
+        [_btnPayVip addTarget:self action:@selector(onClickPayVip) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnPayVip;
 }
@@ -388,7 +422,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
         _laDynamicTitle.textColor = kACColorRGB(51, 51, 51);
         _laDynamicTitle.font = kFontSize(15);
         _laDynamicTitle.text = @"我的动态";
-
+        
     }
     return _laDynamicTitle;
 }
@@ -421,7 +455,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
         _collectionView.scrollEnabled = NO;
         _collectionView.backgroundColor = kACColorWhite;
         [_collectionView registerClass:[ETMineGridCollectionCell class] forCellWithReuseIdentifier:kETMineGridCollectionCell];
-
+        
     }
     return _collectionView;
 }

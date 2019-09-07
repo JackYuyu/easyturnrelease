@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self enableLeftBackWhiteButton];
     self.navigationController.navigationBarHidden=NO;
     self.navigationItem.title = @"身份验证";
     

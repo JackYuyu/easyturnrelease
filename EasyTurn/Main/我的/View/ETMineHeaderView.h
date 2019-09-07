@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ETMineHeaderViewDelegate <NSObject>
 
 - (void)eTMineHeaderviewDidSelectItemAtIndexPath:(NSIndexPath *)indexPath;
-
+- (void)eTMineHeaderviewOnClickHeaderEdit;
+- (void)eTMineHeaderviewOnClickPayVip;
 @end
 
 @interface ETMineHeaderView : UIView

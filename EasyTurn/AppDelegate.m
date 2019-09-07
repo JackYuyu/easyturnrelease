@@ -692,7 +692,7 @@
     // 设置导航栏所有按钮的默认颜色
     [WRNavigationBar wr_setDefaultNavBarTintColor:kACColorBlackTypeface];
     // 设置导航栏标题默认颜色
-    [WRNavigationBar wr_setDefaultNavBarTitleColor:kACColorBlackTypeface];
+    [WRNavigationBar wr_setDefaultNavBarTitleColor:kACColorWhite];
     // 统一设置状态栏样式
     [WRNavigationBar wr_setDefaultStatusBarStyle:UIStatusBarStyleLightContent];
     // 如果需要设置导航栏底部分割线隐藏，可以在这里统一设置

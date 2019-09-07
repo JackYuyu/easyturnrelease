@@ -22,7 +22,7 @@
 #import "SSPayUtils.h"
 #define kOrderId @"OrderId"
 @interface ETViphuiyuanViewController ()<UIScrollViewDelegate>
-
+@property (nonatomic, strong) UIScrollView *scrollvBackground;
 @property (nonatomic,strong) UIImageView *topImg;
 @property (nonatomic,strong) UIButton *retBtn;
 @property (nonatomic,strong) UILabel *navLab;
@@ -65,7 +65,7 @@
 @property (nonatomic,strong) NSString* vipid;
 
 @property (nonatomic,strong) NSString* aliprice;
-@property (nonatomic,assign) int selectIndex;
+@property (nonatomic,assign) NSInteger selectIndex;
 
 @property (nonatomic,strong) UIView * maskTheView1;
 @property (nonatomic,strong) UIView * shareView1;
@@ -75,18 +75,21 @@
 
 @implementation ETViphuiyuanViewController
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [self PostInfoUI];
-    [super.navigationController setNavigationBarHidden:YES animated:TRUE];
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super.navigationController setNavigationBarHidden:NO animated:TRUE];
-    
+    [super.navigationController setNavigationBarHidden:NO animated:YES];
 }
-- (UIView *)maskTheView1{
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [_scrollvBackground setContentSize:CGSizeMake(Screen_Width, 790)];
+}
+
+
+- (UIView *)maskTheView1 {
     if (!_maskTheView1) {
         _maskTheView1 = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
         _maskTheView1.backgroundColor = [UIColor colorWithRed:0/255.f green:0/255.f blue:0/255.f alpha:0.5];
@@ -106,7 +109,6 @@
 - (UIView *)shareView1{
     if (!_shareView1) {
         _shareView1 = [[UIView alloc]initWithFrame:CGRectMake(30, Screen_Height/2-100, Screen_Width-60,200)];
-        //        _shareView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
         _shareView1.layer.cornerRadius=20;
         _shareView1.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
         
@@ -162,17 +164,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestPayResult) name:Request_PayResult object:nil];
-    self.navigationController.navigationBarHidden=YES;
-    self.view.backgroundColor=[UIColor whiteColor];
+    self.navigationController.navigationBarHidden = YES;
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self createSubViewsAndConstraints];
+    [self requestUserInfo];
+    [self requestGetVipList];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestPayResult) name:Request_PayResult object:nil];
+   
+}
+
+#pragma mark - createSubViewsAndConstraints
+- (void)createSubViewsAndConstraints {
+    
+    _scrollvBackground = [[UIScrollView alloc] init];
+    _scrollvBackground.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_scrollvBackground];
+    [_scrollvBackground mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
     _topImg=[[UIImageView alloc]init];
+    _topImg.userInteractionEnabled=YES;
     _topImg.image=[UIImage imageNamed:@"VIP会员_分组 3"];
-    [self.view addSubview:_topImg];
+    [self.scrollvBackground addSubview:_topImg];
     [_topImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (kStatusBarHeight);
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.height.mas_equalTo(138);
+        make.width.mas_equalTo(Screen_Width);
+        make.height.mas_equalTo(140);
     }];
     
     UIView* v=[UIView new];
@@ -180,12 +200,10 @@
     
     _retBtn=[[UIButton alloc]init];
     [_retBtn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateNormal];
-    _topImg.userInteractionEnabled=YES;
     [_retBtn addTarget:self action:@selector(returnClick) forControlEvents:UIControlEventTouchUpInside];
     [v addSubview:_retBtn];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(returnClick)];
-    [v addGestureRecognizer:tap];//让header去检测点击手势
-    
+    [v addGestureRecognizer:tap];
     [_topImg addSubview:v];
     
     [v mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -193,6 +211,7 @@
         make.left.mas_equalTo(0);
         make.size.mas_equalTo(CGSizeMake(40, 40));
     }];
+    
     [_retBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (15);
         make.left.mas_equalTo(15);
@@ -205,17 +224,13 @@
     _navLab.textColor=[UIColor whiteColor];
     [_topImg addSubview:_navLab];
     [_navLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.topImg.mas_top).offset(10);
-        make.centerX.mas_equalTo(0);
-        make.leading.mas_greaterThanOrEqualTo(5);
-        make.trailing.mas_lessThanOrEqualTo(-5);
+        make.top.mas_equalTo(10);
+        make.centerX.equalTo(self.topImg);
     }];
     
-    _userImg=[[UIImageView alloc]init];
-    _userImg.image=[UIImage imageNamed:@"Bitmap Copy 4"];
+    _userImg = [[UIImageView alloc]init];
+    [_userImg addCornerRadiusWithRadius:4.0f];
     [self.topImg addSubview:_userImg];
-    _userImg.layer.cornerRadius=59/2;
-    _userImg.clipsToBounds=YES;
     [_userImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (58);
         make.left.mas_equalTo(15);
@@ -223,14 +238,14 @@
     }];
     
     _nameLab=[[UILabel alloc]init];
-    _nameLab.text=@"程乾资本管理";
     _nameLab.font=[UIFont systemFontOfSize:15];
     _nameLab.textColor=[UIColor whiteColor];
     [_topImg addSubview:_nameLab];
     [_nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (67);
         make.left.mas_equalTo(91);
-        make.size.mas_equalTo(CGSizeMake(100, 21));
+        make.right.mas_equalTo(-150);
+        make.height.mas_equalTo(21);
     }];
     
     _vipImg=[[UIImageView alloc]init];
@@ -238,13 +253,12 @@
     [_topImg addSubview:_vipImg];
     [_vipImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (72);
-        make.left.mas_equalTo(198);
+        make.left.equalTo(self.nameLab.mas_right).offset(5);
         make.size.mas_equalTo(CGSizeMake(14, 11));
     }];
     
     _timeLab=[[UILabel alloc]init];
-    _timeLab.text=@"会员到期时间：2020-03-22";
-    _timeLab.font=[UIFont systemFontOfSize:15];
+    _timeLab.font=[UIFont systemFontOfSize:13];
     _timeLab.textColor=[UIColor whiteColor];
     [_topImg addSubview:_timeLab];
     [_timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -257,9 +271,9 @@
     _kexuanLab=[[UILabel alloc]init];
     _kexuanLab.text=@"可选套餐";
     _kexuanLab.font=[UIFont systemFontOfSize:15];
-    [self.view addSubview:_kexuanLab];
+    [self.scrollvBackground addSubview:_kexuanLab];
     [_kexuanLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo (168+kStatusBarHeight);
+        make.top.equalTo (self.topImg.mas_bottom).offset(10);
         make.left.mas_equalTo(15);
         make.size.mas_equalTo(CGSizeMake(62, 21));
     }];
@@ -268,15 +282,14 @@
     _scroller.delegate = self;
     _scroller.pagingEnabled = YES;
     _scroller.scrollEnabled = YES;
-//    _scroller .userInteractionEnabled = NO;
     _scroller.showsHorizontalScrollIndicator = NO;
     _scroller.bounces = NO;
-    _scroller.contentSize = CGSizeMake(160*3, 0);
-    [self.view addSubview:_scroller];
+    _scroller.contentSize = CGSizeMake(160*3, 110);
+    [self.scrollvBackground addSubview:_scroller];
     [_scroller mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo (200+kStatusBarHeight);
+        make.top.equalTo(self.kexuanLab.mas_bottom).offset(10);
         make.left.mas_equalTo(15);
-        make.size.mas_equalTo(CGSizeMake([UIScreen mainScreen].bounds.size.width, 110));
+        make.size.mas_equalTo(CGSizeMake(Screen_Width, 110));
     }];
     
     _janBtn =[[UIButton alloc]init];
@@ -305,7 +318,7 @@
     
     _centerLab=[[UILabel alloc]init];
     _centerLab.text=@"¥ 98";
-     _centerLab.textColor=[UIColor colorWithRed:202/255.0 green:126/255.0 blue:50/255.0 alpha:1.0];
+    _centerLab.textColor=[UIColor colorWithRed:202/255.0 green:126/255.0 blue:50/255.0 alpha:1.0];
     [_janBtn addSubview: _centerLab];
     [ _centerLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (48);
@@ -317,12 +330,12 @@
     _marBtn =[[UIButton alloc]init];
     _marBtn.layer.borderWidth=2;
     _marBtn.layer.borderColor=[UIColor colorWithRed:252/255.0 green:221/255.0 blue:189/255.0 alpha:1.0].CGColor;
-     _marBtn.tag=2;
-     [_marBtn addTarget:self action:@selector(zhuanhuan:) forControlEvents:UIControlEventTouchUpInside];
+    _marBtn.tag=2;
+    [_marBtn addTarget:self action:@selector(zhuanhuan:) forControlEvents:UIControlEventTouchUpInside];
     [_scroller addSubview:_marBtn];
     [_marBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (0);
-        make.left.mas_equalTo(_janBtn.mas_right).offset(20);
+        make.left.mas_equalTo(self.janBtn.mas_right).offset(20);
         make.size.mas_equalTo(CGSizeMake(100, 110));
     }];
     
@@ -367,7 +380,7 @@
     _JunBtn.layer.borderWidth=2;
     _JunBtn.layer.borderColor=[UIColor colorWithRed:252/255.0 green:221/255.0 blue:189/255.0 alpha:1.0].CGColor;
     _JunBtn.tag=3;
-     [_JunBtn addTarget:self action:@selector(zhuanhuan:) forControlEvents:UIControlEventTouchUpInside];
+    [_JunBtn addTarget:self action:@selector(zhuanhuan:) forControlEvents:UIControlEventTouchUpInside];
     [_scroller addSubview:_JunBtn];
     [_JunBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo (0);
@@ -449,7 +462,7 @@
     }];
     
     _bottomLab3=[[UILabel alloc]init];
-//    _bottomLab3.textColor=[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
+    //    _bottomLab3.textColor=[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
     _bottomLab3.font=[UIFont systemFontOfSize:13];
     NSDictionary * centerAttribtDic3 = @{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle],NSForegroundColorAttributeName:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0]};
     NSMutableAttributedString * centerAttr3 = [[NSMutableAttributedString alloc] initWithString:@"¥ 1176" attributes:centerAttribtDic3];
@@ -462,21 +475,34 @@
         make.height.mas_equalTo(20);
     }];
     
+    UIView*scrollerbotomView=[[UIView alloc]init];
+    scrollerbotomView.backgroundColor= [UIColor colorWithRed:242/255.f green:242/255.f blue:242/255.f alpha:0.5];
+    [self.scrollvBackground addSubview:scrollerbotomView];
+    [scrollerbotomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.scroller.mas_bottom).offset(10);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(10);
+    }];
+    
     
     _zifuLab=[[UILabel alloc]init];
     _zifuLab.text=@"支付方式";
     _zifuLab.font=[UIFont systemFontOfSize:15];
-    [self.view addSubview:_zifuLab];
+    [self.scrollvBackground addSubview:_zifuLab];
     [_zifuLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo (310+kStatusBarHeight);
+        make.top.equalTo(scrollerbotomView.mas_bottom).offset(10);
         make.left.mas_equalTo(15);
-        make.size.mas_equalTo(CGSizeMake(62, 40));
+        make.size.mas_equalTo(CGSizeMake(62, 21));
     }];
     
-    _shareView = [[UIView alloc]initWithFrame:CGRectMake(0, 350+kStatusBarHeight, self.view.frame.size.width,180)];
-    //        _shareView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-    [self.view addSubview:self.shareView];
-    
+    _shareView = [[UIView alloc]init];
+    [self.scrollvBackground addSubview:self.shareView];
+    [_shareView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.zifuLab.mas_bottom);
+        make.width.mas_equalTo(375);
+        make.height.mas_equalTo(170);
+    }];
     
     
     UIImageView *wxImg=[[UIImageView alloc]init];
@@ -489,7 +515,7 @@
     }];
     
     UILabel *wxLab=[[UILabel alloc]init];
-    wxLab.text=@"微信账户";
+    wxLab.text=@"微信";
     wxLab.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     [_shareView addSubview:wxLab];
     [wxLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -499,6 +525,7 @@
     }];
     
     _wxBtn=[[UIButton alloc]init];
+    _wxBtn.selected = YES;
     [_wxBtn setImage:[UIImage imageNamed:@"注册_未选中"] forState:UIControlStateNormal];
     [_wxBtn setImage:[UIImage imageNamed:@"注册_选中"] forState:UIControlStateSelected];
     _wxBtn.tag=0;
@@ -517,7 +544,7 @@
         make.top.mas_equalTo(69);
         make.left.mas_equalTo(15);
         make.right.mas_equalTo(-15);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(kLinePixel);
     }];
     
     UIImageView *zfbImg=[[UIImageView alloc]init];
@@ -530,7 +557,7 @@
     }];
     
     UILabel *zfbLab=[[UILabel alloc]init];
-    zfbLab.text=@"支付宝账户";
+    zfbLab.text=@"支付宝";
     zfbLab.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     [_shareView addSubview:zfbLab];
     [zfbLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -558,7 +585,7 @@
         make.top.mas_equalTo(129);
         make.left.mas_equalTo(15);
         make.right.mas_equalTo(-15);
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(kLinePixel);
     }];
     
     UIButton *goPayBtn = [[UIButton alloc]init];
@@ -567,38 +594,50 @@
     [goPayBtn addTarget:self action:@selector(stagepay) forControlEvents:UIControlEventTouchUpInside];
     [_shareView addSubview:goPayBtn];
     [goPayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(139);
+        make.top.equalTo(botomView.mas_bottom).offset(10);
         make.left.mas_equalTo(15);
-        make.right.mas_equalTo(-15);
-        make.height.mas_equalTo(39);
+        make.width.mas_equalTo(345);
+        make.height.mas_equalTo(40);
+    }];
+    
+    UIView*sharebotomView=[[UIView alloc]init];
+    sharebotomView.backgroundColor= [UIColor colorWithRed:242/255.f green:242/255.f blue:242/255.f alpha:0.5];
+    [self.scrollvBackground addSubview:sharebotomView];
+    [sharebotomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.shareView.mas_bottom).offset(10);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(10);
     }];
     
     _shuominglab=[[UILabel alloc]init];
     _shuominglab.text=@"易转会员说明";
     _shuominglab.font=[UIFont systemFontOfSize:15];
-    [self.view addSubview:_shuominglab];
+    [self.scrollvBackground addSubview:_shuominglab];
     [_shuominglab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo (530+kStatusBarHeight);
+        make.top.equalTo(sharebotomView.mas_bottom).offset(10);
         make.left.mas_equalTo(15);
         make.size.mas_equalTo(CGSizeMake(100, 30));
     }];
     
-    UILabel*tisiV=[[UILabel alloc]initWithFrame:CGRectMake(15, 545+kStatusBarHeight, self.view.frame.size.width-50, 200)];
-    tisiV.text=@"1.用户首次注册登录送7天会员，免费享受会员资格；\n2.用户在平台发布出售及服务内容，满60条送3个月会员，累计满200条，送半年会员；\n3.会员免费享受每天无限次查看商品详情，非会员每天免费查看3条商品详情（会员可享受平台所有优惠活动）；\n4.完成支付后可在我的-账户余额-账单记录中查看购买记录；\n5.VIP会员自支付完成之时起5分钟内生效；\n6.易转官方对此活动持有最终解释权。";
+    UILabel*tisiV=[[UILabel alloc]init];
+    tisiV.text = @"1.用户首次注册登录送7天会员，免费享受会员资格；\n2.用户在平台发布出售及服务内容，满60条送3个月会员，累计满200条，送半年会员；\n3.会员免费享受每天无限次查看商品详情，非会员每天免费查看3条商品详情（会员可享受平台所有优惠活动）；\n4.完成支付后可在我的-账户余额-账单记录中查看购买记录；\n5.VIP会员自支付完成之时起5分钟内生效；\n6.易转官方对此活动持有最终解释权。";
     tisiV.numberOfLines=0;
     tisiV.textColor=[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0];
-    tisiV.font=[UIFont systemFontOfSize:15];
-    [self.view addSubview:tisiV];
-    UserInfoModel* info=[UserInfoModel loadUserInfoModel];
-   
-    _nameLab.text=info.name;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[info.vipExpiryDate longLongValue]/1000];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *dateStr = [formatter stringFromDate:date];
-    _timeLab.text=[NSString stringWithFormat:@"会员到期时间:%@",dateStr];
-    [self PostUI];
-    [self PostUI:@"1"];
+    tisiV.font=[UIFont systemFontOfSize:13];
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineSpacing = 8 - (tisiV.font.lineHeight - tisiV.font.pointSize);
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    [attributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+    tisiV.attributedText = [[NSAttributedString alloc] initWithString:tisiV.text attributes:attributes];
+    
+    [self.scrollvBackground addSubview:tisiV];
+    [tisiV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.shuominglab.mas_bottom).offset(4);
+        make.left.mas_equalTo(15);
+        make.width.mas_equalTo(345);
+        make.bottom.equalTo(self.scrollvBackground.mas_bottom);
+    }];
     
     [self shareView1];
     [self shareViewController1];
@@ -608,9 +647,7 @@
 
 
 
-
--(void)titleBtnClick:(UIButton *)btn
-{
+- (void)titleBtnClick:(UIButton *)btn {
     if (btn!= _wxBtn) {
         self.wxBtn.selected = NO;
         btn.selected = YES;
@@ -679,26 +716,25 @@
         [_JunBtn setBackgroundColor:[UIColor whiteColor]];
     }
     [self memberClick:sender];
-//    _selectIndex=sender.tag;
 }
 
 - (void) memberClick:(UIButton*)sender {
-    int a =sender.tag-1;
-    _selectIndex=a;
+    NSInteger a = sender.tag - 1;
+    _selectIndex = a;
     
-        ETMineModel* m=[_products objectAtIndex:a];
-        _vipid=m.vipid;
-        _aliprice=[m.money substringFromIndex:1];
-    NSLog(@"");
+    ETMineModel* m=[_products objectAtIndex:a];
+    _vipid=m.vipid;
+    _aliprice=[m.money substringFromIndex:1];
 }
 - (void)returnClick {
     [self.view addSubview:self.maskTheView1];
     [self.view addSubview:self.shareView1];
    
 }
-#pragma mark - 用户信息
-- (void)PostUI {
-    NSMutableDictionary* dic=[NSMutableDictionary new];
+
+#pragma mark - 请求网络用户信息
+- (void)requestUserInfo {
+    WEAKSELF
     NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
     if (![user objectForKey:@"uid"]) {
         return;
@@ -708,29 +744,40 @@
                              };
     
     [HttpTool get:[NSString stringWithFormat:@"user/info"] params:params success:^(id responseObj) {
-        //        _products=[NSMutableArray new];
-        NSDictionary* a=responseObj[@"data"];
-        UserInfoModel* info=[UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
-        [_userImg sd_setImageWithURL:[NSURL URLWithString:info.portrait]];
+        UserInfoModel* info = [UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
+        
+        if (info.portrait == nil) {
+            weakSelf.userImg.image = [UIImage imageNamed:@"我的_默认头像"];
+        }else {
+             [weakSelf.userImg sd_setImageWithURL:[NSURL URLWithString:info.portrait]];
+        }
+        
+        if (info.vipExpiryDate == nil) {
+            weakSelf.timeLab.text = @"您还不是易转会员";
+        }else {
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:[info.vipExpiryDate longLongValue]/1000];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+            [formatter setDateFormat:@"yyyy-MM-dd"];
+            NSString *dateStr = [formatter stringFromDate:date];
+            weakSelf.timeLab.text = [NSString stringWithFormat:@"会员到期时间:%@",dateStr];
+        }
+        
+        weakSelf.nameLab.text = info.name;
+       
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
 }
 
-- (void)PostUI:(NSString*)head {
-    //    NSData *data =    [NSJSONSerialization dataWithJSONObject:nil options:NSUTF8StringEncoding error:nil];
-    
+#pragma mark - 请求网络用户信息
+- (void)requestGetVipList {
+    WEAKSELF
     [HttpTool get:[NSString stringWithFormat:@"buy/getVipList"] params:nil success:^(NSDictionary *response) {
-        _products=[NSMutableArray new];
-        NSDictionary* a=response[@"data"];
+        weakSelf.products = [NSMutableArray new];
         for (NSDictionary* prod in response[@"data"][@"list"]) {
-            ETMineModel *m=[ETMineModel mj_objectWithKeyValues:prod];
-            //            if (m) {
-            [_products addObject:m];
-            //            }
+            ETMineModel *m = [ETMineModel mj_objectWithKeyValues:prod];
+            [weakSelf.products addObject:m];
         }
-//        [ reloadData];
-        
     } failure:^(NSError *error) {
         
     }];
@@ -749,13 +796,9 @@
 
 - (void)wxPay {
     if (!_vipid) {
-        ETMineModel* m=[_products objectAtIndex:0];
-        _vipid=m.vipid;
+        ETMineModel* m = [_products objectAtIndex:0];
+        _vipid = m.vipid;
     }
-    //
-//    ETMineModel* m=[_products objectAtIndex:a];
-//    _vipid=m.vipid;
-//    _aliprice=[m.money substringFromIndex:1];
     NSMutableDictionary* dic=[NSMutableDictionary new];
 
     NSDictionary *params = @{
@@ -811,35 +854,10 @@
     NSString *res = [WXApiRequestHandler jumpToBizPay:d];
     if( ![@"" isEqual:res] ){
         UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"支付失败" message:res delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        
         [alter show];
     }
 }
 
--(void)PostInfoUI {
-    NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
-    NSString* uid=[user objectForKey:@"uid"];
-    NSDictionary *params = @{
-                             @"uid" : uid
-                             };
-    
-    [HttpTool get:[NSString stringWithFormat:@"user/info"] params:params success:^(id responseObj) {
-        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
-            return;
-        }
-        //        _products=[NSMutableArray new];
-        NSDictionary* a=responseObj[@"data"];
-        UserInfoModel* info=[UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
-        NSLog(@"");
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[info.vipExpiryDate longLongValue]/1000];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-        [formatter setDateFormat:@"yyyy-MM-dd"];
-        NSString *dateStr = [formatter stringFromDate:date];
-        _timeLab.text=[NSString stringWithFormat:@"会员到期时间:%@",dateStr];
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
-}
 
 #pragma mark - 请求网络查询支付结果
 - (void)requestPayResult {
