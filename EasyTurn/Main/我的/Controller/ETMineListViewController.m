@@ -38,6 +38,15 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
     
 }
 
+- (void)showEmptyDataView {
+    UIView *showEmptyDataView = [[UIView alloc]init];
+    [self.view addSubview:showEmptyDataView];
+    [showEmptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo();
+    }];
+}
+
+
 #pragma mark - 请求网络
 - (void)requestUserOrderListWithReleaseTypeId:(NSInteger )releaseTypeId {
     WEAKSELF
