@@ -105,8 +105,8 @@
                   symbolName = "-[ETPutViewController tableView:didSelectRowAtIndexPath:]"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETPutViewController.m"
-                  timestampString = "589369089.749475"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETPutViewController.m"
+                  timestampString = "589514660.204037"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "228"
@@ -120,8 +120,8 @@
                   symbolName = "-[ETPutViewController tableView:didSelectRowAtIndexPath:]"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETPutViewController.m"
-                  timestampString = "589369089.751369"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETPutViewController.m"
+                  timestampString = "589514660.205898"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "228"
@@ -169,8 +169,8 @@
                   symbolName = "-[UGameManager recordTransaction:]"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/Main/%E6%94%AF%E4%BB%98%E5%AE%9D/UGameManager.m"
-                  timestampString = "589369089.75904"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%94%AF%E4%BB%98%E5%AE%9D/UGameManager.m"
+                  timestampString = "589514660.213905"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "169"
@@ -184,8 +184,8 @@
                   symbolName = "__34-[UGameManager recordTransaction:]_block_invoke"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/Main/%E6%94%AF%E4%BB%98%E5%AE%9D/UGameManager.m"
-                  timestampString = "589369089.760551"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%94%AF%E4%BB%98%E5%AE%9D/UGameManager.m"
+                  timestampString = "589514660.215483"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "170"
@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyTurn/BaesController/MainViewController.m"
-            timestampString = "589383017.264837"
+            timestampString = "589464280.283698"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "168"
@@ -249,8 +249,8 @@
                   symbolName = "-[MainViewController PostUI:]"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/BaesController/MainViewController.m"
-                  timestampString = "589369089.768123"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/BaesController/MainViewController.m"
+                  timestampString = "589514660.223107"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "168"
@@ -264,8 +264,8 @@
                   symbolName = "__29-[MainViewController PostUI:]_block_invoke"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/BaesController/MainViewController.m"
-                  timestampString = "589369089.769541"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/BaesController/MainViewController.m"
+                  timestampString = "589514660.224507"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "169"
@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyTurn/BaesController/MainViewController.m"
-            timestampString = "589383017.265344"
+            timestampString = "589464280.283759"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "192"
@@ -297,8 +297,8 @@
                   symbolName = "__29-[MainViewController PostUI:]_block_invoke"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/BaesController/MainViewController.m"
-                  timestampString = "589369089.773026"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/BaesController/MainViewController.m"
+                  timestampString = "589514660.2287199"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "192"
@@ -309,11 +309,11 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__29-[MainViewController PostUI:]_block_invoke.228"
+                  symbolName = "__29-[MainViewController PostUI:]_block_invoke.230"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/BaesController/MainViewController.m"
-                  timestampString = "589369089.774574"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/BaesController/MainViewController.m"
+                  timestampString = "589514660.230265"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
@@ -346,7 +346,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyTurn/BaesController/MainViewController.m"
-            timestampString = "589383017.265419"
+            timestampString = "589464280.28382"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "189"
@@ -585,12 +585,12 @@
                   symbolName = "-[ETBphoneViewController onRegister]"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/Main/%E7%99%BB%E5%BD%95/Controller/ETBphoneViewController.m"
-                  timestampString = "589369089.810889"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E7%99%BB%E5%BD%95/Controller/ETBphoneViewController.m"
+                  timestampString = "589514660.266649"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "360"
-                  endingLineNumber = "360"
+                  startingLineNumber = "396"
+                  endingLineNumber = "396"
                   offsetFromSymbolStart = "392">
                </Location>
                <Location
@@ -600,12 +600,12 @@
                   symbolName = "__36-[ETBphoneViewController onRegister]_block_invoke"
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/Downloads/easyturndev/EasyTurn/Main/%E7%99%BB%E5%BD%95/Controller/ETBphoneViewController.m"
-                  timestampString = "589369089.812283"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E7%99%BB%E5%BD%95/Controller/ETBphoneViewController.m"
+                  timestampString = "589514660.267979"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
+                  startingLineNumber = "397"
+                  endingLineNumber = "397"
                   offsetFromSymbolStart = "48">
                </Location>
             </Locations>
@@ -628,44 +628,18 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyTurn/AppDelegate.m"
-            timestampString = "589441843.688058"
+            timestampString = "589457707.186986"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "887"
-            endingLineNumber = "887"
+            startingLineNumber = "917"
+            endingLineNumber = "917"
             landmarkName = "-jpushNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EasyTurn/AppDelegate.m"
-            timestampString = "589441843.688547"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "853"
-            endingLineNumber = "853"
-            landmarkName = "-jpushNotificationCenter:willPresentNotification:withCompletionHandler:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -731,6 +705,112 @@
             endingLineNumber = "555"
             landmarkName = "-PostUI"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x9996;&#x9875;/Controller/ETSaleDetailController.m"
+            timestampString = "589457707.187225"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "727"
+            endingLineNumber = "727"
+            landmarkName = "-buildTitle"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETIssueViewController.m"
+            timestampString = "589467879.114235"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1437"
+            endingLineNumber = "1437"
+            landmarkName = "-PostUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/AppDelegate.m"
+            timestampString = "589457707.187402"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "852"
+            endingLineNumber = "852"
+            landmarkName = "-application:didReceiveRemoteNotification:fetchCompletionHandler:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/AppDelegate.m"
+            timestampString = "589457707.18744"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "840"
+            endingLineNumber = "840"
+            landmarkName = "-application:didReceiveRemoteNotification:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x9996;&#x9875;/Controller/ETServiceDetailController.m"
+            timestampString = "589467879.114378"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
+            landmarkName = "-buildTitle"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x9996;&#x9875;/Controller/FBSearchViewController.m"
+            timestampString = "589467879.114836"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-prepareData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -217,6 +217,13 @@
 		00986CE5232143CA00B1131E /* ETMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CE2232143C900B1131E /* ETMineHeaderView.m */; };
 		00986CE6232143CA00B1131E /* ETMineListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CE3232143CA00B1131E /* ETMineListViewCell.m */; };
 		00986CE9232143DB00B1131E /* ETMineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CE8232143DB00B1131E /* ETMineViewModel.m */; };
+		00986CEC23223A0900B1131E /* ETMyOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CEB23223A0800B1131E /* ETMyOrderVC.m */; };
+		00986CF023223A4D00B1131E /* CFSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CEE23223A4C00B1131E /* CFSegmentedControl.m */; };
+		00986CF523223AC700B1131E /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00986CF223223AC700B1131E /* OrderCell.xib */; };
+		00986CF623223AC700B1131E /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CF423223AC700B1131E /* OrderCell.m */; };
+		00986CFA232298B100B1131E /* MyOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CF8232298B100B1131E /* MyOrderCell.m */; };
+		00986CFB232298B100B1131E /* MyOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00986CF9232298B100B1131E /* MyOrderCell.xib */; };
+		00986CFE2322A37F00B1131E /* ETFootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CFD2322A37F00B1131E /* ETFootViewController.m */; };
 		009A3C3F2301A0C600EF897E /* XMRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */; };
 		009A3C402301A0C600EF897E /* XMRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */; };
 		009A3C4323029BE100EF897E /* ETWxPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C4223029BE100EF897E /* ETWxPhoneViewController.m */; };
@@ -814,6 +821,18 @@
 		00986CE3232143CA00B1131E /* ETMineListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineListViewCell.m; sourceTree = "<group>"; };
 		00986CE7232143DB00B1131E /* ETMineViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMineViewModel.h; sourceTree = "<group>"; };
 		00986CE8232143DB00B1131E /* ETMineViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETMineViewModel.m; sourceTree = "<group>"; };
+		00986CEA23223A0800B1131E /* ETMyOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETMyOrderVC.h; sourceTree = "<group>"; };
+		00986CEB23223A0800B1131E /* ETMyOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETMyOrderVC.m; sourceTree = "<group>"; };
+		00986CEE23223A4C00B1131E /* CFSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSegmentedControl.m; sourceTree = "<group>"; };
+		00986CEF23223A4C00B1131E /* CFSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSegmentedControl.h; sourceTree = "<group>"; };
+		00986CF223223AC700B1131E /* OrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
+		00986CF323223AC700B1131E /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
+		00986CF423223AC700B1131E /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
+		00986CF7232298B100B1131E /* MyOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOrderCell.h; sourceTree = "<group>"; };
+		00986CF8232298B100B1131E /* MyOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyOrderCell.m; sourceTree = "<group>"; };
+		00986CF9232298B100B1131E /* MyOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyOrderCell.xib; sourceTree = "<group>"; };
+		00986CFC2322A37F00B1131E /* ETFootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFootViewController.h; sourceTree = "<group>"; };
+		00986CFD2322A37F00B1131E /* ETFootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFootViewController.m; sourceTree = "<group>"; };
 		009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshHeader.m; sourceTree = "<group>"; };
 		009A3C3C2301A0C600EF897E /* XMRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMRefreshFooter.h; sourceTree = "<group>"; };
 		009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshFooter.m; sourceTree = "<group>"; };
@@ -1327,6 +1346,10 @@
 				00986CD92321438400B1131E /* ETMineViewController.m */,
 				00986CDB2321438B00B1131E /* ETMineListViewController.h */,
 				00986CDC2321438B00B1131E /* ETMineListViewController.m */,
+				00986CEA23223A0800B1131E /* ETMyOrderVC.h */,
+				00986CEB23223A0800B1131E /* ETMyOrderVC.m */,
+				00986CFC2322A37F00B1131E /* ETFootViewController.h */,
+				00986CFD2322A37F00B1131E /* ETFootViewController.m */,
 				0046AA3422EACDE20038CA11 /* ETAboutViewController.h */,
 				0046AA5722EACDE20038CA11 /* ETAboutViewController.m */,
 				0046AA4822EACDE20038CA11 /* ETAccountViewController.h */,
@@ -1836,6 +1859,7 @@
 		007FAD6522E051C9001EC5F2 /* Vendors(第三方) */ = {
 			isa = PBXGroup;
 			children = (
+				00986CED23223A4C00B1131E /* CFSegmentedControl */,
 				008415992320A83F009589A5 /* UITextView+XWAutoHeight.h */,
 				008415982320A83F009589A5 /* UITextView+XWAutoHeight.m */,
 				00841561231FA140009589A5 /* TZImagePickerController */,
@@ -2313,6 +2337,28 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		00986CED23223A4C00B1131E /* CFSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				00986CEF23223A4C00B1131E /* CFSegmentedControl.h */,
+				00986CEE23223A4C00B1131E /* CFSegmentedControl.m */,
+			);
+			path = CFSegmentedControl;
+			sourceTree = "<group>";
+		};
+		00986CF123223AC700B1131E /* OrderView */ = {
+			isa = PBXGroup;
+			children = (
+				00986CF223223AC700B1131E /* OrderCell.xib */,
+				00986CF323223AC700B1131E /* OrderCell.h */,
+				00986CF423223AC700B1131E /* OrderCell.m */,
+				00986CF7232298B100B1131E /* MyOrderCell.h */,
+				00986CF8232298B100B1131E /* MyOrderCell.m */,
+				00986CF9232298B100B1131E /* MyOrderCell.xib */,
+			);
+			path = OrderView;
+			sourceTree = "<group>";
+		};
 		00A945D523155E5F003A2B66 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2658,6 +2704,7 @@
 		2E1CDA7E22EAD09600174F08 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				00986CF123223AC700B1131E /* OrderView */,
 				00986CE1232143C900B1131E /* ETMineHeaderView.h */,
 				00986CE2232143C900B1131E /* ETMineHeaderView.m */,
 				00986CE0232143C900B1131E /* ETMineListViewCell.h */,
@@ -3047,6 +3094,7 @@
 				00A945EA23155E5F003A2B66 /* LICENSE in Resources */,
 				2E4B89B82311719200030FAF /* ETManageTableViewCell.xib in Resources */,
 				00A946242317C693003A2B66 /* ActionBottomView.xib in Resources */,
+				00986CFB232298B100B1131E /* MyOrderCell.xib in Resources */,
 				00986CD42321310300B1131E /* QQList.gif in Resources */,
 				00986CD12321310300B1131E /* ico_list.png in Resources */,
 				00986CD02321310300B1131E /* ico_faq_d.png in Resources */,
@@ -3055,6 +3103,7 @@
 				00A9461F2316ABFD003A2B66 /* LICENSE in Resources */,
 				2EC4ECCE22E5D00500F076D1 /* README.txt in Resources */,
 				00A9460323169CE4003A2B66 /* ActionTopView.xib in Resources */,
+				00986CF523223AC700B1131E /* OrderCell.xib in Resources */,
 				00986CD22321310300B1131E /* line_real.png in Resources */,
 				00E5C2FE22EDC5EB00009241 /* Image.xcassets in Resources */,
 				0084158B231FA140009589A5 /* TZImagePickerController.bundle in Resources */,
@@ -3156,6 +3205,7 @@
 				007FADA222E05228001EC5F2 /* LGAlertViewWindow.m in Sources */,
 				00E5C2C722EC69A000009241 /* ETHomeHeaderView1.m in Sources */,
 				009AAFDF22F867140071D09B /* RandomKey.m in Sources */,
+				00986CFE2322A37F00B1131E /* ETFootViewController.m in Sources */,
 				0084155A231F9F64009589A5 /* UIColor+ZZExtension.m in Sources */,
 				00841589231FA140009589A5 /* UIView+Layout.m in Sources */,
 				A6A544B022F7451200C7FDC5 /* LZCDatePickerView.m in Sources */,
@@ -3163,6 +3213,7 @@
 				004AB54922E1C5BF0056B8F5 /* ETHomeViewListCell.m in Sources */,
 				A6A5449722F737A100C7FDC5 /* PopView.m in Sources */,
 				00841584231FA140009589A5 /* TZImageCropManager.m in Sources */,
+				00986CF023223A4D00B1131E /* CFSegmentedControl.m in Sources */,
 				007FADA622E05228001EC5F2 /* LGAlertViewWindowsObserver.m in Sources */,
 				2E077B1222F3D116004D31E1 /* ETZhangTableViewCell.m in Sources */,
 				00A946182316ABFD003A2B66 /* KJBannerView.m in Sources */,
@@ -3208,6 +3259,7 @@
 				0046AA7222EACDE30038CA11 /* ETAboutViewController.m in Sources */,
 				00199BA822F288E400FACC24 /* CityItem.m in Sources */,
 				00199BC622F288EF00FACC24 /* PinYinForObjc.m in Sources */,
+				00986CF623223AC700B1131E /* OrderCell.m in Sources */,
 				0084158D231FA140009589A5 /* TZImageManager.m in Sources */,
 				49B5646722FBB2C70019EE8F /* ETRealTimeBuyListCell.m in Sources */,
 				A6A544A022F7433500C7FDC5 /* LQCityPicker.m in Sources */,
@@ -3434,11 +3486,13 @@
 				007FADEF22E052C3001EC5F2 /* OTDynamicGridView.m in Sources */,
 				2EF11F792314215800561103 /* ETunsTableViewCell.m in Sources */,
 				00986CDA2321438400B1131E /* ETMineViewController.m in Sources */,
+				00986CFA232298B100B1131E /* MyOrderCell.m in Sources */,
 				007FAE4122E0539F001EC5F2 /* DCPlaceholderTextView.m in Sources */,
 				007FAE5C22E05E2D001EC5F2 /* ETMessageCenterController.m in Sources */,
 				2ED2F6DD2318D68A00FA9F89 /* ETStillViewController.m in Sources */,
 				2E0A984B22F7DE2C00DD8B28 /* ETNametitleViewController.m in Sources */,
 				00A946252317C693003A2B66 /* ActionBottomView.m in Sources */,
+				00986CEC23223A0900B1131E /* ETMyOrderVC.m in Sources */,
 				007FAE2422E052FD001EC5F2 /* UIView+AHkit.m in Sources */,
 				0046AA5922EACDE30038CA11 /* ETCashOutViewController.m in Sources */,
 				00199BAB22F288E400FACC24 /* ButtonGroupView.m in Sources */,

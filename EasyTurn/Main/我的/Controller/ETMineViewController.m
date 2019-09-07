@@ -15,6 +15,12 @@
 #import "ETMineListViewController.h"
 #import "ETMineViewModel.h"
 #import "MCPageViewViewController.h"
+#import "ETMyOrderVC.h"
+#import "ETFootViewController.h"
+#import "ETAuthenticateViewController.h"
+#import "ETAccountViewController.h"
+#import "ETStoreUpViewController.h"
+
 static NSString *const kETMineViewCell = @"ETMineViewCell";
 @interface ETMineViewController ()<ETMineHeaderViewDelegate, JXPagerViewDelegate, JXCategoryViewDelegate>
 ///根控制器
@@ -160,17 +166,24 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
         MCPageViewViewController *vc = [[MCPageViewViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.row == 1){
-        
+        ETAuthenticateViewController* a=[ETAuthenticateViewController new];
+        [self.navigationController pushViewController:a animated:YES];
+
     }else if (indexPath.row == 2){
-        
+        ETMyOrderVC* o=[[ETMyOrderVC alloc] init];
+        [self.navigationController pushViewController:o animated:YES];
     }else if (indexPath.row == 3){
-        
+        ETAccountViewController*c =[ETAccountViewController new];
+        [self.navigationController pushViewController:c animated:YES];
     }else if (indexPath.row == 4){
-        
+        ETFootViewController* f=[[ETFootViewController alloc] init];
+        [self.navigationController pushViewController:f animated:YES];
     }else if (indexPath.row == 5){
-        
+
     }else if (indexPath.row == 6){
-        
+        ETStoreUpViewController*s= [ETStoreUpViewController new];
+        [self.navigationController pushViewController:s animated:YES];
+
     }else if (indexPath.row == 7){
         
     }

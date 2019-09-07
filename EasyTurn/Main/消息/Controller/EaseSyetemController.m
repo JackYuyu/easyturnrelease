@@ -7,11 +7,14 @@
 
 #import "EaseSyetemController.h"
 #import "EaseMessageModel.h"
+#import "ETProductModel.h"
+#import "ETPoctoryqgViewController.h"
 @interface EaseSyetemController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tab;
 @property (nonatomic,strong) NSArray *list;
 @property (nonatomic,strong) UIView *navigationView;
 @property (nonatomic,strong) UIButton *leftButton;
+@property (nonatomic,strong) NSMutableArray *products;
 
 @end
 
@@ -41,93 +44,106 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title=@"易转官方消息";
+    if (_index==0) {
+        self.title=@"易转平台官方";
+    }
+    else
+        self.title=@"平台求购推送";
     self.view.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:self.tab];
-    
-//    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, TopHeight)];
-//    _navigationView.backgroundColor = kACColorClear;
-//    [self.navigationController.view addSubview:_navigationView];
-//    _leftButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-//    _leftButton.frame = CGRectMake(15, StatusBarHeight, 55, 45);
-//    //    [_leftButton setBackgroundColor:[UIColor blueColor]];
-//    [_leftButton setImage:[UIImage imageNamed:@"navigation_back_hl"] forState:(UIControlStateNormal)];
-//    
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(7, StatusBarHeight+7, 44, 44);
-//    [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateNormal];
-//    [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateHighlighted];
-//    [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateSelected];
-//    _leftButton=btn;
-//    [_leftButton addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
-//    [_navigationView addSubview:_leftButton];
+    [self PostUI];
+
 }
 -(void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!_list) {
+    if (_index==0) {
+        if (!_list) {
+            return 1;
+        }
+        else
+            return _list.count;
+    }
+    else{
+    if (!_products) {
         return 1;
     }
     else
-        return _list.count;
+        return _products.count;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 64;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+    UITableViewCell *cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSArray*arr=@[@"姓名",@"支付宝账号"];
     EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
+    ETProductModel* p=[_products objectAtIndex:indexPath.row];
     cell.imageView.image=[UIImage imageNamed:@"dropdown_loading_01"];
-    if (m.address)
-    {
-        cell.textLabel.text=m.address;
-        if (_index==0) {
-            cell.textLabel.text=@"很高兴为你服务!!";
+    if (_index==0) {
+        if (indexPath.row==0) {
+            cell.textLabel.text=@"欢迎来到易转!!";
+        }
+        else
+        {
+            cell.textLabel.text=m.address;
+//            cell.detailTextLabel.text=p.createDate;
         }
     }
-    else
-    {
-        if (_index==0) {
-            cell.textLabel.text=@"很高兴为你服务!!";
-        }
-        else{
-        cell.textLabel.text=@"欢迎来到易转!";
+    else{
+//        if (indexPath.row==0) {
+//            cell.textLabel.text=@"很高兴为你服务!!";
+//        }
+//        else
+        {
+            cell.textLabel.text=p.title;
+            NSString* time=[p.createDate stringByReplacingOccurrencesOfString:@".000+0000" withString:@""];
+            time=[time stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+
+            cell.detailTextLabel.text=time;
         }
     }
+
 //    cell.detailTextLabel.text=m.address;
     [cell.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(30);
         make.left.mas_equalTo(10);
         make.centerY.mas_equalTo(cell.contentView);
     }];
-//    if (indexPath.row==0) {
-//        _nameText=[[UITextField alloc]init];
-//        _nameText.placeholder=@"请输入您的真实姓名";
-//        _nameText.font=[UIFont systemFontOfSize:13];
-//        [cell addSubview:self.nameText];
-//        [_nameText mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.mas_equalTo(20);
-//            make.left.mas_equalTo(113);
-//            make.size.mas_equalTo(CGSizeMake(120, 21));
-//        }];
-//    }else if (indexPath.row==1) {
-//
-//        _alipayText=[[UITextField alloc]init];
-//        _alipayText.font=[UIFont systemFontOfSize:13];
-//        _alipayText.placeholder=@"请输入您本人的支付宝账号";
-//        [cell addSubview:self.alipayText];
-//        [_alipayText mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.mas_equalTo(20);
-//            make.left.mas_equalTo(113);
-//            make.size.mas_equalTo(CGSizeMake(160, 21));
-//        }];
-//    }
+
     return cell;
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ETProductModel* p=[_products objectAtIndex:indexPath.row];
+    ETPoctoryqgViewController* qg=[[ETPoctoryqgViewController alloc] init];
+    qg.releaseId=p.releaseId;
+    [self.navigationController pushViewController:qg animated:YES];
+    
+}
+-(void)PostUI
+{
+    NSDictionary *params = @{
+                             };
+    
+    [HttpTool get:[NSString stringWithFormat:@"search/messageList"] params:params success:^(id responseObj) {
+        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
+            return;
+        }
+                _products=[NSMutableArray new];
+        NSDictionary* a=responseObj[@"data"];
+        for (NSDictionary* prod in responseObj[@"data"]) {
+            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
+            [_products addObject:p];
+        }
+        NSLog(@"");
+        [_tab reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 @end

@@ -39,7 +39,7 @@
     [WXApi registerApp:@"wx6aa68fa297ad59ee"];
     
     EMOptions *options = [EMOptions optionsWithAppkey:@"1196190727046562#yzvip"];
-    options.apnsCertName = @"istore_dev";
+    options.apnsCertName = @"yzqylzpt";
     [[EMClient sharedClient] initializeSDKWithOptions:options];
 //    [self huanxin];
     [self configJpush:launchOptions];
@@ -59,7 +59,7 @@
         if (userInfoModel.token) {
             //跳转首页
             [self mainViewController];
-            [self huanxin];
+            [self huanxin:application];
         }else{
             //跳转登录页面
             NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
@@ -69,7 +69,7 @@
             }else
             {
                 [self mainViewController];
-                [self huanxin];
+                [self huanxin:application];
             }
         }
     }
@@ -77,11 +77,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOutNotification) name:LOGINOFFSELECTCENTERINDEX object:nil];
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
     
-    if (version >= 8.0) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        [application registerForRemoteNotifications];
-    }
+//    if (version >= 8.0) {
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+//        [application registerForRemoteNotifications];
+//    }
+    
+    
     return YES;
 }
 
@@ -201,7 +203,7 @@
 }
 
 
--(void)huanxin {
+-(void)huanxin:(UIApplication*)application {
     NSDictionary *params = @{
                              };
     [HttpTool get:[NSString stringWithFormat:@"user/getJimUser"] params:params success:^(id responseObj) {
@@ -215,6 +217,28 @@
                                         completion:^(NSString *aUsername, EMError *aError) {
                                             if (!aError) {
                                                 NSLog(@"登录成功");
+                                                
+                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        [[EMClient sharedClient].chatManager loadAllConversationsFromDB];
+                                                        
+                                                    });
+                                                    });
+                                                //iOS8 注册APNS
+                                                if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+                                                    [application registerForRemoteNotifications];
+                                                    UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge |
+                                                    UIUserNotificationTypeSound |
+                                                    UIUserNotificationTypeAlert;
+                                                    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+                                                    [application registerUserNotificationSettings:settings];
+                                                }
+                                                else{
+                                                    UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
+                                                    UIRemoteNotificationTypeSound |
+                                                    UIRemoteNotificationTypeAlert;
+                                                    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+                                                }
                                             } else {
                                                 NSLog(@"登录失败");
                                             }
@@ -695,12 +719,14 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
- 
+    [[EMClient sharedClient] applicationDidEnterBackground:application];
+
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    
+    [[EMClient sharedClient] applicationWillEnterForeground:application];
+
 }
 
 
@@ -769,6 +795,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     [JPUSHService registerDeviceToken:deviceToken];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[EMClient sharedClient] bindDeviceToken:deviceToken];
+    });
 }
 
 - (void)application:(UIApplication *)application
@@ -780,6 +809,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 - (void)application:(UIApplication *)application
 didRegisterUserNotificationSettings:
 (UIUserNotificationSettings *)notificationSettings {
+    [application registerForRemoteNotifications];
 }
 
 // Called when your app has been activated by the user selecting an action from

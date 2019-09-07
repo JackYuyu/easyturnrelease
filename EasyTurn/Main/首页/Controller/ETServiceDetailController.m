@@ -721,7 +721,15 @@ static NSString* const kShareFailedText = @"分享失败";
     }
     else if ([serviceId isEqualToString:@"6"])
     {
-        title = @"疑难服务";
+        title = @"综合服务";
+    }
+    else if ([serviceId isEqualToString:@"7"])
+    {
+        title = @"知产服务";
+    }
+    else if ([serviceId isEqualToString:@"8"])
+    {
+        title = @"法律服务";
     }
     return title;
     

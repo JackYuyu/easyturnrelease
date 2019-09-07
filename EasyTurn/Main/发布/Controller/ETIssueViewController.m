@@ -1190,7 +1190,8 @@
         _priceText.font = [UIFont systemFontOfSize:15];
         _priceText.textColor = [UIColor orangeColor];
         if (_product) {
-            _priceText.text=_product.price;
+            NSString* pri=[_product.price stringByReplacingOccurrencesOfString:@".0000" withString:@""];
+            _priceText.text=pri;
         }
     }
     return _priceText;
@@ -1429,6 +1430,9 @@
     NSString *strDate = [dateFormatter stringFromDate:date];
     if (_taxId==0) {
         _taxId=1;
+    }
+    if (!_selectId) {
+        _selectId=1;
     }
     NSDictionary *params = @{
                              @"accuratePush" : @(0),

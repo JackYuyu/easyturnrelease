@@ -221,6 +221,7 @@
     [self mask];
     [self getJimName];
     [self PostBaiduUI];
+    [self PostuserinfoUI];
 }
 
 #pragma mark - 动态列表
@@ -539,6 +540,28 @@
         NSLog(@"");
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+    }];
+}
+- (void)PostuserinfoUI {
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
+    if (![user objectForKey:@"uid"]) {
+        return;
+    }
+    NSDictionary *params = @{
+                             @"uid" : [user objectForKey:@"uid"]
+                             };
+    
+    [HttpTool get:[NSString stringWithFormat:@"user/info"] params:params success:^(id responseObj) {
+        //        _products=[NSMutableArray new];
+        NSDictionary* a=responseObj[@"data"];
+        UserInfoModel* info=[UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
+        [UserInfoModel saveUserInfoModel:info];
+        
+        NSLog(@"");
+        //        [_tableView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
     }];
 }
 @end

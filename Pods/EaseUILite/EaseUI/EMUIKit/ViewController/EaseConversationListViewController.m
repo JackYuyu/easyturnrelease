@@ -85,6 +85,10 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
                              };    // 2.发送GET请求
     [mgr GET:[NSString stringWithFormat:@"%@/%@", @"https://app.yz-vip.cn", @"user/getJimUserFromAuroraName"] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        if ([responseObject[@"code"] isEqualToString:@"4011"]) {
+            return;
+        }
+
         _touserNick=responseObject[@"data"][@"username"];
         [self.tableView reloadData];
 //        self.title=_touserNick;
@@ -92,7 +96,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
     }];
 }
-
+- (id)filterNull:(id)obj{
+    if (obj && ![obj isKindOfClass:[NSNull class]]) {
+        return obj;
+    }
+    return nil;
+}
 - (void)getMsgToBuyer {
     
     NSUserDefaults* user=[NSUserDefaults standardUserDefaults];

@@ -66,7 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *images;
 //touser
 @property (nonatomic, copy) NSString *touser;
-
+//
+@property (nonatomic,copy) NSString* createDate;
 @end
 
 NS_ASSUME_NONNULL_END

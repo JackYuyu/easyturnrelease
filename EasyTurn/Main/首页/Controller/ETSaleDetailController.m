@@ -755,6 +755,10 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
     {
         title = @"其他";
     }
+    else if ([serviceId isEqualToString:@"0"])
+    {
+        title = @"金融";
+    }
     return title;
     
 }

@@ -205,7 +205,15 @@ ETHomeHeaderViewDelegate
     
     if (dbDictionary.count) {
         [testArray addObject:dbDictionary];
-        [self.searchArray addObjectsFromArray:dbDictionary[@"section_content"]];
+        NSMutableArray* arr=[dbDictionary[@"section_content"] mutableCopy];
+        NSMutableArray* temp=[NSMutableArray new];
+        for (NSDictionary* d in arr) {
+            if ([[d objectForKey:@"content_name"] isEqualToString:@""]) {
+            }
+            else
+                [temp addObject:d];
+        }
+        [self.searchArray addObjectsFromArray:temp];
     }
     
     for (NSDictionary *sectionDict in testArray) {
