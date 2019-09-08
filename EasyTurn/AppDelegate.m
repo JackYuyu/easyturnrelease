@@ -207,6 +207,9 @@
     NSDictionary *params = @{
                              };
     [HttpTool get:[NSString stringWithFormat:@"user/getJimUser"] params:params success:^(id responseObj) {
+        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
+            return;
+        }
         NSLog(@"");
         NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
         NSDictionary* a=responseObj[@"data"];

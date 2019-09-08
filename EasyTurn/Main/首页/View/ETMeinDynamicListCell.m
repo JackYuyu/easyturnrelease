@@ -185,7 +185,7 @@
                 self.labelPrice.text=@"等待买家确认";
             }
             else if ([temp isEqualToString:@"5"]){
-                self.labelPrice.text=@"交易完成";
+                self.labelPrice.text=@"已下架";
             }
         }
         else {
@@ -201,7 +201,7 @@
             self.labelPrice.text=@"卖家已发起完成";
         }
         else if ([temp isEqualToString:@"5"]){
-            self.labelPrice.text=@"交易完成";
+            self.labelPrice.text=@"已下架";
         }
         }
 //        temp = [NSString stringWithFormat:@"浏览 %ld次",[[self filterNull:dict[@"browse"]] integerValue]];

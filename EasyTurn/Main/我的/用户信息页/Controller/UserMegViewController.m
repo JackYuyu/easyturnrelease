@@ -3,6 +3,7 @@
 #import "UserServeView.h"
 #import "UserInfoModel.h"
 #import "ETProductModel.h"
+
 #define selfW self.view.frame.size.width
 #define selfH self.view.frame.size.height
 
@@ -60,8 +61,9 @@
         _contentScroll.pagingEnabled = YES;
         _contentScroll.delegate = self;
         UserSaleView *saleView = [[UserSaleView alloc]initWithFrame:CGRectMake(0, 0, _contentScroll.frame.size.width, _contentScroll.frame.size.height)];
+        saleView.owner=self;
         UserServeView *serveView = [[UserServeView alloc]initWithFrame:CGRectMake(selfW, 0, _contentScroll.frame.size.width, _contentScroll.frame.size.height)];
-        
+        serveView.owner=self;
         [_contentScroll addSubview:serveView];
         [_contentScroll addSubview:saleView];
     }

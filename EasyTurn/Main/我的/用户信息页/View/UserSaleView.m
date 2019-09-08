@@ -6,6 +6,7 @@
 #import "ETProductModel.h"
 #import "ETDynamicListCell.h"
 #import "ETMeinDynamicListCell.h"
+#import "ETForBuyDetailController.h"
 @interface UserSaleView()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic , strong)UITableView *tableView;
@@ -107,6 +108,25 @@
 //    return cell;
     
     return [ETMeinDynamicListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dict =[self.dataArray objectAtIndex:indexPath.row];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
+    //    ETCartViewController* pur=[ETCartViewController new];
+    
+    //    ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
+    //    ETPoctoryqgServiceViewController* pur=[ETPoctoryqgServiceViewController new];
+    if ([p.tradStatus isEqualToString:@"5"]) {
+
+    ETForBuyDetailController* pur=[ETForBuyDetailController forBuyDetailController:dict];
+    pur.releaseId=p.releaseId;
+    pur.releaseId = dict[@"releaseId"];
+    pur.product = [ETProductModel mj_objectWithKeyValues:dict];
+    [self.owner.navigationController pushViewController:pur animated:YES];
+    }
+    else{
+        
+    }
 }
 //删除按钮
 - (void)onTouchBtnInCell:(UIButton *)sender {

@@ -474,6 +474,9 @@
                              };
     [HttpTool get:[NSString stringWithFormat:@"user/getJimAuroraName"] params:params success:^(id responseObj) {
         NSLog(@"");
+        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
+            return;
+        }
         NSDictionary* a=responseObj[@"data"];
         EaseUserModel* model=[EaseUserModel new];
         model.nickname=[a objectForKey:@"username"];

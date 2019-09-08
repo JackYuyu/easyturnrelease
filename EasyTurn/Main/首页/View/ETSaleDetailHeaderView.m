@@ -299,50 +299,61 @@
     [viewClips addSubview:label];
     
     CGFloat yTemp = CGRectGetMaxY(label.frame);
-    label = [[UILabel alloc] init];
-    label.font = [UIFont systemFontOfSize:15*kScaleX weight:UIFontWeightMedium];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.frame = CGRectMake(0, yTemp+kScaleX*20, viewClips.frame.size.width, label.font.lineHeight);
-    label.text = @"期望价格";
-    label.textColor = RGBCOLOR(204, 204, 204);
-    [viewClips addSubview:label];
+//    label = [[UILabel alloc] init];
+//    label.font = [UIFont systemFontOfSize:15*kScaleX weight:UIFontWeightMedium];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.frame = CGRectMake(0, yTemp+kScaleX*20, viewClips.frame.size.width, label.font.lineHeight);
+//    label.text = @"期望价格";
+//    label.textColor = RGBCOLOR(204, 204, 204);
+//    [viewClips addSubview:label];
     
     yTemp = CGRectGetMaxY(label.frame);
     label = [[UILabel alloc] init];
-    label.font = [UIFont systemFontOfSize:30*kScaleX weight:UIFontWeightMedium];
+    label.font = [UIFont systemFontOfSize:16*kScaleX weight:UIFontWeightMedium];
     label.textAlignment = NSTextAlignmentCenter;
-    label.frame = CGRectMake(0, yTemp+kScaleX*20, viewClips.frame.size.width, label.font.pointSize);
-    NSString*str=[MySingleton filterNull:dict[@"price"]];
-    double a=[str doubleValue];
-    if (a>=10000.0) {
-        label.text = [NSString stringWithFormat:@"¥%.0f万元",a/10000.0];
+    label.frame = CGRectMake((viewClips.frame.size.width-120)/2, yTemp+kScaleX*20, 120, label.font.pointSize+20);
+    
+    NSString* temp = [MySingleton filterNull:dict[@"serviceId"]];
+    if (!temp)
+    {
+        label.text=@"企业流转";;
     }
     else
-    {
-        float pp =[str floatValue];
-        int myint=[str longLongValue];
-        if ((pp-myint)>0) {
-            NSString* ppp=[NSString stringWithFormat:@"¥%.2f元",pp];
-            label.text = ppp;
-        }
-        else{
-            NSString* ppp=[NSString stringWithFormat:@"¥%.0f元",pp];
-            label.text = ppp;
-        }
-    }
+        label.text=@"企业服务";
+//    NSString*str=[MySingleton filterNull:dict[@"price"]];
+//    double a=[str doubleValue];
+//    if (a>=10000.0) {
+//        label.text = [NSString stringWithFormat:@"¥%.0f万元",a/10000.0];
+//    }
+//    else
+//    {
+//        float pp =[str floatValue];
+//        int myint=[str longLongValue];
+//        if ((pp-myint)>0) {
+//            NSString* ppp=[NSString stringWithFormat:@"¥%.2f元",pp];
+//            label.text = ppp;
+//        }
+//        else{
+//            NSString* ppp=[NSString stringWithFormat:@"¥%.0f元",pp];
+//            label.text = ppp;
+//        }
+//    }
     //    label.text = [NSString stringWithFormat:@"¥%.2f万",a/10000.0];
-    label.textColor = RGBCOLOR(248, 124, 43);
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor=RGBCOLOR(40, 136, 242);
+    label.layer.cornerRadius=3;
+    label.layer.masksToBounds=YES;
     [viewClips addSubview:label];
     
-    yTemp = CGRectGetMaxY(label.frame)+kScaleX*12*2;
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setBackgroundImage:[UIImage imageNamed:@"sale_分组 3"] forState:UIControlStateNormal];
-    btn.frame = CGRectMake(0, yTemp, 250*kScaleX, 40*kScaleX);
-    btn.center = CGPointMake(label.center.x, btn.center.y);
-    [btn addTarget:self action:@selector(clickAction) forControlEvents:UIControlEventTouchUpInside];
-    [viewClips addSubview:btn];
+//    yTemp = CGRectGetMaxY(label.frame)+kScaleX*12*2;
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn setBackgroundImage:[UIImage imageNamed:@"sale_分组 3"] forState:UIControlStateNormal];
+//    btn.frame = CGRectMake(0, yTemp, 250*kScaleX, 40*kScaleX);
+//    btn.center = CGPointMake(label.center.x, btn.center.y);
+//    [btn addTarget:self action:@selector(clickAction) forControlEvents:UIControlEventTouchUpInside];
+//    [viewClips addSubview:btn];
     
-    yTemp = CGRectGetMaxY(btn.frame)+kScaleX*14;
+    yTemp = CGRectGetMaxY(label.frame)+kScaleX*14;
     label = [[UILabel alloc] init];
     label.font = [UIFont systemFontOfSize:12*kScaleX weight:UIFontWeightMedium];
     label.text = @"提示：易转只作为商品信息发布平台，建议交易双方私下签订转让协议或服务协议，易转不承担任何交易风险。";

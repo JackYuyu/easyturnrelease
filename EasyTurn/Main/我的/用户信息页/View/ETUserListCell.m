@@ -6,8 +6,8 @@
 //  Copyright © 2019 EasyTurn. All rights reserved.
 //
 
-#import "ETDynamicListCell.h"
-@interface ETDynamicListCell ()
+#import "ETUserListCell.h"
+@interface ETUserListCell ()
 
 @property (nonatomic,strong) UIImageView *imvPhoto;
 @property (nonatomic,strong) UIImageView *imvTag;
@@ -22,7 +22,7 @@
 @property (nonatomic,strong) NSDictionary *dict;
 @end
 
-@implementation ETDynamicListCell
+@implementation ETUserListCell
 
 + (CGFloat)cellHeight{
     return 125;
@@ -91,7 +91,7 @@
         
         
         
-        self.imvLine = [[UIImageView alloc] initWithFrame:CGRectMake(0, [ETDynamicListCell cellHeight]-1, Screen_Width, 1)];
+        self.imvLine = [[UIImageView alloc] initWithFrame:CGRectMake(0, [ETUserListCell cellHeight]-1, Screen_Width, 1)];
         self.imvLine.backgroundColor = RGBACOLOR(242, 242, 242, 1);
         [self.contentView addSubview:self.imvLine];
         
@@ -173,12 +173,16 @@
             self.labelTag.text=@"卖家已发起交易完成";
         }
         else if ([temp isEqualToString:@"5"]){
-            self.labelTag.text=@"交易完成";
+            self.labelTag.text=@"已下架";
         }
         
         temp = [NSString stringWithFormat:@"浏览 %ld次",[[self filterNull:dict[@"browse"]] integerValue]];
 //        self.labelBrowse.text = temp;
         self.labelPrice.text=temp;
+        temp = [self filterNull:dict[@"tradStatus"]];
+        if ([temp isEqualToString:@"5"]){
+            self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+        }
         
         temp = [self filterNull:dict[@"price"]];
                 double a=[temp doubleValue];
@@ -239,7 +243,7 @@
 //    if (!cell) {
 //        cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ETDynamicListCell"];
 //    }
-    ETDynamicListCell* cell=[ETDynamicListCell new];
+    ETUserListCell* cell=[ETUserListCell new];
     [cell resetDict:dict];
     return cell;
 }

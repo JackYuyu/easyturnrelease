@@ -4,7 +4,7 @@
 #import "UserSaleViewCell.h"
 #import "SaleModel.h"
 #import "ETProductModel.h"
-#import "ETDynamicListCell.h"
+#import "ETUserListCell.h"
 @interface UserServeView()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic , strong)UITableView *tableView;
@@ -105,7 +105,7 @@
     //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //    return cell;
     
-    return [ETDynamicListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
+    return [ETUserListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
 }
 //删除按钮
 - (void)onTouchBtnInCell:(UIButton *)sender {
