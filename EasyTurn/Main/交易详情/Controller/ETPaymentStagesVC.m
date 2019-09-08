@@ -9,9 +9,7 @@
 #import "ETPaymentStagesVC.h"
 #import "ETPaymentStatesCell.h"
 #import "ETProductModel.h"
-
-
-
+#import "ETViphuiyuanModel.h"
 @interface ETPaymentStagesVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tab;
 
@@ -27,6 +25,7 @@
 @property (nonatomic,strong) UIView * shareView1;
 @property (nonatomic,strong)UILabel *lab2;
 @property (nonatomic,strong)UIButton *surebtn1;
+#define kOrderId @"OrderId"
 @end
 
 @implementation ETPaymentStagesVC
@@ -65,6 +64,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestPayResult) name:Request_PayResult object:nil];
+    
     self.title=@"交易详情";
     self.view.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:self.tab];
@@ -380,10 +382,17 @@
         ETPaymentStatesPriceCell* cell=[ETPaymentStatesPriceCell paymentStatesPriceCell:tableView price:[NSString stringWithFormat:@"%ld",[self.finalPrice integerValue]/3] indexPath:indexPath total:self.stagesCount order:p];
         NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
         NSString* b=[user objectForKey:@"uid"];
+        //
         if ([_product.userId isEqualToString:b])
             cell.btnPay.hidden=YES;
         else
             cell.btnPay.hidden=NO;
+        //
+        if ([_product.tradStatus isEqualToString:@"1"]) {
+            cell.btnPay.hidden = YES;
+        }else{
+            cell.btnPay.hidden = NO;
+        }
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -529,4 +538,42 @@
     [self.maskTheView1 removeFromSuperview];
     [self.shareView1 removeFromSuperview];
 }
+
+#pragma mark - 请求网络查询支付结果
+- (void)requestPayResult {
+    WEAKSELF
+    [[ACToastView toastView]showLoadingCircleViewWithStatus:@"正在加载中"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *orderId = [userDefaults objectForKey:kOrderId];
+    [ETViphuiyuanModel requestPayResultWithOrderId:orderId WithSuccess:^(id request, STResponseModel *response, id resultObject) {
+        if (response.code == 0) {
+            ETViphuiyuanModel *model = response.data;
+            if ([model.result isEqualToString:@"1"]) {
+                //支付成功
+                [[ACToastView toastView]showSuccessWithStatus:@"支付成功" completion:^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                    //通知我的页面刷新数据
+                    [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_MineOrder object:nil];
+                }];
+            }else {
+                [[ACToastView toastView]showInfoWithStatus:@"支付失败"];
+            }
+        }else{
+            if (response.msg.length > 0) {
+                [[ACToastView toastView] showErrorWithStatus:response.msg];
+            } else {
+                [[ACToastView toastView] showErrorWithStatus:kToastErrorServerNoErrorMessage];
+            }
+        }
+    } failure:^(id request, NSError *error) {
+        
+    }];
+    
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

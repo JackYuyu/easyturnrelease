@@ -16,11 +16,14 @@
 #import "APAuthInfo.h"
 #import "APRSASigner.h"
 #import "UserInfoModel.h"
+#import "SSPayUtils.h"
+#define kOrderId @"OrderId"
 @interface ETPaymentStatesCell()
 
 @property (nonatomic,strong) UILabel *labelTitle;
 @property (nonatomic,strong) UILabel *labelSubTitle;
 @property (nonatomic,strong) UIImageView *imvLine;
+@property (nonatomic,strong) ETProductModel *model;
 @end
 
 @implementation ETPaymentStatesCell
@@ -209,103 +212,71 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.maskTheView];
     [ [UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:self.shareView];
 }
--(void)stagepay
-{
-    UserInfoModel* info=[UserInfoModel loadUserInfoModel];
-    if ([info.isChecked isEqualToString:@"4"]) {
-        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"员工不能支付" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        
-        [alter show];
-        return;
+
+- (void)stagepay {
+
+        UserInfoModel* info=[UserInfoModel loadUserInfoModel];
+        if ([info.isChecked isEqualToString:@"4"]) {
+            UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"员工不能支付" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            
+            [alter show];
+            return;
+        }
+        //调用第三方支付前,保存支付状态值
+        [SSPayUtils shareUser].State = @"begin";
+        [self clickImage];
+        if (_paytype==1) {
+            [self alipay];
+        }
+        NSMutableDictionary* dic=[NSMutableDictionary new];
+        NSDictionary *params = @{
+                                 @"id" : self.orderid,
+                                 @"type" : @(_paytype)
+                                 
+                                 };
+        [HttpTool get:[NSString stringWithFormat:@"pay/payBuyOrderId"] params:params success:^(id responseObj) {
+            
+            NSString* a=responseObj[@"data"][@"result"];
+            //存储订单ID
+            NSString* orderId = responseObj[@"data"][@"id"];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:orderId forKey:kOrderId];
+            [userDefaults synchronize];
+            
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[a dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+            //
+            NSDictionary* d=[jsonDict copy];
+            [self wechatPay:d];
+            NSLog(@"");
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
     }
-    if (_paytype==1) {
-        [self alipay];
-    }
-    NSMutableDictionary* dic=[NSMutableDictionary new];
+
+- (void)alipay {
+    
     NSDictionary *params = @{
                              @"id" : self.orderid,
                              @"type" : @(_paytype)
                              
                              };
     [HttpTool get:[NSString stringWithFormat:@"pay/payBuyOrderId"] params:params success:^(id responseObj) {
+        //存储订单ID
+        NSString* orderId = responseObj[@"data"][@"id"];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:orderId forKey:kOrderId];
+        [userDefaults synchronize];
         
-        NSString* a=responseObj[@"data"][@"result"];
-        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[a dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
-        //
-        NSDictionary* d=[jsonDict copy];
-        [self wechatPay:d];
+        NSString* payOrder = responseObj[@"data"][@"result"];
+        [[AlipaySDK defaultService] payOrder:payOrder fromScheme:kAppScheme callback:^(NSDictionary *resultDic) {
+            
+        }];
         NSLog(@"");
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-}
-
--(void)alipay
-{
-    APOrderInfo* order = [APOrderInfo new];
-    // NOTE: app_id设置
-    NSString *appid = @"2019052665415366";
-    order.app_id = appid;
-    
-    // NOTE: 支付接口名称
-    order.method = @"alipay.trade.app.pay";
-    
-    // NOTE: 参数编码格式
-    order.charset = @"UTF-8";
-    
-    // NOTE: 当前时间点
-    NSDateFormatter* formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    order.timestamp = [formatter stringFromDate:[NSDate date]];
-    
-    // NOTE: 支付版本
-    order.version = @"1.0";
-    NSString *rsa2PrivateKey = @"MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCi1f2zFmPgjfOnw+d7kVCwgkHtf+CumRxkKRsNSBWktPQB/A0qdHuHfF5RoSWOzrtBHSzCDZjatgyPgoo2uhxAVB4bxrTLOIGULlsbxCC0rUEigNwSPssyn7zJLsUlXUfmxMMW26OUQ7s5sk8HWT7pDZi2jL6nUnyTbzLJO7//UgFrOe1Ngl7Fm+pwc8O7wHLqm+QX+uKs4hZ9JALW6SXGcEGzfmSH7kscVnM9DYuhQakn3gVhrbUq4GQj2bMl6B6KPlZR4OIPFlAJ87O9R6nAhThR3fJ+D9a55GgPgxbk9/Tiz3fOfte6r0wTwF3Skhl5F1fvWPNWEiO8BLtaSmqRAgMBAAECggEBAJINWfZtmLvq1qadIl1E45jN3JBHaKFyF3MHI4pwI2mOHGZDSxPPUpUdSgPxhBxo9K/cmS6cv4M8UlvN/GZF290fFbpYKgU085STV4i6C5PC6m8mIT4EMIGBoPTaDF4NItarmUhBTKFJdv6zHgs7Ux/54AWsi7zMUYxz6ptwCi/YUBWHt/+cVSYTSeN+Uve936KpPEste+QnUTO3qmxkK+p1dVdH2R/HjmEB6nc4o5YBRboAs9xTkTpS/Buol+DrE4sWUn68MK0mXYSO/Khq+ZzBG0BOfLmLflHS8XkdZO6dTo0AeEEsJEURpt32Kb5G8FZKS8aLUlekSqqU1aYtLYECgYEA4MS+s0hhR434GDMMqgv4YNMCoxxZj76QoLkMTmTXQX1Kdk6hfX2KPGkFRuU+d4dyuRYhC5t5yqtte621pAxou6At0DDxS1XqAOid0Gko0oNowzNYdQzR3aJTP7NJw0H/Aip9VvBr9vUuADxv+dfYqerFmZ+nr40rZ5ojhsRak7kCgYEAuXY8mBECKpZBocO0H0c9GCBAs8oj27m0IaOMNhHdG12wWz9i/Bp1RtW9AdUgLxUBXKuruLI7oF3Bz7jL7EmJ44lQEzPMkVxaavANIHe85R+2FktcyHH/uOAGjl1Ti0bp8bVR8KQUcIb5qX6JI3GokftXbBEALv+HUpQ2F/E7qZkCgYAckaVTkF2dBLSGDucLLh5R4EAzj0Tq+mPTqfGgfTzG/C/cvb3U/4H0j7y1+Clqc/LnB6MHoKloU0XFNJ0jztf5ETEBh1cEJlVp7Ccy+ErSBxXnybzyk8CRFTLTo+w6P0c0dUYdKM3wQ9Wm/geVkBPf9RFMp3he3eiocHUXihmhMQKBgE0l8CLZwGrywi6GeGEigzmMAR5JEg2O/G2Z2PONDssZeAkdHxH795kVxGAExjSPqldgWjike8VD+yFrn/iUxrVOI285dvloz3v4i51b8cnmHRq9EsWXFmdTWabTD7O6NgsEACf4OUBuBWEKcAW8fADt6vnbQJZMWYByguYGxWjRAoGBANxwqks45sPGzH6pi56hHD8jsVpUetZRhhc3Awr8814EQ6ULd9y10+fBGEVo3b2u/6P3n65CGkIpKKzYijDPiLX/crVKj+1eF9RsqPbX+uR2iALeptREQl5/DBWh1S8i254cfskzzlUYzdicuvooZBl3Dfe4kN+riYl2cXSnIs1s";
-    
-    NSString *rsaPrivateKey = nil;
-    // NOTE: sign_type 根据商户设置的私钥来决定
-    order.sign_type = (rsa2PrivateKey.length > 1)?@"RSA2":@"RSA";
-    
-    // NOTE: 商品数据
-    order.biz_content = [APBizContent new];
-    order.biz_content.body = @"我是测试数据";
-    order.biz_content.subject = @"1";
-    order.biz_content.out_trade_no = [self generateTradeNO]; //订单ID（由商家自行制定）
-    order.biz_content.timeout_express = @"30m"; //超时时间设置
-    order.biz_content.total_amount = [NSString stringWithFormat:@"%.2f", [self.aliprice floatValue]]; //商品价格
-    
-    //将商品信息拼接成字符串
-    NSString *orderInfo = [order orderInfoEncoded:NO];
-    NSString *orderInfoEncoded = [order orderInfoEncoded:YES];
-    NSLog(@"orderSpec = %@",orderInfo);
-    
-    // NOTE: 获取私钥并将商户信息签名，外部商户的加签过程请务必放在服务端，防止公私钥数据泄露；
-    //       需要遵循RSA签名规范，并将签名字符串base64编码和UrlEncode
-    //                id<DataSigner> signer =CreateRSADataSigner(privateKey);
-    NSString *signedString = nil;
-    APRSASigner* signer = [[APRSASigner alloc] initWithPrivateKey:((rsa2PrivateKey.length > 1)?rsa2PrivateKey:rsaPrivateKey)];
-    if ((rsa2PrivateKey.length > 1)) {
-        signedString = [signer signString:orderInfo withRSA2:YES];
-    } else {
-        signedString = [signer signString:orderInfo withRSA2:NO];
-    }
     
     
-    
-    // NOTE: 如果加签成功，则继续执行支付
-    if (signedString!= nil) {
-        //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-        NSString *appScheme = @"alisdkdemo";
-        
-        // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
-        NSString *orderString = [NSString stringWithFormat:@"%@&sign=%@",
-                                 orderInfoEncoded, signedString];
-        
-        // NOTE: 调用支付结果开始支付
-        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
-        }];
-    }
 }
 
 -(void)wechatPay:(NSDictionary*)d
@@ -322,21 +293,6 @@
 }
 
 
-#pragma mark   ==============产生随机订单号==============
-- (NSString *)generateTradeNO
-{
-    static int kNumber = 15;
-    NSString *sourceStr = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    NSMutableString *resultStr = [[NSMutableString alloc] init];
-    srand((unsigned)time(0));
-    for (int i = 0; i < kNumber; i++)
-    {
-        unsigned index = rand() % [sourceStr length];
-        NSString *oneStr = [sourceStr substringWithRange:NSMakeRange(index, 1)];
-        [resultStr appendString:oneStr];
-    }
-    return resultStr;
-}
 
 - (UIView *)maskTheView{
     if (!_maskTheView) {
