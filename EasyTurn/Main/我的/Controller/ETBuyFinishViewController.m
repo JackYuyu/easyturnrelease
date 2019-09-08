@@ -13,6 +13,8 @@
 @property (nonatomic, copy) NSString *finalPrice;
 @property (nonatomic,strong) UITextField *label1;
 @property (nonatomic,strong) UIView *bottomView;
+@property (nonatomic, copy) NSString *ordercode;
+@property (nonatomic,strong) NSMutableArray *products;
 
 @end
 
@@ -198,7 +200,7 @@
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(15);
                 make.left.mas_equalTo(15);
-                make.size.mas_equalTo(CGSizeMake(170, 21));
+                make.size.mas_equalTo(CGSizeMake(170, 50));
             }];
         }else if (indexPath.row==5) {
             UILabel *label = [[UILabel alloc] init];
@@ -245,13 +247,17 @@
         }else if (indexPath.row==6) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            
+            label.lineBreakMode = NSLineBreakByCharWrapping;
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"订单编号："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
             
             NSString* orderid;
             if (_product.releaseOrderId) {
                 orderid=[NSString stringWithFormat:@"订单编号：%@",_product.releaseOrderId];
-                string = [[NSMutableAttributedString alloc] initWithString:orderid attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+                if (_ordercode) {
+                    
+                
+                string = [[NSMutableAttributedString alloc] initWithString:_ordercode attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+                }
             }
             
             label.attributedText = string;
@@ -259,9 +265,9 @@
             label.alpha = 1.0;
             [cell addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(15);
+                make.top.mas_equalTo(0);
                 make.left.mas_equalTo(15);
-                make.size.mas_equalTo(CGSizeMake(215, 21));
+                make.size.mas_equalTo(CGSizeMake(230, 90));
             }];
         }
     }else if (indexPath.section==1) {
@@ -343,6 +349,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row==6) {
+        return 90;
+    }
+    else
         return 60;
 }
 
@@ -382,14 +392,22 @@
                              };
     
     [HttpTool get:[NSString stringWithFormat:@"pay/findOrderByReleaseId"] params:params success:^(id responseObj) {
-//        _products=[NSMutableArray new];
-//        NSDictionary* a=responseObj[@"data"];
-//        for (NSDictionary* prod in responseObj[@"data"]) {
-//            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
-//            [_products addObject:p];
-//        }
+        _products=[NSMutableArray new];
+        NSDictionary* a=responseObj[@"data"];
+
+        for (NSDictionary* prod in responseObj[@"data"]) {
+            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
+            [_products addObject:p];
+        }
+        NSMutableString* order=[NSMutableString new];
+        for (int i=0; i<_products.count; i++) {
+            ETProductModel* p=[_products objectAtIndex:i];
+            [order appendString:[NSString stringWithFormat:@"第%d笔订单号：%@",i+1,p.orderid]];
+//            [order appendString:@"\n"];
+        }
+        _ordercode=order;
         NSLog(@"");
-//        [_tab reloadData];
+        [_tab reloadData];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

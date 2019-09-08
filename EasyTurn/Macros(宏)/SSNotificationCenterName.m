@@ -58,6 +58,9 @@ NSString *const SELECTCARTORBUY = @"SELECTCARTORBUY";
 /** 刷新我的页面 */
 NSString *const Refresh_Mine = @"Refresh_Mine";
 
+/** 刷新我的订单 */
+NSString *const Refresh_MineOrder = @"Refresh_MineOrder";
+
 /** 刷新任务页面 */
 NSString *const Refresh_Task = @"Refresh_Task";
 

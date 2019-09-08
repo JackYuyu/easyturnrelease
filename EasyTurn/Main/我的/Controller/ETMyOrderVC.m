@@ -33,6 +33,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestRefreshMineOrder) name:Refresh_MineOrder object:nil];
+    
     self.view.backgroundColor=[UIColor whiteColor];
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, self.view.bounds.size.height-TopHeight-40) style:UITableViewStyleGrouped];
     
@@ -321,6 +323,14 @@
     }];
 }
 
+#pragma mark - 通知刷新页面
+- (void)requestRefreshMineOrder {
+    [self PostUI:@"0"];
+}
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end
