@@ -16,6 +16,9 @@
 #import "APAuthInfo.h"
 #import "APRSASigner.h"
 #import "ETPaymentStagesVC.h"
+#import "LZCPickerView.h"
+#import "ETServiceDetailController.h"
+#import "ETSaleDetailController.h"
 @interface ETPayaymentViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic,strong) UITableView*tab;
 @property (nonatomic,strong) UIButton *btn;
@@ -28,6 +31,11 @@
 @property (nonatomic,strong) NSString* stagePrice;//分期价格
 @property (nonatomic,strong) NSString* stagePrice1;
 @property (nonatomic,strong) NSString* stagePrice2;
+
+@property (nonatomic,assign) bool status;
+@property (nonatomic,assign) bool status1;
+@property (nonatomic,assign) bool status2;
+@property (nonatomic,strong) UILabel* dateLabel;
 
 @end
 
@@ -47,8 +55,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIButton* b=[UIButton new];
+    b.tag=100;
+    [self stagingBtnCOntroller:b];
+    
     // Do any additional setup after loading the view.
     self.title=@"支付方式";
+    [self enableLeftBackWhiteButton];
     _btnTag=1;
     [self.view addSubview:self.tab];
     [self payBtn];
@@ -200,12 +213,19 @@
             }];
             
             _stagingBtn=[[UIButton alloc]init];
-            _stagingBtn.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+//            _stagingBtn.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+            if (_status) {
+                [_stagingBtn setBackgroundColor:kACColorBlue_Theme];
+                [_stagingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            }
+            else{
+                [_stagingBtn setBackgroundColor:[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0]];
+                [_stagingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            }
             [_stagingBtn setTitle:@"不分期" forState:UIControlStateNormal];
             _stagingBtn.layer.cornerRadius = 4;
             [_stagingBtn setTag:100];
-            [_stagingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_stagingBtn setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+            
             _stagingBtn.titleLabel.font=[UIFont systemFontOfSize:15];
             [_stagingBtn addTarget:self action:@selector(stagingBtnCOntroller:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:self.stagingBtn];
@@ -216,12 +236,20 @@
             }];
             
             _phasesBtn=[[UIButton alloc]init];
-            _phasesBtn.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+            if (_status1) {
+                [_phasesBtn setBackgroundColor:kACColorBlue_Theme];
+                [_phasesBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            }
+            else{
+                [_phasesBtn setBackgroundColor:[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0]];
+                [_phasesBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            }
+//            _phasesBtn.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
             [_phasesBtn setTitle:@"2期" forState:UIControlStateNormal];
             _phasesBtn.layer.cornerRadius = 4;
             _phasesBtn.tag=101;
-            [_phasesBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_phasesBtn setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+//            [_phasesBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_phasesBtn setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
             _phasesBtn.titleLabel.font=[UIFont systemFontOfSize:15];
             [_phasesBtn addTarget:self action:@selector(stagingBtnCOntroller:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:self.phasesBtn];
@@ -233,12 +261,20 @@
             }];
             
             _stagestagingBtn=[[UIButton alloc]init];
-            _stagestagingBtn.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+            if (_status2) {
+                [_stagestagingBtn setBackgroundColor:kACColorBlue_Theme];
+                [_stagestagingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            }
+            else{
+                [_stagestagingBtn setBackgroundColor:[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0]];
+                [_stagestagingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            }
+//            _stagestagingBtn.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
             _stagestagingBtn.tag=102;
             [_stagestagingBtn setTitle:@"3期" forState:UIControlStateNormal];
             _stagestagingBtn.layer.cornerRadius = 4;
-            [_stagestagingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [_stagestagingBtn setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+//            [_stagestagingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [_stagestagingBtn setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
             _stagestagingBtn.titleLabel.font=[UIFont systemFontOfSize:15];
             [_stagestagingBtn addTarget:self action:@selector(stagingBtnCOntroller:) forControlEvents:UIControlEventTouchUpInside];
             [cell addSubview:self.stagestagingBtn];
@@ -258,11 +294,12 @@
             label.attributedText = string;
             label.textAlignment = NSTextAlignmentLeft;
             label.alpha = 1.0;
+            _dateLabel=label;
             [cell addSubview:label];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(21);
                 make.left.mas_equalTo(14);
-                make.size.mas_equalTo(CGSizeMake(74, 21));
+                make.size.mas_equalTo(CGSizeMake(274, 21));
             }];
         }else if (indexPath.row==1) {
             if (_btnTag==1) {
@@ -587,13 +624,16 @@
     //    [self.navigationController pushViewController:photoPicker animated:YES]
     if (sender.tag==100) {
         self.stagingBtn.selected = !self.stagingBtn.selected;
-        self.stagingBtn=_stagingBtn;
+//        self.stagingBtn=_stagingBtn;
         _btnTag=1;
-        self.phasesBtn.selected=NO;
+//        self.phasesBtn.selected=NO;
         self.stagestagingBtn.selected=NO;
         [self.stagingBtn setUserInteractionEnabled:NO];
         [self.phasesBtn setUserInteractionEnabled:YES];
         [self.stagestagingBtn setUserInteractionEnabled:YES];
+        _status=!_status;
+        _status1=NO;
+        _status2=NO;
     }else if (sender.tag==101) {
         self.phasesBtn.selected=!self.phasesBtn.selected;
         self.phasesBtn=_phasesBtn;
@@ -603,6 +643,9 @@
         [self.phasesBtn setUserInteractionEnabled:NO];
         [self.stagingBtn setUserInteractionEnabled:YES];
         [self.stagestagingBtn setUserInteractionEnabled:YES];
+        _status1=!_status1;
+        _status=NO;
+        _status2=NO;
     }else if (sender.tag==102) {
         self.stagestagingBtn.selected=!self.stagestagingBtn.selected;
         self.stagestagingBtn=_stagestagingBtn;
@@ -612,6 +655,9 @@
         [self.stagestagingBtn setUserInteractionEnabled:NO];
         [self.phasesBtn setUserInteractionEnabled:YES];
         [self.stagingBtn setUserInteractionEnabled:YES];
+        _status2=!_status2;
+        _status=NO;
+        _status1=NO;
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -654,13 +700,7 @@
 }
 
 - (void)payOffAction{
-//    if (_btnTag > 1) {
-//        ETPaymentStagesVC *payVC=[ETPaymentStagesVC paymentStagesVC:_btnTag];
-//        payVC.product=_product;
-//        payVC.finalPrice= @"15000";
-//        payVC.releaseId=_releaseId;
-//        [self.navigationController pushViewController:payVC animated:YES];
-//    }
+
     if (_btnTag==1) {
         [self PostStageUI];
     }
@@ -709,6 +749,10 @@
         NSDictionary* d=[jsonDict copy];
         NSLog(@"");
         [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self backPopAppointViewController];
+
+        });
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -733,6 +777,10 @@
         NSDictionary* d=[jsonDict copy];
         NSLog(@"");
         [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           [self backPopAppointViewController];
+
+        });
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -758,8 +806,10 @@
         NSDictionary* d=[jsonDict copy];
         NSLog(@"");
         [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self backPopAppointViewController];
 
-    } failure:^(NSError *error) {
+        });    } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
 }
@@ -785,7 +835,24 @@
     //            [self.navigationController pushViewController:payVC animated:YES];
     //        }
     //    }
-    
+    _dateLabel.text=[NSString stringWithFormat:@"交易周期: %@",@"2019 09 01"];
+
+    if (indexPath.section==1&&indexPath.row==0) {
+        __weak typeof(self)ws = self;
+        [LZCPickerView showDatePickerWithToolBarText:@"" maxDateStr:[self returnCurrentDay:0] withStyle:[LZCDatePickerStyle new] fromStyle:OtherModulesStyle withCancelHandler:^{
+            NSLog(@"quxiaole -----");
+            
+        } withDoneHandler:^(NSDate *selectedDate) {
+            NSLog(@"%@---", selectedDate);
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            [formatter setDateFormat:@"yyyy-MM-dd"];
+            NSString *DateTime = [formatter stringFromDate:selectedDate];
+            _dateLabel.text=[NSString stringWithFormat:@"交易周期: %@",DateTime];
+            //            ws.timeLabel.text = DateTime;
+        }];
+    }
 # pragma mark ---支付宝
     
     if (indexPath.section==1) {
@@ -891,14 +958,33 @@
     }
     return YES;
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+//UIColor 转UIImage（UIImage+YYAdd.m也是这种实现）
+- (UIImage*)createImageWithColor: (UIColor*) color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
+- (NSString* )returnCurrentDay:(int)d{
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:d*24*60*60];
+    NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString* str = [formatter stringFromDate:date];
+    return [NSString stringWithFormat:@"%@-%@-%@",[[str componentsSeparatedByString:@"-"] objectAtIndex:0], [[str componentsSeparatedByString:@"-"] objectAtIndex:1],[[str componentsSeparatedByString:@"-"] objectAtIndex:2]];
+}
+
+#pragma mark - 返回到指定控制器
+- (void)backPopAppointViewController {
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[ETSaleDetailController class]] || [controller isKindOfClass:[ETServiceDetailController class]] ) {
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+    }
+}
 
 @end

@@ -113,31 +113,17 @@ static MainViewController *vcMain = nil;
         NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"touser"),bg_sqlValue(a)];
         
         NSArray * array1 = [ETProductModel bg_find:@"ETProductModel" where:where];
-//        if (array1.count>0) {
-//            ETBuyPushViewController *buy =[[ETBuyPushViewController alloc]init];
-//                    buy.product=array1[0];
-//                    ETProductModel* p=array1[0];
-//                    buy.releaseId=p.releaseId;
-//            [self.navigationController pushViewController:buy animated:YES];
-//        }
-        
+
         [self PostUI:a];
     };
-//    chatListVC.block1 = ^{
-//        NSLog(@"");
-//        ETBuyPushViewController *buy =[[ETBuyPushViewController alloc]init];
-////        buy.product=_products[0];
-////        ETProductModel* p=_products[0];
-////        buy.releaseId=p.releaseId;
-//        [self.navigationController pushViewController:buy animated:YES];
-//    };
+    
     _navMessage = [[SSNavigationController alloc] initWithRootViewController:chatListVC];
     _navMessage.tabCode = TabCode_Message;
     [self setNaviController:_navMessage title:@"消息" defautImage:[UIImage ak_imageNamed:@"消息_未选中"] selectedImage:[UIImage ak_imageNamed:@"消息_选中"]];
     chatListVC.block = ^(int index){
-        EaseSyetemController* sys=[EaseSyetemController new];
-        sys.index=index;
-        [_navMessage pushViewController:sys animated:YES];
+        EaseSyetemController *vc = [EaseSyetemController new];
+        vc.index=index;
+        [_navMessage pushViewController:vc animated:YES];
         NSLog(@"");
     };
     [_controllers addObject:_navMessage];

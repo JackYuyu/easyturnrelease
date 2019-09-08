@@ -9,10 +9,16 @@
 #import "ETStoreUpViewController.h"
 #import "ETEnterpriseServiceTableViewCell1.h"
 #import "ETProductModel.h"
+
+#import "ETServiceDetailController.h"
+#import "ETSaleDetailController.h"
+#import "ETPoctoryqgViewController.h"
 @interface ETStoreUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tab;
 @property(nonatomic,strong)UIButton *loadingBtn;
 @property(nonatomic,strong)NSMutableArray*products;
+@property(nonatomic,strong)NSMutableArray*details;
+
 @property(nonatomic,strong)UIButton *deleBtn;
 @property(nonatomic,strong)ETProductModel *m;
 @end
@@ -24,11 +30,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self enableLeftBackWhiteButton];
     self.title=@"我的收藏";
     self.view.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.tab];
-//    [self.view addSubview:self.loadingBtn];
+
     [self.tab registerClass:[ETEnterpriseServiceTableViewCell1 class] forCellReuseIdentifier:@"cell"];
      [self PostUI:@"1"];
 }
@@ -149,6 +155,28 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     // 3点击没有颜色改变
     cell.selected = NO;
+    
+    NSDictionary *temp =[_details objectAtIndex:indexPath.row];
+    
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:temp];
+    if ([p.releaseTypeId isEqualToString:@"3"]) {
+        ETServiceDetailController * detail=[ETServiceDetailController serviceDetailController:temp];
+        detail.product=p;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+    else if([p.releaseTypeId isEqualToString:@"1"]){
+        ETSaleDetailController* detail=[ETSaleDetailController saleDetailController:temp];
+        detail.product=p;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+    else{
+        ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
+        ETProductModel* p=[ETProductModel mj_objectWithKeyValues:temp];
+        pur.releaseId=p.releaseId;
+        pur.releaseId = temp[@"releaseId"];
+        pur.product = [ETProductModel mj_objectWithKeyValues:temp];
+        [self.navigationController pushViewController:pur animated:YES];
+    }
 }
 
 - (void)PostUI:(NSString*)head {
@@ -160,6 +188,8 @@
         //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
         //        NSLog(@"%@",jsonDict);
         _products=[NSMutableArray new];
+        _details=[NSMutableArray new];
+
         NSDictionary* a=response[@"data"];
         for (NSDictionary* prod in response[@"data"]) {
           
@@ -168,6 +198,10 @@
                 [_products addObject:p];
                
             }
+        }
+        NSArray *array = [response objectForKey:@"data"];
+        if(array && ![array isKindOfClass:[NSNull class]]){
+            [_details addObjectsFromArray:array];
         }
         [_tab reloadData];
     } failure:^(NSError *error) {

@@ -173,6 +173,7 @@
     [self loadAddressData];
     
     self.title=@"发布出售";
+    [self enableLeftBackWhiteButton];
     self.navigationController.navigationBarHidden=NO;
     [self.view addSubview:self.tab];
     self.tab.contentInsetAdjustmentBehavior = NO;
@@ -1466,13 +1467,17 @@
                              };
     
     [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
-        NSDictionary* a=responseObj[@"data"];
-        NSLog(@"");
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+           
+        }
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+    
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self cancelClick];
+        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
     });
 }
 #pragma mark - 发布
@@ -1531,13 +1536,19 @@
                              };
     
     [HttpTool post:[NSString stringWithFormat:@"release/updateService"] params:params success:^(id responseObj) {
-        NSDictionary* a=responseObj[@"data"];
-        NSLog(@"");
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+            [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self cancelClick];
+        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
     });
 }
 //- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

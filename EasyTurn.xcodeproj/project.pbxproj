@@ -307,6 +307,7 @@
 		00E5C32722EEF1FD00009241 /* ETProductDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E5C32622EEF1FD00009241 /* ETProductDetailController.m */; };
 		00E5C32B22EEFC1300009241 /* ProductInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00E5C32822EEFC1200009241 /* ProductInfoCell.xib */; };
 		00E5C32C22EEFC1300009241 /* ProductInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E5C32A22EEFC1200009241 /* ProductInfoCell.m */; };
+		04AC89CD23241E9600A404B5 /* ETBuyFinishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */; };
 		2E0269B82317FF750085CA4F /* ETPoctoryqgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0269B62317FF750085CA4F /* ETPoctoryqgViewController.m */; };
 		2E077B0F22F3CF38004D31E1 /* ETZhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E077B0E22F3CF38004D31E1 /* ETZhangViewController.m */; };
 		2E077B1222F3D116004D31E1 /* ETZhangTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E077B1122F3D116004D31E1 /* ETZhangTableViewCell.m */; };
@@ -318,6 +319,10 @@
 		2E087DB722F12A670071D70D /* ETBuyPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E087DB622F12A670071D70D /* ETBuyPushViewController.m */; };
 		2E087DBA22F137D80071D70D /* ETPayaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E087DB922F137D80071D70D /* ETPayaymentViewController.m */; };
 		2E09CAA922F31028003B2C61 /* ETRealtimePurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E09CAA822F31028003B2C61 /* ETRealtimePurchaseViewController.m */; };
+		2E0A8BE12323CCA100EA610D /* ETInvitationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE02323CCA100EA610D /* ETInvitationController.m */; };
+		2E0A8BE4232428A100EA610D /* EaseSyetemListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE3232428A100EA610D /* EaseSyetemListCell.m */; };
+		2E0A8BE72324CBA900EA610D /* EaseUserMeagessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE62324CBA900EA610D /* EaseUserMeagessListCell.m */; };
+		2E0A8BEA23253F5900EA610D /* ETReleaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE923253F5900EA610D /* ETReleaseModel.m */; };
 		2E0A984B22F7DE2C00DD8B28 /* ETNametitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A984A22F7DE2C00DD8B28 /* ETNametitleViewController.m */; };
 		2E0A984E22F853A700DD8B28 /* ETPaymentStagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A984D22F853A600DD8B28 /* ETPaymentStagesVC.m */; };
 		2E0A985122F8547D00DD8B28 /* ETPaymentStatesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A985022F8547C00DD8B28 /* ETPaymentStatesCell.m */; };
@@ -349,7 +354,6 @@
 		2E1CDA9C22EAD09600174F08 /* MCPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1CDA9222EAD09600174F08 /* MCPageView.m */; };
 		2E1CDA9D22EAD09600174F08 /* UIView+QQFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1CDA9322EAD09600174F08 /* UIView+QQFrame.m */; };
 		2E2FA5E922F9124700C06FF6 /* IANshowLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2FA5E822F9124600C06FF6 /* IANshowLoading.m */; };
-		2E30B4C622E59D940079F1CE /* ETMessageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E30B4C522E59D940079F1CE /* ETMessageTableView.m */; };
 		2E37310C23084F950077694F /* ETCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E37310B23084F950077694F /* ETCartViewController.m */; };
 		2E37310F230856C70077694F /* ETPhreasTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E37310E230856C70077694F /* ETPhreasTableViewCell.m */; };
 		2E38EE0E230E4AB70028BC25 /* ETViphuiyuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E38EE0D230E4AB70028BC25 /* ETViphuiyuanViewController.m */; };
@@ -1006,6 +1010,8 @@
 		00E5C32822EEFC1200009241 /* ProductInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductInfoCell.xib; sourceTree = "<group>"; };
 		00E5C32922EEFC1200009241 /* ProductInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductInfoCell.h; sourceTree = "<group>"; };
 		00E5C32A22EEFC1200009241 /* ProductInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductInfoCell.m; sourceTree = "<group>"; };
+		04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETBuyFinishViewController.m; sourceTree = "<group>"; };
+		04AC89CC23241E9600A404B5 /* ETBuyFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETBuyFinishViewController.h; sourceTree = "<group>"; };
 		0B41FA3272E5846DF85F3D53 /* libPods-EasyTurn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EasyTurn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E0269B62317FF750085CA4F /* ETPoctoryqgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPoctoryqgViewController.m; sourceTree = "<group>"; };
 		2E0269B72317FF750085CA4F /* ETPoctoryqgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPoctoryqgViewController.h; sourceTree = "<group>"; };
@@ -1029,6 +1035,14 @@
 		2E087DB922F137D80071D70D /* ETPayaymentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETPayaymentViewController.m; sourceTree = "<group>"; };
 		2E09CAA722F31028003B2C61 /* ETRealtimePurchaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETRealtimePurchaseViewController.h; sourceTree = "<group>"; };
 		2E09CAA822F31028003B2C61 /* ETRealtimePurchaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETRealtimePurchaseViewController.m; sourceTree = "<group>"; };
+		2E0A8BDF2323CCA100EA610D /* ETInvitationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETInvitationController.h; sourceTree = "<group>"; };
+		2E0A8BE02323CCA100EA610D /* ETInvitationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETInvitationController.m; sourceTree = "<group>"; };
+		2E0A8BE2232428A100EA610D /* EaseSyetemListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseSyetemListCell.h; sourceTree = "<group>"; };
+		2E0A8BE3232428A100EA610D /* EaseSyetemListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EaseSyetemListCell.m; sourceTree = "<group>"; };
+		2E0A8BE52324CBA900EA610D /* EaseUserMeagessListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseUserMeagessListCell.h; sourceTree = "<group>"; };
+		2E0A8BE62324CBA900EA610D /* EaseUserMeagessListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EaseUserMeagessListCell.m; sourceTree = "<group>"; };
+		2E0A8BE823253F5900EA610D /* ETReleaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ETReleaseModel.h; path = "EasyTurn/Main/消息/View/ETReleaseModel.h"; sourceTree = SOURCE_ROOT; };
+		2E0A8BE923253F5900EA610D /* ETReleaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ETReleaseModel.m; path = "EasyTurn/Main/消息/View/ETReleaseModel.m"; sourceTree = SOURCE_ROOT; };
 		2E0A984322F7C1C300DD8B28 /* IANshowLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IANshowLoading.h; sourceTree = "<group>"; };
 		2E0A984922F7DE2C00DD8B28 /* ETNametitleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETNametitleViewController.h; sourceTree = "<group>"; };
 		2E0A984A22F7DE2C00DD8B28 /* ETNametitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETNametitleViewController.m; sourceTree = "<group>"; };
@@ -1091,8 +1105,6 @@
 		2E1CDA9222EAD09600174F08 /* MCPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPageView.m; sourceTree = "<group>"; };
 		2E1CDA9322EAD09600174F08 /* UIView+QQFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QQFrame.m"; sourceTree = "<group>"; };
 		2E2FA5E822F9124600C06FF6 /* IANshowLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IANshowLoading.m; sourceTree = "<group>"; };
-		2E30B4C422E59D940079F1CE /* ETMessageTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETMessageTableView.h; sourceTree = "<group>"; };
-		2E30B4C522E59D940079F1CE /* ETMessageTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETMessageTableView.m; sourceTree = "<group>"; };
 		2E37310A23084F950077694F /* ETCartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETCartViewController.h; sourceTree = "<group>"; };
 		2E37310B23084F950077694F /* ETCartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETCartViewController.m; sourceTree = "<group>"; };
 		2E37310D230856C70077694F /* ETPhreasTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETPhreasTableViewCell.h; sourceTree = "<group>"; };
@@ -1401,6 +1413,8 @@
 				00986CDC2321438B00B1131E /* ETMineListViewController.m */,
 				00986CEA23223A0800B1131E /* ETMyOrderVC.h */,
 				00986CEB23223A0800B1131E /* ETMyOrderVC.m */,
+				04AC89CC23241E9600A404B5 /* ETBuyFinishViewController.h */,
+				04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */,
 				00986CFC2322A37F00B1131E /* ETFootViewController.h */,
 				00986CFD2322A37F00B1131E /* ETFootViewController.m */,
 				0046AA3422EACDE20038CA11 /* ETAboutViewController.h */,
@@ -1443,7 +1457,7 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		0046AA2C22EACDE20038CA11 /* 认证 */ = {
+		0046AA2C22EACDE20038CA11 /* 身份认证 */ = {
 			isa = PBXGroup;
 			children = (
 				0046AA2F22EACDE20038CA11 /* LegalPersonVC.h */,
@@ -1453,7 +1467,7 @@
 				0046AA2D22EACDE20038CA11 /* StaffVC.h */,
 				0046AA3222EACDE20038CA11 /* StaffVC.m */,
 			);
-			path = "认证";
+			path = "身份认证";
 			sourceTree = "<group>";
 		};
 		0046AA3622EACDE20038CA11 /* 用户信息页 */ = {
@@ -1785,8 +1799,9 @@
 				2E1CDA8C22EAD09600174F08 /* Model */,
 				2E0B357C231CFA88001A9BDB /* 续费Vip会员 */,
 				2E0B3578231CF9F3001A9BDB /* 购买刷新次数 */,
-				0046AA2C22EACDE20038CA11 /* 认证 */,
+				0046AA2C22EACDE20038CA11 /* 身份认证 */,
 				0046AA3622EACDE20038CA11 /* 用户信息页 */,
+				2E0A8BDB2323CC4800EA610D /* 邀请好友 */,
 				2E1CDA8F22EAD09600174F08 /* MCPageView */,
 				2E087A0A23115336002374E9 /* PageViewController */,
 			);
@@ -1796,8 +1811,10 @@
 		007FAD5522E044CB001EC5F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2E30B4C422E59D940079F1CE /* ETMessageTableView.h */,
-				2E30B4C522E59D940079F1CE /* ETMessageTableView.m */,
+				2E0A8BE2232428A100EA610D /* EaseSyetemListCell.h */,
+				2E0A8BE3232428A100EA610D /* EaseSyetemListCell.m */,
+				2E0A8BE52324CBA900EA610D /* EaseUserMeagessListCell.h */,
+				2E0A8BE62324CBA900EA610D /* EaseUserMeagessListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1880,6 +1897,8 @@
 		007FAD5922E0451B001EC5F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2E0A8BE823253F5900EA610D /* ETReleaseModel.h */,
+				2E0A8BE923253F5900EA610D /* ETReleaseModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2698,6 +2717,39 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2E0A8BDB2323CC4800EA610D /* 邀请好友 */ = {
+			isa = PBXGroup;
+			children = (
+				2E0A8BDE2323CC6F00EA610D /* Controller */,
+				2E0A8BDD2323CC6A00EA610D /* View */,
+				2E0A8BDC2323CC6300EA610D /* Model */,
+			);
+			path = "邀请好友";
+			sourceTree = "<group>";
+		};
+		2E0A8BDC2323CC6300EA610D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2E0A8BDD2323CC6A00EA610D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2E0A8BDE2323CC6F00EA610D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2E0A8BDF2323CCA100EA610D /* ETInvitationController.h */,
+				2E0A8BE02323CCA100EA610D /* ETInvitationController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		2E0B3578231CF9F3001A9BDB /* 购买刷新次数 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3354,6 +3406,7 @@
 				00986CF623223AC700B1131E /* OrderCell.m in Sources */,
 				0084158D231FA140009589A5 /* TZImageManager.m in Sources */,
 				49B5646722FBB2C70019EE8F /* ETRealTimeBuyListCell.m in Sources */,
+				2E0A8BE72324CBA900EA610D /* EaseUserMeagessListCell.m in Sources */,
 				A6A544A022F7433500C7FDC5 /* LQCityPicker.m in Sources */,
 				00E5C2D522ED35E600009241 /* JMColumnMenu.m in Sources */,
 				005C95A322FC39BE00DD448C /* MBProgressHUD+Add.m in Sources */,
@@ -3411,6 +3464,7 @@
 				00199B9722F17C2B00FACC24 /* WXApiResponseHandler.m in Sources */,
 				007FAE2B22E052FD001EC5F2 /* NSString+AHKit.m in Sources */,
 				007FAE2822E052FD001EC5F2 /* SQPrintJsonLog.m in Sources */,
+				2E0A8BE4232428A100EA610D /* EaseSyetemListCell.m in Sources */,
 				007FAE4922E05492001EC5F2 /* UserInfoModel.m in Sources */,
 				2E0B3582231D17A0001A9BDB /* ETMineViewCell.m in Sources */,
 				007FADFE22E052C3001EC5F2 /* WTPayManager.m in Sources */,
@@ -3441,6 +3495,7 @@
 				004AB54022E19D040056B8F5 /* ETHomeHeaderView.m in Sources */,
 				00199BC222F288EF00FACC24 /* HanyuPinyinOutputFormat.m in Sources */,
 				007FAE2022E052FD001EC5F2 /* UIView+Frame.m in Sources */,
+				04AC89CD23241E9600A404B5 /* ETBuyFinishViewController.m in Sources */,
 				00199BC322F288EF00FACC24 /* ZYPinYinSearch.m in Sources */,
 				00E5C32022EDCF4600009241 /* HomeBaseCell.m in Sources */,
 				0084155C231F9F64009589A5 /* ZZCustomCameraControlView.m in Sources */,
@@ -3469,6 +3524,7 @@
 				0046AA6422EACDE30038CA11 /* ETMinesViewController.m in Sources */,
 				2E077B1522F45C5D004D31E1 /* ETFrequencyViewController.m in Sources */,
 				00245BD62306A21A002B42B2 /* MsgInfo.m in Sources */,
+				2E0A8BE12323CCA100EA610D /* ETInvitationController.m in Sources */,
 				007FAE3E22E0539F001EC5F2 /* SSAppVersionTool.m in Sources */,
 				00841592231FA140009589A5 /* TZGifPhotoPreviewController.m in Sources */,
 				4919DFF92317949F006297D3 /* ETSaleDetailHeaderView.m in Sources */,
@@ -3580,7 +3636,6 @@
 				007FADA522E05228001EC5F2 /* LGAlertViewCell.m in Sources */,
 				00841586231FA140009589A5 /* TZVideoPlayerController.m in Sources */,
 				0046AA7122EACDE30038CA11 /* ETVIPViewController.m in Sources */,
-				2E30B4C622E59D940079F1CE /* ETMessageTableView.m in Sources */,
 				2E2FA5E922F9124700C06FF6 /* IANshowLoading.m in Sources */,
 				00E5C32322EDD03C00009241 /* FBRequestSearch.m in Sources */,
 				4924AA7222FAC2E000B2C282 /* ETDynamicListCell.m in Sources */,
@@ -3606,6 +3661,7 @@
 				00A9462D23181DF2003A2B66 /* DCCycleScrollView.m in Sources */,
 				007FADA022E05228001EC5F2 /* AHKAlertView.m in Sources */,
 				00E5C2E522ED6E9E00009241 /* ETEnterpriseServiceTableViewCell1.m in Sources */,
+				2E0A8BEA23253F5900EA610D /* ETReleaseModel.m in Sources */,
 				007FAE2622E052FD001EC5F2 /* UIView+AZGradient.m in Sources */,
 				00986CE4232143CA00B1131E /* ETMineGridCollectionCell.m in Sources */,
 				0046AA5E22EACDE30038CA11 /* ETUserViewController.m in Sources */,

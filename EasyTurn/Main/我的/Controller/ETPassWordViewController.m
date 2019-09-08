@@ -56,9 +56,19 @@
     [self PostUI];
    
 }
+
 - (void)baocun {
-    [self PostUIxiu];
+    [_numberText resignFirstResponder];
+    [_queneText resignFirstResponder];
+    [_newnumberText resignFirstResponder];
+    if ([_queneText.text isEqualToString:_newnumberText.text]) {
+        [self PostUIxiu];
+    }else {
+        [MBProgressHUD showMBProgressHud:self.view withText:@"两次输入的密码不一致,请重新输入" withTime:1];
+    }
+    
 }
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
@@ -83,7 +93,6 @@
         }];
         
         _numberText=[[UITextField alloc]init];
-//        text1.placeholder=@"输入密码";
         _numberText.secureTextEntry = YES;
         [cell addSubview:_numberText];
         
@@ -98,7 +107,6 @@
         _newnumberlab=[[UILabel alloc]init];
         [cell addSubview:_newnumberlab];
         _newnumberlab.text=@"请输入新密码";
-//         [self PostUI];
         _newnumberlab.font=[UIFont systemFontOfSize:12];
         _newnumberlab.textColor=[UIColor blackColor];
         [_newnumberlab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -108,8 +116,7 @@
         }];
         
         _newnumberText=[[UITextField alloc]init];
-         _newnumberText.secureTextEntry = YES;
-        //        text1.placeholder=@"输入密码";
+        _newnumberText.secureTextEntry = YES;
         [cell addSubview:_newnumberText];
         
         [_newnumberText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -132,7 +139,6 @@
         
         _queneText=[[UITextField alloc]init];
          _queneText.secureTextEntry = YES;
-        //        text1.placeholder=@"输入密码";
         [cell addSubview:_queneText];
         
         [_queneText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,14 +187,22 @@
 }
 
 - (void)PostUIxiu {
+    WEAKSELF
     NSDictionary *params = @{
                              @"NewPassword" :_newnumberText.text,
                              @"OldPassword" :_numberText.text
                              };
-    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
 
     [HttpTool put:[NSString stringWithFormat:@"user/updatePassword"] params:params success:^(NSDictionary *response) {
-           [MBProgressHUD showMBProgressHud:self.view withText:@"修改成功" withTime:1];
+        NSString *code = response[@"code"];
+        NSString *msg = response[@"msg"];
+        if (code.integerValue == 0) {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"修改成功" withTime:1];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }else {
+            [MBProgressHUD showMBProgressHud:self.view withText:msg withTime:1];
+        }
+        
     } failure:^(NSError *error) {
 
     }];

@@ -153,11 +153,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     self.title=@"发布求购";
-    self.navigationController.navigationBarHidden=NO;
+    [self enableLeftBackWhiteButton];
     self.view.backgroundColor=[UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-    self.title=@"发布求购";
     [self loadAddressData];
     
     //添加取消按钮->
@@ -1552,10 +1551,13 @@
                              };
     
     [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
-        NSDictionary* a=responseObj[@"data"];
-        NSLog(@"");
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+            [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+        }
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+        
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self cancelClick];
@@ -1668,7 +1670,8 @@
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self cancelClick];
-        
+        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
     });
 }
 #pragma mark - 发布
@@ -1724,8 +1727,9 @@
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self cancelClick];
-        
-    });
+        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+    });;
 }
 //- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 //    return [self validateNumber:string];

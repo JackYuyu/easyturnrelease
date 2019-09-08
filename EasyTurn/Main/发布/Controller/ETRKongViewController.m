@@ -260,7 +260,7 @@
     if (btn.tag == 1000) {
 
         //发布出售
-        ETIssueViewController *vc = [ETIssueViewController new];
+        ETIssueViewController *vc = [[ETIssueViewController alloc]init];
         [vc toDissmissSelf:^{
             self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
             [UIView animateWithDuration:0 animations:^{
@@ -278,7 +278,7 @@
         return;
         #warning geweiTestCode
         //发布求购
-        ETPublishPurchaseViewController *vc = [ETPublishPurchaseViewController new];
+        ETPublishPurchaseViewController *vc = [[ETPublishPurchaseViewController alloc]init];
         [vc toDissmissSelf:^{
             self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
             [UIView animateWithDuration:0 animations:^{
@@ -290,7 +290,7 @@
     }else{
   
         //企服者
-        ETPersuadersViewController *vc = [ETPersuadersViewController new];
+        ETPersuadersViewController *vc = [[ETPersuadersViewController alloc]init];
         [vc toDissmissSelf:^{
             self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
             [UIView animateWithDuration:0 animations:^{

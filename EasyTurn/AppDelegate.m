@@ -299,18 +299,12 @@
         SendAuthResp *aresp = (SendAuthResp *)resp;
         if (aresp.errCode != 0 ) {
             dispatch_async(dispatch_get_main_queue(), ^{
-//                [self showError:@"微信授权失败"];
                 NSLog(@"微信授权失败");
             });
             return;
         }
         //授权成功获取 OpenId
-        //    授权成功获取 OpenId
         NSString *code = aresp.code;
-        NSLog(@"%@",code);
-//        [self getWeiXinOpenId:code];
-
-
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         NSString *accessUrlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx6aa68fa297ad59ee&secret=a297f2affb4467edc1984eead3c04c48&code=%@&grant_type=authorization_code", code];
         NSLog(@"===%@",accessUrlStr);
@@ -353,7 +347,7 @@
     NSString *payResoult = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
     if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
-        [[ACToastView toastView:YES]showLoadingCircleViewWithStatus:@"正在支付中"];
+//        [[ACToastView toastView:YES]showLoadingCircleViewWithStatus:@"正在支付中"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter]postNotificationName:Request_PayResult object:nil];
         });
@@ -384,6 +378,7 @@
             case 0:
                 [MBProgressHUD showMBProgressHud:[UIApplication sharedApplication].keyWindow.rootViewController.view withText:@"分享成功" withTime:2];
                 break;
+
             case 1:
                 [MBProgressHUD showMBProgressHud:[UIApplication sharedApplication].keyWindow.rootViewController.view withText:@"分享失败" withTime:2];
                 break;
@@ -391,14 +386,12 @@
             default:
                 break;
         }
-        ;
+        if (resp.errCode == 0) {
+            //微信分享回调
+            [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
+        }
     }
 }
-
-//- (void) onResp:(BaseResp*)resp {
-
-//}
-
 
 // 获取用户个人信息（UnionID机制）
 - (void)wechatLoginByRequestForUserInfo:(NSString*)code {
@@ -878,6 +871,11 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     EaseMessageModel* msg=[EaseMessageModel new];
     msg.text=content.title;
     msg.address=content.body;
+    NSDate* d=[NSDate date];
+    NSDateFormatter *dateFormattershow = [[NSDateFormatter alloc] init];
+    [dateFormattershow setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *strDate = [dateFormattershow stringFromDate:d];
+    msg.timestr=strDate;
     [msg bg_saveOrUpdate];
     NSInteger iconbadge=[UIApplication sharedApplication].applicationIconBadgeNumber+1;
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:iconbadge];
@@ -929,5 +927,6 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     completionHandler();  // 系统要求执行这个方法
 }
 #endif
+
 
 @end

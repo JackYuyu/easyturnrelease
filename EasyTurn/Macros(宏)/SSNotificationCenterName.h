@@ -93,5 +93,11 @@ UIKIT_EXTERN NSString *const LoginBeOverdue;
 
 /** 直播间关注刷新页面 */
 UIKIT_EXTERN NSString *const SSfollowLiveRoomRefresh;
+
+/** 发布成功刷新我的动态 */
+UIKIT_EXTERN NSString *const FaBuChengGongRefresh_Mine;
+/** 支付成功刷新我的订单 */
+UIKIT_EXTERN NSString *const Refresh_MineOrder;
+
 @end
 

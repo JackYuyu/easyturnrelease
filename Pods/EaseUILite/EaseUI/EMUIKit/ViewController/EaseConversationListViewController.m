@@ -159,6 +159,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"消息";
 //    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width/2, TopHeight)];
 //    _navigationView.backgroundColor = kACColorClear;
 //    [self.view addSubview:_navigationView];
@@ -241,11 +242,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     if (indexPath.section==0) {
         if (indexPath.row==0) {
-
-        cell.titleLabel.text=@"易转官方发布消息";
-        cell.avatarView.image=[UIImage imageNamed:@"WechatIMG222"];
-        cell.avatarView.layer.cornerRadius = 20;
-        cell.avatarView.layer.masksToBounds = YES;
+            EaseMessageModel* msg=[_system objectAtIndex:indexPath.row];
+            cell.titleLabel.text = msg.text;
+            cell.avatarView.image=[UIImage imageNamed:@"WechatIMG222"];
+            cell.avatarView.layer.cornerRadius = 20;
+            cell.avatarView.layer.masksToBounds = YES;
+            cell.detailLabel.text=msg.address;
         if (_system.count>0) {
             
             EaseMessageModel* msg=[_list objectAtIndex:0];
@@ -331,8 +333,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         }
 //        EaseSystemController* s=[EaseSystemController new];
 //        [self.navigationController pushViewController:sys animated:YES];
-    }
-    else
+    }else
         _navigationView.hidden=YES;;
     if (_delegate && [_delegate respondsToSelector:@selector(conversationListViewController:didSelectConversationModel:)]) {
         EaseConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];

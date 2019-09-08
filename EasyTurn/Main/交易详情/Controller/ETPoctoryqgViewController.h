@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ETProductModel *product;
 @property (nonatomic, copy) NSString *releaseId;
 //+ (instancetype)saleDetailController:(NSDictionary *)detailInfo;
+@property (nonatomic, strong) UINavigationController *naviController;
 @end
 
 NS_ASSUME_NONNULL_END

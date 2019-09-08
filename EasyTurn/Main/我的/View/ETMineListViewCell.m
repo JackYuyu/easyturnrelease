@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIButton *btnRefresh;
 @property (nonatomic, strong) UIButton *btnDelete;
 @property (nonatomic, strong) UIButton *btnLook;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @end
 
 @implementation ETMineListViewCell
@@ -128,7 +129,7 @@
 }
 
 - (void)makeCellWithUserInfosReleaseModel:(UserInfosReleaseModel *)model indexPath:(NSIndexPath *)indexPath {
-    
+    _indexPath = indexPath;
     [self.imagevGoods sd_setImageWithURL:[NSURL URLWithString:model.imageList]];
     self.laName.text = model.title;
     self.laSubTitle.text = model.information;
@@ -149,8 +150,8 @@
 }
 
 - (void)onClickType:(UIButton *)sender {
-    if ([_delegate respondsToSelector:@selector(onCLickETMineListViewCellButtonType:)]) {
-        [_delegate onCLickETMineListViewCellButtonType:sender];
+    if ([_delegate respondsToSelector:@selector(onCLickETMineListViewCellButtonType:WithIndexPath:)]) {
+        [_delegate onCLickETMineListViewCellButtonType:sender WithIndexPath:_indexPath];
     }
 }
 

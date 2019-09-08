@@ -41,24 +41,31 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"设置用户信息";
+    [self enableLeftBackWhiteButton];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(baocunYonghu)];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem.tintColor=[UIColor whiteColor];
-    // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor=[UIColor whiteColor];
-    self.title=@"设置用户信息";
+    
     self.navigationController.navigationBar.titleTextAttributes=
     @{NSForegroundColorAttributeName:[UIColor whiteColor],
       NSFontAttributeName:[UIFont systemFontOfSize:18]};
     self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:47/255.0 green:134/255.0 blue:251/255.0 alpha:1.0];
+    
     [self.view addSubview:self.tab];
 }
-//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 2;
-//}
+
 -(void)baocunYonghu {
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [OSSImageUploader asyncUploadImage:_headImage complete:^(NSArray<NSString *> *names, UploadImageState state) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            [self PostUI:[NSString stringWithFormat:@"/%@", names.lastObject]];
+        });
+    }];
+    
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -199,28 +206,12 @@
 {
     //得到图片
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    //    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    
-    //    _headImage = [UIImage imageWithData:imageData];
     _headImage = image;
     
-//
-//    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setObject:@"xh/head" forKey:@"tmpPath"];
     [ud synchronize];
-    __weak typeof(self) weakself = self;
-    [OSSImageUploader asyncUploadImage:_headImage complete:^(NSArray<NSString *> *names, UploadImageState state) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@",[NSString stringWithFormat:@"/%@", names.lastObject]);
-            NSLog(@"");
-            [self PostUI:[NSString stringWithFormat:@"/%@", names.lastObject]];
-//            [weakself postEdit:@{@"headurl" : [NSString stringWithFormat:@"/%@", names.lastObject]}];
-        });
-    }];
-    
-//    [_tab reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+
     [_tab reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -257,14 +248,16 @@
 
 #pragma mark - 上传头像图片地址
 - (void)PostUI:(NSString*)head {
+    WEAKSELF
     NSDictionary *params = @{
                              @"headImageUrl" : [NSString stringWithFormat:@"%@%@",alioss,head]
                              };
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
 
     [HttpTool put:[NSString stringWithFormat:@"user/updateUserHeadImage"] params:params success:^(NSDictionary *response) {
-//        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-        [self PostHeadUI];
+        [weakSelf PostHeadUI];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
     } failure:^(NSError *error) {
         
     }];

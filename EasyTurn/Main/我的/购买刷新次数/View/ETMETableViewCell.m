@@ -10,7 +10,6 @@
 #import "Masonry.h"
 @implementation ETMETableViewCell
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-
 {
     
 }

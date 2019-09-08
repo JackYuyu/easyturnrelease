@@ -6,11 +6,11 @@
 //  Copyright © 2019年 EasyTurn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ACViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ETSetUserViewController : UIViewController
+@interface ETSetUserViewController : ACViewController
 
 @end
 
