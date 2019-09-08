@@ -7,7 +7,7 @@
 //
 
 #import "EaseSyetemListCell.h"
-
+#import "ETProductModel.h"
 @interface EaseSyetemListCell ()
 @property (nonatomic, strong) UILabel *laTitle;
 @property (nonatomic, strong) UILabel *laSubTitle;
@@ -61,6 +61,11 @@
         make.right.mas_equalTo(-7);
         make.height.mas_equalTo(23);
     }];
+}
+
+- (void)makeCellWithETProductModel:(ETProductModel *)model WithIndexPath:(NSIndexPath *)indexPath {
+    _laSubTitle.text = model.title;
+    _laTime.text = model.createDate;
 }
 
 - (UILabel *)laTitle {
