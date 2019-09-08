@@ -8,7 +8,7 @@
 
 #import "PopTableListView.h"
 
-
+static NSString * const cellIdentifier = @"cellIdentifier";
 @interface PopTableListView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,copy) NSArray *titles;
@@ -17,28 +17,33 @@
 
 @end
 @implementation PopTableListView
-- (instancetype)initWithTitles:(NSArray <NSString *>*)titles imgNames:(NSArray <NSString *>*)imgNames type:(NSString *)type
-{
-    CGRect frame = CGRectMake(0, 0, 80, titles.count*44);
+- (instancetype)initWithTitles:(NSArray <NSString *>*)titles imgNames:(NSArray <NSString *>*)imgNames type:(NSString *)type {
+    CGFloat maxWidth = 80;
     if ([type isEqualToString:@"1"]) {
-        frame = CGRectMake(0, 0, 110, titles.count*44);
+        maxWidth = 110;
     }
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.titles = titles;
-        self.imgNames = imgNames;
-        self.type = type;
-        self.layer.borderColor = RGBCOLOR(0.21*255, 0.54*255, 0.97*255).CGColor;
-        self.layer.borderWidth = 1.0f;
-        self.layer.masksToBounds = YES;
+    return [self initWithTitles:titles imgNames:imgNames type:type maxWidth:maxWidth];
+}
+
+- (instancetype)initWithTitles:(NSArray <NSString *>*)titles imgNames:(NSArray <NSString *>*)imgNames type:(NSString *)type maxWidth:(CGFloat)maxWidth {
         
-        [self addSubview:self.tableView];
-    }
-    return self;
+        CGRect frame = CGRectMake(0, 0, maxWidth, titles.count*44);
+        self = [super initWithFrame:frame];
+        if (self) {
+            self.titles = titles;
+            self.imgNames = imgNames;
+            self.type = type;
+            self.layer.borderColor = RGBCOLOR(0.21*255, 0.54*255, 0.97*255).CGColor;
+            self.layer.borderWidth = 1.0f;
+            self.layer.masksToBounds = YES;
+            
+            [self addSubview:self.tableView];
+        }
+        return self;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @"cellIdentifier";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
@@ -61,16 +66,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
-    
-    
+    #warning geweiTestCode
     if (self.delegate) {
-        if ([self.type isEqualToString:@"1"]) {
-            [self.delegate selectType:self.titles[indexPath.row] type:@"1"];
-        }else{
-            [self.delegate selectEffetiveTimeType:self.titles[indexPath.row] type:@"2"];
-        }
+         [self.delegate selectType:self.titles[indexPath.row] type:@"1"];
         
     }
 }

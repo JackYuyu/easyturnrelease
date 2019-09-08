@@ -125,7 +125,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
 }
 
 - (UITableView *) tab {
@@ -148,12 +148,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self loadAddressData];
     
     self.title=@"发布服务";
-    self.navigationController.navigationBarHidden=NO;
+    [self enableLeftBackWhiteButton];
     [self.view addSubview:self.tab];
     self.tab.contentInsetAdjustmentBehavior = NO;
     
@@ -1150,13 +1149,18 @@
                              };
     
     [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
-        NSDictionary* a=responseObj[@"data"];
-        NSLog(@"");
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+            [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+        }
     } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self cancelClick];
+        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
     });
 }
 #pragma mark - 发布
@@ -1212,7 +1216,9 @@
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self cancelClick];
-    });
+        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+    });;
 }
 -(void)uploadOSS
 {

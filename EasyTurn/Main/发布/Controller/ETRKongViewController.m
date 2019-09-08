@@ -13,6 +13,7 @@
 #import "ETPublishPurchaseViewController.h"
 #import "ETPersuadersViewController.h"
 
+#import "ETPublishPurchaseSegmentViewController.h"
 //自定义颜色rgba
 #define ColorWithRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)/1.0] //<<< 用10进制表示颜色，例如（255,255,255）黑色
 
@@ -259,7 +260,7 @@
     if (btn.tag == 1000) {
 
         //发布出售
-        ETIssueViewController *vc = [ETIssueViewController new];
+        ETIssueViewController *vc = [[ETIssueViewController alloc]init];
         [vc toDissmissSelf:^{
             self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
             [UIView animateWithDuration:0 animations:^{
@@ -271,9 +272,13 @@
 //        [self.navigationController pushViewController:vc animated:YES];
        
     }else if(btn.tag == 1001){
-     
+        ETPublishPurchaseSegmentViewController *vcPublishPurchaseSegment = [[ETPublishPurchaseSegmentViewController alloc] init];
+        UINavigationController *naviRoot = [[UINavigationController alloc]initWithRootViewController:vcPublishPurchaseSegment];
+        [self presentViewController:naviRoot animated:YES completion:nil];
+        return;
+        #warning geweiTestCode
         //发布求购
-        ETPublishPurchaseViewController *vc = [ETPublishPurchaseViewController new];
+        ETPublishPurchaseViewController *vc = [[ETPublishPurchaseViewController alloc]init];
         [vc toDissmissSelf:^{
             self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
             [UIView animateWithDuration:0 animations:^{
@@ -285,7 +290,7 @@
     }else{
   
         //企服者
-        ETPersuadersViewController *vc = [ETPersuadersViewController new];
+        ETPersuadersViewController *vc = [[ETPersuadersViewController alloc]init];
         [vc toDissmissSelf:^{
             self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
             [UIView animateWithDuration:0 animations:^{

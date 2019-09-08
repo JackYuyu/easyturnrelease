@@ -163,7 +163,7 @@ static NSString *const kETHomeHeaderAutoScrollCell = @"ETHomeHeaderAutoScrollCel
     [_laAllQiugou mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(vQiugou);
         make.left.equalTo(vShu.mas_right).mas_offset(5);
-        make.right.mas_equalTo(0);
+        make.right.mas_equalTo(-5);
     }];
     
     

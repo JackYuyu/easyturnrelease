@@ -302,18 +302,12 @@
         SendAuthResp *aresp = (SendAuthResp *)resp;
         if (aresp.errCode != 0 ) {
             dispatch_async(dispatch_get_main_queue(), ^{
-//                [self showError:@"微信授权失败"];
                 NSLog(@"微信授权失败");
             });
             return;
         }
         //授权成功获取 OpenId
-        //    授权成功获取 OpenId
         NSString *code = aresp.code;
-        NSLog(@"%@",code);
-//        [self getWeiXinOpenId:code];
-
-
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         NSString *accessUrlStr = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx6aa68fa297ad59ee&secret=a297f2affb4467edc1984eead3c04c48&code=%@&grant_type=authorization_code", code];
         NSLog(@"===%@",accessUrlStr);
@@ -387,6 +381,7 @@
             case 0:
                 [MBProgressHUD showMBProgressHud:[UIApplication sharedApplication].keyWindow.rootViewController.view withText:@"分享成功" withTime:2];
                 break;
+
             case 1:
                 [MBProgressHUD showMBProgressHud:[UIApplication sharedApplication].keyWindow.rootViewController.view withText:@"分享失败" withTime:2];
                 break;
@@ -394,14 +389,12 @@
             default:
                 break;
         }
-        ;
+        if (resp.errCode == 0) {
+            //微信分享回调
+            [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
+        }
     }
 }
-
-//- (void) onResp:(BaseResp*)resp {
-
-//}
-
 
 // 获取用户个人信息（UnionID机制）
 - (void)wechatLoginByRequestForUserInfo:(NSString*)code {

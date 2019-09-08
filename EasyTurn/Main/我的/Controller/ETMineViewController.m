@@ -83,6 +83,9 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     if (!_lab) {
         [self shareViewController1];
     }
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestRefreshMine) name:Refresh_Mine object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestUserInfoRefreshing) name:FaBuChengGongRefresh_Mine object:nil];
 }
 
 
@@ -118,6 +121,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     
     __weak typeof(self)weakSelf = self;
     self.pagingView.mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf requestUserInfo];
         [weakSelf requestUserInfoRefreshing];
     }];
 }
@@ -234,7 +238,8 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
         NSString *code = response[@"data"][@"code"];
         if (code.integerValue == 0) {
             [MBProgressHUD showMBProgressHud:weakSelf.view withTitle:@"签到成功" detail:@"刷新次数 +1" withTime:2];
-            self.eTMineViewModel.userInfo.isSign = 1;
+            weakSelf.eTMineViewModel.userInfo.isSign = 1;
+            [weakSelf requestUserInfo];
         }else {
             NSString* msg = response[@"data"][@"msg"];
             if (msg.length > 0) {
@@ -414,11 +419,10 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 }
 
 - (void)delfav1 {
-    
+    WEAKSELF
     NSDictionary *params = @{
                              @"id" : @(_releaseId.integerValue)
                              };
-    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     
     [HttpTool get:[NSString stringWithFormat:@"user/shareReleaseById"] params:params success:^(NSDictionary *response) {
         _share=response[@"data"];
@@ -428,6 +432,8 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
                                                          Title:self.title
                                                    Description:@"分享一个链接"
                                                        AtScene:WXSceneSession];
+
+            
         }
         if (_select1==1) {
             
@@ -436,6 +442,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
                                                    Description:@"分享一个链接"
                                                        AtScene:WXSceneTimeline];
         }
+        
     } failure:^(NSError *error) {
    
     }];
@@ -594,5 +601,15 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
         NSLog(@"");
         
     }];
+}
+
+#pragma mark - 通知刷新页面
+- (void)requestRefreshMine {
+    [self requestUserInfo];
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end

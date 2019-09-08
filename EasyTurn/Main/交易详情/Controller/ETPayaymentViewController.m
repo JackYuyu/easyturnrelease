@@ -17,6 +17,8 @@
 #import "APRSASigner.h"
 #import "ETPaymentStagesVC.h"
 #import "LZCPickerView.h"
+#import "ETServiceDetailController.h"
+#import "ETSaleDetailController.h"
 @interface ETPayaymentViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic,strong) UITableView*tab;
 @property (nonatomic,strong) UIButton *btn;
@@ -59,6 +61,7 @@
     
     // Do any additional setup after loading the view.
     self.title=@"支付方式";
+    [self enableLeftBackWhiteButton];
     _btnTag=1;
     [self.view addSubview:self.tab];
     [self payBtn];
@@ -697,13 +700,7 @@
 }
 
 - (void)payOffAction{
-//    if (_btnTag > 1) {
-//        ETPaymentStagesVC *payVC=[ETPaymentStagesVC paymentStagesVC:_btnTag];
-//        payVC.product=_product;
-//        payVC.finalPrice= @"15000";
-//        payVC.releaseId=_releaseId;
-//        [self.navigationController pushViewController:payVC animated:YES];
-//    }
+
     if (_btnTag==1) {
         [self PostStageUI];
     }
@@ -753,8 +750,7 @@
         NSLog(@"");
         [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self backPopAppointViewController];
 
         });
     } failure:^(NSError *error) {
@@ -782,8 +778,7 @@
         NSLog(@"");
         [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-            [self.navigationController popViewControllerAnimated:YES];
+           [self backPopAppointViewController];
 
         });
     } failure:^(NSError *error) {
@@ -812,8 +807,7 @@
         NSLog(@"");
         [MBProgressHUD showMBProgressHud:self.view withText:@"请求成功" withTime:1];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self backPopAppointViewController];
 
         });    } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -982,6 +976,15 @@
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString* str = [formatter stringFromDate:date];
     return [NSString stringWithFormat:@"%@-%@-%@",[[str componentsSeparatedByString:@"-"] objectAtIndex:0], [[str componentsSeparatedByString:@"-"] objectAtIndex:1],[[str componentsSeparatedByString:@"-"] objectAtIndex:2]];
+}
+
+#pragma mark - 返回到指定控制器
+- (void)backPopAppointViewController {
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        if ([controller isKindOfClass:[ETSaleDetailController class]] || [controller isKindOfClass:[ETServiceDetailController class]] ) {
+            [self.navigationController popToViewController:controller animated:YES];
+        }
+    }
 }
 
 @end
