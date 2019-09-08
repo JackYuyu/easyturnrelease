@@ -9,11 +9,15 @@
 #import "ETMineListViewController.h"
 #import "ETMineListViewCell.h"
 #import "ETMineViewModel.h"
+#import "ETSaleDetailController.h"
+#import "ETServiceDetailController.h"
+#import "ETPoctoryqgViewController.h"
 static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 @interface ETMineListViewController()<UITableViewDataSource, UITableViewDelegate, ETMineListViewCellDelegate>
 @property (nonatomic, copy) void(^scrollCallback)(UIScrollView *scrollView);
 ///页码
 @property (nonatomic, assign) NSInteger pageNumber;
+@property (nonatomic, strong) NSMutableArray *products;
 @end
 
 @implementation ETMineListViewController
@@ -32,10 +36,39 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
     return _tableView;
 }
 
+- (NSMutableArray *)products {
+    if (!_products) {
+        _products = [NSMutableArray array];
+    }
+    return _products;
+}
+
 - (void)viewDidLoad {
     [self.view addSubview:self.tableView];
     [self requestUserOrderListWithReleaseTypeId:self.releaseTypeId];
     
+   
+}
+
+- (void)showEmptyDataView:(BOOL)isHidden {
+    
+    UIView *showEmptyDataView = [[UIView alloc]init];
+    [self.view addSubview:showEmptyDataView];
+    [showEmptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(10);
+        make.centerX.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(143, 132));
+    }];
+    
+    UIImageView *imagevEmptyData = [[UIImageView alloc]init];
+    imagevEmptyData.hidden = isHidden;
+    imagevEmptyData.image = [UIImage imageNamed:@"我的_我的动态_空数据页面"];
+    [self.view addSubview:imagevEmptyData];
+    [imagevEmptyData mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(10);
+        make.centerX.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(143, 132));
+    }];
 }
 
 #pragma mark - 请求网络
@@ -46,10 +79,16 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
     [ETMineViewModel requestUserOrderListWithPage:self.pageNumber WithPageSize:1 ReleaseTypeId:releaseTypeId WithSuccess:^(id request, STResponseModel *response, id resultObject) {
         if (response.code == 0) {
             NSArray *array = resultObject[@"data"];
-            NSMutableArray *products = [NSMutableArray array];
-            [products addObjectsFromArray:array];
-            weakSelf.arrDataSource = [UserInfosReleaseModel mj_objectArrayWithKeyValuesArray:products];
-            [weakSelf.tableView reloadData];
+            if (array.count == 0) {
+                [weakSelf showEmptyDataView:NO];
+            }else {
+                [weakSelf.products addObjectsFromArray:array];
+                NSMutableArray *products = [NSMutableArray array];
+                [products addObjectsFromArray:array];
+                weakSelf.arrDataSource = [UserInfosReleaseModel mj_objectArrayWithKeyValuesArray:products];
+                [weakSelf.tableView reloadData];
+            }
+
         }else{
             if (response.msg.length > 0) {
                 [[ACToastView toastView:YES] showErrorWithStatus:response.msg];
@@ -110,7 +149,28 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (self.releaseTypeId == 1) {
+        //出售
+        NSDictionary *dict =[self.products objectAtIndex:indexPath.row];
+        ETSaleDetailController *vc = [ETSaleDetailController saleDetailController:dict];
+        vc.product = [ETProductModel mj_objectWithKeyValues:dict];
+        [self.naviController pushViewController:vc animated:YES];
+        
+    }else if (self.releaseTypeId == 3) {
+        //服务
+        NSDictionary *dict =[_products objectAtIndex:indexPath.row];
+        ETServiceDetailController * detail = [ETServiceDetailController serviceDetailController:dict];
+        detail.product = [ETProductModel mj_objectWithKeyValues:dict];
+        [self.naviController pushViewController:detail animated:YES];
+        
+    }else if (self.releaseTypeId == 2) {
+        //求购
+        ETPoctoryqgViewController *detail = [ETPoctoryqgViewController new];
+        NSDictionary *dict =[_products objectAtIndex:indexPath.row];
+        detail.releaseId = dict[@"releaseId"];
+        detail.product = [ETProductModel mj_objectWithKeyValues:dict];
+        [self.naviController pushViewController:detail animated:YES];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -118,16 +178,12 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 }
 
 #pragma mark - ETMineListViewCellDelegate
-- (void)onCLickETMineListViewCellButtonType:(UIButton *)sender {
-    if (sender.tag == 1000) {
-        //分享
-    }else if (sender.tag == 1001){
-        //刷新
-    }else if (sender.tag == 1002){
-        //删除
-    }else if (sender.tag == 1003){
-        //查看
+- (void)onCLickETMineListViewCellButtonType:(UIButton *)sender WithIndexPath:(NSIndexPath *)indexPath {
+        UserInfosReleaseModel *model = self.arrDataSource[indexPath.row];
+    if ([_delegate respondsToSelector:@selector(eTMineListViewController:WithButtonType:WithReleaseId:)]) {
+        [_delegate eTMineListViewController:self WithButtonType:sender WithReleaseId:model.releaseId];
     }
+  
 }
 
 

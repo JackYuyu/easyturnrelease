@@ -40,6 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
                          WithSuccess:(STBaseModelRequestSuccess)success
                              failure:(STBaseModelRequestFailure)failure;
 
+/**
+ 签到
+ @param success 成功回调
+ @param failure 失败回调
+ */
++ (void)requestSignWithSuccess:(STBaseModelRequestSuccess)success
+                       failure:(STBaseModelRequestFailure)failure;
+
 
 @end
 
@@ -55,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///0未认证 1认证
 @property (nonatomic, copy) NSString *isChecked;
 @property (nonatomic, copy) NSString *refreshCount;
+@property (nonatomic, strong) NSString *invitationCodeUtilMe;
+//0未签到 1已签到
+@property (nonatomic, assign) NSInteger isSign;
 @end
 
 @interface ShareModel : STBaseModel
@@ -65,6 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UserInfosReleaseModel : STBaseModel
+@property (nonatomic, copy) NSString *releaseId;
 @property (nonatomic, copy) NSString *imageList;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *information;

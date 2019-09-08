@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol ETMineListViewCellDelegate <NSObject>
 
-- (void)onCLickETMineListViewCellButtonType:(UIButton *)sender;
+- (void)onCLickETMineListViewCellButtonType:(UIButton *)sender WithIndexPath:(NSIndexPath *)indexPath;
 
 @end
 @interface ETMineListViewCell : UITableViewCell

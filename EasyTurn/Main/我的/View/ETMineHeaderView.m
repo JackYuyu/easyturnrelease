@@ -230,6 +230,12 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
     }
 }
 
+- (void)onClickPayRefreshCount {
+    if ([_delegate respondsToSelector:@selector(eTMineHeaderviewOnClickPayRefreshCount)]) {
+        [_delegate eTMineHeaderviewOnClickPayRefreshCount];
+    }
+}
+
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -404,6 +410,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
         _btnPayRefreshCount.backgroundColor = kACColorRGB(248, 124, 43);
         _btnPayRefreshCount.titleLabel.font = kFontSize(15);
         [_btnPayRefreshCount addCornerRadiusWithRadius:17.5f];
+        [_btnPayRefreshCount addTarget:self action:@selector(onClickPayRefreshCount) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnPayRefreshCount;
 }

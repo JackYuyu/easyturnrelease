@@ -860,8 +860,7 @@ static NSString* const kShareFailedText = @"分享失败";
             NSLog(@"");
             [IANshowLoading hideLoadingForView:self.view];
         }];
-    }
-    else{
+    }else{
         [HttpTool put:[NSString stringWithFormat:@"collect/myAdd"] params:params success:^(NSDictionary *response) {
             [IANshowLoading hideLoadingForView:self.view];
             [MBProgressHUD showMBProgressHud:self.view withText:@"已收藏" withTime:1];

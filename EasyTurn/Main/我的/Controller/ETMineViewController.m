@@ -22,8 +22,11 @@
 #import "ETStoreUpViewController.h"
 #import "ETPutViewController.h"
 #import "ETViphuiyuanViewController.h"
+#import "ETInvitationController.h"
+#import "ETFrequencyViewController.h"
+#import "WXApiManagerShare.h"
 static NSString *const kETMineViewCell = @"ETMineViewCell";
-@interface ETMineViewController ()<ETMineHeaderViewDelegate, JXPagerViewDelegate, JXCategoryViewDelegate>
+@interface ETMineViewController ()<ETMineHeaderViewDelegate, JXPagerViewDelegate, JXCategoryViewDelegate, ETMineListViewControllerDelegate>
 ///根控制器
 @property (nonatomic, strong) JXPagerView *pagingView;
 ///头部视图
@@ -33,11 +36,22 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 ///横向滚动条标题名称
 @property (nonatomic, strong) NSArray <NSString *> *titles;
 @property (nonatomic, strong) ETMineListViewController *listView;
+@property (nonatomic, assign) NSInteger pageNumber;
 ///数据源
 @property (nonatomic, strong) NSMutableArray<UserInfosReleaseModel *> *arrDataSource;
 ///item选择当前索引
 @property (nonatomic, assign) NSInteger categoryViewSelectedIndex;
 @property (nonatomic, strong) ETMineViewModel *eTMineViewModel;
+//提示框
+@property (nonatomic,strong) UIView * maskTheView;
+@property (nonatomic,strong) UIView * shareView;
+@property (nonatomic,assign)int select1;
+@property (nonatomic,copy) NSString * share;
+@property (nonatomic, copy) NSString *releaseId;
+@property (nonatomic,strong) UIView * maskTheView1;
+@property (nonatomic,strong) UIView * shareView1;
+@property (nonatomic,strong) UILabel * lab1;
+@property (nonatomic,strong) UILabel *lab;
 @end
 
 @implementation ETMineViewController
@@ -63,9 +77,14 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     [super viewDidLoad];
     [self requestUserInfo];
     [self createSubViewsAndConstraints];
+    [self shareView];
+    [self shareViewController];
     
-    
+    if (!_lab) {
+        [self shareViewController1];
+    }
 }
+
 
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
@@ -102,7 +121,6 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
         [weakSelf requestUserInfoRefreshing];
     }];
 }
-
 
 #pragma mark - 请求网络 - 个人信息
 - (void)requestUserInfo {
@@ -158,7 +176,6 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    
     self.pagingView.frame = CGRectMake(0, kStatusBarHeight, Screen_Width, Screen_Height - kNavBarHeight_StateBarH);
 }
 
@@ -187,14 +204,49 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
         ETFootViewController* f=[[ETFootViewController alloc] init];
         [self.navigationController pushViewController:f animated:YES];
     }else if (indexPath.row == 5){
-
+        ETInvitationController *vc = [[ETInvitationController alloc]init];
+        vc.model = self.eTMineViewModel;
+        [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.row == 6){
         ETStoreUpViewController*s= [ETStoreUpViewController new];
         [self.navigationController pushViewController:s animated:YES];
 
     }else if (indexPath.row == 7){
+        if (self.eTMineViewModel.userInfo.isSign == 0) {
+            [self requestSign];
+        }else if (self.eTMineViewModel.userInfo.isSign == 1){
+            [MBProgressHUD showMBProgressHud:self.view withText:@"已经签到过了" withTime:2];
+        }
         
     }
+}
+
+- (void)eTMineHeaderviewOnClickPayRefreshCount {
+    ETFrequencyViewController *vc = [[ETFrequencyViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - 请求网络 - 签到
+- (void)requestSign {
+    WEAKSELF
+    [HttpTool put:[NSString stringWithFormat:@"user/sign"] params:nil success:^(NSDictionary *response) {
+        [IANshowLoading hideLoadingForView:self.view];
+        NSString *code = response[@"data"][@"code"];
+        if (code.integerValue == 0) {
+            [MBProgressHUD showMBProgressHud:weakSelf.view withTitle:@"签到成功" detail:@"刷新次数 +1" withTime:2];
+            self.eTMineViewModel.userInfo.isSign = 1;
+        }else {
+            NSString* msg = response[@"data"][@"msg"];
+            if (msg.length > 0) {
+                [[ACToastView toastView:YES] showErrorWithStatus:msg];
+            } else {
+                [[ACToastView toastView:YES] showErrorWithStatus:kToastErrorServerNoErrorMessage];
+            }
+        }
+    } failure:^(NSError *error) {
+        [IANshowLoading hideLoadingForView:self.view];
+    }];
+    
 }
 
 - (void)eTMineHeaderviewOnClickHeaderEdit {
@@ -231,6 +283,8 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 
 - (id<JXPagerViewListViewDelegate>)pagerView:(JXPagerView *)pagerView initListAtIndex:(NSInteger)index {
     ETMineListViewController *listView = [[ETMineListViewController alloc] init];
+    listView.naviController = self.navigationController;
+    listView.delegate = self;
     if (index == 0) {
         listView.releaseTypeId = 1;
         
@@ -256,4 +310,289 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     [categoryView.contentScrollView setContentOffset:CGPointMake(index * categoryView.contentScrollView.bounds.size.width, 0) animated:YES];
 }
 
+#pragma mark - ETMineListViewControllerDelegate
+- (void)eTMineListViewController:(ETMineListViewController *)vc WithButtonType:(UIButton *)sender WithReleaseId:(nonnull NSString *)releaseId {
+    _releaseId = releaseId;
+    if (sender.tag == 1000) {
+        //分享
+        [self popShareView];
+       
+    }else if (sender.tag == 1001){
+        //刷新
+        [self refrechShare];
+    }else if (sender.tag == 1002){
+        //删除
+        [self delfav123];
+    }else if (sender.tag == 1003){
+        //查看
+    }
+}
+
+- (void)popShareView {
+    [self.view addSubview:self.maskTheView];
+    [self.view addSubview:self.shareView];
+}
+
+- (UIView *)maskTheView {
+    if (!_maskTheView) {
+        _maskTheView = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+        _maskTheView.backgroundColor = [UIColor colorWithRed:0/255.f green:0/255.f blue:0/255.f alpha:0.5];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+        [_maskTheView addGestureRecognizer:tap];
+    }
+    return _maskTheView;
+}
+
+- (UIView *)shareView {
+    if (!_shareView) {
+        _shareView = [[UIView alloc]initWithFrame:CGRectMake(30, Screen_Height/2-80, Screen_Width-60,200)];
+        _shareView.layer.cornerRadius=10;
+        //        _shareView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+        _shareView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+        
+    }
+    return _shareView;
+}
+
+#pragma mark - 订单分享
+- (void)shareViewController {
+    UIButton *returnImage=[[UIButton alloc]initWithFrame:CGRectMake(0, 140, _shareView.size.width, 60)];
+    [returnImage setTitle:@"取消" forState:UIControlStateNormal];
+    [returnImage setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
+    [returnImage addGestureRecognizer:tapGesture];
+    [_shareView addSubview:returnImage];
+    
+    UIView*centerView=[[UIView alloc]init];
+    centerView.backgroundColor= [UIColor colorWithRed:230/255.f green:230/255.f blue:230/255.f alpha:0.5];
+    [_shareView addSubview:centerView];
+    [centerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(140);
+        make.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(1);
+    }];
+    
+    UIButton *wxPyShare=[[UIButton alloc]initWithFrame:CGRectMake((_shareView.size.width-200)/2, 20, 40, 60)];
+    [wxPyShare setImage:[UIImage imageNamed:@"分享_分组 4"] forState:UIControlStateNormal];
+    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage1)];
+    [wxPyShare addGestureRecognizer:tapGesture1];
+    [_shareView addSubview:wxPyShare];
+    
+    UIButton *wxPyqShare=[[UIButton alloc]initWithFrame:CGRectMake((_shareView.size.width+100)/2, 20, 40, 60)];
+    [wxPyqShare setImage:[UIImage imageNamed:@"分享_分组 7"] forState:UIControlStateNormal];
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage2)];
+    [wxPyqShare addGestureRecognizer:tapGesture2];
+    [_shareView addSubview:wxPyqShare];
+    
+    UILabel* label=[[UILabel alloc] initWithFrame:CGRectMake(10, 100, _shareView.frame.size.width-20, 40)];
+    label.text=@"分享一次赠送刷新次数6次(每天10次机会)";
+    label.font = SYSTEMFONT(13);
+    label.textColor=[UIColor redColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    [_shareView addSubview:label];
+    
+}
+
+
+- (void)clickImage {
+    [self.maskTheView removeFromSuperview];
+    [self.shareView removeFromSuperview];
+}
+
+- (void)clickImage1 {
+    [self delfav1];
+    _select1=0;
+    [self clickImage];
+}
+
+- (void)clickImage2 {
+    [self delfav1];
+    _select1=1;
+    [self clickImage];
+    
+}
+
+- (void)delfav1 {
+    
+    NSDictionary *params = @{
+                             @"id" : @(_releaseId.integerValue)
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    
+    [HttpTool get:[NSString stringWithFormat:@"user/shareReleaseById"] params:params success:^(NSDictionary *response) {
+        _share=response[@"data"];
+        if (_select1==0) {
+            
+            [[WXApiManagerShare sharedManager] sendLinkContent:[[NSURL URLWithString:[NSString stringWithFormat:@"%@",_share]] absoluteString]
+                                                         Title:self.title
+                                                   Description:@"分享一个链接"
+                                                       AtScene:WXSceneSession];
+        }
+        if (_select1==1) {
+            
+            [[WXApiManagerShare sharedManager] sendLinkContent:[[NSURL URLWithString:[NSString stringWithFormat:@"%@",_share]] absoluteString]
+                                                         Title:self.title
+                                                   Description:@"分享一个链接"
+                                                       AtScene:WXSceneTimeline];
+        }
+    } failure:^(NSError *error) {
+   
+    }];
+}
+
+- (void)refrechShare {
+    [self.view addSubview:self.maskTheView1];
+    if (_lab) {
+        [_lab removeFromSuperview];
+        [self.view addSubview:self.shareView1];
+        [self shareViewController1];
+    }
+    
+}
+
+- (UIView *)maskTheView1{
+    if (!_maskTheView1) {
+        _maskTheView1 = [[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+        _maskTheView1.backgroundColor = [UIColor colorWithRed:0/255.f green:0/255.f blue:0/255.f alpha:0.5];
+        //添加一个点击手势
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(maskClickGesture1)];
+        [_maskTheView1 addGestureRecognizer:tap];//让header去检测点击手势
+    }
+    return _maskTheView1;
+}
+
+- (void)maskClickGesture1 {
+    [self.maskTheView1 removeFromSuperview];
+    [self.shareView1 removeFromSuperview];
+    
+}
+
+- (UIView *)shareView1{
+    if (!_shareView1) {
+        _shareView1 = [[UIView alloc]initWithFrame:CGRectMake(30, Screen_Height/2-100, Screen_Width-60,200)];
+        //        _shareView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+        _shareView1.layer.cornerRadius=20;
+        _shareView1.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
+        
+    }
+    return _shareView1;
+}
+
+#pragma mark - 订单刷新
+- (void)shareViewController1 {
+
+    UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(20, 25, Screen_Width, 45)];
+    
+    lab.text=[NSString stringWithFormat:@"您的剩余刷新次数%@",self.eTMineViewModel.userInfo.refreshCount];
+    lab.textColor=[UIColor blackColor];
+    lab.font =[UIFont systemFontOfSize:20];
+    _lab=lab;
+    [_shareView1 addSubview:lab];
+    
+    _lab1=[[UILabel alloc]initWithFrame:CGRectMake(20, 60, Screen_Width-90, 50)];
+    _lab1.text = @"确定刷新吗?";
+    _lab1.textColor=[UIColor blackColor];
+    _lab1.font =[UIFont systemFontOfSize:14];
+    [_shareView1 addSubview:self.lab1];
+    
+    UIButton *returnbtn =[[UIButton alloc]initWithFrame:CGRectMake(_shareView.size.width-150, 155, 50, 21)];
+    [returnbtn setTitle:@"关闭" forState:UIControlStateNormal];
+    returnbtn.titleLabel.font=[UIFont systemFontOfSize:15];
+    [returnbtn addTarget:self action:@selector(clickImage11) forControlEvents:UIControlEventTouchUpInside];
+    [returnbtn setTitleColor:[UIColor colorWithRed:243/255.0 green:22/255.0 blue:22/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [_shareView1 addSubview:returnbtn];
+    
+    UIButton *surebtn =[[UIButton alloc]initWithFrame:CGRectMake(_shareView.size.width-100, 155, 50, 21)];
+    [surebtn setTitle:@"确定" forState:UIControlStateNormal];
+    surebtn.titleLabel.font=[UIFont systemFontOfSize:15];
+    [surebtn setTitleColor:[UIColor colorWithRed:243/255.0 green:22/255.0 blue:22/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [surebtn addTarget:self action:@selector(postuia) forControlEvents:UIControlEventTouchUpInside];
+    //    _surebtn=surebtn;
+    [_shareView1 addSubview:surebtn];
+    
+}
+
+- (void)clickImage11 {
+    [self.maskTheView1 removeFromSuperview];
+    [self.shareView1 removeFromSuperview];
+}
+
+- (void)postuia {
+    
+    [self clickImage11];
+    
+    if (_eTMineViewModel.userInfo.refreshCount.integerValue == 0 ) {
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"不能再刷新" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [alter show];
+        return;
+    }else {
+         [self PostUI2];
+    }
+   
+    
+    
+}
+
+- (void)PostUI2 {
+    WEAKSELF
+    NSDictionary*params = @{
+                            @"releaseId" :@(_releaseId.integerValue)
+                            };
+    
+    [HttpTool get:[NSString stringWithFormat:@"release/refresh"] params:params success:^(id responseObj) {
+        NSLog(@"====================刷新成功");
+        NSString *str=responseObj[@"code"];
+        if ([str isEqualToString:@"0"]) {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"刷新成功" withTime:1];
+        }else {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"刷新失败，请充值刷新次数" withTime:1];
+        }
+        [weakSelf requestUserInfoRefreshing];
+        [weakSelf requestUserInfo];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+#pragma mark - 订单删除
+-(void)delfav123 {
+    
+    ACAlertView *lga = [ACAlertView alertViewWithTitle:@"确认删除此订单吗?" message:@"" style:AHKAlertViewStyleAlert buttonTitles:@[@"确定"] cancelButtonTitle:nil destructiveButtonTitle:@"取消" didDismissActionHandler:^(NSString *title, NSUInteger index) {
+         [self delOrder];
+    } didDismissCancelHandler:^() {
+        
+    } didDismissDestructiveHandler:^() {
+        
+    }];
+    [lga showAnimated:YES completionHandler:nil];
+
+}
+
+
+-(void)delOrder {
+    WEAKSELF
+    NSDictionary *params = @{
+                             @"releaseId" : @(_releaseId.integerValue)
+                             };
+    [HttpTool put:[NSString stringWithFormat:@"release/resultDel"] params:params success:^(NSDictionary *response) {
+        NSString *code = response[@"code"];
+        if (code.integerValue == 0) {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"删除成功" withTime:1];
+            [weakSelf requestUserInfoRefreshing];
+        }else{
+            NSString *msg = response[@"msg"];
+            if (msg.length > 0) {
+                [MBProgressHUD showMBProgressHud:self.view withText:msg withTime:1];
+            } else {
+                [MBProgressHUD showMBProgressHud:self.view withText:kToastErrorServerNoErrorMessage withTime:1];
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"");
+        
+    }];
+}
 @end

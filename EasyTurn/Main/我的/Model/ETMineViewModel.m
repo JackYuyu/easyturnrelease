@@ -53,6 +53,20 @@
     [self POSTWithUrl:url param:mDic success:success failure:failure];
 }
 
+/**
+ 签到
+ @param success 成功回调
+ @param failure 失败回调
+ */
++ (void)requestSignWithSuccess:(STBaseModelRequestSuccess)success
+                       failure:(STBaseModelRequestFailure)failure {
+    
+    NSString *url = [STApiHelper urlWithHost:devHost_Http_App path:pathUser file:@"/sign"];
+    
+    NSDictionary *mDic = [STApiHelper signNeedOptionParams:nil];
+    [self POSTWithUrl:url param:mDic success:success failure:failure];
+}
+
 
 + (NSDictionary *)objectClassInArray {
     return @{

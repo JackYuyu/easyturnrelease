@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)eTMineHeaderviewDidSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)eTMineHeaderviewOnClickHeaderEdit;
 - (void)eTMineHeaderviewOnClickPayVip;
+- (void)eTMineHeaderviewOnClickPayRefreshCount;
 @end
 
 @interface ETMineHeaderView : UIView

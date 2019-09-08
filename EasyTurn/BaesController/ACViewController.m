@@ -49,9 +49,9 @@
 - (void)enableLeftBackButton {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 44, 44);
-    [btn setImage:[UIImage imageNamed:@"nav_leftBack_Black"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"nav_leftBack_Black"] forState:UIControlStateHighlighted];
-    [btn setImage:[UIImage imageNamed:@"nav_leftBack_Black"] forState:UIControlStateSelected];
+    [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateHighlighted];
+    [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateSelected];
     [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [btn addTarget:self action:@selector(onClickBtnBack:) forControlEvents:UIControlEventTouchUpInside];
     [self setLeftNavigationItemWithCustomView:btn];
