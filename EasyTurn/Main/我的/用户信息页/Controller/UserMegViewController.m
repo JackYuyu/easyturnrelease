@@ -25,7 +25,15 @@
 
 @implementation UserMegViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super.navigationController setNavigationBarHidden:YES animated:TRUE];
+    
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super.navigationController setNavigationBarHidden:NO animated:TRUE];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -207,7 +215,7 @@
 }
 
 -(void)onclickBackBtn{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)dealloc {
     self.navigationController.delegate = nil;

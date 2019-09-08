@@ -649,8 +649,8 @@ static NSString* const kShareFailedText = @"分享失败";
         megVC.name=_toUser.name;
         megVC.photoImg=_toUser.portrait;
         [MySingleton sharedMySingleton].toUserid=_toUser.uid;
-        [self presentViewController:megVC animated:YES completion:nil];
-        
+        [self.navigationController pushViewController:megVC animated:YES];
+
     }
 }
 
