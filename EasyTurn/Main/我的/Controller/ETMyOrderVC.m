@@ -11,6 +11,7 @@
 #import "MyOrderCell.h"
 #import "ETProductModel.h"
 #import "ETPaymentStagesVC.h"
+#import "ETBuyFinishViewController.h"
 @interface ETMyOrderVC ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
 @property (nonatomic, strong) CFSegmentedControl *segmentedControl;
@@ -25,6 +26,7 @@
 @property(nonatomic, assign)NSInteger pageIndex;
 @property (nonatomic, strong) NSMutableArray *counts;
 
+
 @end
 
 @implementation ETMyOrderVC
@@ -32,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
-    UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, self.view.bounds.size.height-40) style:UITableViewStyleGrouped];
+    UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, self.view.bounds.size.height-TopHeight-40) style:UITableViewStyleGrouped];
     
     tableView.delegate=self;
     tableView.dataSource=self;
@@ -95,48 +97,70 @@
 }
 //设置每行的UITableViewCell
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MyOrderCell * cell = [tableView dequeueReusableCellWithIdentifier:@"MyOrderCell"];
+    MyOrderCell * cell = [[NSBundle mainBundle]loadNibNamed:@"MyOrderCell" owner:self options:nil].firstObject;;
+    
+//    MyOrderCell * cell = [tableView dequeueReusableCellWithIdentifier:@"MyOrderCell"];
+//    if (!cell) {
+//        cell =  [[NSBundle mainBundle]loadNibNamed:@"MyOrderCell" owner:self options:nil].firstObject;
+//    }
+    
+
+
+    
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    ETProductModel* p=[_products objectAtIndex:indexPath.row];
+    ETProductModel* p=[_products objectAtIndex:indexPath.section];
+//    NSInteger aa=indexPath.row;
     cell.title.text=p.title;
     cell.orderno.text=[NSString stringWithFormat:@"订单编号: %@",p.releaseOrderId];
     cell.date.text=[NSString stringWithFormat:@"购买时间: %@",p.releaseTime];
     cell.status.text=p.tradStatus;
-    
-    
+    cell.paybtn.layer.borderWidth=0.5;
+    cell.paybtn.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    cell.delbtn.layer.borderWidth=0.5;
+    cell.delbtn.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    [cell.delbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
     NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
     NSString* b=[user objectForKey:@"uid"];
     NSString* temp=p.tradStatus;
     if ([p.userId isEqualToString:b]) {//卖家
         if ([temp isEqualToString:@"1"]) {
-            cell.status.text=@"买家已确认";
+            cell.status.text=@"已发起,等待卖家确认";
         }else if ([temp isEqualToString:@"2"]){
-            cell.status.text=@"等待买方支付";
+            cell.status.text=@"卖家已确认交易详情";
         }
         else if ([temp isEqualToString:@"3"]){
-            cell.status.text=@"支付已完成";
+            cell.status.text=@"支付完成,等待卖家确认";
+            cell.status.textColor=[UIColor greenColor];
         }
         else if ([temp isEqualToString:@"4"]){
-            cell.status.text=@"等待买家确认";
+            cell.status.text=@"卖家发起交易完成,等待买家确认";
         }
         else if ([temp isEqualToString:@"5"]){
             cell.status.text=@"交易完成";
+            [cell.paybtn setTitle:@"已完成" forState:UIControlStateNormal];
+            [cell.paybtn setBackgroundColor:[UIColor lightGrayColor]];
+//            [cell.paybtn setTitle:[UIColor lightGrayColor] forState:UIControlStateNormal];
         }
     }
     else {
         if ([temp isEqualToString:@"1"]) {
-            cell.status.text=@"等待卖家确认";
+            cell.status.text=@"已发起,等待卖家确认";
         }else if ([temp isEqualToString:@"2"]){
-            cell.status.text=@"卖家已确认";
+            cell.status.text=@"卖家已确认交易详情";
         }
         else if ([temp isEqualToString:@"3"]){
-            cell.status.text=@"支付已完成";
+            cell.status.text=@"支付完成,等待卖家确认";
+            cell.status.textColor=[UIColor greenColor];
         }
         else if ([temp isEqualToString:@"4"]){
             cell.status.text=@"卖家已发起完成";
         }
         else if ([temp isEqualToString:@"5"]){
             cell.status.text=@"交易完成";
+            [cell.paybtn setTitle:@"已完成" forState:UIControlStateNormal];
+            [cell.paybtn setBackgroundColor:[UIColor lightGrayColor]];
+//            [cell.paybtn setTitle:[UIColor lightGrayColor] forState:UIControlStateNormal];
         }
     }
     
@@ -149,6 +173,10 @@
     
     [textColor addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:rangel];
     [cell.payprice setAttributedText:textColor];
+    cell.paybtn.tag=indexPath.row;
+    cell.delbtn.tag=indexPath.row;
+    [cell.paybtn addTarget:self action:@selector(orderDetail:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.delbtn addTarget:self action:@selector(orderDel:) forControlEvents:UIControlEventTouchUpInside];
 
     return cell;
 }
@@ -177,8 +205,15 @@
     return view;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    ETProductModel* p=[_products objectAtIndex:indexPath.row];
+    ETProductModel* p=[_products objectAtIndex:indexPath.section];
+    if ([p.tradStatus isEqualToString:@"5"]) {
+        ETBuyFinishViewController* f=[ETBuyFinishViewController new];
+        f.product=p;
+        [self.navigationController pushViewController:f animated:YES];
+    }
+    else{
     [self PostCountUI:p];
+    }
     
 }
 #pragma mark - 出售全部订单
@@ -225,4 +260,67 @@
         NSLog(@"%@",error);
     }];
 }
+-(void)orderDetail:(UIButton*)sender
+{
+    ETProductModel* p=[_products objectAtIndex:sender.tag];
+    if ([p.tradStatus isEqualToString:@"5"]) {
+        ETBuyFinishViewController* f=[ETBuyFinishViewController new];
+        f.product=p;
+        [self.navigationController pushViewController:f animated:YES];
+    }
+    else{
+//    ETProductModel* p=[_products objectAtIndex:sender.tag];
+    [self PostCountUI:p];
+    }
+}
+
+//订单删除
+-(void)orderDel:(UIButton*)sender
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction * action) {
+                                                             //响应事件
+                                                             NSLog(@"action = %@", action);
+                                                         }];
+    UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * action) {
+                                                             //响应事件
+                                                             [self delOrder:sender];
+                                                             NSLog(@"action = %@", action);
+                                                             [_tableView reloadData];
+                                                             
+                                                         }];
+    [alert addAction:cancelAction];
+    [alert addAction:deleteAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+//订单删除
+-(void)delOrder:(UIButton*)sender
+{
+    NSDictionary *dict =[_products objectAtIndex:sender.tag];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
+    long long a=[p.releaseOrderId longLongValue];
+    NSDictionary *params = @{
+                             @"id" : @(a)
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    
+    [HttpTool put:[NSString stringWithFormat:@"release/OrderDel"] params:params success:^(NSDictionary *response) {
+        //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"");
+        
+        [MBProgressHUD showMBProgressHud:self.view withText:@"删除成功" withTime:1];
+        [self PostUI:@""];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+        
+    }];
+}
+
+
+
 @end

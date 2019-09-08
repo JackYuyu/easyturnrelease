@@ -58,7 +58,7 @@
     }
     
     _bottomLine = [[UIView alloc] initWithFrame:CGRectMake(bottomLineEdge, self.mj_h - 4, self.mj_w/_numOfMenu - bottomLineEdge*2, 4)];
-    _bottomLine.backgroundColor = [UIColor blueColor];
+    _bottomLine.backgroundColor = kACColorBlue_Theme;
     _bottomLine.layer.cornerRadius = 2;
 //    _bottomLine.hidden=YES;
     [self addSubview:_bottomLine];
