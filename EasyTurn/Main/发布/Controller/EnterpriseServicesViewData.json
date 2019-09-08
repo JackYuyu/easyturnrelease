@@ -1,0 +1,419 @@
+{
+    "arrEnterpriseServicesViewData": [
+        {
+            "sectionType": "ETEnterpriseServicesViewSectionFirst",
+            "list": [
+                {
+                    "cellType": 1,
+                    "key": "title",
+                    "value": "",
+                    "title":"标题",
+                    "content":"",
+                    "placeholder":"请在这里输入标题"
+                },
+                {
+                    "cellType": 2,
+                    "key": "serviceId",
+                    "value": "",
+                    "title":"服务类型",
+                    "content":"",
+                    "placeholder":"",
+                    "popTableMaxWidth":150,
+                    "arrListContent":[
+                        "工商服务",
+                        "财税服务",
+                        "行政许可服务",
+                        "金融服务",
+                        "资质服务",
+                        "知产服务",
+                        "法律服务",
+                        "综合服务"
+                    ]
+                },
+                {
+                    "cellType": 2,
+                    "key": "proceed",
+                    "value": "",
+                    "title":"求购事项",
+                    "content":"",
+                    "placeholder":"",
+                    "popTableMaxWidth":120,
+                    "arrListContent":[
+                    ]
+                },
+                {
+                    "cellType": 3,
+                    "key": "business",
+                    "value": "",
+                    "title":"经营范围",
+                    "content":"",
+                    "placeholder":""
+                },
+                {
+                    "cellType": 2,
+                    "key": "taxId",
+                    "value": "",
+                    "title":"税务类型",
+                    "content":"",
+                    "placeholder":"",
+                    "popTableMaxWidth":120,
+                    "arrListContent":[
+                        "小规模",
+                        "一般纳税人"
+                    ]
+                },
+                {
+                    "cellType": 1,
+                    "key": "capital",
+                    "value": "",
+                    "title":"注册资本",
+                    "content":"",
+                    "placeholder":"请填写"
+                },
+                {
+                    "cellType": 4,
+                    "key": "bank",
+                    "value": "",
+                    "title":"银行开户",
+                    "content":"",
+                    "placeholder":"",
+                    "selectFirst":"自开",
+                    "selectSecond":"代开"
+                },
+                {
+                    "cellType": 4,
+                    "key": "regUrl",
+                    "value": "",
+                    "title":"注册地址",
+                    "content":"",
+                    "placeholder":"",
+                    "selectFirst":"自供",
+                    "selectSecond":"企服者提供"
+                }
+            ]
+        },
+        {
+            "sectionType": "ETEnterpriseServicesViewSectionSecond",
+            "list": [
+                {
+                    "cellType": 5,
+                    "key":"PurchasingCity",
+                    "title": "求购区域",
+                    "value": "",
+                    "placeholder":"请选择"
+                },
+                {
+                    "cellType": 1,
+                    "key":"remarks",
+                    "title": "备注需求内容",
+                    "value": "",
+                    "placeholder":"请选择"
+                },
+                {
+                    "cellType": 6,
+                    "title": "",
+                    "key":"accuratePush",
+                    "value": "",
+                    "placeholder":""
+                },
+                
+            ]
+        },
+        {
+            "sectionType": "ETEnterpriseServicesViewSectionThird",
+            "list": [
+                {
+                    "cellType": 1,
+                    "title": "联系人",
+                    "key":"linkmanName",
+                    "value": "",
+                    "placeholder":"请输入联系人"
+                },
+                {
+                    "cellType": 1,
+                    "title": "联系电话",
+                    "key":"linkmanMobil",
+                    "value": "",
+                    "placeholder":"请输入手机号码"
+                }
+            ]
+        }
+    ],
+    "establishment":{
+        "sectionType": "ETEnterpriseServicesViewSectionFirst",
+        "list": [
+            {
+                "cellType": 1,
+                "key": "title",
+                "value": "",
+                "title":"标题",
+                "content":"",
+                "placeholder":"请在这里输入标题"
+            },
+            {
+                "cellType": 2,
+                "key": "serviceId",
+                "value": "",
+                "title":"服务类型",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":150,
+                "arrListContent":[
+                    "工商服务",
+                    "财务服务",
+                    "行政许可服务",
+                    "金融服务",
+                    "资质服务",
+                    "知产服务",
+                    "法律服务",
+                    "综合服务"
+                ]
+            },
+            {
+                "cellType": 2,
+                "key": "proceed",
+                "value": "设立",
+                "title":"求购事项",
+                "content":"设立",
+                "placeholder":"",
+                "popTableMaxWidth":80,
+                "arrListContent":[
+                ]
+            },
+            {
+                "cellType": 3,
+                "key": "business",
+                "value": "",
+                "title":"经营范围",
+                "content":"",
+                "placeholder":""
+            },
+            {
+                "cellType": 2,
+                "key": "taxId",
+                "value": "",
+                "title":"税务类型",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":120,
+                "arrListContent":[
+                    "小规模",
+                    "一般纳税人"
+                ]
+            },
+            {
+                "cellType": 1,
+                "key": "capital",
+                "value": "",
+                "title":"注册资本",
+                "content":"",
+                "placeholder":"请填写"
+            },
+            {
+                "cellType": 4,
+                "key": "bank",
+                "value": "",
+                "title":"银行开户",
+                "content":"",
+                "placeholder":"",
+                "selectFirst":"自开",
+                "selectSecond":"代开"
+            },
+            {
+                "cellType": 4,
+                "key": "regUrl",
+                "value": "",
+                "title":"注册地址",
+                "content":"",
+                "placeholder":"",
+                "selectFirst":"自供",
+                "selectSecond":"企服者提供"
+            }
+        ]
+    },
+    "change" : {
+        "sectionType": "ETEnterpriseServicesViewSectionFirst",
+        "list": [
+            {
+                "cellType": 1,
+                "key": "title",
+                "value": "",
+                "title":"标题",
+                "content":"",
+                "placeholder":"请在这里输入标题"
+            },
+            {
+                "cellType": 2,
+                "key": "serviceId",
+                "value": "",
+                "title":"服务类型",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":150,
+                "arrListContent":[
+                    "工商服务",
+                    "财务服务",
+                    "行政许可服务",
+                    "金融服务",
+                    "资质服务",
+                    "知产服务",
+                    "法律服务",
+                    "综合服务"
+                ]
+            },
+            {
+                "cellType": 2,
+                "key": "proceed",
+                "value": "",
+                "title":"求购事项",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":120,
+                "arrListContent":[
+                ]
+            },
+            {
+                "cellType": 7,
+                "key": "",
+                "value": "",
+                "title":"企业名称",
+                "content":"",
+                "placeholder":""
+            },
+            {
+                "cellType": 7,
+                "key": "",
+                "value": "",
+                "title":"住所",
+                "content":"",
+                "placeholder":""
+            },
+            {
+                "cellType": 7,
+                "key": "",
+                "value": "",
+                "title":"法定代表人",
+                "content":"",
+                "placeholder":""
+            },
+            {
+                "cellType": 7,
+                "key": "",
+                "value": "",
+                "title":"注册资本",
+                "content":"",
+                "placeholder":""
+            },
+            {
+                "cellType": 7,
+                "key": "business",
+                "value": "",
+                "title":"经营范围",
+                "content":"",
+                "placeholder":""
+            },
+            {
+                "cellType": 7,
+                "key": "",
+                "value": "",
+                "title":"股东转股",
+                "content":"",
+                "placeholder":""
+            }
+        ]
+    },
+    "businessother" : {
+        "sectionType": "ETEnterpriseServicesViewSectionFirst",
+        "list": [
+            {
+                "cellType": 1,
+                "key": "title",
+                "value": "",
+                "title":"标题",
+                "content":"",
+                "placeholder":"请在这里输入标题"
+            },
+            {
+                "cellType": 2,
+                "key": "serviceId",
+                "value": "",
+                "title":"服务类型",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":150,
+                "arrListContent":[
+                    "工商服务",
+                    "财务服务",
+                    "行政许可服务",
+                    "金融服务",
+                    "资质服务",
+                    "知产服务",
+                    "法律服务",
+                    "综合服务"
+                ]
+            },
+            {
+                "cellType": 2,
+                "key": "proceed",
+                "value": "",
+                "title":"求购事项",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":120,
+                "arrListContent":[
+                ]
+            },
+            {
+                "cellType": 1,
+                "key": "detail",
+                "value": "",
+                "title":"基本详情",
+                "content":"",
+                "placeholder":"请输入基本详情"
+            }
+        ]
+    },
+    "other" : {
+        "sectionType": "ETEnterpriseServicesViewSectionFirst",
+        "list": [
+            {
+                "cellType": 1,
+                "key": "title",
+                "value": "",
+                "title":"标题",
+                "content":"",
+                "placeholder":"请在这里输入标题"
+            },
+            {
+                "cellType": 2,
+                "key": "serviceId",
+                "value": "",
+                "title":"服务类型",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":150,
+                "arrListContent":[
+                    "工商服务",
+                    "财务服务",
+                    "行政许可服务",
+                    "金融服务",
+                    "资质服务",
+                    "知产服务",
+                    "法律服务",
+                    "综合服务"
+                ]
+            },
+            {
+                "cellType": 2,
+                "key": "proceed",
+                "value": "",
+                "title":"求购事项",
+                "content":"",
+                "placeholder":"",
+                "popTableMaxWidth":120,
+                "arrListContent":[
+                ]
+            }
+        ]
+    }
+}

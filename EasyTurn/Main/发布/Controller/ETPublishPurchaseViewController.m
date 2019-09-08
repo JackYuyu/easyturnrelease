@@ -211,7 +211,11 @@
 - (void)setUI{
     
     [self.view addSubview:self.tableView];
-    self.tableView.contentInsetAdjustmentBehavior = NO;
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = NO;
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -222,16 +226,11 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return self.headerView;
-    }
+    
     return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 60;
-    }
     return 10;
 }
 
@@ -822,7 +821,7 @@
 
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.segment.frame.origin.y+self.segment.frame.size.height+15, Screen_Width, Screen_Height-self.segment.frame.origin.y-self.segment.frame.size.height-15-49) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, self.view.height) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.bounces=NO;
