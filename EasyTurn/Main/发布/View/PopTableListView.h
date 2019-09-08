@@ -11,7 +11,7 @@
 @protocol PopTableListViewDelegate <NSObject>
 
 - (void)selectType:(NSString *)name type:(NSString *)type;
-
+@optional
 - (void)selectEffetiveTimeType:(NSString *)name type:(NSString *)type;
 
 @end
@@ -19,6 +19,8 @@
 @interface PopTableListView : UIView
 
 - (instancetype)initWithTitles:(NSArray <NSString *>*)titles imgNames:(NSArray <NSString *>*)imgNames type:(NSString *)type;
+
+- (instancetype)initWithTitles:(NSArray <NSString *>*)titles imgNames:(NSArray <NSString *>*)imgNames type:(NSString *)type maxWidth:(CGFloat)maxWidth;
 
 @property (nonatomic, weak) id <PopTableListViewDelegate> delegate;
 
