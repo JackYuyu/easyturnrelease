@@ -276,7 +276,7 @@
             NSString* c=responseObj[@"data"][@"total"];
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"全部 %d 条",[c integerValue]]];
             NSString* b=[NSString stringWithFormat:@"%d",[c integerValue]];
-            [str addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(3,b.length)];
+            [str addAttribute:NSForegroundColorAttributeName value:kACColorBlue_Theme range:NSMakeRange(3,b.length)];
             
             self.vHomeHeader.laAllQiugou.attributedText=str;
 

@@ -93,4 +93,7 @@ NSString *const LoginBeOverdue = @"LoginBeOverdue";
 
 /** 直播间关注刷新页面 */
 NSString *const SSfollowLiveRoomRefresh = @"SSfollowLiveRoomRefresh";
+
+/** 刷新我的页面 */
+NSString *const FaBuChengGongRefresh_Mine = @"FaBuChengGongRefresh_Mine";
 @end

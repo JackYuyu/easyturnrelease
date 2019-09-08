@@ -305,6 +305,7 @@
 		2E0A8BE12323CCA100EA610D /* ETInvitationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE02323CCA100EA610D /* ETInvitationController.m */; };
 		2E0A8BE4232428A100EA610D /* EaseSyetemListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE3232428A100EA610D /* EaseSyetemListCell.m */; };
 		2E0A8BE72324CBA900EA610D /* EaseUserMeagessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE62324CBA900EA610D /* EaseUserMeagessListCell.m */; };
+		2E0A8BEA23253F5900EA610D /* ETReleaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A8BE923253F5900EA610D /* ETReleaseModel.m */; };
 		2E0A984B22F7DE2C00DD8B28 /* ETNametitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A984A22F7DE2C00DD8B28 /* ETNametitleViewController.m */; };
 		2E0A984E22F853A700DD8B28 /* ETPaymentStagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A984D22F853A600DD8B28 /* ETPaymentStagesVC.m */; };
 		2E0A985122F8547D00DD8B28 /* ETPaymentStatesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A985022F8547C00DD8B28 /* ETPaymentStatesCell.m */; };
@@ -990,6 +991,8 @@
 		2E0A8BE3232428A100EA610D /* EaseSyetemListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EaseSyetemListCell.m; sourceTree = "<group>"; };
 		2E0A8BE52324CBA900EA610D /* EaseUserMeagessListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EaseUserMeagessListCell.h; sourceTree = "<group>"; };
 		2E0A8BE62324CBA900EA610D /* EaseUserMeagessListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EaseUserMeagessListCell.m; sourceTree = "<group>"; };
+		2E0A8BE823253F5900EA610D /* ETReleaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ETReleaseModel.h; path = "EasyTurn/Main/消息/View/ETReleaseModel.h"; sourceTree = SOURCE_ROOT; };
+		2E0A8BE923253F5900EA610D /* ETReleaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ETReleaseModel.m; path = "EasyTurn/Main/消息/View/ETReleaseModel.m"; sourceTree = SOURCE_ROOT; };
 		2E0A984322F7C1C300DD8B28 /* IANshowLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IANshowLoading.h; sourceTree = "<group>"; };
 		2E0A984922F7DE2C00DD8B28 /* ETNametitleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETNametitleViewController.h; sourceTree = "<group>"; };
 		2E0A984A22F7DE2C00DD8B28 /* ETNametitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETNametitleViewController.m; sourceTree = "<group>"; };
@@ -1811,6 +1814,8 @@
 		007FAD5922E0451B001EC5F2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2E0A8BE823253F5900EA610D /* ETReleaseModel.h */,
+				2E0A8BE923253F5900EA610D /* ETReleaseModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3556,6 +3561,7 @@
 				00A9462D23181DF2003A2B66 /* DCCycleScrollView.m in Sources */,
 				007FADA022E05228001EC5F2 /* AHKAlertView.m in Sources */,
 				00E5C2E522ED6E9E00009241 /* ETEnterpriseServiceTableViewCell1.m in Sources */,
+				2E0A8BEA23253F5900EA610D /* ETReleaseModel.m in Sources */,
 				007FAE2622E052FD001EC5F2 /* UIView+AZGradient.m in Sources */,
 				00986CE4232143CA00B1131E /* ETMineGridCollectionCell.m in Sources */,
 				0046AA5E22EACDE30038CA11 /* ETUserViewController.m in Sources */,

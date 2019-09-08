@@ -30,10 +30,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.title = @"修改用户昵称";
+    [self enableLeftBackWhiteButton];
     self.view.backgroundColor=[UIColor whiteColor];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(baocun)];
-    self.navigationController.navigationBar.barTintColor=[UIColor colorWithRed:47/255.0 green:134/255.0 blue:251/255.0 alpha:1.0];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:14],NSFontAttributeName, nil] forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem.tintColor=[UIColor whiteColor];
     [self.view addSubview:self.tab];
     [self PostUI];
 
@@ -47,7 +49,7 @@
         return;
     }
     [self PostUI:_nameText.text];
-    [self.navigationController popViewControllerAnimated:YES];
+    
     if (self.block) {
         self.block(_nameText.text);
     }
@@ -63,7 +65,7 @@
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     }
      cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        _nameText=[[UITextField alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, cell.size.height)];
+        _nameText=[[UITextField alloc]initWithFrame:CGRectMake(15, 0, Screen_Width - 30, cell.size.height)];
         _nameText.text=_nameStr;
         _nameText.textColor=[UIColor blackColor];
         [cell addSubview:_nameText];
@@ -102,14 +104,15 @@
 }
 
 - (void)PostUI:(NSString*)head {
+    WEAKSELF
     NSDictionary *params = @{
                              @"userName" :_nameText.text
                              };
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     
     [HttpTool put:[NSString stringWithFormat:@"user/updateUserName"] params:params success:^(NSDictionary *response) {
-//        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-//        NSLog(@"%@",jsonDict);
+        [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
+        [weakSelf.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         
     }];

@@ -70,7 +70,6 @@ static NSString* const kShareFailedText = @"分享失败";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"服务详情";
-    self.title = @"服务详情";
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = RGBACOLOR(242, 242, 242, 1);
     self.tableView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height-50-BottomSafeHeightGap);

@@ -480,7 +480,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"验证成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
-            [self PostUI];
+
         });
     }
     
@@ -516,10 +516,7 @@
                              
                              };
     [HttpTool get:[NSString stringWithFormat:@"user/checkedUserID"] params:params success:^(id responseObj) {
-//        _products=[NSMutableArray new];
-//        NSDictionary* a=responseObj[@"data"];
-//        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObj options:NSJSONReadingMutableLeaves error:nil];
-                NSLog(@"");
+        [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
         [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:NO];
         if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] != 0) {
             [MBProgressHUD showMBProgressHud:self.view withText:[MySingleton filterNull:responseObj[@"msg"]] withTime:1.0];

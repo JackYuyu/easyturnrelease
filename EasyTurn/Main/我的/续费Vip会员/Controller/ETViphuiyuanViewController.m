@@ -526,6 +526,7 @@
     
     _wxBtn=[[UIButton alloc]init];
     _wxBtn.selected = YES;
+    _paytype = 2;
     [_wxBtn setImage:[UIImage imageNamed:@"注册_未选中"] forState:UIControlStateNormal];
     [_wxBtn setImage:[UIImage imageNamed:@"注册_选中"] forState:UIControlStateSelected];
     _wxBtn.tag=0;

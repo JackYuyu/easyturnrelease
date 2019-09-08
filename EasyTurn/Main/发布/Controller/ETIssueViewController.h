@@ -6,14 +6,14 @@
 //  Copyright © 2019年 EasyTurn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ACViewController.h"
 #import "ETProductModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 //2.block传值  typedef void(^returnBlock)();
 typedef void(^dismissBlock) (void);
 
-@interface ETIssueViewController : UIViewController
+@interface ETIssueViewController : ACViewController
 @property (nonatomic, strong) ETProductModel *product;
 
 //block
