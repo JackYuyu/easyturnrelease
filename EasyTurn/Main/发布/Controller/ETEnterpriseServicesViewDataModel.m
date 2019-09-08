@@ -30,6 +30,24 @@ static NSString * const bussinessotherKey = @"其它";
         NSDictionary *result = jsonData;
         if (!result) return  nil;
         ETEnterpriseServicesViewDataModel *mFilter = [ETEnterpriseServicesViewDataModel mj_objectWithKeyValues:result];
+        ETEnterpriseServicesViewModel *mSection = mFilter.arrEnterpriseServicesViewData.firstObject;
+        __block NSString *serviceTypeKey = nil;
+        [mSection.list enumerateObjectsUsingBlock:^(ETEnterpriseServicesViewItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.key isEqualToString:ServicesTypeKey]) {
+                serviceTypeKey = obj.content;
+                *stop = YES;
+            }
+        }];
+        NSMutableArray *arrMuValues = [NSMutableArray array];
+        [mSection.list enumerateObjectsUsingBlock:^(ETEnterpriseServicesViewItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj.key isEqualToString:PurchasingTypeKey]) {
+                obj.arrListContent = [self arrContentListPurchaseMattersWithKey:serviceTypeKey];
+                obj.content = obj.arrListContent.firstObject;
+                obj.value = obj.arrListContent.firstObject;
+            }
+            [arrMuValues addObject:obj];
+        }];
+        mSection.list = arrMuValues;
         return mFilter;
     }
     return nil;

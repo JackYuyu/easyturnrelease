@@ -12,7 +12,7 @@
 #define lz_screenWidth ([UIScreen mainScreen].bounds.size.width)
 #define lz_screenHeight ([UIScreen mainScreen].bounds.size.height)
 
-static CGFloat const lz_contentHeight = 246.0;
+static CGFloat const lz_contentHeight = 346.0;
 
 @interface LQCityPicker ()
 {

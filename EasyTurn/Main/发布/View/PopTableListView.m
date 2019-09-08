@@ -66,11 +66,17 @@ static NSString * const cellIdentifier = @"cellIdentifier";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    #warning geweiTestCode
+    //调用两次代理
     if (self.delegate) {
-         [self.delegate selectType:self.titles[indexPath.row] type:@"1"];
-        
+        [self.delegate selectType:self.titles[indexPath.row] type:self.type];
     }
+    if ([self.type isEqualToString:@"1"]) {
+        [self.delegate selectType:self.titles[indexPath.row] type:@"1"];
+    }else{
+        [self.delegate selectEffetiveTimeType:self.titles[indexPath.row] type:@"2"];
+    }
+
+    
 }
 
 

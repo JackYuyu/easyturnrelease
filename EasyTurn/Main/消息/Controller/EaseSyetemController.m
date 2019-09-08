@@ -86,7 +86,9 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_index==0) {
+        ETProductModel* model = [_list objectAtIndex:indexPath.row];
         EaseSyetemListCell *cell = [tableView dequeueReusableCellWithIdentifier:kEaseSyetemListCell];
+        [cell makeCellWithETProductModel:model WithIndexPath:indexPath];
         return cell;
     }else {
         ETProductModel* model = [_products objectAtIndex:indexPath.row];

@@ -14,9 +14,9 @@
                 {
                     "cellType": 2,
                     "key": "serviceId",
-                    "value": "",
+                    "value": "工商服务",
                     "title":"服务类型",
-                    "content":"",
+                    "content":"工商服务",
                     "placeholder":"",
                     "popTableMaxWidth":150,
                     "arrListContent":[
@@ -33,9 +33,9 @@
                 {
                     "cellType": 2,
                     "key": "proceed",
-                    "value": "",
+                    "value":"设立",
                     "title":"求购事项",
-                    "content":"",
+                    "content":"设立",
                     "placeholder":"",
                     "popTableMaxWidth":120,
                     "arrListContent":[
@@ -153,9 +153,9 @@
             {
                 "cellType": 2,
                 "key": "serviceId",
-                "value": "",
+                "value": "工商服务",
                 "title":"服务类型",
-                "content":"",
+                "content":"工商服务",
                 "placeholder":"",
                 "popTableMaxWidth":150,
                 "arrListContent":[
@@ -245,9 +245,9 @@
             {
                 "cellType": 2,
                 "key": "serviceId",
-                "value": "",
+                "value": "工商服务",
                 "title":"服务类型",
-                "content":"",
+                "content":"工商服务",
                 "placeholder":"",
                 "popTableMaxWidth":150,
                 "arrListContent":[
@@ -264,9 +264,9 @@
             {
                 "cellType": 2,
                 "key": "proceed",
-                "value": "",
+                "value": "设立",
                 "title":"求购事项",
-                "content":"",
+                "content":"设立",
                 "placeholder":"",
                 "popTableMaxWidth":120,
                 "arrListContent":[
@@ -274,7 +274,7 @@
             },
             {
                 "cellType": 7,
-                "key": "",
+                "key": "企业名称",
                 "value": "",
                 "title":"企业名称",
                 "content":"",
@@ -282,7 +282,7 @@
             },
             {
                 "cellType": 7,
-                "key": "",
+                "key": "住所",
                 "value": "",
                 "title":"住所",
                 "content":"",
@@ -290,7 +290,7 @@
             },
             {
                 "cellType": 7,
-                "key": "",
+                "key": "法定代表人",
                 "value": "",
                 "title":"法定代表人",
                 "content":"",
@@ -298,7 +298,7 @@
             },
             {
                 "cellType": 7,
-                "key": "",
+                "key": "注册资本",
                 "value": "",
                 "title":"注册资本",
                 "content":"",
@@ -306,7 +306,7 @@
             },
             {
                 "cellType": 7,
-                "key": "business",
+                "key": "经营范围",
                 "value": "",
                 "title":"经营范围",
                 "content":"",
@@ -314,7 +314,7 @@
             },
             {
                 "cellType": 7,
-                "key": "",
+                "key": "股东转股",
                 "value": "",
                 "title":"股东转股",
                 "content":"",
@@ -336,9 +336,9 @@
             {
                 "cellType": 2,
                 "key": "serviceId",
-                "value": "",
+                "value": "工商服务",
                 "title":"服务类型",
-                "content":"",
+                "content":"工商服务",
                 "placeholder":"",
                 "popTableMaxWidth":150,
                 "arrListContent":[
@@ -355,9 +355,9 @@
             {
                 "cellType": 2,
                 "key": "proceed",
-                "value": "",
+                "value": "设立",
                 "title":"求购事项",
-                "content":"",
+                "content":"设立",
                 "placeholder":"",
                 "popTableMaxWidth":120,
                 "arrListContent":[
@@ -387,9 +387,9 @@
             {
                 "cellType": 2,
                 "key": "serviceId",
-                "value": "",
+                "value": "工商服务",
                 "title":"服务类型",
-                "content":"",
+                "content":"工商服务",
                 "placeholder":"",
                 "popTableMaxWidth":150,
                 "arrListContent":[
@@ -406,9 +406,9 @@
             {
                 "cellType": 2,
                 "key": "proceed",
-                "value": "",
+                "value":"设立",
                 "title":"求购事项",
-                "content":"",
+                "content":"设立",
                 "placeholder":"",
                 "popTableMaxWidth":120,
                 "arrListContent":[

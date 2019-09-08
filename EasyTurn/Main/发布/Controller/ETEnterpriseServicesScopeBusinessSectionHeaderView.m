@@ -12,6 +12,7 @@
 @interface ETEnterpriseServicesScopeBusinessSectionHeaderView ()
 @property (nonatomic, strong) UILabel *labTitle;
 @property (nonatomic, strong) UIImageView *imgvArrow;
+@property (nonatomic, strong) UIView *vLineLeft;
 @property (nonatomic, strong) ETEnterpriseServicesBusinessScopeModel *mItem;
 @property (nonatomic, assign) NSInteger section;
 @end
@@ -30,6 +31,13 @@
     _mItem = mItem;
     _labTitle.text = mItem.name;
     [self updateImgvSelectedIsOpen:_mItem.isOpen];
+    if (_mItem.isOpen) {
+        _labTitle.textColor = kACColorRGB(47, 134, 251);
+        _vLineLeft.hidden = NO;
+    } else {
+         _labTitle.textColor = kACColorRGB(51, 51, 51);
+        _vLineLeft.hidden = YES;
+    }
     _mItem.cellheight = 45;
 }
 
@@ -53,6 +61,16 @@
         make.leading.mas_equalTo(15);
         make.trailing.equalTo(self.imgvArrow.mas_leading).offset(-15);
         make.centerY.equalTo(self.contentView);
+        make.height.mas_equalTo(15);
+    }];
+    
+    _vLineLeft = [[UIView alloc] init];
+    _vLineLeft.backgroundColor = kACColorRGB(47, 134, 251);
+    [self.contentView addSubview:_vLineLeft];
+    [_vLineLeft mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(8);
+        make.centerY.mas_equalTo(self.labTitle);
+        make.width.mas_equalTo(2);
         make.height.mas_equalTo(15);
     }];
     
