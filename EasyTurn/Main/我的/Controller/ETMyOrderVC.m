@@ -31,6 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"我的订单";
+    [self enableLeftBackWhiteButton];
     self.view.backgroundColor=[UIColor whiteColor];
     UITableView * tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, self.view.bounds.size.height-40) style:UITableViewStyleGrouped];
     
@@ -41,19 +43,13 @@
     [self.view addSubview:tableView];
     
     [_tableView registerNib:[UINib nibWithNibName:@"MyOrderCell" bundle:nil] forCellReuseIdentifier:@"MyOrderCell"];
-    
-//    self.navigationBgView.backgroundColor = kWhiteColor;
-//    self.navigationBgView.alpha = 1;
-//    [self showLeftBackButton];
+
     _segmentTitles = @[@"全 部",@"进行中",@"已完成"];
     
-    //    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
-    //    view.backgroundColor = [UIColor whiteColor];
     _segmentedControl = [[CFSegmentedControl alloc] initWithFrame:CGRectMake(Screen_Width/2 - (110 * [_segmentTitles count])/2, 0, 110 * [_segmentTitles count], 40)];
     _segmentedControl.delegate = self;
     _segmentedControl.dataSource = self;
     _segmentedControl.alpha = 1;
-    //    [view addSubview:_segmentedControl];
     [self.view addSubview:_segmentedControl];
     [self PostUI:@"0"];
 }

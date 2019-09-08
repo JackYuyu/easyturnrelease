@@ -7,16 +7,11 @@
 //
 
 #import "ETMessageCenterController.h"
-#import "ETMessageTableView.h"
 @interface ETMessageCenterController ()<UITableViewDelegate, UITableViewDataSource>
 @property(nonatomic,strong)UITableView*tab;
 @end
 @implementation ETMessageCenterController
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title=@"消息";
-    [self.view addSubview:self.tab];
-}
+
 - (UITableView *)tab
 {
     if (!_tab) {
@@ -31,6 +26,27 @@
     return _tab;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self wr_setNavBarTitleColor:kACColorBlackTypeface];
+    [WRNavigationBar wr_setDefaultNavBarBarTintColor:kACColorWhite];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self wr_setNavBarTitleColor:kACColorWhite];
+    [WRNavigationBar wr_setDefaultNavBarBarTintColor:kACColorBlue_Theme];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"消息";
+    [self enableLeftBackButton];
+    [self.view addSubview:self.tab];
+}
+
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -44,6 +60,7 @@
     }
     return YES;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -55,5 +72,9 @@
     cell.detailTextLabel.text=@"易转科技";
     return cell;
 
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
 }
 @end

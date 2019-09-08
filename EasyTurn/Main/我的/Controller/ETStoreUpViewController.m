@@ -24,11 +24,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self enableLeftBackWhiteButton];
     self.title=@"我的收藏";
     self.view.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.tab];
-//    [self.view addSubview:self.loadingBtn];
+
     [self.tab registerClass:[ETEnterpriseServiceTableViewCell1 class] forCellReuseIdentifier:@"cell"];
      [self PostUI:@"1"];
 }

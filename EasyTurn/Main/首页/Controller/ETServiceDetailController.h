@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ETProductModel *product;
 
 + (instancetype)serviceDetailController:(NSDictionary *)detailInfo;
+@property (nonatomic, strong) UINavigationController *naviController;
 @end
 
 NS_ASSUME_NONNULL_END

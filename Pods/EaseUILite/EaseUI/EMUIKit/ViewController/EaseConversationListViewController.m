@@ -159,6 +159,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"消息";
 //    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width/2, TopHeight)];
 //    _navigationView.backgroundColor = kACColorClear;
 //    [self.view addSubview:_navigationView];
@@ -331,8 +332,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         }
 //        EaseSystemController* s=[EaseSystemController new];
 //        [self.navigationController pushViewController:sys animated:YES];
-    }
-    else
+    }else
         _navigationView.hidden=YES;;
     if (_delegate && [_delegate respondsToSelector:@selector(conversationListViewController:didSelectConversationModel:)]) {
         EaseConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];

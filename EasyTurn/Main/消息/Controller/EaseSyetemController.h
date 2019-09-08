@@ -5,11 +5,11 @@
 //  Created by 程立 on 2019/8/17.
 //
 
-#import <UIKit/UIKit.h>
+#import "ACViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EaseSyetemController : UIViewController
+@interface EaseSyetemController : ACViewController
 @property (nonatomic,assign) int index;
 @end
 

@@ -347,7 +347,7 @@ static NSString *const cellIdentifier =@"cellIdentifier";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.dataSource.count;
+
     return _products.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -595,10 +595,7 @@ static NSString *const cellIdentifier =@"cellIdentifier";
     }
 }
 
--(void)delfav1
-{
-//    NSMutableDictionary* dic=[NSMutableDictionary new];
-//    ETProductModel* p=[_products objectAtIndex:0];
+- (void)delfav1 {
     NSDictionary *dict =[_products objectAtIndex:0];
     ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
     long long a=[p.releaseId longLongValue];
@@ -814,25 +811,21 @@ static NSString *const cellIdentifier =@"cellIdentifier";
     ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
     if (!p.releaseOrderId) {
          if ([_select isEqualToString:@"1"]) {
+             //出售
             NSDictionary *dict =[_products objectAtIndex:indexPath.row];
              ETSaleDetailController *vc = [ETSaleDetailController saleDetailController:dict];
              vc.product = [ETProductModel mj_objectWithKeyValues:dict];
-//             ETServiceDetailController * detail=[ETServiceDetailController serviceDetailController:dict];
              [self.navigationController pushViewController:vc animated:YES];
-         }else if ([_select isEqualToString:@"3"]) {
              
+         }else if ([_select isEqualToString:@"3"]) {
+             //服务
              NSDictionary *dict =[_products objectAtIndex:indexPath.row];
              ETServiceDetailController * detail=[ETServiceDetailController serviceDetailController:dict];
-//             detail.releaseId = dict[@"releaseId"];
              detail.product = [ETProductModel mj_objectWithKeyValues:dict];
              [self.navigationController pushViewController:detail animated:YES];
-         }else if ([_select isEqualToString:@"2"]) {
-//             NSDictionary *dict =[_products objectAtIndex:indexPath.row];
-//             ETForBuyDetailController * detail=[ETForBuyDetailController forBuyDetailController:dict];
-//             //             detail.releaseId = dict[@"releaseId"];
-//             detail.product = [ETProductModel mj_objectWithKeyValues:dict];
-//             [self.navigationController pushViewController:detail animated:YES];
              
+         }else if ([_select isEqualToString:@"2"]) {
+             //求购
              ETPoctoryqgViewController *detail=[ETPoctoryqgViewController new];
              NSDictionary *dict =[_products objectAtIndex:indexPath.row];
              detail.releaseId = dict[@"releaseId"];
