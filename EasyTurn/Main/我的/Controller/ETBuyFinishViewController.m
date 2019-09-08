@@ -6,16 +6,17 @@
 //  Copyright © 2019 EasyTurn. All rights reserved.
 //
 
-#import "ETBuyPushViewController.h"
+#import "ETBuyFinishViewController.h"
 #import "ETPayaymentViewController.h"
-@interface ETBuyPushViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface ETBuyFinishViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic,strong)UITableView *tab;
 @property (nonatomic, copy) NSString *finalPrice;
 @property (nonatomic,strong) UITextField *label1;
+@property (nonatomic,strong) UIView *bottomView;
 
 @end
 
-@implementation ETBuyPushViewController
+@implementation ETBuyFinishViewController
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -35,6 +36,27 @@
         _tab.dataSource=self;
         _tab.bounces=NO;
         _tab.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0,0,0,0.01)];
+        
+        _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 80)];
+        _bottomView.backgroundColor = [UIColor whiteColor];
+        _tab.tableFooterView=_bottomView;
+        
+
+        
+        UIButton *addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [addButton setTitle:@"交易已完成" forState:UIControlStateNormal];
+        addButton.titleLabel.font = kFontSize(20);
+        [addButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [addButton setBackgroundColor:RGBCOLOR(255, 230, 216)];
+        addButton.layer.borderColor=[UIColor redColor].CGColor;
+        addButton.layer.borderWidth=0.5;
+        [_bottomView addSubview:addButton];
+        [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.mas_equalTo(self.bottomView);
+            make.size.mas_equalTo(CGSizeMake(150, 60));
+        }];
+        
+        
         _tab.sectionFooterHeight = 0;
         _tab.sectionHeaderHeight = 10;
         _tab.rowHeight=100;
@@ -63,6 +85,7 @@
 //    hud.mode = MBProgressHUDModeCustomView;
 //    int timeInt=3;
 //    [hud hide:YES afterDelay:timeInt];
+    [self PostUI];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -71,9 +94,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
-        return 5;
+        return 7;
     }else if (section==1) {
-        return 2;
+        return 1;
     }
     return YES;
 }
@@ -83,6 +106,46 @@
      cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section==0) {
         if (indexPath.row==0) {
+            UILabel *label = [[UILabel alloc] init];
+            label.numberOfLines = 0;
+            label.text=@"卖方：";
+            label.font=[UIFont systemFontOfSize:13];
+            label.textAlignment = NSTextAlignmentLeft;
+            label.alpha = 1.0;
+            [cell addSubview:label];
+            
+            UIImageView* head=[UIImageView new];
+            [head sd_setImageWithURL:[NSURL URLWithString:self.product.imageList]];
+            head.layer.cornerRadius=15;
+            head.layer.masksToBounds=YES;
+            [cell addSubview:head];
+            
+            UILabel *label1 = [[UILabel alloc] init];
+            label1.numberOfLines = 0;
+            label1.text=[NSString stringWithFormat:@"%@",self.product.linkmanName];
+            label1.font=[UIFont systemFontOfSize:13];
+            label1.textAlignment = NSTextAlignmentLeft;
+            label1.alpha = 1.0;
+            [cell addSubview:label1];
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(15);
+                make.left.mas_equalTo(15);
+                make.size.mas_equalTo(CGSizeMake(60, 21));
+            }];
+            
+            [head mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(15);
+                make.left.mas_equalTo(label.mas_right).mas_offset(10);
+                make.size.mas_equalTo(CGSizeMake(30, 30));
+            }];
+            
+            [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(15);
+                make.left.mas_equalTo(head.mas_right).mas_offset(10);
+                make.size.mas_equalTo(CGSizeMake(200, 21));
+            }];
+        }
+        else if (indexPath.row==1) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.product.title]attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
@@ -97,7 +160,7 @@
                 make.right.mas_equalTo(-15);
                 make.height.mas_equalTo(41);
             }];
-        }else if (indexPath.row==1) {
+        }else if (indexPath.row==2) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             label.text=[NSString stringWithFormat:@"注册时间：%@",self.product.releaseTime];
@@ -110,7 +173,7 @@
                 make.left.mas_equalTo(15);
                 make.size.mas_equalTo(CGSizeMake(200, 21));
             }];
-        }else if (indexPath.row==2) {
+        }else if (indexPath.row==3) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             label.text=[NSString stringWithFormat:@"注册地址：%@",self.product.cityName];
@@ -123,7 +186,7 @@
                 make.left.mas_equalTo(15);
                 make.size.mas_equalTo(CGSizeMake(165, 21));
             }];
-        }else if (indexPath.row==3) {
+        }else if (indexPath.row==4) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"卖家电话：%@",self.product.linkmanMobil] attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
@@ -137,10 +200,10 @@
                 make.left.mas_equalTo(15);
                 make.size.mas_equalTo(CGSizeMake(170, 21));
             }];
-        }else if (indexPath.row==4) {
+        }else if (indexPath.row==5) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"最终定价："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"最终价格："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
             
             label.attributedText = string;
             label.textAlignment = NSTextAlignmentLeft;
@@ -166,14 +229,20 @@
             _label1.textAlignment = NSTextAlignmentLeft;
             _label1.alpha = 1.0;
             _label1.delegate=self;
+            _label1.placeholder=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+            _label1.userInteractionEnabled=NO;
+            _label1.layer.borderColor=[UIColor redColor].CGColor;
+            _label1.layer.borderWidth=0.5;
+            _label1.backgroundColor=RGBCOLOR(255, 230, 216);
+            
             [view addSubview:_label1];
             [_label1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(6);
-                make.left.mas_equalTo(9);
-                make.right.mas_equalTo(-9);
-                make.height.mas_equalTo(21);
+                make.top.mas_equalTo(0);
+                make.left.mas_equalTo(0);
+                make.right.mas_equalTo(0);
+                make.bottom.mas_equalTo(0);
             }];
-        }else if (indexPath.row==5) {
+        }else if (indexPath.row==6) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             
@@ -197,20 +266,6 @@
         }
     }else if (indexPath.section==1) {
         if (indexPath.row==0) {
-            UILabel *label = [[UILabel alloc] init];
-            label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"支付方式"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
-            label.attributedText = string;
-            label.textAlignment = NSTextAlignmentLeft;
-            label.alpha = 1.0;
-            [cell addSubview:label];
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(16);
-                make.left.mas_equalTo(15);
-                make.size.mas_equalTo(CGSizeMake(60, 21));
-            }];
-            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-        }else if (indexPath.row==1) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"支付状态"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
@@ -320,14 +375,24 @@
     return YES;
     
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)PostUI {
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"releaseId": _product.releaseOrderId
+                             };
+    
+    [HttpTool get:[NSString stringWithFormat:@"pay/findOrderByReleaseId"] params:params success:^(id responseObj) {
+//        _products=[NSMutableArray new];
+//        NSDictionary* a=responseObj[@"data"];
+//        for (NSDictionary* prod in responseObj[@"data"]) {
+//            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
+//            [_products addObject:p];
+//        }
+        NSLog(@"");
+//        [_tab reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
-*/
 
 @end

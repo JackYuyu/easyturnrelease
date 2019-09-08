@@ -224,6 +224,7 @@
 		00986CFA232298B100B1131E /* MyOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CF8232298B100B1131E /* MyOrderCell.m */; };
 		00986CFB232298B100B1131E /* MyOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00986CF9232298B100B1131E /* MyOrderCell.xib */; };
 		00986CFE2322A37F00B1131E /* ETFootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CFD2322A37F00B1131E /* ETFootViewController.m */; };
+		00986D0123238CB600B1131E /* ETFootListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986D0023238CB600B1131E /* ETFootListCell.m */; };
 		009A3C3F2301A0C600EF897E /* XMRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */; };
 		009A3C402301A0C600EF897E /* XMRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */; };
 		009A3C4323029BE100EF897E /* ETWxPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 009A3C4223029BE100EF897E /* ETWxPhoneViewController.m */; };
@@ -289,6 +290,7 @@
 		00E5C32722EEF1FD00009241 /* ETProductDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E5C32622EEF1FD00009241 /* ETProductDetailController.m */; };
 		00E5C32B22EEFC1300009241 /* ProductInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00E5C32822EEFC1200009241 /* ProductInfoCell.xib */; };
 		00E5C32C22EEFC1300009241 /* ProductInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E5C32A22EEFC1200009241 /* ProductInfoCell.m */; };
+		04AC89CD23241E9600A404B5 /* ETBuyFinishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */; };
 		2E0269B82317FF750085CA4F /* ETPoctoryqgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0269B62317FF750085CA4F /* ETPoctoryqgViewController.m */; };
 		2E077B0F22F3CF38004D31E1 /* ETZhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E077B0E22F3CF38004D31E1 /* ETZhangViewController.m */; };
 		2E077B1222F3D116004D31E1 /* ETZhangTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E077B1122F3D116004D31E1 /* ETZhangTableViewCell.m */; };
@@ -835,6 +837,8 @@
 		00986CF9232298B100B1131E /* MyOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyOrderCell.xib; sourceTree = "<group>"; };
 		00986CFC2322A37F00B1131E /* ETFootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFootViewController.h; sourceTree = "<group>"; };
 		00986CFD2322A37F00B1131E /* ETFootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFootViewController.m; sourceTree = "<group>"; };
+		00986CFF23238CB600B1131E /* ETFootListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFootListCell.h; sourceTree = "<group>"; };
+		00986D0023238CB600B1131E /* ETFootListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFootListCell.m; sourceTree = "<group>"; };
 		009A3C3B2301A0C500EF897E /* XMRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshHeader.m; sourceTree = "<group>"; };
 		009A3C3C2301A0C600EF897E /* XMRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMRefreshFooter.h; sourceTree = "<group>"; };
 		009A3C3D2301A0C600EF897E /* XMRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMRefreshFooter.m; sourceTree = "<group>"; };
@@ -955,6 +959,8 @@
 		00E5C32822EEFC1200009241 /* ProductInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductInfoCell.xib; sourceTree = "<group>"; };
 		00E5C32922EEFC1200009241 /* ProductInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductInfoCell.h; sourceTree = "<group>"; };
 		00E5C32A22EEFC1200009241 /* ProductInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductInfoCell.m; sourceTree = "<group>"; };
+		04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETBuyFinishViewController.m; sourceTree = "<group>"; };
+		04AC89CC23241E9600A404B5 /* ETBuyFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETBuyFinishViewController.h; sourceTree = "<group>"; };
 		0B41FA3272E5846DF85F3D53 /* libPods-EasyTurn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EasyTurn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E0269B62317FF750085CA4F /* ETPoctoryqgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPoctoryqgViewController.m; sourceTree = "<group>"; };
 		2E0269B72317FF750085CA4F /* ETPoctoryqgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPoctoryqgViewController.h; sourceTree = "<group>"; };
@@ -1354,6 +1360,8 @@
 				00986CDC2321438B00B1131E /* ETMineListViewController.m */,
 				00986CEA23223A0800B1131E /* ETMyOrderVC.h */,
 				00986CEB23223A0800B1131E /* ETMyOrderVC.m */,
+				04AC89CC23241E9600A404B5 /* ETBuyFinishViewController.h */,
+				04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */,
 				00986CFC2322A37F00B1131E /* ETFootViewController.h */,
 				00986CFD2322A37F00B1131E /* ETFootViewController.m */,
 				0046AA3422EACDE20038CA11 /* ETAboutViewController.h */,
@@ -2358,6 +2366,8 @@
 		00986CF123223AC700B1131E /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
+				00986CFF23238CB600B1131E /* ETFootListCell.h */,
+				00986D0023238CB600B1131E /* ETFootListCell.m */,
 				00986CF223223AC700B1131E /* OrderCell.xib */,
 				00986CF323223AC700B1131E /* OrderCell.h */,
 				00986CF423223AC700B1131E /* OrderCell.m */,
@@ -3272,6 +3282,7 @@
 				0046AA5A22EACDE30038CA11 /* ETAccountViewController.m in Sources */,
 				007FAD9822E05228001EC5F2 /* ACToastView.m in Sources */,
 				00986CE9232143DB00B1131E /* ETMineViewModel.m in Sources */,
+				00986D0123238CB600B1131E /* ETFootListCell.m in Sources */,
 				0046AA6822EACDE30038CA11 /* UserSaleViewCell.m in Sources */,
 				0046AA6B22EACDE30038CA11 /* ETTouchMeinViewController.m in Sources */,
 				2ED2F6D72318D63F00FA9F89 /* ETLawViewController.m in Sources */,
@@ -3390,6 +3401,7 @@
 				004AB54022E19D040056B8F5 /* ETHomeHeaderView.m in Sources */,
 				00199BC222F288EF00FACC24 /* HanyuPinyinOutputFormat.m in Sources */,
 				007FAE2022E052FD001EC5F2 /* UIView+Frame.m in Sources */,
+				04AC89CD23241E9600A404B5 /* ETBuyFinishViewController.m in Sources */,
 				00199BC322F288EF00FACC24 /* ZYPinYinSearch.m in Sources */,
 				00E5C32022EDCF4600009241 /* HomeBaseCell.m in Sources */,
 				0084155C231F9F64009589A5 /* ZZCustomCameraControlView.m in Sources */,

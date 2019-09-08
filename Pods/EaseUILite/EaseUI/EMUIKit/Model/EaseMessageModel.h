@@ -97,6 +97,8 @@
 @property (nonatomic) BOOL isDing;
 @property (nonatomic) NSInteger dingReadCount;
 
+@property (strong, nonatomic) NSString *timestr;
+
 /*!
  @method
  @brief 初始化消息对象模型

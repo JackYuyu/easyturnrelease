@@ -353,7 +353,7 @@
     NSString *payResoult = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
     if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
-        [[ACToastView toastView:YES]showLoadingCircleViewWithStatus:@"正在支付中"];
+//        [[ACToastView toastView:YES]showLoadingCircleViewWithStatus:@"正在支付中"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter]postNotificationName:Request_PayResult object:nil];
         });
@@ -878,6 +878,11 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     EaseMessageModel* msg=[EaseMessageModel new];
     msg.text=content.title;
     msg.address=content.body;
+    NSDate* d=[NSDate date];
+    NSDateFormatter *dateFormattershow = [[NSDateFormatter alloc] init];
+    [dateFormattershow setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *strDate = [dateFormattershow stringFromDate:d];
+    msg.timestr=strDate;
     [msg bg_saveOrUpdate];
     NSInteger iconbadge=[UIApplication sharedApplication].applicationIconBadgeNumber+1;
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:iconbadge];

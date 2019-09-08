@@ -242,11 +242,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     if (indexPath.section==0) {
         if (indexPath.row==0) {
-
-        cell.titleLabel.text=@"易转官方发布消息";
-        cell.avatarView.image=[UIImage imageNamed:@"WechatIMG222"];
-        cell.avatarView.layer.cornerRadius = 20;
-        cell.avatarView.layer.masksToBounds = YES;
+            EaseMessageModel* msg=[_system objectAtIndex:indexPath.row];
+            cell.titleLabel.text = msg.text;
+            cell.avatarView.image=[UIImage imageNamed:@"WechatIMG222"];
+            cell.avatarView.layer.cornerRadius = 20;
+            cell.avatarView.layer.masksToBounds = YES;
+            cell.detailLabel.text=msg.address;
         if (_system.count>0) {
             
             EaseMessageModel* msg=[_list objectAtIndex:0];

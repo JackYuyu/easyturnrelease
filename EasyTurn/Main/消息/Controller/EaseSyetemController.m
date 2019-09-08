@@ -83,6 +83,7 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
     }
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_index==0) {
         EaseSyetemListCell *cell = [tableView dequeueReusableCellWithIdentifier:kEaseSyetemListCell];
@@ -93,8 +94,29 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
         [cell makeCellWithETProductModel:model WithIndexPath:indexPath];
         return cell;
     }
-    
 }
+
+//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    NSArray*arr=@[@"姓名",@"支付宝账号"];
+////    EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
+//    ETProductModel* p=[_products objectAtIndex:indexPath.row];
+//    cell.imageView.image=[UIImage imageNamed:@"dropdown_loading_01"];
+//    if (_index==0) {
+//        EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
+//
+//        if (indexPath.row==0) {
+//            cell.textLabel.text=@"欢迎来到易转!!";
+//        }
+//        else
+//        {
+//            cell.textLabel.text=m.address;
+////            cell.detailTextLabel.text=p.createDate;
+//        }
+//    }
+//
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_index==0) {
@@ -129,4 +151,5 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
       
     }];
 }
+        
 @end
