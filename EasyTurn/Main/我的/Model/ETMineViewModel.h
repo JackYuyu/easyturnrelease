@@ -86,6 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *browse;
 ///0显示浏览次数 1等待卖家确认 2卖家已确认
 @property (nonatomic, copy) NSString *tradStatus;
+@property (nonatomic, copy) NSString *detail;
+@property (nonatomic, copy) NSString *releaseTypeId;
+
 @end
 
 NS_ASSUME_NONNULL_END

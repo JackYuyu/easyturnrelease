@@ -211,6 +211,7 @@
         self.pageIndex = 1;
         [_products removeAllObjects];
         [weakSelf PostUI];
+        [weakSelf postDylist];
     }];
     _tbHome.mj_footer = [XMRefreshFooter xm_footerWithRefreshingBlock:^{
         self.pageIndex += 1;

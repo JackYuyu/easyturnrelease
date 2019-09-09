@@ -208,9 +208,18 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
     
     if ([model.userInfo.isChecked isEqualToString:@"0"]) {
         self.laIdAuthentication.text = @"未认证";
-    }else {
-        self.laIdAuthentication.text = @"已认证";
+    }else if ([model.userInfo.isChecked isEqualToString:@"1"]) {
+        self.laIdAuthentication.text = @"个人认证";
+    }else if ([model.userInfo.isChecked isEqualToString:@"2"]) {
+        self.laIdAuthentication.text = @"员工认证";
     }
+    else if ([model.userInfo.isChecked isEqualToString:@"4"]) {
+        self.laIdAuthentication.text = @"企业认证";
+    }
+    else if ([model.userInfo.isChecked isEqualToString:@"5"]) {
+        self.laIdAuthentication.text = @"企业认证";
+    }
+    
     if (model.userInfo.vip == nil) {
         [self.btnPayVip setImage:[UIImage imageNamed:@"我的_购买VIP"] forState:UIControlStateNormal];
     }else{

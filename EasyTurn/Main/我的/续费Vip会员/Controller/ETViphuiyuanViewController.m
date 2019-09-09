@@ -825,7 +825,10 @@
 }
 
 - (void)alipay {
-    
+    if (!_vipid) {
+        ETMineModel* m = [_products objectAtIndex:0];
+        _vipid = m.vipid;
+    }
     NSDictionary *params = @{
                              @"id" : @([_vipid intValue]),
                              @"type" : @(_paytype)

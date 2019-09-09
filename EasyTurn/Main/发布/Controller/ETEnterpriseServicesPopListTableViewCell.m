@@ -82,7 +82,7 @@ static CGFloat const btnPopListViewMaxWidth = 280;
 }
 
 - (PopTableListView *)createPopViewWithArrayList:(NSArray<NSString *> *)arrList {
-    PopTableListView *popListView = [[PopTableListView alloc] initWithTitles:arrList imgNames:nil type:nil maxWidth:_mItem.popTableMaxWidth];
+    PopTableListView *popListView = [[PopTableListView alloc] initWithTitles:arrList imgNames:nil type:@"1" maxWidth:_mItem.popTableMaxWidth];
     popListView.backgroundColor = [UIColor whiteColor];
     popListView.layer.cornerRadius = 5;
     popListView.delegate = self;

@@ -132,10 +132,13 @@
     _indexPath = indexPath;
     [self.imagevGoods sd_setImageWithURL:[NSURL URLWithString:model.imageList]];
     self.laName.text = model.title;
-    self.laSubTitle.text = model.information;
+    self.laSubTitle.text = [NSString stringWithFormat:@"详细内容:%@",model.detail];
     self.laAddress.text = model.cityName;
     self.laTime.text = model.releaseTime;
-    self.laLookCount.text = model.browse;
+    self.laStatus.text = [NSString stringWithFormat:@"浏览%@次",model.browse];
+    if ([model.releaseTypeId isEqualToString:@"1"]) {
+        self.laSubTitle.text = [NSString stringWithFormat:@"经营范围:%@",model.information];
+    }
 
     NSString *temp = model.price;
     double price = [temp doubleValue];
@@ -146,6 +149,7 @@
         float price =[temp floatValue];
         self.laPrice.text = [NSString stringWithFormat:@"¥%.2f",price];
     }
+    self.laPrice.text =[self.laPrice.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
 
 }
 
@@ -231,7 +235,7 @@
         _laStatus.textColor = kACColorRGB(102, 102, 102);
         _laStatus.text = @"浏览 303次";
     }
-    return _laPrice;
+    return _laStatus;
 }
 
 - (UIButton *)btnShare {
