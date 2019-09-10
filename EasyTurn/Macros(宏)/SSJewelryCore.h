@@ -198,10 +198,10 @@ static const NSString *APIKey = @"46bbcda544ff928deaeafbee6dc08669";
 // 线上 正式环境
 static NSString *const devHost_Http_App = @"https://app.yz-vip.cn";
 // 线上 测试环境
-//static NSString *const devHost_Http_App = @"http://192.168.1.143:8080";
+//static NSString *const devHost_Http_App = @"http://192.168.1.146:8183";
 
 //alioss地址
-#define alioss @"http://yizhuanvip.oss-cn-beijing.aliyuncs.com"
+#define alioss @"https://yizhuanvip.oss-cn-beijing.aliyuncs.com"
 //
 // 屏幕尺寸定义
 #define KScreenBounds [UIScreen mainScreen].bounds

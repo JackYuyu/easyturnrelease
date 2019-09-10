@@ -9,12 +9,16 @@
 #import "MCPageViewSub3ViewController.h"
 #import "ETAdimiTableViewCell.h"
 #import "member.h"
+#import "ETProductModel.h"
+#import "ETPaymentStagesVC.h"
 @interface MCPageViewSub3ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UIButton *ordersBtn;
 @property (nonatomic,strong)UIButton *ordersBtn1;
 @property (nonatomic,strong)UIButton *ordersBtn2;
 @property (nonatomic,strong)UITableView *tab;
 @property(nonatomic,strong)NSMutableArray* members;
+@property(nonatomic,strong)NSMutableArray* counts;
+
 @end
 
 @implementation MCPageViewSub3ViewController
@@ -29,6 +33,7 @@
         _tab.dataSource=self;
         _tab.rowHeight=150;
         _tab.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
+        
         [_tab registerNib:[UINib nibWithNibName:@"ETAdimiTableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     }
     return _tab;
@@ -38,6 +43,47 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ETAdimiTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    ETProductModel* m=[_members objectAtIndex:indexPath.row];
+    [cell.userImg sd_setImageWithURL:[NSURL URLWithString:m.headImageUrl]];
+    cell.comLab.text=m.title;
+    cell.addressLab.text=m.cityName;
+    cell.manyLab.text=m.price;
+    cell.nameLab.text=m.username;
+    
+    cell.yifuLab.tag=indexPath.row;
+    cell.deleLab.tag=indexPath.row;
+    
+    NSString* temp=m.tradStatus;
+    
+    if ([temp isEqualToString:@"1"]) {
+        cell.payLab.text=@"已发起,等待卖家确认";
+    }else if ([temp isEqualToString:@"2"]){
+        cell.payLab.text=@"卖家已确认交易详情";
+    }
+    else if ([temp isEqualToString:@"3"]){
+        cell.payLab.text=@"支付完成,等待卖家确认";
+    }
+    else if ([temp isEqualToString:@"4"]){
+        cell.payLab.text=@"卖家发起交易完成,等待买家确认";
+    }
+    else if ([temp isEqualToString:@"5"]){
+        cell.payLab.text=@"交易完成";
+
+    }
+    cell.block = ^(NSInteger pid) {
+        ETProductModel* p=[_members objectAtIndex:pid];
+        [self PostCountUI:p];
+    };
+    
+    cell.block1 = ^(NSInteger pid) {
+        [self delOrder:(pid)];
+    };
+//    [cell.yifuLab setTitle:@"" forState:UIControlStateNormal];
+
+//    [cell.deleLab setTitle:@"" forState:UIControlStateNormal];
+
     return cell;
 }
 - (void)viewDidLoad {
@@ -97,7 +143,7 @@
     orderLab2.font=[UIFont systemFontOfSize:13];
     [screeView addSubview:orderLab2];
     [self.view addSubview:self.tab];
-    [self PostCorpUI1];
+    [self PostCorpUI1:0];
 
 }
 
@@ -117,22 +163,22 @@
         _ordersBtn1.selected=NO;
         _ordersBtn2.selected=YES;
     }
+    [self PostCorpUI1:sender.tag-1];
 }
 #pragma mark - 订单列表
-- (void)PostCorpUI1 {
+- (void)PostCorpUI1:(NSInteger)a {
     NSMutableDictionary* dic=[NSMutableDictionary new];
     UserInfoModel* info=[UserInfoModel loadUserInfoModel];
     NSDictionary *params = @{
-                             @"tradStatus" : @(1)
+                             @"tradStatus" : @(a)
                              };
     [HttpTool get:[NSString stringWithFormat:@"release/getFindAllReleaseList"] params:params success:^(id responseObj) {
         _members=[NSMutableArray new];
         //        NSDictionary* a=responseObj[@"data"];
         //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:responseObj options:NSJSONReadingMutableLeaves error:nil];
         //        _comLab.text=responseObj[@"data"][@"companyName"];
-        member* m=[member mj_objectWithKeyValues:responseObj[@"data"]];
         for (NSDictionary* prod in responseObj[@"data"]) {
-            member* m=[member mj_objectWithKeyValues:prod];
+            ETProductModel* m=[ETProductModel mj_objectWithKeyValues:prod];
             [_members addObject:m];
             
         }
@@ -143,4 +189,54 @@
     }];
 }
 
+//订单删除
+-(void)delOrder:(NSInteger)sender
+{
+//    NSDictionary *dict =[_products objectAtIndex:sender.tag];
+    ETProductModel* p=[_members objectAtIndex:sender];
+    long long a=[p.releaseOrderId longLongValue];
+    NSDictionary *params = @{
+                             @"id" : @(a)
+                             };
+    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    
+    [HttpTool put:[NSString stringWithFormat:@"release/OrderDel"] params:params success:^(NSDictionary *response) {
+        //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        [MBProgressHUD showMBProgressHud:self.view withText:[MySingleton filterNull:response[@"msg"]] withTime:1.0];
+        NSLog(@"");
+        
+        [MBProgressHUD showMBProgressHud:self.view withText:@"删除成功" withTime:1];
+//        [self PostUI:@""];
+    } failure:^(NSError *error) {
+        NSLog(@"");
+        
+    }];
+}
+
+
+#pragma mark - 获取分期计数
+- (void)PostCountUI:(ETProductModel*)p {
+    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSDictionary *params = @{
+                             @"releaseId": p.releaseOrderId
+                             };
+    
+    [HttpTool get:[NSString stringWithFormat:@"pay/findOrderByReleaseId"] params:params success:^(id responseObj) {
+        _counts=[NSMutableArray new];
+        NSDictionary* a=responseObj[@"data"];
+        for (NSDictionary* prod in responseObj[@"data"]) {
+            ETProductModel* temp=[ETProductModel mj_objectWithKeyValues:prod];
+            [_counts addObject:temp];
+        }
+        NSLog(@"");
+        ETPaymentStagesVC *payVC=[ETPaymentStagesVC paymentStagesVC:_counts.count];
+        payVC.product=p;
+        payVC.finalPrice= p.price;
+        payVC.releaseOrderId=p.releaseOrderId;
+        [self.owner.navigationController pushViewController:payVC animated:YES];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 @end

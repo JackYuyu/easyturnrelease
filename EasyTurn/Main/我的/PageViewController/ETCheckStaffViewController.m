@@ -116,7 +116,10 @@
                              };
     
     [HttpTool get:[NSString stringWithFormat:@"user/checkedStaffList"] params:params success:^(id responseObj) {
-        
+        if (![MySingleton filterNull:responseObj[@"data"]]) {
+            return;
+        }
+
         _products=[NSMutableArray new];
         for (NSDictionary* d in responseObj[@"data"]) {
             member* m=[member mj_objectWithKeyValues:d];

@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)yifuBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *deleLab;
 - (IBAction)deleBtn:(UIButton *)sender;
+@property (nonatomic, copy) void (^block)(NSInteger pid);
+@property (nonatomic, copy) void (^block1)(NSInteger pid);
 
 @end
 

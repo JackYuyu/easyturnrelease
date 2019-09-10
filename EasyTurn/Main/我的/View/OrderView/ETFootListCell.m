@@ -19,7 +19,7 @@
 @property (nonatomic,strong) UIImageView *imvAddr;
 @property (nonatomic,strong) UILabel *labelAddress;
 //@property (nonatomic,strong) UILabel *labelDesc;
-@property (nonatomic,strong) UIImageView *imvLine;
+//@property (nonatomic,strong) UIImageView *imvLine;
 @property (nonatomic,strong) NSDictionary *dict;
 @end
 
@@ -115,8 +115,8 @@
 }
 
 - (void)resetDict:(NSDictionary *)dict{
-    if (_dict != dict[@"releases"]) {
-        _dict = dict[@"releases"];
+    if (_dict != dict) {
+        _dict = dict;
         dict= dict[@"releases"];
        NSString *temp = [self filterNull:dict[@"imageList"]];
         [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:temp?temp:@""] placeholderImage:[UIImage imageNamed:@"11566120515_.pic_hd"]];

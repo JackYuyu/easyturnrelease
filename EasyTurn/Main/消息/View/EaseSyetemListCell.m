@@ -64,8 +64,8 @@
 }
 
 - (void)makeCellWithETProductModel:(ETProductModel *)model WithIndexPath:(NSIndexPath *)indexPath {
-    _laSubTitle.text = model.title;
-    _laTime.text = model.createDate;
+//    _laSubTitle.text = model.text;
+    _laTime.text = model.address;
 }
 
 - (UILabel *)laTitle {

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MCPageViewSub3ViewController : UIViewController
-
+@property (nonatomic,strong)UIViewController* owner;
 @end
 
 NS_ASSUME_NONNULL_END

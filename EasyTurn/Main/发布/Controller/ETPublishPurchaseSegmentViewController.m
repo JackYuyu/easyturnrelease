@@ -32,6 +32,11 @@
 - (void)createSubViewsAndConstraints {
     [self.view addSubview:self.segment];
     ETEnterpriseServicesViewController *vcEnterpriseServices = [[ETEnterpriseServicesViewController alloc] init];
+    vcEnterpriseServices.block = ^{
+        if (self.mDismissBlock) {
+            self.mDismissBlock();
+        }
+    };
     [self addChildViewController:vcEnterpriseServices];
     _vEnterpriseServices = vcEnterpriseServices.view;
     _vEnterpriseServices.hidden = YES;
@@ -41,6 +46,15 @@
         make.leading.bottom.trailing.mas_equalTo(0);
     }];
     
+//    ETPublishPurchaseViewController *vcPublishPurchase = [[ETPublishPurchaseViewController alloc] init];
+//    [self addChildViewController:vcPublishPurchase];
+//    _vEnterpriseTurn = vcPublishPurchase.view;
+//    [self.view addSubview:_vEnterpriseTurn];
+//    [_vEnterpriseTurn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.segment.mas_bottom);
+//        make.leading.bottom.trailing.mas_equalTo(0);
+//    }];
+    
     ETPublishPurchaseViewController *vcPublishPurchase = [[ETPublishPurchaseViewController alloc] init];
     [self addChildViewController:vcPublishPurchase];
     _vEnterpriseTurn = vcPublishPurchase.view;
@@ -48,6 +62,12 @@
     [_vEnterpriseTurn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.segment.mas_bottom);
         make.leading.bottom.trailing.mas_equalTo(0);
+    }];
+    WeakSelf(self);
+    [vcPublishPurchase toDissmissSelf:^{
+        if (weakself.mDismissBlock) {
+            weakself.mDismissBlock();
+        }
     }];
     
 }
@@ -97,5 +117,10 @@
 //block声明方法
 -(void)toDissmissSelf:(dismissBlock)block{
     self.mDismissBlock = block;
+}
+- (void)onClickBtnBack:(UIButton *)btn{
+    if (self.mDismissBlock) {
+        self.mDismissBlock();
+    }
 }
 @end

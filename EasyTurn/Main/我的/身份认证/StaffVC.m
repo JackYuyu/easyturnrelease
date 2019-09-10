@@ -108,7 +108,9 @@
                 ed.tag=0;
                 ed.delegate=self;
                 ed.placeholder = @"请输入您的真实姓名";
-                
+                if (_input) {
+                    ed.text=_input;
+                }
                 ed.textAlignment = NSTextAlignmentCenter;
                 
                 [cell addSubview:ed];
@@ -536,7 +538,7 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
         [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:NO];
         if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] != 0) {
-            [MBProgressHUD showMBProgressHud:self.view withText:[MySingleton filterNull:responseObj[@"msg"]] withTime:1.0];
+            [MBProgressHUD showMBProgressHud:self.view withText:@"请企业法人审核" withTime:1.0];
             return ;
         }
         [self.navigationController popViewControllerAnimated:YES];

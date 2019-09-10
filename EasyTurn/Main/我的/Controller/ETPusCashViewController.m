@@ -276,6 +276,11 @@
     [self.view addSubview:self.shareView ];
 }
 - (void) aaa {
+    UserInfoModel* info=[UserInfoModel loadUserInfoModel];
+    if ([info.isChecked isEqualToString:@"4"]) {
+        [MBProgressHUD showMBProgressHud:self.view withText:@"员工不能提现" withTime:1];
+        return;
+    }
 //    [self ali];
     if ([_textField.text isEqualToString:@""]  || _textField.text == nil) {
         [MBProgressHUD showMBProgressHud:self.view withText:@"请输入提现金额" withTime:1];

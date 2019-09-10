@@ -686,7 +686,7 @@ static NSString* const kShareFailedText = @"分享失败";
     if ([taxId isEqualToString:@"4"]) {
         return @"一般纳税人";
     }
-    return @"";
+    return @"小规模";
 }
 
 - (NSString *)buildTitle{

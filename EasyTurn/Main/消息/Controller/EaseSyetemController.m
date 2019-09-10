@@ -143,7 +143,7 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
             return;
         }
         weakSelf.products=[NSMutableArray array];
-        for (NSDictionary* prod in responseObj[@"data"]) {
+        for (NSDictionary* prod in responseObj[@"data"][@"content"]) {
             ETProductModel *p = [ETProductModel mj_objectWithKeyValues:prod];
             [weakSelf.products addObject:p];
         }

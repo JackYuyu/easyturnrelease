@@ -248,11 +248,11 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             cell.avatarView.layer.cornerRadius = 20;
             cell.avatarView.layer.masksToBounds = YES;
             cell.detailLabel.text=msg.address;
-        if (_system.count>0) {
-            
-            EaseMessageModel* msg=[_list objectAtIndex:0];
-            cell.detailLabel.text=msg.address;
-        }
+//            if (_system.count>0) {
+//                
+//                EaseMessageModel* msg=[_list objectAtIndex:0];
+//                cell.detailLabel.text=msg.address;
+//            }
         }
         else{
             EaseMessageModel* msg=[_system objectAtIndex:indexPath.row];
@@ -261,6 +261,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             cell.avatarView.layer.cornerRadius = 20;
             cell.avatarView.layer.masksToBounds = YES;
             cell.detailLabel.text=msg.address;
+            
         }
     }
     else{

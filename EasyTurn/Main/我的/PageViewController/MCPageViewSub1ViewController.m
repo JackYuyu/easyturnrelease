@@ -9,6 +9,7 @@
 #import "MCPageViewSub1ViewController.h"
 #import "ETCheckStaffViewController.h"
 #import "SSNavigationController.h"
+#import "UserMegViewController.h"
 @interface MCPageViewSub1ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UIView *topView;
 @property (nonatomic,strong)UIImageView *userImg;
@@ -66,6 +67,10 @@
     }];
     return cell;
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -206,5 +211,6 @@
         NSLog(@"%@",error);
     }];
 }
+
 
 @end

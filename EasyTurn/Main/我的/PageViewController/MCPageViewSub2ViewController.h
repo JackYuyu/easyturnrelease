@@ -8,5 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @interface MCPageViewSub2ViewController : UIViewController
+@property (nonatomic,strong)UIViewController* owner;
 
 @end

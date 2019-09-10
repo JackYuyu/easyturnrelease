@@ -112,6 +112,9 @@
                 UITextField * ed = [[UITextField alloc]initWithFrame:CGRectMake(60, 20, cell.frame.size.width-60, 20)];
                 
                 ed.placeholder = @"请输入您的真实姓名";
+                if (_input) {
+                    ed.text=_input;
+                }
                 
                 ed.textAlignment = NSTextAlignmentCenter;
                 ed.tag=0;

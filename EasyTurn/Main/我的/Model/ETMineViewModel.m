@@ -20,7 +20,9 @@
                         failure:(STBaseModelRequestFailure)failure {
     
     NSString *url = [STApiHelper urlWithHost:devHost_Http_App path:pathUser file:@"/info"];
-    
+    if (!uid) {
+        return;
+    }
     NSDictionary *dicParams = @{
                                 @"uid" : uid
                                 };
