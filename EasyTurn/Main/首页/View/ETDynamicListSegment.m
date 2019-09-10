@@ -300,7 +300,7 @@
     self.viewBack.frame = CGRectMake(0, 0, Screen_Width, 40);
     self.viewBack.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.viewBack];
-    NSArray *array = @[@"全部地区",@"企业执照",@"企业服务"];
+    NSArray *array = @[@"全部地区",@"企业流转",@"企业服务"];
     CGFloat itemTotalW = Screen_Width/3;
     CGFloat centerX = itemTotalW/2;
     UIImageView *imvLine = nil;

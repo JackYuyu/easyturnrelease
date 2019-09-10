@@ -161,7 +161,7 @@
     [_leftButton addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
     [retView addSubview:_leftButton];
     
-    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, 30, 72, 25)];
+    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, StatusBarHeight+7, 72, 25)];
     headtitle.textColor=kACColorWhite;
     headtitle.text=@"发布服务";
     [retView addSubview:headtitle];
