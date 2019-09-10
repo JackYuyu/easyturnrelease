@@ -37,6 +37,8 @@
 @property (nonatomic,assign) bool status2;
 @property (nonatomic,strong) UILabel* dateLabel;
 
+@property (nonatomic,strong) NSString* priceTitle;
+
 @end
 
 @implementation ETPayaymentViewController
@@ -74,7 +76,7 @@
 //
 //    });
 //
-
+    _priceTitle=_finalPrice;
     
 }
 #pragma mark - 预支付微信
@@ -700,15 +702,31 @@
 }
 
 - (void)payOffAction{
-
+    NSString* a=_dateLabel.text;
+    if ([_dateLabel.text isEqualToString:@"交易周期"]) {
+        [MBProgressHUD showMBProgressHud:self.view withText:@"请设置交易周期" withTime:1];
+        return;
+    }
     if (_btnTag==1) {
         [self PostStageUI];
     }
-    if(_btnTag==2)
+    if(_btnTag==2){
+        if ([_priceTitle floatValue]!=[_stagePrice floatValue]+[_stagePrice1 floatValue]) {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"价格不符" withTime:1];
+            return;
+        }
         [self PostStage2UI];
+    }
     if (_btnTag==3) {
+        if ([_priceTitle floatValue]!=[_stagePrice floatValue]+[_stagePrice1 floatValue]+[_stagePrice2 floatValue]) {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"价格不符" withTime:1];
+            return;
+        }
         [self PostStage3UI];
     }
+    
+    
+    
     _payoffBtn.enabled=NO;
     [_payoffBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 }
@@ -762,6 +780,7 @@
     NSMutableDictionary* dic=[NSMutableDictionary new];
     float payment=[_finalPrice floatValue]/2;
     NSArray* priceArr=@[_stagePrice,_stagePrice1];
+
     NSDictionary *params = @{
                              @"id" : @(8),
                              @"price" : priceArr,
@@ -791,6 +810,7 @@
     NSMutableDictionary* dic=[NSMutableDictionary new];
     float payment=[_finalPrice floatValue]/3;
     NSArray* priceArr=@[_stagePrice,_stagePrice1,_stagePrice2];
+
     NSDictionary *params = @{
                              @"id" : @(9),
                              @"price" : priceArr,

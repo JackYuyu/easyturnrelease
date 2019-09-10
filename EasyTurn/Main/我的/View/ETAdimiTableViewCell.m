@@ -22,7 +22,13 @@
 }
 
 - (IBAction)yifuBtn:(UIButton *)sender {
+    if (self.block) {
+        self.block(sender.tag);
+    }
 }
 - (IBAction)deleBtn:(UIButton *)sender {
+    if (self.block1) {
+        self.block1(sender.tag);
+    }
 }
 @end

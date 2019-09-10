@@ -95,5 +95,30 @@
         NSLog(@"%@",error);
     }];
 }
-
+//-(void)PostInfoUI
+//{
+//    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
+//    
+//    NSDictionary *params = @{
+//                             @"uid" : p.userId
+//                             };
+//    
+//    [HttpTool get:[NSString stringWithFormat:@"user/info"] params:params success:^(id responseObj) {
+//        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
+//            return;
+//        }
+//        //        _products=[NSMutableArray new];
+//        NSDictionary* a=responseObj[@"data"];
+//        UserInfoModel* info=[UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
+//        NSLog(@"");
+//        
+//        UserMegViewController *megVC=[[UserMegViewController alloc]init];
+//        megVC.name=info.name;
+//        megVC.photoImg=info.portrait;
+//        [MySingleton sharedMySingleton].toUserid=info.uid;
+//        [self.navigationController pushViewController:megVC animated:YES];
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+//}
 @end

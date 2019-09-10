@@ -149,7 +149,7 @@
 - (UITableView *) tab {
     if (!_tab) {
         
-        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
+        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-44) style:UITableViewStyleGrouped];
         if (_product) {
             _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-20) style:UITableViewStyleGrouped];
         }
@@ -1496,12 +1496,13 @@
         _selectId=1;
     }
     if (_product) {
-        _cityId=@"0";
+        _cityId=_product.cityId;
         _otherText.text=_product.information;
         if (!_selectId) {
             _selectId=1;
         }
     }
+    
     NSDictionary *params = @{
                              @"accuratePush" : @(0),
                              @"asset": _assetsText.text,

@@ -120,7 +120,9 @@
                 UITextField * ed = [[UITextField alloc]initWithFrame:CGRectMake(60, 20, cell.frame.size.width-60, 20)];
                 
                 ed.placeholder = @"请输入您的真实姓名";
-                
+                if (_input) {
+                    ed.text=_input;
+                }
                 ed.textAlignment = NSTextAlignmentCenter;
                 ed.tag=0;
                 ed.delegate=self;
@@ -569,7 +571,8 @@
         [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:NO];
         NSLog(@"");
         if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] != 0) {
-            [MBProgressHUD showMBProgressHud:self.view withText:[MySingleton filterNull:responseObj[@"msg"]] withTime:1.0];
+//            [MBProgressHUD showMBProgressHud:self.view withText:[MySingleton filterNull:responseObj[@"msg"]] withTime:1.0];
+            [MBProgressHUD showMBProgressHud:self.view withText:@"等待平台审核" withTime:1.0];
             return ;
         }
         [self.navigationController popViewControllerAnimated:YES];

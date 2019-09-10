@@ -29,9 +29,13 @@
     MCPageViewSub1ViewController* sub1=[MCPageViewSub1ViewController new];
     [controllers addObject:sub1];
     [titles addObject:@"企业信息"];
-    [controllers addObject:[MCPageViewSub2ViewController new]];
+    MCPageViewSub2ViewController* sub2=[MCPageViewSub2ViewController new];
+    sub2.owner=self;
+    [controllers addObject:sub2];
     [titles addObject:@"员工管理"];
-    [controllers addObject:[MCPageViewSub3ViewController new]];
+    MCPageViewSub3ViewController* sub3=[MCPageViewSub3ViewController new];
+    sub3.owner=self;
+    [controllers addObject:sub3];
     [titles addObject:@"订单管理"];
     self.PageView = [[MCPageView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height) titles:titles controllers:controllers];
     self.PageView.titleButtonWidth = 60;

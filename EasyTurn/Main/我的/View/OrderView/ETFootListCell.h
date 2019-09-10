@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)cellHeight;
 + (instancetype)dynamicListCell:(UITableView *)tableView dict:(NSDictionary *)dict;
 @property (nonatomic,strong) UILabel *labelDesc;
+@property (nonatomic,strong) UIImageView *imvLine;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -68,6 +68,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *touser;
 //
 @property (nonatomic,copy) NSString* createDate;
+//编辑
+@property (nonatomic,copy) NSString* cityId;
+//
+@property (nonatomic,copy) NSString* headImageUrl;
+@property (nonatomic,copy) NSString* username;
+
 @end
 
 NS_ASSUME_NONNULL_END

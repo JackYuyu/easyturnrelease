@@ -83,7 +83,7 @@
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDictionary *params = @{
                              @"page" : @"1",
-                             @"pageSize": @"10",
+                             @"pageSize": @"100",
                              @"cityId": @"0",
                              @"keyword" : _searchText,
                              @"priceOrder" : @(0)

@@ -282,7 +282,7 @@
         UINavigationController *naviRoot = [[UINavigationController alloc]initWithRootViewController:vcPublishPurchaseSegment];
         [self presentViewController:naviRoot animated:YES completion:nil];
         return;
-        #warning geweiTestCode
+//        #warning geweiTestCode
         //发布求购
         ETPublishPurchaseViewController *vc = [[ETPublishPurchaseViewController alloc]init];
         [vc toDissmissSelf:^{

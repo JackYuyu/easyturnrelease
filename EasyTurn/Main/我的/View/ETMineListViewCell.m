@@ -150,6 +150,9 @@
         self.laPrice.text = [NSString stringWithFormat:@"¥%.2f",price];
     }
     self.laPrice.text =[self.laPrice.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
+    if ([model.releaseTypeId isEqualToString:@"2"]) {
+        self.laPrice.text = @"未定价";
+    }
 
 }
 

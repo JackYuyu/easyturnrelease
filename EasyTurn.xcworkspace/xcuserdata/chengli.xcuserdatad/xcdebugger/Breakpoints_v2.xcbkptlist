@@ -19,12 +19,60 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETEnterpriseServicesViewController.m"
-            timestampString = "589658476.016744"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETIssueViewController.m"
+            timestampString = "589796640.559029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "1539"
+            endingLineNumber = "1539"
+            landmarkName = "-PostUpdateUI"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ETIssueViewController PostUpdateUI]"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E5%8F%91%E5%B8%83/Controller/ETIssueViewController.m"
+                  timestampString = "589796640.913651"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1539"
+                  endingLineNumber = "1539"
+                  offsetFromSymbolStart = "3272">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__37-[ETIssueViewController PostUpdateUI]_block_invoke"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E5%8F%91%E5%B8%83/Controller/ETIssueViewController.m"
+                  timestampString = "589796640.917672"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1540"
+                  endingLineNumber = "1540"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETEnterpriseServicesViewController.m"
+            timestampString = "589747814.906235"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "-onClickBtnPublic:"
             landmarkType = "7">
          </BreakpointContent>
@@ -35,46 +83,126 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETEnterpriseServicesViewController.m"
-            timestampString = "589658476.0168459"
+            filePath = "EasyTurn/Main/&#x4ea4;&#x6613;&#x8be6;&#x60c5;/Controller/ETPayaymentViewController.m"
+            timestampString = "589788188.637594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
-            landmarkName = "-requestBusinessPublicWithModel:"
+            startingLineNumber = "784"
+            endingLineNumber = "784"
+            landmarkName = "-PostStage2UI"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ETEnterpriseServicesViewController requestBusinessPublicWithModel:]"
-                  moduleName = "EasyTurn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E5%8F%91%E5%B8%83/Controller/ETEnterpriseServicesViewController.m"
-                  timestampString = "589693715.669027"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "374"
-                  endingLineNumber = "374"
-                  offsetFromSymbolStart = "39">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__69-[ETEnterpriseServicesViewController requestBusinessPublicWithModel:]_block_invoke"
-                  moduleName = "EasyTurn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E5%8F%91%E5%B8%83/Controller/ETEnterpriseServicesViewController.m"
-                  timestampString = "589693715.670469"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "375"
-                  endingLineNumber = "375"
-                  offsetFromSymbolStart = "51">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETIssueViewController.m"
+            timestampString = "589796640.559144"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1470"
+            endingLineNumber = "1470"
+            landmarkName = "-PostUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETIssueViewController.m"
+            timestampString = "589796640.5592"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1476"
+            endingLineNumber = "1476"
+            landmarkName = "-PostUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETIssueViewController.m"
+            timestampString = "589796640.559243"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1540"
+            endingLineNumber = "1540"
+            landmarkName = "-PostUpdateUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETIssueViewController.m"
+            timestampString = "589796640.559285"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1546"
+            endingLineNumber = "1546"
+            landmarkName = "-PostUpdateUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x6211;&#x7684;/PageViewController/MCPageViewSub3ViewController.m"
+            timestampString = "589796640.5593311"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "-delOrder:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x6211;&#x7684;/PageViewController/MCPageViewSub3ViewController.m"
+            timestampString = "589796640.559683"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "-delOrder:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x6211;&#x7684;/PageViewController/MCPageViewSub3ViewController.m"
+            timestampString = "589796640.559924"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "-delOrder:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

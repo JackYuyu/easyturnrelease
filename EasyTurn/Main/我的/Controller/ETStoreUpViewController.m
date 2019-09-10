@@ -13,6 +13,7 @@
 #import "ETServiceDetailController.h"
 #import "ETSaleDetailController.h"
 #import "ETPoctoryqgViewController.h"
+#import "ETFootListCell.h"
 @interface ETStoreUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tab;
 @property(nonatomic,strong)UIButton *loadingBtn;
@@ -73,59 +74,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ETEnterpriseServiceTableViewCell1*cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (_products.count>0) {
-        _m=[_products objectAtIndex:indexPath.row];
-        cell.serviceLab.text=_m.desc;
-        cell.giveserviceLab.text=_m.title;
-        if ([_m.releaseId isEqualToString:@"1001"]) {
-            cell.serviceLab.text=@"出售";
-        }else if ([_m.releaseId isEqualToString:@"1002"]) {
-            cell.serviceLab.text=@"求购";
-        }else if ([_m.releaseId isEqualToString:@"1003"]) {
-            cell.serviceLab.text=@"服务";
-        }
-        cell.moneyLab.text=[NSString stringWithFormat:@"¥%@",_m.price];
-        
-        cell.addressLab.text=_m.cityName;
-        cell.detailsLab.text=_m.business;
-        [cell.comImg sd_setImageWithURL:[NSURL URLWithString:_m.imageList]];
-        if ([_m.releaseTypeId isEqualToString:@"1"]) {
-            UIImageView* jiao=[UIImageView new];
-            [jiao setImage:[UIImage imageNamed:@"首页_出售"]];
-            [cell.comImg addSubview:jiao];
-            [jiao mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(0);
-                make.top.mas_equalTo(0);
-                make.width.mas_equalTo(35);
-                make.height.mas_equalTo(35);
-            }];
-        }
-        if ([_m.releaseTypeId isEqualToString:@"3"]) {
-            UIImageView* jiao=[UIImageView new];
-            [jiao setImage:[UIImage imageNamed:@"首页_企服者"]];
-            [cell.comImg addSubview:jiao];
-            [jiao mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(0);
-                make.top.mas_equalTo(0);
-                make.width.mas_equalTo(35);
-                make.height.mas_equalTo(35);
-            }];
-        }
-        if ([_m.releaseTypeId isEqualToString:@"2"]) {
-            UIImageView* jiao=[UIImageView new];
-            [jiao setImage:[UIImage imageNamed:@"首页_求购"]];
-            [cell.comImg addSubview:jiao];
-            [jiao mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(0);
-                make.top.mas_equalTo(0);
-                make.width.mas_equalTo(35);
-                make.height.mas_equalTo(35);
-            }];
-        }
-        
-    }
+    ETFootListCell* cell=[ETFootListCell dynamicListCell:tableView dict:_products[indexPath.row]];
+    cell.imvLine.hidden=YES;
     _deleBtn =[[UIButton alloc]init];
     [_deleBtn setTitle:@"删除" forState:UIControlStateNormal];
     [_deleBtn setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -142,6 +92,7 @@
         make.size.mas_equalTo(CGSizeMake(60, 26));
     }];
     return cell;
+
 }
 - (void)aaaa:(UIButton*)sender {
     [self PostUI1:sender.tag];
@@ -191,19 +142,24 @@
         _details=[NSMutableArray new];
 
         NSDictionary* a=response[@"data"];
-        for (NSDictionary* prod in response[@"data"]) {
-          
-            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
-            if (p) {
-                [_products addObject:p];
-               
-            }
-        }
+//        for (NSDictionary* prod in response[@"data"]) {
+//
+//            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:prod];
+//            if (p) {
+//                [_products addObject:p];
+//
+//            }
+//        }
+//        NSArray *array = [response objectForKey:@"data"];
+//        if(array && ![array isKindOfClass:[NSNull class]]){
+//            [_details addObjectsFromArray:array];
+//        }
         NSArray *array = [response objectForKey:@"data"];
         if(array && ![array isKindOfClass:[NSNull class]]){
-            [_details addObjectsFromArray:array];
+            [_products addObjectsFromArray:array];
+            [_tab reloadData];
         }
-        [_tab reloadData];
+//        [_tab reloadData];
     } failure:^(NSError *error) {
         
     }];
@@ -212,7 +168,7 @@
 //    NSInteger m=_products.count;
     
     NSMutableDictionary* dic=[NSMutableDictionary new];
-    ETProductModel* p=[_products objectAtIndex:b];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:[_products objectAtIndex:b]];
     
     long long a=[p.releaseId longLongValue];
     NSDictionary *params = @{

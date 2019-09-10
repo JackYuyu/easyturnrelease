@@ -152,7 +152,7 @@
             cell.status.textColor=[UIColor greenColor];
         }
         else if ([temp isEqualToString:@"4"]){
-            cell.status.text=@"卖家已发起完成";
+            cell.status.text=@"卖家发起交易完成,等待买家确认";
         }
         else if ([temp isEqualToString:@"5"]){
             cell.status.text=@"交易完成";

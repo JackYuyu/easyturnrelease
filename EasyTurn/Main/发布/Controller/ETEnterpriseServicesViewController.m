@@ -164,7 +164,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
     }];
     
     _mRequest = [ETEnterpriseServicesViewRequestModel mj_objectWithKeyValues:muDict];
-    _mRequest.releaseTypeId = @(3);
+    _mRequest.releaseTypeId = @(2);
     [self requestBusinessPublicWithModel:_mRequest];
 }
 
@@ -303,22 +303,29 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
     [weakSelf.arrMuSection enumerateObjectsUsingBlock:^(ETEnterpriseServicesViewModel*  _Nonnull sectionModel, NSUInteger idx, BOOL * _Nonnull stop) {
         [sectionModel.list enumerateObjectsUsingBlock:^(ETEnterpriseServicesViewItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (obj.cellType == ETEnterpriseServicesViewItemModelTypeScopeBusiness) {
-                NSArray * sectionArrList = obj.businessScopeList;
-                NSMutableArray *arruMuModel = [NSMutableArray array];
-                [sectionArrList enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    ETEnterpriseServicesBusinessScopeModel *section = [ETEnterpriseServicesBusinessScopeModel mj_objectWithKeyValues:obj];
-                    NSMutableArray *arruMuItemModel = [NSMutableArray array];
-                    [section.list enumerateObjectsUsingBlock:^(ETEnterpriseServicesBusinessScopeModel * _Nonnull mItemDict, NSUInteger idx, BOOL * _Nonnull stop) {
-                        if ([mItemDict isKindOfClass:[NSDictionary class]]) {
-                            ETEnterpriseServicesBusinessScopeModel *mItem = [ETEnterpriseServicesBusinessScopeModel mj_objectWithKeyValues:mItemDict];
-                            [arruMuItemModel addObject:mItem];
-                        }
+                if (!obj.businessScopeList) {
+                    [weakSelf requestBusinessScope];
+                }
+                else{
+                    NSArray * sectionArrList = obj.businessScopeList;
+                    NSMutableArray *arruMuModel = [NSMutableArray array];
+                    [sectionArrList enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        
+                        ETEnterpriseServicesBusinessScopeModel *section = [ETEnterpriseServicesBusinessScopeModel mj_objectWithKeyValues:obj];
+                        NSMutableArray *arruMuItemModel = [NSMutableArray array];
+                        [section.list enumerateObjectsUsingBlock:^(ETEnterpriseServicesBusinessScopeModel * _Nonnull mItemDict, NSUInteger idx, BOOL * _Nonnull stop) {
+                            if ([mItemDict isKindOfClass:[NSDictionary class]]) {
+                                ETEnterpriseServicesBusinessScopeModel *mItem = [ETEnterpriseServicesBusinessScopeModel mj_objectWithKeyValues:mItemDict];
+                                [arruMuItemModel addObject:mItem];
+                            }
+                        }];
+                        section.list = arruMuItemModel;
+                        [arruMuModel addObject:section];
                     }];
-                    section.list = arruMuItemModel;
-                    [arruMuModel addObject:section];
-                }];
-                obj.businessScopeList = arruMuModel;
-                *stop = YES;
+                    obj.businessScopeList = arruMuModel;
+                    *stop = YES;
+                }
+                
             }
         }];
     }];
@@ -381,7 +388,31 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
         AMLog(@"发布失败");
         [MBProgressHUD showError:@"发布失败" toView:[UIApplication sharedApplication].keyWindow.rootViewController.view ];
     }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self cancelClick];
+        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+    });
+}
+//取消按钮点击方法
+-(void)cancelClick{
+//    [self finishPublish];
+    if (self.block) {
+        self.block();
+    }
 }
 
+#pragma mark - 完成发布
+//完成发布
+-(void)finishPublish{
+    //2.block传值
+//    if (self.mDismissBlock != nil) {
+//        self.mDismissBlock();
+//    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+//    if (_product) {
+//        [self.navigationController popToRootViewControllerAnimated:YES];
+//    }
+}
 
 @end

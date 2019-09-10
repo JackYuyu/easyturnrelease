@@ -166,10 +166,11 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
         
     }else if (self.releaseTypeId == 2) {
         //求购
-//        ETForBuyDetailController* detail=[ETForBuyDetailController forBuyDetailController:dict];
 
-        ETPoctoryqgViewController *detail = [ETPoctoryqgViewController new];
+//        ETPoctoryqgViewController *detail = [ETPoctoryqgViewController new];
         NSDictionary *dict =[_products objectAtIndex:indexPath.row];
+        ETForBuyDetailController* detail=[ETForBuyDetailController forBuyDetailController:dict];
+
         detail.releaseId = dict[@"releaseId"];
         detail.product = [ETProductModel mj_objectWithKeyValues:dict];
         [self.naviController pushViewController:detail animated:YES];

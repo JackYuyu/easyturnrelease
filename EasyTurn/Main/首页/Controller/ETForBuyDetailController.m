@@ -569,7 +569,14 @@ static NSString* const kShareFailedText = @"分享失败";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
+        NSString* temp = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
+        if (!temp)
+        {
         return 2;
+        }
+        else{
+            return 8;
+        }
     }
     return 1;
 }
@@ -612,6 +619,10 @@ static NSString* const kShareFailedText = @"分享失败";
     [dict setObject:@(1) forKey:@"lines"];
     [dict setObject:@([UIFont systemFontOfSize:15 weight:UIFontWeightMedium].lineHeight) forKey:@"subHeight"];
     if (indexPath.section == 0) {
+        NSString* temp = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
+        if (!temp)
+        {
+        
         switch (indexPath.row) {
             case 0:
             {
@@ -630,6 +641,158 @@ static NSString* const kShareFailedText = @"分享失败";
                 [dict setObject:@(2) forKey:@"radiusState"];
             }
                 break;
+        }
+        }
+        else{
+            
+            switch (indexPath.row) {
+                case 0:
+                {
+                    [dict setObject:@"服务类型" forKey:@"title"];
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"detail"]] forKey:@"subTitle"];
+                    NSString *serviceId = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
+                    NSString *title = @"";
+                    if (!serviceId) {
+                        serviceId = @"";
+                    }
+                    if ([serviceId isEqualToString:@"0"]) {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"综合服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                    }
+                    else if ([serviceId isEqualToString:@"1"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"工商服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    else if ([serviceId isEqualToString:@"2"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"财税服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    else if ([serviceId isEqualToString:@"3"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"行政服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    else if ([serviceId isEqualToString:@"4"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"金融服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    else if ([serviceId isEqualToString:@"5"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"资质服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    else if ([serviceId isEqualToString:@"6"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"综合服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    else if ([serviceId isEqualToString:@"7"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"知产服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    else if ([serviceId isEqualToString:@"8"])
+                    {
+                        [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"法律服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+
+                    }
+                    [dict setObject:@(0) forKey:@"radiusState"];
+                    //                int a=[EaseTextView numberOfLinesForMessage:self.detailInfo[@"business"]]+1;
+                    [dict setObject:@(0) forKey:@"lines"];
+                    [dict setObject:@([self subFirstHight:self.detailInfo[@"detail"]]) forKey:@"subHeight"];
+                }
+                    break;
+                case 1:
+                {
+                    [dict setObject:@"经营范围" forKey:@"title"];
+                    NSString* temp=[NSString stringWithFormat:@"%@",self.detailInfo[@"scope"]];
+                    temp=[temp stringByReplacingOccurrencesOfString:@"<null>" withString:@""];
+                    [dict setObject:temp forKey:@"subTitle"];
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+                case 2:
+                {
+                    [dict setObject:@"纳税类型" forKey:@"title"];
+                    NSString* temp1 = [MySingleton filterNull:self.detailInfo[@"taxId"]];
+                    if (temp1) {
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"taxId"]] forKey:@"subTitle"];
+                    if ([self.detailInfo[@"taxId"] isEqualToString:@"2"]) {
+                        [dict setObject:@"一般纳税人" forKey:@"subTitle"];
+                    }
+                    else{
+                        [dict setObject:@"小规模" forKey:@"subTitle"];
+                    }
+                    }
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+                case 3:
+                {
+                    [dict setObject:@"注册资本" forKey:@"title"];
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"capital"]] forKey:@"subTitle"];
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+                case 4:
+                {
+                    [dict setObject:@"银行开户" forKey:@"title"];
+                    NSString* temp1 = [MySingleton filterNull:self.detailInfo[@"bank"]];
+                    if (temp1) {
+                        
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"bank"]] forKey:@"subTitle"];
+                    
+                    if ([self.detailInfo[@"bank"] isEqualToString:@"2"]) {
+                        [dict setObject:@"代开" forKey:@"subTitle"];
+                    }
+                    else{
+                        [dict setObject:@"自开户" forKey:@"subTitle"];
+                    }
+                    }
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+                case 5:
+                {
+                    [dict setObject:@"注册地址" forKey:@"title"];
+                    NSString* temp1 = [MySingleton filterNull:self.detailInfo[@"regUrl"]];
+                    if (temp1) {
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"regUrl"]] forKey:@"subTitle"];
+                    if ([self.detailInfo[@"regUrl"] isEqualToString:@"2"]) {
+                        [dict setObject:@"企服者提供" forKey:@"subTitle"];
+                    }
+                    else{
+                        [dict setObject:@"自供" forKey:@"subTitle"];
+                            }
+                    }
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+                case 6:
+                {
+                    [dict setObject:@"求购区域" forKey:@"title"];
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"cityName"]] forKey:@"subTitle"];
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+                case 7:
+                {
+                    [dict setObject:@"备注" forKey:@"title"];
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"remarks"]] forKey:@"subTitle"];
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+                default:
+                {
+                    [dict setObject:@"所在区域" forKey:@"title"];
+                    [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"cityName"]] forKey:@"subTitle"];
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                }
+                    break;
+            }
+            
         }
     }
     else{

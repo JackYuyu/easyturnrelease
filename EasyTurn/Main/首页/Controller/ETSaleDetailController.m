@@ -720,7 +720,7 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
     if ([taxId isEqualToString:@"4"]) {
         return @"一般纳税人";
     }
-    return @"";
+    return @"小规模";
 }
 
 - (NSString *)buildTitle{

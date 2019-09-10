@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ETEnterpriseServicesViewController : UIViewController
-
+@property(nonatomic,copy) void(^block)(void);
 @end
 
 NS_ASSUME_NONNULL_END

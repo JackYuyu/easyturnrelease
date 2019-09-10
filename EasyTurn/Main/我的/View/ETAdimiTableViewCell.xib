@@ -37,10 +37,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pL-Kp-5al">
-                        <rect key="frame" x="126" y="42" width="38" height="18"/>
+                        <rect key="frame" x="126" y="42" width="188" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="Ida-qA-fpo"/>
-                            <constraint firstAttribute="width" constant="38" id="yqE-Sw-Uxk"/>
+                            <constraint firstAttribute="width" constant="188" id="yqE-Sw-Uxk"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
@@ -72,7 +72,7 @@
                             <constraint firstAttribute="width" constant="60" id="PzP-SR-GYL"/>
                             <constraint firstAttribute="height" constant="26" id="g1P-Om-tj5"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" title="删除"/>
                         <connections>
                             <action selector="deleBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Kzy-8d-ENb"/>
                         </connections>
@@ -100,7 +100,8 @@
                             <constraint firstAttribute="width" constant="60" id="5b6-ep-MBj"/>
                             <constraint firstAttribute="height" constant="26" id="o6n-LD-cs7"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" title="查看"/>
                         <connections>
                             <action selector="yifuBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DlC-pc-IGP"/>
                         </connections>
