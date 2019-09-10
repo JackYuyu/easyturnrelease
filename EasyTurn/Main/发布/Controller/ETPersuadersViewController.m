@@ -44,9 +44,13 @@
 @property (nonatomic,strong)UILabel *lab1;
 @property (nonatomic,strong)UIButton *surebtn;
 @property (nonatomic,strong)UIButton *leftButton;
+<<<<<<< HEAD
 
 @property (nonatomic, copy) NSString *cityId;
 
+=======
+@property (nonatomic, strong)  UIView *retView;
+>>>>>>> 67add9cc060f54b9827a80b02b41481ad381f9df
 @end
 
 @implementation ETPersuadersViewController
@@ -126,11 +130,6 @@
     return _dataSource;
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-
-}
-
 - (UITableView *) tab {
     if (!_tab) {
         _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
@@ -149,12 +148,26 @@
     return _tab;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    _retView.hidden = YES;
+    
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    _retView.hidden = NO;
+    [_retView removeFromSuperview];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadAddressData];
-    UIView *retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
-    retView.backgroundColor = kACColorBlue_Theme;
-    [self.navigationController.view addSubview:retView];
+    _retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
+    _retView.backgroundColor = kACColorBlue_Theme;
+    [self.navigationController.view addSubview:_retView];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(7, StatusBarHeight+7, 44, 44);
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateNormal];
@@ -162,12 +175,12 @@
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateSelected];
     _leftButton=btn;
     [_leftButton addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
-    [retView addSubview:_leftButton];
+    [_retView addSubview:_leftButton];
     
-    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, 30, 72, 25)];
+    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, StatusBarHeight+7, 72, 25)];
     headtitle.textColor=kACColorWhite;
     headtitle.text=@"发布服务";
-    [retView addSubview:headtitle];
+    [_retView addSubview:headtitle];
     
     self.title=@"发布服务";
     [self enableLeftBackWhiteButton];
