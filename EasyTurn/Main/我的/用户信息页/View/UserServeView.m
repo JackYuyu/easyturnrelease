@@ -4,7 +4,11 @@
 #import "UserSaleViewCell.h"
 #import "SaleModel.h"
 #import "ETProductModel.h"
-#import "ETDynamicListCell.h"
+#import "ETUserListCell.h"
+#import "ETBuyFinishViewController.h"
+#import "ETForBuyDetailController.h"
+#import "ETServiceDetailController.h"
+#import "ETSaleDetailController.h"
 @interface UserServeView()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic , strong)UITableView *tableView;
@@ -105,7 +109,39 @@
     //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //    return cell;
     
-    return [ETDynamicListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
+    return [ETUserListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dict =[self.dataArray objectAtIndex:indexPath.row];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
+    //    ETCartViewController* pur=[ETCartViewController new];
+    
+    //    ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
+    //    ETPoctoryqgServiceViewController* pur=[ETPoctoryqgServiceViewController new];
+    if ([p.tradStatus isEqualToString:@"5"]) {
+        ETBuyFinishViewController* f=[ETBuyFinishViewController new];
+        f.product=p;
+        [self.owner.navigationController pushViewController:f animated:YES];
+    }
+    else{
+        if ([p.releaseTypeId isEqualToString:@"3"]) {
+            ETServiceDetailController * detail=[ETServiceDetailController serviceDetailController:dict];
+            detail.product=p;
+            [self.owner.navigationController pushViewController:detail animated:YES];
+        }
+        else if ([p.releaseTypeId isEqualToString:@"1"]){
+            ETSaleDetailController* detail=[ETSaleDetailController saleDetailController:dict];
+            detail.product=p;
+            [self.owner.navigationController pushViewController:detail animated:YES];
+        }
+        else{
+            ETForBuyDetailController* pur=[ETForBuyDetailController forBuyDetailController:dict];
+            pur.releaseId=p.releaseId;
+            pur.releaseId = dict[@"releaseId"];
+            pur.product = [ETProductModel mj_objectWithKeyValues:dict];
+            [self.owner.navigationController pushViewController:pur animated:YES];
+        }
+    }
 }
 //删除按钮
 - (void)onTouchBtnInCell:(UIButton *)sender {

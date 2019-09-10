@@ -12,6 +12,7 @@
 #import "ETSaleDetailController.h"
 #import "ETServiceDetailController.h"
 #import "ETPoctoryqgViewController.h"
+#import "ETForBuyDetailController.h"
 static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 @interface ETMineListViewController()<UITableViewDataSource, UITableViewDelegate, ETMineListViewCellDelegate>
 @property (nonatomic, copy) void(^scrollCallback)(UIScrollView *scrollView);
@@ -165,6 +166,8 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
         
     }else if (self.releaseTypeId == 2) {
         //求购
+//        ETForBuyDetailController* detail=[ETForBuyDetailController forBuyDetailController:dict];
+
         ETPoctoryqgViewController *detail = [ETPoctoryqgViewController new];
         NSDictionary *dict =[_products objectAtIndex:indexPath.row];
         detail.releaseId = dict[@"releaseId"];

@@ -70,6 +70,7 @@ static NSString* const kShareFailedText = @"分享失败";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"求购详情";
+    self.title=@"求购详情";
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = RGBACOLOR(242, 242, 242, 1);
     self.tableView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height-50-BottomSafeHeightGap);
@@ -255,11 +256,15 @@ static NSString* const kShareFailedText = @"分享失败";
 - (void)clickImage1 {
     [self delfav1];
     _select=0;
+    [self clickImage];
+
 }
 
 - (void)clickImage2 {
     [self delfav1];
     _select=1;
+    [self clickImage];
+
 }
 - (UIView *)maskTheView{
     if (!_maskTheView) {
@@ -641,8 +646,8 @@ static NSString* const kShareFailedText = @"分享失败";
         megVC.name=_toUser.name;
         megVC.photoImg=_toUser.portrait;
         [MySingleton sharedMySingleton].toUserid=_toUser.uid;
-        [self presentViewController:megVC animated:YES completion:nil];
-        
+        [self.navigationController pushViewController:megVC animated:YES];
+
     }
 }
 

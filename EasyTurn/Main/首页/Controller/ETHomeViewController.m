@@ -211,6 +211,7 @@
         self.pageIndex = 1;
         [_products removeAllObjects];
         [weakSelf PostUI];
+        [weakSelf postDylist];
     }];
     _tbHome.mj_footer = [XMRefreshFooter xm_footerWithRefreshingBlock:^{
         self.pageIndex += 1;
@@ -474,6 +475,9 @@
                              };
     [HttpTool get:[NSString stringWithFormat:@"user/getJimAuroraName"] params:params success:^(id responseObj) {
         NSLog(@"");
+        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
+            return;
+        }
         NSDictionary* a=responseObj[@"data"];
         EaseUserModel* model=[EaseUserModel new];
         model.nickname=[a objectForKey:@"username"];

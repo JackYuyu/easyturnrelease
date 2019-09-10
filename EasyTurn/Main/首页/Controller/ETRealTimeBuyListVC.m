@@ -149,8 +149,9 @@
     NSDictionary *dict =[self.arrayData objectAtIndex:indexPath.row];
 //    ETCartViewController* pur=[ETCartViewController new];
     
-    ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
+//    ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
 //    ETPoctoryqgServiceViewController* pur=[ETPoctoryqgServiceViewController new];
+    ETForBuyDetailController* pur=[ETForBuyDetailController forBuyDetailController:dict];
     ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
     pur.releaseId=p.releaseId;
     pur.releaseId = dict[@"releaseId"];

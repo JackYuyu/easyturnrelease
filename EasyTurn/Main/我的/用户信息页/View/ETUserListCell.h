@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ETDynamicListCell : UITableViewCell
+@interface ETUserListCell : UITableViewCell
 + (CGFloat)cellHeight;
 + (instancetype)dynamicListCell:(UITableView *)tableView dict:(NSDictionary *)dict;
 @property (nonatomic,strong) UILabel *labelDesc;

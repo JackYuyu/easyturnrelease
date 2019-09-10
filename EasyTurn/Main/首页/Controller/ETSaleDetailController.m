@@ -697,7 +697,8 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
         megVC.name=_toUser.name;
         megVC.photoImg=_toUser.portrait;
         [MySingleton sharedMySingleton].toUserid=_toUser.uid;
-        [self presentViewController:megVC animated:YES completion:nil];
+        [self.navigationController pushViewController:megVC animated:YES];
+//        [self presentViewController:megVC animated:YES completion:nil];
         
     }
 }

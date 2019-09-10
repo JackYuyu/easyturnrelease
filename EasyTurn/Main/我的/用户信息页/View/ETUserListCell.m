@@ -1,27 +1,28 @@
 //
-//  ETMeinDynamicListCell.m
+//  ETDynamicListCell.m
 //  EasyTurn
 //
-//  Created by 王翔 on 2019/8/25.
+//  Created by 刘盖 on 2019/8/7.
 //  Copyright © 2019 EasyTurn. All rights reserved.
 //
 
-#import "ETMeinDynamicListCell.h"
-@interface ETMeinDynamicListCell ()
+#import "ETUserListCell.h"
+@interface ETUserListCell ()
 
 @property (nonatomic,strong) UIImageView *imvPhoto;
 @property (nonatomic,strong) UIImageView *imvTag;
 @property (nonatomic,strong) UILabel *labelTitle;
 @property (nonatomic,strong) UILabel *labelBrowse;
-//@property (nonatomic,strong) UILabel *labelTag;
-
+@property (nonatomic,strong) UILabel *labelTag;
+//@property (nonatomic,strong) UILabel *labelPrice;
 @property (nonatomic,strong) UIImageView *imvAddr;
 @property (nonatomic,strong) UILabel *labelAddress;
 //@property (nonatomic,strong) UILabel *labelDesc;
 @property (nonatomic,strong) UIImageView *imvLine;
 @property (nonatomic,strong) NSDictionary *dict;
 @end
-@implementation ETMeinDynamicListCell
+
+@implementation ETUserListCell
 
 + (CGFloat)cellHeight{
     return 125;
@@ -71,11 +72,11 @@
         
         //
         self.labelTag = [[UILabel alloc] init];
-        self.labelTag.font = [UIFont systemFontOfSize:14];
+        self.labelTag.font = [UIFont systemFontOfSize:16];
         self.labelTag.frame = CGRectMake(CGRectGetMinX(self.labelTitle.frame), CGRectGetMaxY(self.labelAddress.frame)+8, (self.labelTitle.frame.size.width-10)/2, self.labelTag.font.lineHeight);
-        //        self.labelTag.textColor = RGBACOLOR(102, 102, 102, 1);
+//        self.labelTag.textColor = RGBACOLOR(102, 102, 102, 1);
         self.labelTag.textColor = RGBACOLOR(248, 124, 43, 1);
-        
+
         [self.contentView addSubview:self.labelTag];
         
         self.labelPrice = [[UILabel alloc] init];
@@ -83,16 +84,16 @@
         self.labelPrice.frame = CGRectMake(CGRectGetMaxX(self.labelTag.frame), 0, self.labelTag.frame.size.width, self.labelPrice.font.lineHeight);
         self.labelPrice.center = CGPointMake(self.labelPrice.center.x, self.labelTag.center.y);
         self.labelPrice.textAlignment = NSTextAlignmentRight;
-        //        self.labelPrice.textColor = RGBACOLOR(248, 124, 43, 1);
+//        self.labelPrice.textColor = RGBACOLOR(248, 124, 43, 1);
         self.labelPrice.textColor = RGBACOLOR(102, 102, 102, 1);
-        
+
         [self.contentView addSubview:self.labelPrice];
         
         
         
-        self.imvLine = [[UIImageView alloc] initWithFrame:CGRectMake(0, [ETMeinDynamicListCell cellHeight]-1, Screen_Width, 1)];
+        self.imvLine = [[UIImageView alloc] initWithFrame:CGRectMake(0, [ETUserListCell cellHeight]-1, Screen_Width, 1)];
         self.imvLine.backgroundColor = RGBACOLOR(242, 242, 242, 1);
-//        [self.contentView addSubview:self.imvLine];
+        [self.contentView addSubview:self.imvLine];
         
         self.labelDesc = [[UILabel alloc] init];
         self.labelDesc.font = [UIFont systemFontOfSize:12];
@@ -115,43 +116,35 @@
 - (void)resetDict:(NSDictionary *)dict{
     if (_dict != dict) {
         _dict = dict;
-        NSString *temp = [self filterNull:dict[@"imageList"]];
+       NSString *temp = [self filterNull:dict[@"imageList"]];
         [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:temp?temp:@""] placeholderImage:[UIImage imageNamed:@"11566120515_.pic_hd"]];
         
-        //        temp = [self filterNull:dict[@"releaseTypeId"]];
-        //        if ([temp isEqualToString:@"1"]) {
-        //            [self.imvTag setImage:[UIImage imageNamed:@"首页_出售"]];
-        //            self.imvPhoto.image=[UIImage imageNamed:@"121565920544_.pic"];
-        //        }
-        //        else if ([temp isEqualToString:@"3"]) {
-        //            [self.imvTag setImage:[UIImage imageNamed:@"首页_企服者"]];
-        //                self.imvPhoto.image=[UIImage imageNamed:@"21566120540_.pic_hd"];
-        //        }
-        //        else if ([temp isEqualToString:@"2"]) {
-        //             [self.imvTag setImage:[UIImage imageNamed:@"首页_求购"]];
-        //              self.imvPhoto.image=[UIImage imageNamed:@"11566120515_.pic_hd"];
-        //
-        //        }
-        
+//        temp = [self filterNull:dict[@"releaseTypeId"]];
+//        if ([temp isEqualToString:@"1"]) {
+//            [self.imvTag setImage:[UIImage imageNamed:@"首页_出售"]];
+//            self.imvPhoto.image=[UIImage imageNamed:@"121565920544_.pic"];
+//        }
+//        else if ([temp isEqualToString:@"3"]) {
+//            [self.imvTag setImage:[UIImage imageNamed:@"首页_企服者"]];
+//                self.imvPhoto.image=[UIImage imageNamed:@"21566120540_.pic_hd"];
+//        }
+//        else if ([temp isEqualToString:@"2"]) {
+//             [self.imvTag setImage:[UIImage imageNamed:@"首页_求购"]];
+//              self.imvPhoto.image=[UIImage imageNamed:@"11566120515_.pic_hd"];
+//
+//        }
+    
         temp = [self filterNull:dict[@"releaseTypeId"]];
         if ([temp isEqualToString:@"1"]) {
             [self.imvTag setImage:[UIImage imageNamed:@"首页_出售"]];
         }
         else if ([temp isEqualToString:@"3"]) {
             [self.imvTag setImage:[UIImage imageNamed:@"首页_企服者"]];
-            //            [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:temp?temp:@""] placeholderImage:[UIImage imageNamed:@"11566120515_.pic_hd"]];
+//            [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:temp?temp:@""] placeholderImage:[UIImage imageNamed:@"11566120515_.pic_hd"]];
         }
         else if ([temp isEqualToString:@"2"]) {
             [self.imvTag setImage:[UIImage imageNamed:@"首页_求购"]];
-            temp = [self filterNull:dict[@"serviceId"]];
-            if (!temp)
-            {
-                [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"11566120515_.pic_hd"]];
-            }
-            else
-            {
-                [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"21566120540_.pic_hd"]];
-            }
+//             [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:temp?temp:@""] placeholderImage:[UIImage imageNamed:@"21566120540_.pic_hd"]];
         }
         else{
             self.imvTag.image = nil;
@@ -159,57 +152,40 @@
         
         self.labelTitle.text = [self filterNull:dict[@"title"]];
         temp = [self filterNull:dict[@"releaseTypeId"]];
-        NSString* temp1 = [NSString stringWithFormat:@"浏览 %ld次",[[self filterNull:dict[@"browse"]] integerValue]];
         if ([temp isEqualToString:@"1"]) {
-            self.labelPrice.text=temp1;
+            self.labelTag.text=@"出售";
         }else if ([temp isEqualToString:@"3"]) {
-            self.labelPrice.text=temp1;
+            self.labelTag.text=@"企服";
         }else {
-            self.labelPrice.text=temp1;
+            self.labelTag.text=@"求购";
         }
         //
         temp = [self filterNull:dict[@"tradStatus"]];
-        
-        NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
-        NSString* b=[user objectForKey:@"uid"];
-        if ([dict[@"userId"] isEqualToString:b]) {//卖家
-            if ([temp isEqualToString:@"1"]) {
-                self.labelPrice.text=@"买家已确认";
-            }else if ([temp isEqualToString:@"2"]){
-                self.labelPrice.text=@"等待买方支付";
-            }
-            else if ([temp isEqualToString:@"3"]){
-                self.labelPrice.text=@"支付已完成";
-            }
-            else if ([temp isEqualToString:@"4"]){
-                self.labelPrice.text=@"等待买家确认";
-            }
-            else if ([temp isEqualToString:@"5"]){
-                self.labelPrice.text=@"已下架";
-            }
-        }
-        else {
         if ([temp isEqualToString:@"1"]) {
-            self.labelPrice.text=@"等待卖家确认";
+            self.labelTag.text=@"等待卖家确认";
         }else if ([temp isEqualToString:@"2"]){
-            self.labelPrice.text=@"卖家已确认";
+                self.labelTag.text=@"卖家已确认";
         }
         else if ([temp isEqualToString:@"3"]){
-            self.labelPrice.text=@"支付已完成";
+            self.labelTag.text=@"支付已完成";
         }
         else if ([temp isEqualToString:@"4"]){
-            self.labelPrice.text=@"卖家已发起完成";
+            self.labelTag.text=@"卖家已发起交易完成";
         }
         else if ([temp isEqualToString:@"5"]){
-            self.labelPrice.text=@"已下架";
+            self.labelTag.text=@"已下架";
         }
+        
+        temp = [NSString stringWithFormat:@"浏览 %ld次",[[self filterNull:dict[@"browse"]] integerValue]];
+//        self.labelBrowse.text = temp;
+        self.labelPrice.text=temp;
+        temp = [self filterNull:dict[@"tradStatus"]];
+        if ([temp isEqualToString:@"5"]){
+            self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
         }
-//        temp = [NSString stringWithFormat:@"浏览 %ld次",[[self filterNull:dict[@"browse"]] integerValue]];
-//        //        self.labelBrowse.text = temp;
-//        self.labelPrice.text=temp;
         
         temp = [self filterNull:dict[@"price"]];
-        double a=[temp doubleValue];
+                double a=[temp doubleValue];
         if (a>=10000.0) {
             self.labelTag.text = [NSString stringWithFormat:@"¥%.0f万",a/10000.0];
         }
@@ -219,7 +195,7 @@
             self.labelTag.text = [NSString stringWithFormat:@"¥%.2f",pp];
         }
         self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
-
+        
         self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],[self filterNull:dict[@"releaseTime"]]];
         if ([dict[@"cityName"] isKindOfClass:[NSNull class]]) {
             self.labelAddress.text = @"";
@@ -227,9 +203,9 @@
         
         self.labelBrowse.text = [NSString stringWithFormat:@"经营范围:%@",[self filterNull:dict[@"business"]] ];
         NSString* typeid = [self filterNull:dict[@"releaseTypeId"]];
-        if ([typeid isEqualToString:@"3"]||[typeid isEqualToString:@"2"]) {
+        if ([typeid isEqualToString:@"3"]) {
             self.labelBrowse.text = [NSString stringWithFormat:@"详细内容:%@",[self filterNull:dict[@"detail"]] ];
-            
+
         }
         
 //        if ([dict[@"business"] isKindOfClass:[NSNull class]]) {
@@ -238,39 +214,39 @@
 //        }
         
         
-        
-        //        else{
-        //            if ([dict[@"business"] isEqualToString:@""]) {
-        //                self.labelDesc.hidden=YES;
-        //            }
-        //        }
-        //        if ([self.labelDesc.text containsString:@"null"]) {
-        //            self.labelDesc.hidden=YES;
-        //
-        //        }
+//        else{
+//            if ([dict[@"business"] isEqualToString:@""]) {
+//                self.labelDesc.hidden=YES;
+//            }
+//        }
+//        if ([self.labelDesc.text containsString:@"null"]) {
+//            self.labelDesc.hidden=YES;
+//
+//        }
     }
     
     
-    //    self.labelDesc.text=p.desc;
-    
-    //    NSString*str=p.price;
-    //    double a=[str doubleValue];
-    //    cell.moneyLab.text=[NSString stringWithFormat:@"¥%.2f万",a/10000.0];
-    //
-    //    cell.addressLab.text=p.cityName;
-    //    cell.detailsLab.text=p.business;
+//    self.labelDesc.text=p.desc;
+
+//    NSString*str=p.price;
+//    double a=[str doubleValue];
+//    cell.moneyLab.text=[NSString stringWithFormat:@"¥%.2f万",a/10000.0];
+//
+//    cell.addressLab.text=p.cityName;
+//    cell.detailsLab.text=p.business;
     
     
 }
 
 + (instancetype)dynamicListCell:(UITableView *)tableView dict:(NSDictionary *)dict{
-    //    ETDynamicListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ETDynamicListCell"];
-    //    if (!cell) {
-    //        cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ETDynamicListCell"];
-    //    }
-    ETMeinDynamicListCell* cell=[ETMeinDynamicListCell new];
+//    ETDynamicListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ETDynamicListCell"];
+//    if (!cell) {
+//        cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ETDynamicListCell"];
+//    }
+    ETUserListCell* cell=[ETUserListCell new];
     [cell resetDict:dict];
     return cell;
 }
 
 @end
+

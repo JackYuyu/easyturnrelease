@@ -94,5 +94,8 @@
     }
 }
 
-
+//block声明方法
+-(void)toDissmissSelf:(dismissBlock)block{
+    self.mDismissBlock = block;
+}
 @end

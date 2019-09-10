@@ -5,6 +5,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UserServeView : UIView
+@property (nonatomic,strong) UIViewController *owner;
 
 @end
 

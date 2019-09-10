@@ -308,6 +308,7 @@
 		00E5C32B22EEFC1300009241 /* ProductInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00E5C32822EEFC1200009241 /* ProductInfoCell.xib */; };
 		00E5C32C22EEFC1300009241 /* ProductInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E5C32A22EEFC1200009241 /* ProductInfoCell.m */; };
 		04AC89CD23241E9600A404B5 /* ETBuyFinishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */; };
+		04C6B45723254570000BDC82 /* ETUserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C6B45623254570000BDC82 /* ETUserListCell.m */; };
 		2E0269B82317FF750085CA4F /* ETPoctoryqgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0269B62317FF750085CA4F /* ETPoctoryqgViewController.m */; };
 		2E077B0F22F3CF38004D31E1 /* ETZhangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E077B0E22F3CF38004D31E1 /* ETZhangViewController.m */; };
 		2E077B1222F3D116004D31E1 /* ETZhangTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E077B1122F3D116004D31E1 /* ETZhangTableViewCell.m */; };
@@ -1012,6 +1013,8 @@
 		00E5C32A22EEFC1200009241 /* ProductInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductInfoCell.m; sourceTree = "<group>"; };
 		04AC89CB23241E9600A404B5 /* ETBuyFinishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETBuyFinishViewController.m; sourceTree = "<group>"; };
 		04AC89CC23241E9600A404B5 /* ETBuyFinishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETBuyFinishViewController.h; sourceTree = "<group>"; };
+		04C6B45523254570000BDC82 /* ETUserListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETUserListCell.h; sourceTree = "<group>"; };
+		04C6B45623254570000BDC82 /* ETUserListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETUserListCell.m; sourceTree = "<group>"; };
 		0B41FA3272E5846DF85F3D53 /* libPods-EasyTurn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EasyTurn.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E0269B62317FF750085CA4F /* ETPoctoryqgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPoctoryqgViewController.m; sourceTree = "<group>"; };
 		2E0269B72317FF750085CA4F /* ETPoctoryqgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPoctoryqgViewController.h; sourceTree = "<group>"; };
@@ -1510,6 +1513,8 @@
 				0046AA4422EACDE20038CA11 /* UserSaleViewCell.xib */,
 				0046AA4122EACDE20038CA11 /* UserServeView.h */,
 				0046AA3E22EACDE20038CA11 /* UserServeView.m */,
+				04C6B45523254570000BDC82 /* ETUserListCell.h */,
+				04C6B45623254570000BDC82 /* ETUserListCell.m */,
 				2EF11F762314215800561103 /* ETunsTableViewCell.h */,
 				2EF11F772314215800561103 /* ETunsTableViewCell.m */,
 				2EF11F782314215800561103 /* ETunsTableViewCell.xib */,
@@ -3638,6 +3643,7 @@
 				0046AA7122EACDE30038CA11 /* ETVIPViewController.m in Sources */,
 				2E2FA5E922F9124700C06FF6 /* IANshowLoading.m in Sources */,
 				00E5C32322EDD03C00009241 /* FBRequestSearch.m in Sources */,
+				04C6B45723254570000BDC82 /* ETUserListCell.m in Sources */,
 				4924AA7222FAC2E000B2C282 /* ETDynamicListCell.m in Sources */,
 				2E087A1423115337002374E9 /* MCPageViewSub2ViewController.m in Sources */,
 				007FADEF22E052C3001EC5F2 /* OTDynamicGridView.m in Sources */,

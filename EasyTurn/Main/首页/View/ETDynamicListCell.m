@@ -14,7 +14,7 @@
 @property (nonatomic,strong) UILabel *labelTitle;
 @property (nonatomic,strong) UILabel *labelBrowse;
 @property (nonatomic,strong) UILabel *labelTag;
-@property (nonatomic,strong) UILabel *labelPrice;
+//@property (nonatomic,strong) UILabel *labelPrice;
 @property (nonatomic,strong) UIImageView *imvAddr;
 @property (nonatomic,strong) UILabel *labelAddress;
 //@property (nonatomic,strong) UILabel *labelDesc;
@@ -193,6 +193,10 @@
         self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
         
         self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],[self filterNull:dict[@"releaseTime"]]];
+        NSString* add=self.labelAddress.text;
+        self.labelAddress.text=[self.labelAddress.text stringByReplacingOccurrencesOfString:@"(null)" withString:@""];
+        self.labelAddress.text=[self.labelAddress.text stringByReplacingOccurrencesOfString:@"null" withString:@""];
+
         if ([dict[@"cityName"] isKindOfClass:[NSNull class]]) {
             self.labelAddress.text = @"";
         }

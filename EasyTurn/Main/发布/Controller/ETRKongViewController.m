@@ -273,6 +273,12 @@
        
     }else if(btn.tag == 1001){
         ETPublishPurchaseSegmentViewController *vcPublishPurchaseSegment = [[ETPublishPurchaseSegmentViewController alloc] init];
+        [vcPublishPurchaseSegment toDissmissSelf:^{
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
+            [UIView animateWithDuration:0 animations:^{
+                self->_closeImgView.transform = CGAffineTransformRotate(self->_closeImgView.transform, -M_PI_2*1.5);
+            }];
+        }];
         UINavigationController *naviRoot = [[UINavigationController alloc]initWithRootViewController:vcPublishPurchaseSegment];
         [self presentViewController:naviRoot animated:YES completion:nil];
         return;

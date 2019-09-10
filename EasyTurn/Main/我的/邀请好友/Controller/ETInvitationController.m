@@ -56,6 +56,7 @@
     [_scrollvBackground addSubview:imagevBg];
     [imagevBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.scrollvBackground);
+        make.width.mas_equalTo(Screen_Width);
     }];
     
     UIImageView *imagevLogo = [[UIImageView alloc]init];
