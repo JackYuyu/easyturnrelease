@@ -17,6 +17,7 @@ typedef void(^dismissBlock) (void);
 @interface ETPublishPurchaseViewController : ACViewController
 @property (nonatomic, strong) ETProductModel *product;
 
+
 //block
 //block声明属性
 @property (nonatomic, copy) dismissBlock mDismissBlock;

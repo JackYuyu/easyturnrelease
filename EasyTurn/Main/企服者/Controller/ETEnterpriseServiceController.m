@@ -86,7 +86,7 @@
         [_topLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topImg.mas_bottom).with.offset(20);
             make.left.mas_equalTo(21);
-            make.size.mas_equalTo(CGSizeMake(260, 17));
+            make.size.mas_equalTo(CGSizeMake(300, 17));
         }];
 
         [_businessBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -153,7 +153,7 @@
     [_topLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topImg.mas_bottom).with.offset(10);
         make.left.mas_equalTo(21);
-        make.size.mas_equalTo(CGSizeMake(230, 17));
+        make.size.mas_equalTo(CGSizeMake(260, 17));
     }];
     
     

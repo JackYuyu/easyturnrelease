@@ -56,10 +56,10 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
     [super viewDidLoad];
     [self enableLeftBackButton];
     if (_index==0) {
-        self.title=@"易转平台官方";
+        self.title=@"易转官方平台";
     }
     else
-        self.title=@"平台求购推送";
+        self.title=@"求购推送消息";
     self.view.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:self.tab];
     [self PostUI];
