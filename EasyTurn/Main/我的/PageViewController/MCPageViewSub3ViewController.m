@@ -125,6 +125,7 @@
     
     UILabel *orderLab1 =[[UILabel alloc]initWithFrame:CGRectMake(190,0 , 50, 20)];
     orderLab1.text=@"已完成";
+//    orderLab1.userInteractionEnabled=YES;
     orderLab1.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     orderLab1.font=[UIFont systemFontOfSize:13];
     [screeView addSubview:orderLab1];

@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, ETLoginViewControllerType) {
 @property (nonatomic, strong) UIButton *btnRegister;
 //@property (nonatomic, strong) UILabel *laThirdParty;
 //@property (nonatomic, strong) UIButton *btnWechat;
+
 @property (nonatomic, strong) UILabel *labPhoneErrorMessage;
 @property (nonatomic, assign) ETLoginViewControllerType pageType;
 

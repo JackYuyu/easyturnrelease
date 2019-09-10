@@ -11,7 +11,6 @@
 
 @interface ETEnterpriseServicesCheckTableViewCell ()
 @property (nonatomic, strong) UILabel *labTitle;
-//@property (nonatomic, strong) OTButton *btnFirst;
 @property (nonatomic, strong) UIImageView *imgvSelected;
 @property (nonatomic, strong) ETEnterpriseServicesViewItemModel *mItem;
 @end

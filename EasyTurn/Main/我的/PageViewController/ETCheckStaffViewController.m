@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
     self.title=@"员工申请";
     self.view.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:self.tab];
@@ -36,7 +38,7 @@
 //    [self PostInfoUI1];
     
     _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, TopHeight)];
-    _navigationView.backgroundColor = kACColorClear;
+    _navigationView.backgroundColor = kACColorBlue_Theme;
     [self.navigationController.view addSubview:_navigationView];
     _leftButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _leftButton.frame = CGRectMake(15, StatusBarHeight, 55, 45);
@@ -51,6 +53,11 @@
     _leftButton=btn;
     [_leftButton addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
     [_navigationView addSubview:_leftButton];
+    
+    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, 30, 72, 25)];
+    headtitle.textColor=kACColorWhite;
+    headtitle.text=@"员工申请";
+    [_navigationView addSubview:headtitle];
 }
 -(void)backAction
 {
