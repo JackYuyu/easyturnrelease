@@ -55,7 +55,7 @@
 @property (nonatomic,strong)UILabel *lab1;
 @property (nonatomic,strong)UIButton *surebtn;
 @property (nonatomic, assign) int selectId;
-
+@property (nonatomic, strong) UIButton *leftButton;
 @end
 
 @implementation ETIssueViewController{
@@ -161,8 +161,28 @@
     return _tab;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIView *retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
+    retView.backgroundColor = kACColorBlue_Theme;
+    [self.navigationController.view addSubview:retView];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(7, StatusBarHeight+7, 44, 44);
+    [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateHighlighted];
+    [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateSelected];
+    _leftButton=btn;
+    [_leftButton addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [retView addSubview:_leftButton];
+    
+    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, 30, 72, 25)];
+    headtitle.textColor=kACColorWhite;
+    headtitle.text=@"发布出售";
+    [retView addSubview:headtitle];
+    
     
     [[AipOcrService shardService] authWithAK:@"ECvVABCvGZ6D0huXWzfARIhG" andSK:@"NqPs01HjA2QTotblFGjChovPzKbxcuyv"];
     [self configCallback];
