@@ -36,7 +36,9 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 @property(strong,nonatomic)NSString *auroraname;
 @property(strong,nonatomic)UIView *navigationView;
 @property (nonatomic, strong) UIButton *leftButton;
-
+@property (nonatomic,assign) BOOL cart;
+@property(strong,nonatomic)NSString *releaseId;
+@property(strong,nonatomic)EaseMessageViewController *vc;
 @end
 
 @implementation EaseConversationListViewController
@@ -123,6 +125,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 //        _touserAvat=responseObject[@"data"];
 //        [self getNick];
+        if (![responseObject[@"data"] isKindOfClass:[NSNull class]]) {
+            _cart=YES;
+            NSString* a=responseObject[@"data"][@"releaseId"];
+            _vc.releaseid=responseObject[@"data"][@"releaseId"];
+            NSUserDefaults* ud=[NSUserDefaults standardUserDefaults];
+            [ud setObject:responseObject[@"data"][@"forUserId"] forKey:@"foruserid"];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
@@ -160,6 +169,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"消息";
+    _cart=NO;
 //    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width/2, TopHeight)];
 //    _navigationView.backgroundColor = kACColorClear;
 //    [self.view addSubview:_navigationView];
@@ -345,13 +355,16 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         _auroraname=model.conversation.conversationId;
         [self getMsgToBuyer];
         EaseMessageViewController *viewController = [[EaseMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
-        viewController.cartcontroller=NO;
+        viewController.cartcontroller=YES;
+        
+//        viewController.releaseid=_releaseId;
         viewController.block = ^(NSString *a) {
             if (self.block1) {
                 self.block1(a);
             }
         };
         viewController.title = model.title;
+        _vc=viewController;
         [self.navigationController pushViewController:viewController animated:YES];
     }
 }

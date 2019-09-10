@@ -1568,7 +1568,7 @@
                              @"validId" : @(0)
                              };
     
-    [HttpTool get:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
+    [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
         NSString *code = responseObj[@"code"];
         if (code.integerValue == 0)  {
             [MBProgressHUD showSuccess:@"发布成功" toView:self.view];

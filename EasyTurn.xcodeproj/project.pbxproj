@@ -201,6 +201,8 @@
 		00841592231FA140009589A5 /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00841580231FA140009589A5 /* TZGifPhotoPreviewController.m */; };
 		00841593231FA140009589A5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 00841582231FA140009589A5 /* README.md */; };
 		0084159A2320A83F009589A5 /* UITextView+XWAutoHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 008415982320A83F009589A5 /* UITextView+XWAutoHeight.m */; };
+		00935E342327FF95001886A8 /* NSObject+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 00935E322327FF94001886A8 /* NSObject+Category.m */; };
+		00935E352327FF95001886A8 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00935E332327FF94001886A8 /* CustomTableViewCell.m */; };
 		00986CCE2321310300B1131E /* ExpandTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00986CC12321310200B1131E /* ExpandTableViewController.m */; };
 		00986CCF2321310300B1131E /* ExpandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00986CC42321310300B1131E /* ExpandCell.xib */; };
 		00986CD02321310300B1131E /* ico_faq_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 00986CC62321310300B1131E /* ico_faq_d.png */; };
@@ -822,6 +824,10 @@
 		00841582231FA140009589A5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		008415982320A83F009589A5 /* UITextView+XWAutoHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+XWAutoHeight.m"; sourceTree = "<group>"; };
 		008415992320A83F009589A5 /* UITextView+XWAutoHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+XWAutoHeight.h"; sourceTree = "<group>"; };
+		00935E302327FF94001886A8 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		00935E312327FF94001886A8 /* NSObject+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Category.h"; sourceTree = "<group>"; };
+		00935E322327FF94001886A8 /* NSObject+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Category.m"; sourceTree = "<group>"; };
+		00935E332327FF94001886A8 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		00986CC12321310200B1131E /* ExpandTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandTableViewController.m; sourceTree = "<group>"; };
 		00986CC22321310300B1131E /* ExpandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandCell.h; sourceTree = "<group>"; };
 		00986CC32321310300B1131E /* ExpandTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandTableViewController.h; sourceTree = "<group>"; };
@@ -2859,6 +2865,10 @@
 		2E1CDA7E22EAD09600174F08 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				00935E302327FF94001886A8 /* CustomTableViewCell.h */,
+				00935E332327FF94001886A8 /* CustomTableViewCell.m */,
+				00935E312327FF94001886A8 /* NSObject+Category.h */,
+				00935E322327FF94001886A8 /* NSObject+Category.m */,
 				00986CF123223AC700B1131E /* OrderView */,
 				00986CE1232143C900B1131E /* ETMineHeaderView.h */,
 				00986CE2232143C900B1131E /* ETMineHeaderView.m */,
@@ -3479,6 +3489,7 @@
 				00A9461B2316ABFD003A2B66 /* KJBannerTool.m in Sources */,
 				00A9461C2316ABFD003A2B66 /* KJBannerViewFlowLayout.m in Sources */,
 				00199B9722F17C2B00FACC24 /* WXApiResponseHandler.m in Sources */,
+				00935E342327FF95001886A8 /* NSObject+Category.m in Sources */,
 				007FAE2B22E052FD001EC5F2 /* NSString+AHKit.m in Sources */,
 				007FAE2822E052FD001EC5F2 /* SQPrintJsonLog.m in Sources */,
 				2E0A8BE4232428A100EA610D /* EaseSyetemListCell.m in Sources */,
@@ -3585,6 +3596,7 @@
 				4924AA6422FA683E00B2C282 /* ETHomeListHeader.m in Sources */,
 				007FADF922E052C3001EC5F2 /* OTTextView.m in Sources */,
 				007FADFC22E052C3001EC5F2 /* payRequsestHandler.mm in Sources */,
+				00935E352327FF95001886A8 /* CustomTableViewCell.m in Sources */,
 				4924AA7522FAD42700B2C282 /* ETRealTimeBuyListVC.m in Sources */,
 				0084155B231F9F64009589A5 /* UIView+ZZExtension.m in Sources */,
 				2E0CDF0C22E83C1F00783952 /* ETBusinessViewController.m in Sources */,

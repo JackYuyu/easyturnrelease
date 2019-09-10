@@ -44,6 +44,9 @@
 @property (nonatomic,strong)UILabel *lab1;
 @property (nonatomic,strong)UIButton *surebtn;
 @property (nonatomic,strong)UIButton *leftButton;
+
+@property (nonatomic, copy) NSString *cityId;
+
 @end
 
 @implementation ETPersuadersViewController
@@ -506,6 +509,8 @@
         [LQCityPicker showInView:self.view datas:self.dataSource didSelectWithBlock:^(NSArray *objs, NSString *dsc) {
             NSLog(@"%@\n%@", objs, dsc);
             ws.addressLabel.text = dsc;
+            LQPickerItem* item=objs[1];
+            _cityId=item.cid;//获取cityid
         } cancelBlock:^{
             NSLog(@"cancel");
         }];
@@ -1130,6 +1135,7 @@
         [self PostUpdateUI];
         return;
     }
+
     _surebtn.enabled=NO;
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDate *date = [NSDate date];
@@ -1142,7 +1148,7 @@
                              @"browse" : @(0),
                              @"business" : @"",
                              @"buyUserId" : @(0),
-                             @"cityId" : @(0),
+                             @"cityId" : _cityId,
                              @"cityName" : _addressLabel.text,
                              @"detail" : _detailText.text,
                              @"freePush" : @(0),
@@ -1187,7 +1193,12 @@
     //    [self clickImage];
 
     if (_product) {
+        if (!_serviceid) {
+
         _serviceid=_product.serviceId;
+        }
+        _cityId=_product.cityId;
+
     }
     _surebtn.enabled=NO;
     NSMutableDictionary* dic=[NSMutableDictionary new];
@@ -1201,7 +1212,7 @@
                              @"browse" : @(0),
                              @"business" : @"",
                              @"buyUserId" : @(0),
-                             @"cityId" : @(0),
+                             @"cityId" : _cityId,
                              @"cityName" : _addressLabel.text,
                              @"detail" : _detailText.text,
                              @"freePush" : @(0),

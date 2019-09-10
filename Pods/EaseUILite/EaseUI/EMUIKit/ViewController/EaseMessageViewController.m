@@ -162,7 +162,7 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     EMConversation* conv=self.conversation;
     NSDictionary* d=self.conversation.latestMessage.ext;
-    if (d) {
+    if (_cartcontroller) {
         [self createButton];
 //        _releaseid=[d objectForKey:@"uid"];
     }
