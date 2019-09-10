@@ -262,7 +262,6 @@ static NSString* const kShareFailedText = @"分享失败";
 
 - (void)clickImage2 {
     [self delfav1];
-    
     _select=1;
     [self clickImage];
 
@@ -300,7 +299,6 @@ static NSString* const kShareFailedText = @"分享失败";
         _shareView.layer.cornerRadius=10;
         //        _shareView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
         _shareView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:1.0];
-        
     }
     return _shareView;
 }
@@ -311,7 +309,6 @@ static NSString* const kShareFailedText = @"分享失败";
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage)];
     [returnImage addGestureRecognizer:tapGesture];
     [_shareView addSubview:returnImage];
-    
     UIView*centerView=[[UIView alloc]init];
     centerView.backgroundColor= [UIColor colorWithRed:230/255.f green:230/255.f blue:230/255.f alpha:0.5];
     [_shareView addSubview:centerView];

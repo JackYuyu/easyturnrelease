@@ -141,10 +141,7 @@
     return _dataSource;
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
+
 
 - (UITableView *) tab {
     if (!_tab) {
@@ -174,13 +171,11 @@
     
     self.title=@"发布出售";
     [self enableLeftBackWhiteButton];
-    self.navigationController.navigationBarHidden=NO;
     [self.view addSubview:self.tab];
-    self.tab.contentInsetAdjustmentBehavior = NO;
     
     
     //添加取消按钮->
-    [self addCancelBtn];
+//    [self addCancelBtn];
     [self shareView];
     [self shareViewController];
 }
@@ -767,6 +762,10 @@
 
 //取消按钮点击方法
 -(void)cancelClick{
+    [self finishPublish];
+}
+
+- (void)onClickBtnBack:(UIButton *)btn {
     [self finishPublish];
 }
 

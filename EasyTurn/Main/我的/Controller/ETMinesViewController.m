@@ -335,7 +335,6 @@ static NSString *const cellIdentifier =@"cellIdentifier";
             if(array && ![array isKindOfClass:[NSNull class]]){
                 [_products addObjectsFromArray:array];
                 [_tableView reloadData];
-
             }
         }
     } failure:^(NSError *error) {
