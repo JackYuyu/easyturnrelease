@@ -209,6 +209,19 @@ static NSString *const devHost_Http_App = @"https://app.yz-vip.cn";
 #define kScreenH [UIScreen mainScreen].bounds.size.height
 //#define WeakSelf __weak typeof(self) weakSelf = self
 
+//屏幕宽度、高度
+#define XH_SCREEN_WIDTH                 [UIScreen mainScreen].bounds.size.width
+#define XH_SCREEN_HEIGHT                [UIScreen mainScreen].bounds.size.height
+#define kIsWelcomeKey [NSString stringWithFormat:@"welcomeView",@""]
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 // Api Path
 
 static NSString *const pathUser = @"/user";

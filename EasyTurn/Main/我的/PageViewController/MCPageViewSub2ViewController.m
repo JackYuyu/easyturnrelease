@@ -9,6 +9,8 @@
 #import "MCPageViewSub2ViewController.h"
 #import "ETManageTableViewCell.h"
 #import "member.h"
+#import "UserInfoModel.h"
+#import "UserMegViewController.h"
 @interface MCPageViewSub2ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *tab;
 @property (nonatomic,strong)NSString* comName;
@@ -36,12 +38,14 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ETManageTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    member* m =[_members objectAtIndex:indexPath.row];
+    UserInfoModel* m =[_members objectAtIndex:indexPath.row];
     cell.nameLab.text=m.uid;
     [cell.userImg sd_setImageWithURL:[NSURL URLWithString:m.portrait]];
     return cell;
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self PostInfoUI:indexPath.row];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -85,7 +89,7 @@
 //        _comLab.text=responseObj[@"data"][@"companyName"];
         member* m=[member mj_objectWithKeyValues:responseObj[@"data"]];
         for (NSDictionary* prod in responseObj[@"data"]) {
-            member* m=[member mj_objectWithKeyValues:prod];
+            UserInfoModel* m=[UserInfoModel mj_objectWithKeyValues:prod];
                         [_members addObject:m];
 
                     }
@@ -95,30 +99,30 @@
         NSLog(@"%@",error);
     }];
 }
-//-(void)PostInfoUI
-//{
-//    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
-//    
-//    NSDictionary *params = @{
-//                             @"uid" : p.userId
-//                             };
-//    
-//    [HttpTool get:[NSString stringWithFormat:@"user/info"] params:params success:^(id responseObj) {
-//        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
-//            return;
-//        }
-//        //        _products=[NSMutableArray new];
-//        NSDictionary* a=responseObj[@"data"];
-//        UserInfoModel* info=[UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
-//        NSLog(@"");
-//        
-//        UserMegViewController *megVC=[[UserMegViewController alloc]init];
-//        megVC.name=info.name;
-//        megVC.photoImg=info.portrait;
-//        [MySingleton sharedMySingleton].toUserid=info.uid;
-//        [self.navigationController pushViewController:megVC animated:YES];
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//    }];
-//}
+-(void)PostInfoUI:(NSInteger)a
+{
+    UserInfoModel* p=[_members objectAtIndex:a];
+
+    NSDictionary *params = @{
+                             @"uid" : p.uid
+                             };
+
+    [HttpTool get:[NSString stringWithFormat:@"user/info"] params:params success:^(id responseObj) {
+        if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
+            return;
+        }
+        //        _products=[NSMutableArray new];
+        NSDictionary* a=responseObj[@"data"];
+        UserInfoModel* info=[UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
+        NSLog(@"");
+
+        UserMegViewController *megVC=[[UserMegViewController alloc]init];
+        megVC.name=info.name;
+        megVC.photoImg=info.portrait;
+        [MySingleton sharedMySingleton].toUserid=info.uid;
+        [self.owner.navigationController pushViewController:megVC animated:YES];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 @end

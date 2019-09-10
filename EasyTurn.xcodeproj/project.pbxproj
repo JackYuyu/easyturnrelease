@@ -276,6 +276,8 @@
 		00A9462D23181DF2003A2B66 /* DCCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A9462723181DF2003A2B66 /* DCCycleScrollView.m */; };
 		00A9462E23181DF2003A2B66 /* DCCycleScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A9462A23181DF2003A2B66 /* DCCycleScrollViewCell.m */; };
 		00A9462F23181DF2003A2B66 /* DCCycleScrollViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A9462C23181DF2003A2B66 /* DCCycleScrollViewFlowLayout.m */; };
+		00C6D1BD2327CC230020718E /* ETFavListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C6D1BC2327CC230020718E /* ETFavListCell.m */; };
+		00C6D1C02327DFD10020718E /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00C6D1BE2327DFD10020718E /* WelcomeController.m */; };
 		00CDE38F22EAF88100F563FF /* HttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00CDE38E22EAF88100F563FF /* HttpTool.m */; };
 		00DDAA2723125F9B00366494 /* member.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DDAA2623125F9B00366494 /* member.m */; };
 		00E5C2C422EC65A500009241 /* ETHomeLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E5C2C322EC65A500009241 /* ETHomeLocationController.m */; };
@@ -953,6 +955,10 @@
 		00A9462A23181DF2003A2B66 /* DCCycleScrollViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCycleScrollViewCell.m; sourceTree = "<group>"; };
 		00A9462B23181DF2003A2B66 /* DCCycleScrollViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCycleScrollViewCell.h; sourceTree = "<group>"; };
 		00A9462C23181DF2003A2B66 /* DCCycleScrollViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCycleScrollViewFlowLayout.m; sourceTree = "<group>"; };
+		00C6D1BB2327CC220020718E /* ETFavListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFavListCell.h; sourceTree = "<group>"; };
+		00C6D1BC2327CC230020718E /* ETFavListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFavListCell.m; sourceTree = "<group>"; };
+		00C6D1BE2327DFD10020718E /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
+		00C6D1BF2327DFD10020718E /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		00CDE38D22EAF88100F563FF /* HttpTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HttpTool.h; sourceTree = "<group>"; };
 		00CDE38E22EAF88100F563FF /* HttpTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HttpTool.m; sourceTree = "<group>"; };
 		00DDAA2523125F9B00366494 /* member.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = member.h; sourceTree = "<group>"; };
@@ -1619,6 +1625,8 @@
 				007FAD3822E03E65001EC5F2 /* ACViewController.m */,
 				007FAD3722E03E65001EC5F2 /* MainViewController.h */,
 				007FAD3A22E03E65001EC5F2 /* MainViewController.m */,
+				00C6D1BF2327DFD10020718E /* WelcomeController.h */,
+				00C6D1BE2327DFD10020718E /* WelcomeController.m */,
 				007FAD4122E03E66001EC5F2 /* STApiHelper.h */,
 				007FAD3C22E03E65001EC5F2 /* STApiHelper.m */,
 				007FAD3D22E03E65001EC5F2 /* STBaseModel.h */,
@@ -2461,6 +2469,8 @@
 			children = (
 				00986CFF23238CB600B1131E /* ETFootListCell.h */,
 				00986D0023238CB600B1131E /* ETFootListCell.m */,
+				00C6D1BB2327CC220020718E /* ETFavListCell.h */,
+				00C6D1BC2327CC230020718E /* ETFavListCell.m */,
 				00986CF223223AC700B1131E /* OrderCell.xib */,
 				00986CF323223AC700B1131E /* OrderCell.h */,
 				00986CF423223AC700B1131E /* OrderCell.m */,
@@ -3377,6 +3387,7 @@
 				007FAD9822E05228001EC5F2 /* ACToastView.m in Sources */,
 				00986CE9232143DB00B1131E /* ETMineViewModel.m in Sources */,
 				00986D0123238CB600B1131E /* ETFootListCell.m in Sources */,
+				00C6D1BD2327CC230020718E /* ETFavListCell.m in Sources */,
 				0046AA6822EACDE30038CA11 /* UserSaleViewCell.m in Sources */,
 				0046AA6B22EACDE30038CA11 /* ETTouchMeinViewController.m in Sources */,
 				2ED2F6D72318D63F00FA9F89 /* ETLawViewController.m in Sources */,
@@ -3433,6 +3444,7 @@
 				2E09CAA922F31028003B2C61 /* ETRealtimePurchaseViewController.m in Sources */,
 				0084159A2320A83F009589A5 /* UITextView+XWAutoHeight.m in Sources */,
 				007FAE2722E052FD001EC5F2 /* UIBarButtonItem+Extension.m in Sources */,
+				00C6D1C02327DFD10020718E /* WelcomeController.m in Sources */,
 				007FADEE22E052C3001EC5F2 /* OTDynamicGridModel.m in Sources */,
 				00E5C2DC22ED365700009241 /* AticleMenu.m in Sources */,
 				2E105F3F231229D500EE8A71 /* ETAdimiTableViewCell.m in Sources */,

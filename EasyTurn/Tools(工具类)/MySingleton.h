@@ -15,6 +15,7 @@
 @property (nonatomic, assign) int review;
 @property (nonatomic, retain) NSString *toUserid;
 @property (nonatomic, retain) UIImage *port;
+@property (nonatomic, retain) NSMutableArray *scopes;
 
 
 +(MySingleton*)sharedMySingleton;

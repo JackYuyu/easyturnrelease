@@ -72,6 +72,9 @@
         return;
     }
     _mItem.isSelected = !_mItem.isSelected;
+    if (_mItem.isSelected) {
+        [[MySingleton sharedMySingleton].scopes addObject:_mItem.name];
+    }
     [self updateImgvSelectedSelected:_mItem.isSelected];
     if ([_delegate respondsToSelector:@selector(enterpriseServicesScopeBusinessItemTableViewCell:model:)]) {
         [_delegate enterpriseServicesScopeBusinessItemTableViewCell:self model:_mItem];

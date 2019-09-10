@@ -36,6 +36,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
 @property (nonatomic, strong) NSMutableArray *arrMuSection;
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) ETEnterpriseServicesViewRequestModel *mRequest;
+@property (nonatomic,strong) NSDictionary* dics;
 @end
 
 @implementation ETEnterpriseServicesViewController
@@ -45,6 +46,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
     [self initWithDefaultValue];
     [self createSubViews];
     [self requestBusinessScope];
+    [MySingleton sharedMySingleton].scopes=[NSMutableArray array];
 }
 
 - (void)initWithDefaultValue {
@@ -137,6 +139,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
                 if (mItem.isSelected) {
                     [arrCheckValue addObject:mItem.title];
                 }
+                NSLog(@"");
             } else if (mItem.cellType ==  ETEnterpriseServicesViewItemModelTypeCheck) {
                 NSMutableArray *arrValue = [NSMutableArray array];
                 [mItem.businessScopeList enumerateObjectsUsingBlock:^(ETEnterpriseServicesBusinessScopeModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -162,6 +165,11 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
         }
         
     }];
+    NSString *trueValue = [[MySingleton sharedMySingleton].scopes componentsJoinedByString:@","];
+    [muDict setValue:trueValue forKey:@"scope"];
+    [muDict setValue:@(2) forKey:@"releaseTypeId"];
+    _dics=[NSDictionary new];
+    _dics=[muDict mutableCopy];
     
     _mRequest = [ETEnterpriseServicesViewRequestModel mj_objectWithKeyValues:muDict];
     _mRequest.releaseTypeId = @(2);
@@ -378,7 +386,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
 }
 #pragma mark - 请求发布的接口
 - (void)requestBusinessPublicWithModel:(ETEnterpriseServicesViewRequestModel *)mRequest {
-    [HttpTool post:@"release/buyService" params:mRequest.mj_keyValues success:^(id responseObj) {
+    [HttpTool post:@"release/buyService" params:_dics success:^(id responseObj) {
         NSString *code = [responseObj objectForKey:@"code"];
         if (code.integerValue == 0) {
             AMLog(@"发布成功");

@@ -63,6 +63,8 @@
         mgr.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json", @"text/plain", @"text/javascript", nil];
         mgr.requestSerializer.timeoutInterval = 10;
     });
+    [mgr.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
     [mgr.requestSerializer setValue:token forHTTPHeaderField:@"token"];
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;

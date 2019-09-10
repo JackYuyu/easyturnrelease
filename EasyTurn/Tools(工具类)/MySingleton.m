@@ -11,6 +11,7 @@
 @synthesize token,toUserid;
 @synthesize review;
 @synthesize port;
+@synthesize scopes;
 
 static MySingleton* _sharedMySingleton = nil;
 

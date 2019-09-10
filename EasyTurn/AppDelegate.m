@@ -20,6 +20,7 @@
 #import "SSPayUtils.h"
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
+#import "WelcomeController.h"
 #endif
 @interface AppDelegate ()<WXApiDelegate,JPUSHRegisterDelegate>
 //@property (nonatomic,assign) int review;
@@ -27,6 +28,7 @@
 @property (nonatomic,strong) NSString* openid;
 @property (nonatomic,strong) NSString* nickname;
 @property (nonatomic,strong) NSString* head;
+@property (nonatomic,strong) UIApplication* app;
 @end
 
 @implementation AppDelegate
@@ -50,29 +52,20 @@
     [self setUpNavigationBar];
     //启动页延时
     [NSThread sleepForTimeInterval:2];
-    if ([SSCacheManager isInstallorUpdate]) {
-        //新安装用户
-        [self loginViewController];
-
-    }else{
-        UserInfoModel *userInfoModel = [UserInfoModel loadUserInfoModel];
-        if (userInfoModel.token) {
-            //跳转首页
-            [self mainViewController];
-            [self huanxin:application];
-        }else{
-            //跳转登录页面
-            NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
-            NSString* token=[user objectForKey:@"token"];
-            if (!token) {
-                [self loginViewController];
-            }else
-            {
-                [self mainViewController];
-                [self huanxin:application];
-            }
-        }
+    _app=application;
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    if ([ud boolForKey:kIsWelcomeKey] == NO) {
+        WelcomeController *vc = [[WelcomeController alloc] init];
+        //            self.window.rootViewController = vc;
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]bounds]];
+        [self.window setRootViewController:vc];
+        //            [self.window setBackgroundColor:kACColorWhite];
+        [self.window makeKeyAndVisible];
     }
+    else{
+        [self returnback];
+    }
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessNotification) name:LOGINSELECTCENTERINDEX object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginOutNotification) name:LOGINOFFSELECTCENTERINDEX object:nil];
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -83,10 +76,34 @@
 //        [application registerForRemoteNotifications];
 //    }
     
-    
     return YES;
 }
-
+-(void)returnback
+{
+    if ([SSCacheManager isInstallorUpdate]) {
+        //新安装用户
+        [self loginViewController];
+        
+    }else{
+        UserInfoModel *userInfoModel = [UserInfoModel loadUserInfoModel];
+        if (userInfoModel.token) {
+            //跳转首页
+            [self mainViewController];
+            [self huanxin:_app];
+        }else{
+            //跳转登录页面
+            NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
+            NSString* token=[user objectForKey:@"token"];
+            if (!token) {
+                [self loginViewController];
+            }else
+            {
+                [self mainViewController];
+                [self huanxin:_app];
+            }
+        }
+    }
+}
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
     //调用第三方支付后,保存支付状态值
     [SSPayUtils shareUser].State = @"end";
@@ -673,6 +690,15 @@
     
 }
 
+- (void)setupRootVC {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    if ([ud boolForKey:kIsWelcomeKey] == NO) {
+        WelcomeController *vc = [[WelcomeController alloc] init];
+        self.window.rootViewController = vc;
+    }else {
+        [self mainViewController];
+    }
+}
 - (void)setUpNavigationBar {
     // 设置是 广泛使用WRNavigationBar，还是局部使用WRNavigationBar，目前默认是广泛使用
     [WRNavigationBar wr_widely];
