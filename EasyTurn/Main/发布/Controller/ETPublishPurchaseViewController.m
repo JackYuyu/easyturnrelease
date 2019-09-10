@@ -160,7 +160,7 @@
     [self loadAddressData];
     
     //添加取消按钮->
-    [self addCancelBtn];
+//    [self addCancelBtn];
     
     [self setUI];
     _swith=0;
@@ -1751,5 +1751,7 @@
 //    }
 //    return res;
 //}
-
+- (void)onClickBtnBack:(UIButton *)btn {
+    [self finishPublish];
+}
 @end

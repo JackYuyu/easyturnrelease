@@ -157,10 +157,14 @@
     self.tab.contentInsetAdjustmentBehavior = NO;
     
     //添加取消按钮->
-    [self addCancelBtn];
+//    [self addCancelBtn];
     
     [self shareView];
     [self shareViewController];
+}
+
+- (void)onClickBtnBack:(UIButton *)btn {
+    [self finishPublish];
 }
 
 - (void)loadAddressData{
