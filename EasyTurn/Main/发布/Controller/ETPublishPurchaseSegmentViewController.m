@@ -23,14 +23,14 @@
 @implementation ETPublishPurchaseSegmentViewController
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    _retView.hidden = YES;
+    _retView.hidden = NO;
     
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    _retView.hidden = NO;
+    _retView.hidden = YES;
     [_retView removeFromSuperview];
 }
 

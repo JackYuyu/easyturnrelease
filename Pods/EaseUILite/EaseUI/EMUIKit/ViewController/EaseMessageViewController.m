@@ -2197,8 +2197,8 @@ typedef enum : NSUInteger {
         }
     }
     if (_cartcontroller) {
-        NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
-        ext=@{@"uid":_releaseid};
+//        NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
+//        ext=@{@"uid":_releaseid};
     }
 
     [self sendTextMessage:text withExt:ext];

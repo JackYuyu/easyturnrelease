@@ -87,7 +87,7 @@
     
     
     UIImageView* img=[UIImageView new];
-    [img setImage:[UIImage imageNamed:@"1321566445086_.pic_hd"]];
+    [img setImage:[UIImage imageNamed:@"6451568192220_.pic_hd"]];
     [_shareView addSubview:img];
     
     UIButton *returnImage=[[UIButton alloc]init];
