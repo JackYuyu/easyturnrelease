@@ -113,7 +113,7 @@ static MainViewController *vcMain = nil;
         NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"touser"),bg_sqlValue(a)];
         
         NSArray * array1 = [ETProductModel bg_find:@"ETProductModel" where:where];
-
+        [self PostSaveUI:a];
         [self PostUI:a];
     };
     
@@ -180,6 +180,30 @@ static MainViewController *vcMain = nil;
     }];
 }
 
+
+//小黄车先调接口
+- (void)PostSaveUI:(NSString* )releaseId {
+//    NSMutableDictionary* dic=[NSMutableDictionary new];
+//    ETProductModel* p=_products[0];
+    NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *params = @{
+                             @"releaseId" : releaseId,
+                             @"forUserId" : [user objectForKey:@"foruserid"]
+                             
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"pay/saveForUserId"] params:params success:^(id responseObj) {
+        
+        //        NSString* a=responseObj[@"data"][@"result"];
+        //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[responseObj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+        //
+        //        NSDictionary* d=[jsonDict copy];
+        NSLog(@"");
+        //        [MBProgressHUD showMBProgressHud:self.view withText:@"提交成功" withTime:1];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 - (void)setNaviController:(SSNavigationController *)naviController
                     title:(NSString *)title
               defautImage:(UIImage *)image

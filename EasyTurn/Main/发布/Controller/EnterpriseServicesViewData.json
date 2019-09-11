@@ -50,6 +50,14 @@
                     "placeholder":""
                 },
                 {
+                    "cellType": 1,
+                    "key": "industrial",
+                    "value": "",
+                    "title":"行业特点",
+                    "content":"",
+                    "placeholder":"例如科技"
+                },
+                {
                     "cellType": 2,
                     "key": "taxId",
                     "value": "",

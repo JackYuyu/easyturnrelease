@@ -13,7 +13,7 @@
 #import "ETServiceDetailController.h"
 #import "ETSaleDetailController.h"
 #import "ETPoctoryqgViewController.h"
-#import "ETFootListCell.h"
+#import "ETFavListCell.h"
 @interface ETStoreUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tab;
 @property(nonatomic,strong)UIButton *loadingBtn;
@@ -74,7 +74,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ETFootListCell* cell=[ETFootListCell dynamicListCell:tableView dict:_products[indexPath.row]];
+    ETFavListCell* cell=[ETFavListCell dynamicListCell:tableView dict:_products[indexPath.row]];
     cell.imvLine.hidden=YES;
     _deleBtn =[[UIButton alloc]init];
     [_deleBtn setTitle:@"删除" forState:UIControlStateNormal];
@@ -107,7 +107,7 @@
     // 3点击没有颜色改变
     cell.selected = NO;
     
-    NSDictionary *temp =[_details objectAtIndex:indexPath.row];
+    NSDictionary *temp =[_products objectAtIndex:indexPath.row];
     
     ETProductModel* p=[ETProductModel mj_objectWithKeyValues:temp];
     if ([p.releaseTypeId isEqualToString:@"3"]) {

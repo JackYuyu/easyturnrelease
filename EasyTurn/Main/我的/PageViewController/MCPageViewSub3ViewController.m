@@ -11,6 +11,7 @@
 #import "member.h"
 #import "ETProductModel.h"
 #import "ETPaymentStagesVC.h"
+#import "ETBuyFinishViewController.h"
 @interface MCPageViewSub3ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UIButton *ordersBtn;
 @property (nonatomic,strong)UIButton *ordersBtn1;
@@ -74,6 +75,13 @@
     }
     cell.block = ^(NSInteger pid) {
         ETProductModel* p=[_members objectAtIndex:pid];
+        
+        if ([p.tradStatus isEqualToString:@"5"]) {
+            ETBuyFinishViewController* f=[ETBuyFinishViewController new];
+            f.product=p;
+            [self.owner.navigationController pushViewController:f animated:YES];
+            return;
+        }
         [self PostCountUI:p];
     };
     

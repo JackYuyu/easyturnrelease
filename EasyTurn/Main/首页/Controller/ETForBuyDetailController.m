@@ -438,6 +438,7 @@ static NSString* const kShareFailedText = @"分享失败";
 
 #pragma mark 聊天
 - (void)chatAction{
+    [self sendMsgToBuyer];
     NSDictionary *params = @{
                              @"userId" : self.detailInfo[@"userId"]
                              };
@@ -497,7 +498,18 @@ static NSString* const kShareFailedText = @"分享失败";
         }];
     }
 }
+- (void)sendMsgToBuyer {
+    NSDictionary *params = @{
+                             @"releaseId" : self.detailInfo[@"releaseId"]
+                             };
+    [HttpTool get:[NSString stringWithFormat:@"release/sendMsgToBuyer"] params:params success:^(id responseObj) {
 
+        NSLog(@"");
+
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 - (void)requestData:(BOOL)isHeader{
     if (isHeader) {
         [IANshowLoading showLoadingForView:self.view];

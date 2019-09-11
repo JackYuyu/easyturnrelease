@@ -8,9 +8,10 @@
 
 #import "MySingleton.h"
 @implementation MySingleton
-@synthesize token,toUserid;
+@synthesize token,toUserid,releaseId;
 @synthesize review;
 @synthesize port;
+@synthesize scopes;
 
 static MySingleton* _sharedMySingleton = nil;
 
