@@ -58,7 +58,7 @@ static NSString * const CustomTableViewCellID = @"cell";
     [_leftButton addTarget:self action:@selector(backAction) forControlEvents:(UIControlEventTouchUpInside)];
     [_navigationView addSubview:_leftButton];
     
-    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, 30, 72, 25)];
+    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36,StatusBarHeight+7, 72, 25)];
     headtitle.textColor=kACColorWhite;
     headtitle.text=@"员工申请";
     [_navigationView addSubview:headtitle];
