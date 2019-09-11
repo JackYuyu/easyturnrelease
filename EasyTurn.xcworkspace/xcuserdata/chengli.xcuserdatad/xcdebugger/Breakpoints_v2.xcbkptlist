@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETPersuadersViewController.m"
-            timestampString = "589885976.708503"
+            timestampString = "589886978.9915529"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1276"
-            endingLineNumber = "1276"
+            startingLineNumber = "1272"
+            endingLineNumber = "1272"
             landmarkName = "-PostUpdateUI"
             landmarkType = "7">
          </BreakpointContent>

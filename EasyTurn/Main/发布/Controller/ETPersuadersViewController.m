@@ -46,7 +46,6 @@
 @property (nonatomic,strong)UIButton *leftButton;
 
 @property (nonatomic, copy) NSString *cityId;
-
 @property (nonatomic, strong)  UIView *retView;
 @end
 

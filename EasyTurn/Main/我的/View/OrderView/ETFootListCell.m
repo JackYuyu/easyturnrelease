@@ -194,6 +194,9 @@
             self.labelTag.text = [NSString stringWithFormat:@"¥%.2f",pp];
         }
         self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
+        if ([model.releaseTypeId isEqualToString:@"2"]) {
+            self.labelTag.text=@"未填";
+        }
         
         self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],[self filterNull:dict[@"releaseTime"]]];
         if ([dict[@"cityName"] isKindOfClass:[NSNull class]]) {
