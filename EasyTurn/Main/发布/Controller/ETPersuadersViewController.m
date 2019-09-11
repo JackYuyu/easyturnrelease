@@ -44,13 +44,10 @@
 @property (nonatomic,strong)UILabel *lab1;
 @property (nonatomic,strong)UIButton *surebtn;
 @property (nonatomic,strong)UIButton *leftButton;
-<<<<<<< HEAD
 
 @property (nonatomic, copy) NSString *cityId;
 
-=======
 @property (nonatomic, strong)  UIView *retView;
->>>>>>> 67add9cc060f54b9827a80b02b41481ad381f9df
 @end
 
 @implementation ETPersuadersViewController
@@ -150,14 +147,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    _retView.hidden = YES;
+    _retView.hidden = NO;
     
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    _retView.hidden = NO;
+    _retView.hidden = YES;
     [_retView removeFromSuperview];
 }
 
@@ -199,35 +196,73 @@
 }
 
 - (void)loadAddressData{
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"Address" ofType:@"plist"];
-    
-    NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
-    
-    NSArray *provinces = [dic allKeys];
-    
-    for (NSString *tmp in provinces) {
-        
-        // 创建第一级数据
-        LQPickerItem *item1 = [[LQPickerItem alloc]init];
-        item1.name = tmp;
-        
-        NSArray *arr = [dic objectForKey:tmp];
-        NSDictionary *cityDic = [arr firstObject];
-        
-        NSArray *keys = cityDic.allKeys;
-        // 配置第二级数据
-        [item1 loadData:keys.count config:^(LQPickerItem *item, NSInteger index) {
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"dynamic_city.plist" ofType:nil]];
+    if (dict) {
+        dict = [dict objectForKey:@"data"];
+        if (dict) {
+            NSArray* arrayDatas = [dict objectForKey:@"list"];
+            NSDictionary *dict1 = arrayDatas[3];
+            NSString* a =dict1[@"cid"];
+            NSLog(@"");
             
-            item.name = keys[index];
-            NSArray *area = [cityDic objectForKey:item.name];
-            //            // 配置第三极数据
-            //            [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
-            //                item.name = area[index];
-            //            }];
-        }];
-        
-        [self.dataSource addObject:item1];
+            for (NSDictionary *tmp in arrayDatas) {
+                
+                // 创建第一级数据
+                LQPickerItem *item1 = [[LQPickerItem alloc]init];
+                item1.name = tmp[@"name"];
+                NSLog(@"");
+                //                NSArray *arr = [dic objectForKey:tmp];
+                //                NSDictionary *cityDic = [arr firstObject];
+                
+                NSArray *keys = [tmp objectForKey:@"list"];
+                // 配置第二级数据
+                [item1 loadData:keys.count config:^(LQPickerItem *item, NSInteger index) {
+                    
+                    item.name = keys[index][@"name"];
+                    item.cid = keys[index][@"cid"];
+                    NSLog(@"");
+                    
+                    //                    NSArray *area = [cityDic objectForKey:item.name];
+                    //            // 配置第三极数据
+                    //            [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
+                    //                item.name = area[index];
+                    //            }];
+                }];
+                
+                [self.dataSource addObject:item1];
+            }
+            //
+        }
     }
+//    NSString *path = [[NSBundle mainBundle]pathForResource:@"Address" ofType:@"plist"];
+//
+//    NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
+//
+//    NSArray *provinces = [dic allKeys];
+//
+//    for (NSString *tmp in provinces) {
+//
+//        // 创建第一级数据
+//        LQPickerItem *item1 = [[LQPickerItem alloc]init];
+//        item1.name = tmp;
+//
+//        NSArray *arr = [dic objectForKey:tmp];
+//        NSDictionary *cityDic = [arr firstObject];
+//
+//        NSArray *keys = cityDic.allKeys;
+//        // 配置第二级数据
+//        [item1 loadData:keys.count config:^(LQPickerItem *item, NSInteger index) {
+//
+//            item.name = keys[index];
+//            NSArray *area = [cityDic objectForKey:item.name];
+//            //            // 配置第三极数据
+//            //            [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
+//            //                item.name = area[index];
+//            //            }];
+//        }];
+//
+//        [self.dataSource addObject:item1];
+//    }
 }
 
 

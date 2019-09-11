@@ -11,6 +11,7 @@
 #import "ETPoctoryqgViewController.h"
 #import "EaseSyetemListCell.h"
 #import "EaseUserMeagessListCell.h"
+#import "ETForBuyDetailController.h"
 static NSString *const kEaseSyetemListCell = @"EaseSyetemListCell";
 static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
 @interface EaseSyetemController ()<UITableViewDelegate,UITableViewDataSource>
@@ -19,7 +20,7 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
 @property (nonatomic,strong) UIView *navigationView;
 @property (nonatomic,strong) UIButton *leftButton;
 @property (nonatomic,strong) NSMutableArray *products;
-
+@property (nonatomic,strong) NSMutableArray *arrayData;
 @end
 
 @implementation EaseSyetemController
@@ -129,10 +130,18 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    ETProductModel* p=[_products objectAtIndex:indexPath.row];
-    ETPoctoryqgViewController* qg=[[ETPoctoryqgViewController alloc] init];
-    qg.releaseId=p.releaseId;
-    [self.navigationController pushViewController:qg animated:YES];
+//    ETProductModel* p=[_products objectAtIndex:indexPath.row];
+//    ETPoctoryqgViewController* qg=[[ETPoctoryqgViewController alloc] init];
+//    qg.releaseId=p.releaseId;
+    
+    NSDictionary *dict =[self.arrayData objectAtIndex:indexPath.row];
+
+    ETForBuyDetailController* pur=[ETForBuyDetailController forBuyDetailController:dict];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
+    pur.releaseId=p.releaseId;
+    pur.releaseId = dict[@"releaseId"];
+    pur.product = [ETProductModel mj_objectWithKeyValues:dict];
+    [self.navigationController pushViewController:pur animated:YES];
     
 }
 
@@ -142,13 +151,15 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
         if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
             return;
         }
+        self.arrayData=[NSMutableArray new];
         weakSelf.products=[NSMutableArray array];
         for (NSDictionary* prod in responseObj[@"data"][@"content"]) {
             ETProductModel *p = [ETProductModel mj_objectWithKeyValues:prod];
             [weakSelf.products addObject:p];
         }
         [weakSelf.tab reloadData];
-        
+        [self.arrayData addObjectsFromArray:responseObj[@"data"][@"content"]];
+
     } failure:^(NSError *error) {
       
     }];
