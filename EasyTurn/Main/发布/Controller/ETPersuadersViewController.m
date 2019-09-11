@@ -44,13 +44,9 @@
 @property (nonatomic,strong)UILabel *lab1;
 @property (nonatomic,strong)UIButton *surebtn;
 @property (nonatomic,strong)UIButton *leftButton;
-<<<<<<< HEAD
 
 @property (nonatomic, copy) NSString *cityId;
-
-=======
 @property (nonatomic, strong)  UIView *retView;
->>>>>>> 67add9cc060f54b9827a80b02b41481ad381f9df
 @end
 
 @implementation ETPersuadersViewController
