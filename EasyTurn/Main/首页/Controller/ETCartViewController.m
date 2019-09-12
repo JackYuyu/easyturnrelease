@@ -292,20 +292,13 @@
 //    [_button addGestureRecognizer:pan];
     
     _mbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
     [_mbutton setTitle:@"点击可以发起交易" forState:UIControlStateNormal];
-    
     _mbutton.frame = CGRectMake(self.view.bounds.size.width -80 -_button.frame.size.width-10-50, self.view.bounds.size.height - 100+5, 100, 30);
-    
     _mbutton.titleLabel.font = [UIFont systemFontOfSize:12.0f];
-    
         [_mbutton setBackgroundColor:RGBCOLOR(137, 137, 137)];
-    
     _mbutton.layer.cornerRadius = 15;
-    
     _mbutton.layer.masksToBounds = YES;
     [_window.rootViewController.view addSubview:_mbutton];
-
 }
 
 - (void)resignButton {

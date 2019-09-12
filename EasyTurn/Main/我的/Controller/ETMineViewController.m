@@ -262,7 +262,6 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     } failure:^(NSError *error) {
         [IANshowLoading hideLoadingForView:self.view];
     }];
-    
 }
 
 - (void)eTMineHeaderviewOnClickHeaderEdit {

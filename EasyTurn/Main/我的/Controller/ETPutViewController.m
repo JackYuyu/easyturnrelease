@@ -293,13 +293,13 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     [HttpTool get:[NSString stringWithFormat:@"user/info"] params:params success:^(NSDictionary *response) {
         
-//        int b=[response[@"data"][@"userInfo"][@"isChecked"] intValue];
-//        if (b==5||b==4) {
-//        }
-//        if (b==1) {
-//
-//        }
-//        _ischeck=b;
+        int b=[response[@"data"][@"userInfo"][@"isChecked"] intValue];
+        if (b==5||b==4) {
+        }
+        if (b==1) {
+
+        }
+        _ischeck=b;
         NSLog(@"0");
 
         
