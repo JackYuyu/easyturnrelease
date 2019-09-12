@@ -722,7 +722,6 @@
 - (void) memberClick:(UIButton*)sender {
     NSInteger a = sender.tag - 1;
     _selectIndex = a;
-    
     ETMineModel* m=[_products objectAtIndex:a];
     _vipid=m.vipid;
     _aliprice=[m.money substringFromIndex:1];

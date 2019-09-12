@@ -574,8 +574,7 @@ static NSString* const kShareFailedText = @"分享失败";
     _imageGroupArray = imageGroupArray;
     _cycleScrollView.placeholderImage = [UIImage imageNamed:@"首页_轮播占位图"];
     if (imageGroupArray.count == 0) return;
-    _cycleScrollView.imageURLStringsGroup = _imageGroupArray;
-    
+    _cycleScrollView.imageURLStringsGroup = _imageGroupArray;    
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
