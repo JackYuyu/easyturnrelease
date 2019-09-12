@@ -84,11 +84,11 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     _count=0;
     _titles = @[@"出售", @"服务", @"求购"];
     _titles=[_titles mutableCopy];
-    [self requestUserOrderListWithReleaseTypeId:1];
-    [self requestUserOrderListWithReleaseTypeId:2];
-    [self requestUserOrderListWithReleaseTypeId:3];
+//    [self requestUserOrderListWithReleaseTypeId:1];
+//    [self requestUserOrderListWithReleaseTypeId:2];
+//    [self requestUserOrderListWithReleaseTypeId:3];
     [self requestUserInfo];
-//    [self createSubViewsAndConstraints];
+    [self createSubViewsAndConstraints];
     [self shareView];
     [self shareViewController];
     
@@ -315,7 +315,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     }else if (index == 2){
          listView.releaseTypeId = 2;
     }
-    listView.releaseTypeId=_myselect;
+//    listView.releaseTypeId=_myselect;
     return listView;
 }
 

@@ -35,7 +35,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [JJException configExceptionCategory:JJExceptionGuardAll];
-//        [JJException startGuardException];
+        [JJException startGuardException];
     [self review];
     //[[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
     [WXApi registerApp:@"wx6aa68fa297ad59ee"];

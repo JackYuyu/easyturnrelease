@@ -573,7 +573,7 @@
         if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] != 0) {
 //            [MBProgressHUD showMBProgressHud:self.view withText:[MySingleton filterNull:responseObj[@"msg"]] withTime:1.0];
             [MBProgressHUD showMBProgressHud:self.view withText:@"等待平台审核" withTime:1.0];
-            return ;
+//            return ;
         }
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
