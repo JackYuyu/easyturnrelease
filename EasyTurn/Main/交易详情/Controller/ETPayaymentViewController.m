@@ -1004,6 +1004,10 @@
         if ([controller isKindOfClass:[ETSaleDetailController class]] || [controller isKindOfClass:[ETServiceDetailController class]] ) {
             [self.navigationController popToViewController:controller animated:YES];
         }
+        else
+        {
+            [self.navigationController popToViewController:controller animated:YES];
+        }
     }
 }
 

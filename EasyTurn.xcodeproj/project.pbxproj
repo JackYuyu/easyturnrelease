@@ -250,6 +250,7 @@
 		009AAFDC22F866580071D09B /* WXApiManagerShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 009AAFDA22F866580071D09B /* WXApiManagerShare.m */; };
 		009AAFDF22F867140071D09B /* RandomKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 009AAFDD22F867140071D09B /* RandomKey.m */; };
 		009AAFE222F867500071D09B /* MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 009AAFE122F867500071D09B /* MD5.m */; };
+		00A879BC2329E0880045431E /* ETPaymentStagesCartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A879BB2329E0870045431E /* ETPaymentStagesCartVC.m */; };
 		00A945EA23155E5F003A2B66 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 00A945D623155E5F003A2B66 /* LICENSE */; };
 		00A945EB23155E5F003A2B66 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 00A945D723155E5F003A2B66 /* README.md */; };
 		00A945EC23155E5F003A2B66 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A945DE23155E5F003A2B66 /* SDCycleScrollView.m */; };
@@ -912,6 +913,8 @@
 		009AAFE022F867500071D09B /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5.h; sourceTree = "<group>"; };
 		009AAFE122F867500071D09B /* MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5.m; sourceTree = "<group>"; };
 		009AAFE322F919860071D09B /* ETPaymentStagesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPaymentStagesVC.h; sourceTree = "<group>"; };
+		00A879BA2329E0870045431E /* ETPaymentStagesCartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETPaymentStagesCartVC.h; sourceTree = "<group>"; };
+		00A879BB2329E0870045431E /* ETPaymentStagesCartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPaymentStagesCartVC.m; sourceTree = "<group>"; };
 		00A945D623155E5F003A2B66 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		00A945D723155E5F003A2B66 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		00A945DB23155E5F003A2B66 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
@@ -2714,6 +2717,8 @@
 				2E087DB922F137D80071D70D /* ETPayaymentViewController.m */,
 				009AAFE322F919860071D09B /* ETPaymentStagesVC.h */,
 				2E0A984D22F853A600DD8B28 /* ETPaymentStagesVC.m */,
+				00A879BA2329E0870045431E /* ETPaymentStagesCartVC.h */,
+				00A879BB2329E0870045431E /* ETPaymentStagesCartVC.m */,
 				2E0269B72317FF750085CA4F /* ETPoctoryqgViewController.h */,
 				2E0269B62317FF750085CA4F /* ETPoctoryqgViewController.m */,
 				0014E079231BA54500FA3C13 /* ETPoctoryqgServiceViewController.h */,
@@ -3600,6 +3605,7 @@
 				4924AA7522FAD42700B2C282 /* ETRealTimeBuyListVC.m in Sources */,
 				0084155B231F9F64009589A5 /* UIView+ZZExtension.m in Sources */,
 				2E0CDF0C22E83C1F00783952 /* ETBusinessViewController.m in Sources */,
+				00A879BC2329E0880045431E /* ETPaymentStagesCartVC.m in Sources */,
 				0046AA6622EACDE30038CA11 /* SaleModel.m in Sources */,
 				007FAD4322E03E66001EC5F2 /* MainViewController.m in Sources */,
 				007FADAB22E05228001EC5F2 /* UIWindow+LGAlertView.m in Sources */,

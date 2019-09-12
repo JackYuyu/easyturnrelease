@@ -160,6 +160,8 @@ typedef enum : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UINavigationBar *navBar = [UINavigationBar appearance];
+    navBar.barTintColor = [UIColor whiteColor];
     EMConversation* conv=self.conversation;
     NSDictionary* d=self.conversation.latestMessage.ext;
     if (_cartcontroller) {
@@ -1346,7 +1348,7 @@ typedef enum : NSUInteger {
     }
     NSDictionary* d=model.message.ext;
     if (d) {
-        _releaseid=[d objectForKey:@"uid"];
+//        _releaseid=[d objectForKey:@"uid"];
     }
     return sendCell;
 }

@@ -25,6 +25,7 @@
 #import "ETInvitationController.h"
 #import "ETFrequencyViewController.h"
 #import "WXApiManagerShare.h"
+#import "ETVIPViewController.h"
 static NSString *const kETMineViewCell = @"ETMineViewCell";
 @interface ETMineViewController ()<ETMineHeaderViewDelegate, JXPagerViewDelegate, JXCategoryViewDelegate, ETMineListViewControllerDelegate>
 ///根控制器
@@ -34,7 +35,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 ///横向滚动条
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 ///横向滚动条标题名称
-@property (nonatomic, strong) NSArray <NSString *> *titles;
+@property (nonatomic, strong) NSMutableArray <NSString *> *titles;
 @property (nonatomic, strong) ETMineListViewController *listView;
 @property (nonatomic, assign) NSInteger pageNumber;
 ///数据源
@@ -52,6 +53,10 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 @property (nonatomic,strong) UIView * shareView1;
 @property (nonatomic,strong) UILabel * lab1;
 @property (nonatomic,strong) UILabel *lab;
+//
+@property (nonatomic,assign) int count;
+@property (nonatomic,assign) int myselect;
+
 @end
 
 @implementation ETMineViewController
@@ -75,8 +80,15 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor whiteColor];
+    _count=0;
+    _titles = @[@"出售", @"服务", @"求购"];
+    _titles=[_titles mutableCopy];
+    [self requestUserOrderListWithReleaseTypeId:1];
+    [self requestUserOrderListWithReleaseTypeId:2];
+    [self requestUserOrderListWithReleaseTypeId:3];
     [self requestUserInfo];
-    [self createSubViewsAndConstraints];
+//    [self createSubViewsAndConstraints];
     [self shareView];
     [self shareViewController];
     
@@ -92,7 +104,6 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
     
-    _titles = @[@"出售", @"服务", @"求购"];
     _userHeaderView = [[ETMineHeaderView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 421)];
     _userHeaderView.delegate = self;
     
@@ -117,7 +128,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     
     self.categoryView.contentScrollView = self.pagingView.listContainerView.collectionView;
     
-    self.navigationController.interactivePopGestureRecognizer.enabled = (self.categoryView.selectedIndex == 0);
+    self.navigationController.interactivePopGestureRecognizer.enabled = (self.categoryView.selectedIndex == _myselect);
     
     __weak typeof(self)weakSelf = self;
     self.pagingView.mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -260,8 +271,14 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 }
 
 -(void)eTMineHeaderviewOnClickPayVip {
+    if ([MySingleton sharedMySingleton].review==1) {
+        ETVIPViewController *vc = [[ETVIPViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
     ETViphuiyuanViewController *vc = [[ETViphuiyuanViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - JXPagingViewDelegate
@@ -299,6 +316,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     }else if (index == 2){
          listView.releaseTypeId = 2;
     }
+    listView.releaseTypeId=_myselect;
     return listView;
 }
 
@@ -611,5 +629,70 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - 请求网络
+- (void)requestUserOrderListWithReleaseTypeId:(NSInteger )releaseTypeId {
+    WEAKSELF
+    //赋值初始值
+    [ETMineViewModel requestUserOrderListWithPage:self.pageNumber WithPageSize:1 ReleaseTypeId:releaseTypeId WithSuccess:^(id request, STResponseModel *response, id resultObject) {
+        if (response.code == 0) {
+            NSArray *array = resultObject[@"data"];
+            if (array.count == 0) {
+                
+                if (releaseTypeId==1) {
+                    [_titles replaceObjectAtIndex:0 withObject:@""];
+                    _count++;
+                }
+                if (releaseTypeId==2) {
+                                    [_titles replaceObjectAtIndex:1 withObject:@""];
+                                    _count++;
+                }
+                if (releaseTypeId==3) {
+                                    [_titles replaceObjectAtIndex:2 withObject:@""];
+                                    _count++;
+                }
+                
+
+            }else {
+                _count++;
+            }
+            if (_count==3) {
+                NSMutableArray* temp=[NSMutableArray array];
+                for (NSString* a in _titles) {
+                    if ([a isEqualToString:@""]) {
+                    }
+                    else{
+                        [temp addObject:a];
+                    }
+                }
+                for (NSString* a in temp) {
+                    if ([a isEqualToString:@"出售"]) {
+                        _myselect=1;
+                    }
+                    else if ([a isEqualToString:@"服务"])
+                    {
+                        _myselect=2;
+                    }
+                    else if ([a isEqualToString:@"求购"])
+                    {
+                        _myselect=3;
+                    }
+                    break;
+                }
+                [_titles removeAllObjects];
+                _titles=[temp mutableCopy];
+                [self createSubViewsAndConstraints];
+            }
+        }else{
+            if (response.msg.length > 0) {
+                [[ACToastView toastView:YES] showErrorWithStatus:response.msg];
+            } else {
+                [[ACToastView toastView:YES] showErrorWithStatus:kToastErrorServerNoErrorMessage];
+            }
+        }
+    } failure:^(id request, NSError *error) {
+        
+    }];
 }
 @end

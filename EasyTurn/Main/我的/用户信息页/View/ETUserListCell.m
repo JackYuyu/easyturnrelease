@@ -93,7 +93,7 @@
         
         self.imvLine = [[UIImageView alloc] initWithFrame:CGRectMake(0, [ETUserListCell cellHeight]-1, Screen_Width, 1)];
         self.imvLine.backgroundColor = RGBACOLOR(242, 242, 242, 1);
-        [self.contentView addSubview:self.imvLine];
+//        [self.contentView addSubview:self.imvLine];
         
         self.labelDesc = [[UILabel alloc] init];
         self.labelDesc.font = [UIFont systemFontOfSize:12];
@@ -181,7 +181,15 @@
         self.labelPrice.text=temp;
         temp = [self filterNull:dict[@"tradStatus"]];
         if ([temp isEqualToString:@"5"]){
+            if ([dict[@"releaseTypeId"] isEqualToString:@"3"]) {
+                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+            }
+            else{
             self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+            self.labelPrice.text=@"已下架";
+            }
+            
+
         }
         
         temp = [self filterNull:dict[@"price"]];

@@ -64,7 +64,9 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
     self.view.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:self.tab];
     [self PostUI];
-
+    if (_index==1) {
+        [self getsee];
+    }
 }
 -(void)backAction
 {
@@ -93,33 +95,38 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
         return cell;
     }else {
         ETProductModel* model = [_products objectAtIndex:indexPath.row];
-        EaseUserMeagessListCell *cell = [tableView dequeueReusableCellWithIdentifier:kEaseUserMeagessListCell];
+        EaseUserMeagessListCell *cell = [EaseUserMeagessListCell new];
         [cell makeCellWithETProductModel:model WithIndexPath:indexPath];
+        
+        if (indexPath.row==_products.count-1) {
+            UIImageView* bad=[UIImageView new];
+            [bad setBackgroundColor:[UIColor redColor]];
+            bad.layer.cornerRadius=10;
+            bad.layer.masksToBounds=YES;
+            
+            UILabel* c=[UILabel new];
+            c.text=@"新";
+            c.textColor=[UIColor whiteColor];
+            c.font=[UIFont systemFontOfSize:10];
+            [bad addSubview:c];
+            
+            [cell.contentView addSubview:bad];
+            [bad mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(cell).mas_equalTo(15);
+                make.top.mas_equalTo(cell).mas_equalTo(10);
+
+                make.size.mas_equalTo(20,20);
+//                make.centerY.mas_equalTo(cell);
+            }];
+            
+            [c mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(10,10);
+                make.center.mas_equalTo(bad);
+            }];
+        }
         return cell;
     }
 }
-
-//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    NSArray*arr=@[@"姓名",@"支付宝账号"];
-////    EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
-//    ETProductModel* p=[_products objectAtIndex:indexPath.row];
-//    cell.imageView.image=[UIImage imageNamed:@"dropdown_loading_01"];
-//    if (_index==0) {
-//        EaseMessageModel* m=[_list objectAtIndex:indexPath.row];
-//
-//        if (indexPath.row==0) {
-//            cell.textLabel.text=@"欢迎来到易转!!";
-//        }
-//        else
-//        {
-//            cell.textLabel.text=m.address;
-////            cell.detailTextLabel.text=p.createDate;
-//        }
-//    }
-//
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_index==0) {
@@ -158,11 +165,48 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
             [weakSelf.products addObject:p];
         }
         [weakSelf.tab reloadData];
+//        NSIndexPath* path=[NSIndexPath indexPathWithIndex:weakSelf.products.count-1];
+//        [weakSelf.tab scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        if (_index==1) {
+
+            if(_products.count > 0){
+                NSIndexPath *indexpath = [NSIndexPath indexPathForRow:_products.count-1  inSection:0];
+                [_tab scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
+        }
+        else{
+            if(_list.count > 0){
+                NSIndexPath *indexpath = [NSIndexPath indexPathForRow:_list.count-1  inSection:0];
+                
+                [_tab scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
+        }
         [self.arrayData addObjectsFromArray:responseObj[@"data"][@"content"]];
 
     } failure:^(NSError *error) {
       
     }];
 }
+-(void)getsee
+{
+    NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
+    NSString* token=[user objectForKey:@"token"];
+    // 1.获得请求管理者
+    static AFHTTPSessionManager *mgr = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+    });
+    [mgr.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    // 2.发送GET请求
+    [mgr GET:[NSString stringWithFormat:@"%@/%@", @"https://app.yz-vip.cn", @"push/see"] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        //        _touserAvat=responseObject[@"data"];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
+    }];
+}
 @end

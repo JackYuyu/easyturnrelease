@@ -98,9 +98,9 @@
     NSDateFormatter *dateFormattershow = [[NSDateFormatter alloc] init];
     [dateFormattershow setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *strDate = [dateFormattershow stringFromDate:houtaiDate];
-    _laTime.text = strDate;
-    
-    
+    NSString* createdate=[model.createDate stringByReplacingOccurrencesOfString:@".000+0000" withString:@""];
+    createdate=[createdate stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    _laTime.text = createdate;
 }
 
 - (UILabel *)laTitle {

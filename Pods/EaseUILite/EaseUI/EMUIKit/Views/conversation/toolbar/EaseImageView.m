@@ -12,6 +12,7 @@
 
 
 #import "EaseImageView.h"
+#import "Masonry.h"
 
 @interface EaseImageView()
 
@@ -123,11 +124,15 @@
 {
     self.badgeWidthConstraint = [NSLayoutConstraint constraintWithItem:self.badgeView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:self.badgeSize];
     [self addConstraint:self.badgeWidthConstraint];
-    
+
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.badgeView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.badgeView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.badgeView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-self.imageCornerRadius + 3]];
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.badgeView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeTop multiplier:1.0 constant:-3]];
+
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.badgeView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeRight multiplier:1.0 constant:-self.imageCornerRadius + [UIScreen mainScreen].bounds.size.width-83]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.badgeView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.imageView attribute:NSLayoutAttributeTop multiplier:1.0 constant:+23]];
+//    [_badgeView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.mas_equalTo(-50);
+//        make.centerY.mas_equalTo(self);
+//    }];
 }
 
 - (void)_updateBadgeViewWidthConstraint

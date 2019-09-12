@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray <UserInfosReleaseModel *> *arrDataSource;
 @property (nonatomic, weak) id<ETMineListViewControllerDelegate> delegate;
 @property (nonatomic, strong) UINavigationController *naviController;
+@property (nonatomic,copy) void(^block)(NSInteger a);
+@property (nonatomic,copy) void(^block1)(NSInteger a);
+@property (nonatomic,copy) void(^block2)(NSInteger a);
+
 @end
 
 NS_ASSUME_NONNULL_END

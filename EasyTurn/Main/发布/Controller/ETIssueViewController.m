@@ -148,8 +148,11 @@
     if (!_tab) {
         
         _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-44) style:UITableViewStyleGrouped];
+        if (IPHONE_X) {
+            _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-44-20) style:UITableViewStyleGrouped];
+        }
         if (_product) {
-            _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-20) style:UITableViewStyleGrouped];
+            _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-44-20) style:UITableViewStyleGrouped];
         }
         _tab.delegate=self;
         _tab.dataSource=self;
@@ -269,11 +272,11 @@
                     item.cid = keys[index][@"cid"];
                     NSLog(@"");
                     
-                    //                    NSArray *area = [cityDic objectForKey:item.name];
-                    //            // 配置第三极数据
-                    //            [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
-                    //                item.name = area[index];
-                    //            }];
+//                                        NSArray *area = [cityDic objectForKey:item.name];
+//                                // 配置第三极数据
+//                                [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
+//                                    item.name = area[index];
+//                                }];
                 }];
                 
                 [self.dataSource addObject:item1];

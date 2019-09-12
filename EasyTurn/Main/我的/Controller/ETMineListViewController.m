@@ -47,7 +47,8 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 - (void)viewDidLoad {
     [self.view addSubview:self.tableView];
     [self requestUserOrderListWithReleaseTypeId:self.releaseTypeId];
-    
+
+
    
 }
 
@@ -82,6 +83,7 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
             NSArray *array = resultObject[@"data"];
             if (array.count == 0) {
                 [weakSelf showEmptyDataView:NO];
+
             }else {
                 [weakSelf.products addObjectsFromArray:array];
                 NSMutableArray *products = [NSMutableArray array];

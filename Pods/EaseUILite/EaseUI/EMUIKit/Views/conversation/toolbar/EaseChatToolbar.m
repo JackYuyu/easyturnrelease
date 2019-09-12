@@ -824,6 +824,9 @@
 
 - (void)moreButtonAction:(id)sender
 {
+UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"该功能暂未开通" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    return;
     UIButton *button = (UIButton *)sender;
     button.selected = !button.selected;
     

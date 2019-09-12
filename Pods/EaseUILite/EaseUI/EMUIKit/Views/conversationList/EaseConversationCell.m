@@ -19,7 +19,6 @@
 #else
 #import <Hyphenate/EMConversation.h>
 #endif
-
 CGFloat const EaseConversationCellPadding = 10;
 
 @interface EaseConversationCell()
