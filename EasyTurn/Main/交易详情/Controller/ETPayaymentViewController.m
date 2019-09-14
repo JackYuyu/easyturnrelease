@@ -291,7 +291,9 @@
         if (indexPath.row==0) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"交易周期"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"交易周期: 2019-09-01"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            
+            [string addAttributes:@{NSForegroundColorAttributeName: [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0]} range:NSMakeRange(5, 11)];
             
             label.attributedText = string;
             label.textAlignment = NSTextAlignmentLeft;

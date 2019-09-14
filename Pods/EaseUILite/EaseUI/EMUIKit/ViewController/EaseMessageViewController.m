@@ -199,7 +199,7 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     _retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
-    _retView.backgroundColor = [UIColor whiteColor];
+    _retView.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [self.navigationController.view addSubview:_retView];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -213,7 +213,7 @@ typedef enum : NSUInteger {
     
     UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, StatusBarHeight+7, 172, 25)];
     headtitle.textColor=[UIColor blackColor];
-    headtitle.font=[UIFont systemFontOfSize:14];
+    headtitle.font=[UIFont boldSystemFontOfSize:16];
 //    headtitle.text=self.title;
     _headtitle=headtitle;
     [_retView addSubview:headtitle];
@@ -1376,7 +1376,10 @@ typedef enum : NSUInteger {
     NSArray* eu=[EaseUserModel bg_findAll:@"EaseUserModel"];
     NSString* a=model.message.conversationId;
     _touser=a;
-    NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"buddy"),bg_sqlValue(a)];
+    
+    NSUserDefaults* ud=[NSUserDefaults standardUserDefaults];
+    NSString* uid=[ud objectForKey:@"uid"];
+    NSString* where = [NSString stringWithFormat:@"where %@=%@",bg_sqlKey(@"uid"),bg_sqlValue(uid)];
 
     NSArray * array1 = [EaseUserModel bg_find:@"EaseUserModel" where:where];
 //    NSArray*arr=[EaseUserModel bg_f];
@@ -1386,13 +1389,13 @@ typedef enum : NSUInteger {
     model.nickname=em.nickname;
     sendCell.model = model;
     if ((model.isSender)) {//自己
-//        if (array1.count>0) {
+        if (array1.count>0) {
         
-//        EaseUserModel* from=array1[0];
-//        model.avatarURLPath=from.avatarURLPath;
-//        model.nickname=from.nickname;
-//        sendCell.model = model;
-//        }
+        EaseUserModel* from=array1[0];
+        model.avatarURLPath=from.avatarURLPath;
+        model.nickname=from.nickname;
+        sendCell.model = model;
+        }
     }
     else{
         model.avatarURLPath=_touserAvat;

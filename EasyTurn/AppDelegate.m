@@ -35,7 +35,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [JJException configExceptionCategory:JJExceptionGuardAll];
-//        [JJException startGuardException];
+        [JJException startGuardException];
     [self review];
     //[[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
     [WXApi registerApp:@"wx6aa68fa297ad59ee"];
@@ -939,6 +939,11 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     EaseMessageModel* msg=[EaseMessageModel new];
     msg.text=content.title;
     msg.address=content.body;
+    NSDate* d=[NSDate date];
+    NSDateFormatter *dateFormattershow = [[NSDateFormatter alloc] init];
+    [dateFormattershow setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString *strDate = [dateFormattershow stringFromDate:d];
+    msg.timestr=strDate;
     [msg bg_saveOrUpdate];
     NSInteger iconbadge=[UIApplication sharedApplication].applicationIconBadgeNumber+1;
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:iconbadge];

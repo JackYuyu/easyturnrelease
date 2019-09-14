@@ -40,6 +40,9 @@
     ETManageTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     UserInfoModel* m =[_members objectAtIndex:indexPath.row];
     cell.nameLab.text=m.uid;
+    cell.timeLab.text=@"注册时长: 3年";
+    cell.hosnLab.text=@"历史沟通订单:322";
+    cell.orderLab.text=@"历史成交订单:300";
     [cell.userImg sd_setImageWithURL:[NSURL URLWithString:m.portrait]];
     return cell;
 }

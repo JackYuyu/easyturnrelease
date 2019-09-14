@@ -175,7 +175,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     _retView.hidden = YES;
-    [_retView removeFromSuperview];
+//    [_retView removeFromSuperview];
 }
 
 - (void)viewDidLoad {
@@ -1226,6 +1226,7 @@
         _priceText.textColor = [UIColor orangeColor];
         if (_product) {
             NSString* pri=[_product.price stringByReplacingOccurrencesOfString:@".0000" withString:@""];
+            pri=[_product.price stringByReplacingOccurrencesOfString:@".000" withString:@""];
             _priceText.text=pri;
         }
     }
@@ -1532,14 +1533,14 @@
     if (_taxId==0) {
         _taxId=1;
     }
-    if (!_selectId) {
-        _selectId=1;
-    }
+//    if (!_selectId) {
+//        _selectId=1;
+//    }
     if (_product) {
         _cityId=_product.cityId;
         _otherText.text=_product.information;
-        if (!_selectId) {
-            _selectId=1;
+        if (_selectId==0) {
+            _selectId=[_product.selectId intValue];
         }
     }
     

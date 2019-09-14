@@ -537,11 +537,15 @@
     [HttpTool get:[NSString stringWithFormat:@"user/checkedUserID"] params:params success:^(id responseObj) {
         [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
         [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:NO];
-        if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] != 0) {
-            [MBProgressHUD showMBProgressHud:self.view withText:@"请企业法人审核" withTime:1.0];
+        if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] == 0) {
+            [MBProgressHUD showMBProgressHud:self.view withText:@"等待法人审核" withTime:1.0];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+
+            });
 //            return ;
         }
-        [self.navigationController popViewControllerAnimated:YES];
         NSLog(@"");
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

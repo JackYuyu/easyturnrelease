@@ -73,6 +73,9 @@ NS_ASSUME_NONNULL_BEGIN
 //
 @property (nonatomic,copy) NSString* headImageUrl;
 @property (nonatomic,copy) NSString* username;
+//
+@property (strong, nonatomic) NSString *timestr;
+@property (nonatomic,copy) NSString* userName;
 
 @end
 

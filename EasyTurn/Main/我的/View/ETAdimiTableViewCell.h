@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)deleBtn:(UIButton *)sender;
 @property (nonatomic, copy) void (^block)(NSInteger pid);
 @property (nonatomic, copy) void (^block1)(NSInteger pid);
+@property (weak, nonatomic) IBOutlet UILabel *timeLab;
 
 @end
 

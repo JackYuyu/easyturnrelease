@@ -312,7 +312,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
     if (!_laName) {
         _laName = [[UILabel alloc]init];
         _laName.textColor = kACColorRGB(51, 51, 51);
-        _laName.font = kFontSize(15);
+        _laName.font = kBoldFontSize(15);
     }
     return _laName;
 }

@@ -15,6 +15,9 @@
 #import "ETProductModel.h"
 #import "ETSaleDetailController.h"
 #import "ETDynamicListCell.h"
+#import "ETServiceDetailController.h"
+#import "ETPoctoryqgViewController.h"
+#import "ETForBuyDetailController.h"
 @interface SearchResultViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property(nonatomic, strong)UITableView *tableView;
 @property(nonatomic, strong)FBRequestSearch *searchModel;
@@ -142,9 +145,34 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary* pm =[_products objectAtIndex:indexPath.row];
-    ETSaleDetailController* p=[ETSaleDetailController saleDetailController:pm];
-    [self.navigationController pushViewController:p animated:YES];
-    
+    ETProductModel* m=[ETProductModel mj_objectWithKeyValues:pm];
+//    ETSaleDetailController* p=[ETSaleDetailController saleDetailController:pm];
+//    [self.navigationController pushViewController:p animated:YES];
+    if ([m.releaseTypeId isEqualToString:@"1"]) {
+        //出售
+        NSDictionary *dict =[self.products objectAtIndex:indexPath.row];
+        ETSaleDetailController *vc = [ETSaleDetailController saleDetailController:dict];
+        vc.product = [ETProductModel mj_objectWithKeyValues:dict];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }else if ([m.releaseTypeId isEqualToString:@"3"]) {
+        //服务
+        NSDictionary *dict =[_products objectAtIndex:indexPath.row];
+        ETServiceDetailController * detail = [ETServiceDetailController serviceDetailController:dict];
+        detail.product = [ETProductModel mj_objectWithKeyValues:dict];
+        [self.navigationController pushViewController:detail animated:YES];
+        
+    }else if ([m.releaseTypeId isEqualToString:@"2"]) {
+        //求购
+        
+        //        ETPoctoryqgViewController *detail = [ETPoctoryqgViewController new];
+        NSDictionary *dict =[_products objectAtIndex:indexPath.row];
+        ETForBuyDetailController* detail=[ETForBuyDetailController forBuyDetailController:dict];
+        
+        detail.releaseId = dict[@"releaseId"];
+        detail.product = [ETProductModel mj_objectWithKeyValues:dict];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
 }
 
 

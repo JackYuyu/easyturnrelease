@@ -73,6 +73,8 @@
     self.tab.frame = CGRectMake(0, CGRectGetMaxY(self.segment.frame), Screen_Width, Screen_Height-[UIApplication sharedApplication].statusBarFrame.size.height-44-self.segment.frame.size.height);
     [self.view bringSubviewToFront:self.segment];
     [self PostUI];
+    [self setNavi];
+
 }
 #pragma mark - 企服者
 - (void)PostUI {

@@ -26,6 +26,8 @@
 
 - (void)setLeftNavigationItemsWithCustomViews:(NSArray *)arrViews;
 - (void)setRightNavigationItemsWithCustomViews:(NSArray *)arrViews;
+-(void)setNavi;
+-(void)setNavi1;
 
 /**
  返回按钮点击事件：子类可以重写
