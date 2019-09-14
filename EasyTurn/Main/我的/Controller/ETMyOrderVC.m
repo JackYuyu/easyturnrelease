@@ -138,7 +138,8 @@
         else if ([temp isEqualToString:@"5"]){
             cell.status.text=@"交易完成";
             [cell.paybtn setTitle:@"已完成" forState:UIControlStateNormal];
-            [cell.paybtn setBackgroundColor:[UIColor lightGrayColor]];
+            [cell.paybtn setBackgroundColor:[UIColor whiteColor]];
+            [cell.paybtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 //            [cell.paybtn setTitle:[UIColor lightGrayColor] forState:UIControlStateNormal];
         }
     }

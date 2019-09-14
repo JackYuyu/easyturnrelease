@@ -65,7 +65,7 @@
 
 - (void)makeCellWithETProductModel:(ETProductModel *)model WithIndexPath:(NSIndexPath *)indexPath {
 //    _laSubTitle.text = model.text;
-    _laTime.text = model.address;
+    _laTime.text = model.timestr;
 }
 
 - (UILabel *)laTitle {
@@ -82,7 +82,7 @@
     if (!_laSubTitle) {
         _laSubTitle = [[UILabel alloc]init];
         _laSubTitle.numberOfLines = 0;
-        _laSubTitle.text = @"易转官方提示：本平台只作为信息流转平台，建议交易双方私下签订相关交易协议平台不承担任何风险。";
+        _laSubTitle.text = @"欢呼来到易转大家庭!";
         _laSubTitle.textColor = kACColorRGB(153, 153, 153);
         _laSubTitle.font = kFontSize(13);
     }

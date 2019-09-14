@@ -57,6 +57,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 @property(strong,nonatomic)NSString *releaseId;
 @property(strong,nonatomic)EaseMessageViewController *vc;
 @property(nonatomic,strong)NSString* count;
+@property(strong,nonatomic)NSString *hint;
+@property(strong,nonatomic)UIImageView* bad;
 @end
 
 @implementation EaseConversationListViewController
@@ -211,6 +213,10 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     NSLog(@"");
     _navigationView.hidden=NO;
     [self getcount];
+    
+    if (_hint) {
+        _bad.hidden=YES;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -218,6 +224,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     [super viewWillDisappear:animated];
     [self unregisterNotifications];
     _navigationView.hidden=YES;
+
 }
 
 - (void)viewDidLoad {
@@ -326,6 +333,10 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             cell.avatarView.layer.cornerRadius = 20;
             cell.avatarView.layer.masksToBounds = YES;
             cell.detailLabel.text=msg.address;
+            if (_hint) {
+                cell.detailLabel.text=_hint;
+
+            }
             if ([_count intValue]>0) {
 
             UIImageView* bad=[UIImageView new];
@@ -337,8 +348,10 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             c.text=_count;
             c.textColor=[UIColor whiteColor];
             c.font=[UIFont systemFontOfSize:10];
+                c.textAlignment=UITextAlignmentCenter;
             [bad addSubview:c];
-            
+                _bad=bad;
+
             [cell.contentView addSubview:bad];
             [bad mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.mas_equalTo(cell.mas_right).mas_equalTo(-30);
@@ -389,12 +402,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         {
             [self getavatr];
         }
-        else
-        {
-            model.title=_touserNick;
-            model.avatarURLPath=_touserAvat;
-            cell.model=model;
-        }
+//        else
+//        {
+//            model.title=_touserNick;
+//            model.avatarURLPath=_touserAvat;
+//            cell.model=model;
+//        }
         if (_dataSource && [_dataSource respondsToSelector:@selector(conversationListViewController:latestMessageTimeForConversationModel:)]) {
             cell.timeLabel.text = [_dataSource conversationListViewController:self latestMessageTimeForConversationModel:model];
         } else {
@@ -419,6 +432,10 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section==0) {
+        if (indexPath.row==1) {
+            _hint=@"暂无最新求购消息";
+            _bad.hidden=YES;
+        }
         if (self.block) {
             self.block(indexPath.row);
 //            _navigationView.hidden=YES;

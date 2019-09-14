@@ -31,6 +31,7 @@
 #import "XMRefreshFooter.h"
 #import "ETSaleDetailVC.h"
 #import "ETServiceDetailController.h"
+
 @interface ETHomeViewController ()<UITableViewDelegate, UITableViewDataSource, ETHomeHeaderViewDelegate,CLLocationManagerDelegate>
 {
     CLLocationManager* manager;
@@ -483,6 +484,7 @@
         model.nickname=[a objectForKey:@"username"];
         model.avatarURLPath=[a objectForKey:@"img"];
         model.buddy=[a objectForKey:@"auroraName"];
+        model.uid=userid;
         [model bg_saveOrUpdate];
         
         //        NSUserDefaults* user=[NSUserDefaults standardUserDefaults];

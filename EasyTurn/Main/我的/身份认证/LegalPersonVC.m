@@ -570,12 +570,15 @@
         [[NSNotificationCenter defaultCenter]postNotificationName:Refresh_Mine object:nil];
         [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:NO];
         NSLog(@"");
-        if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] != 0) {
+        if ([[MySingleton filterNull:responseObj[@"code"]] integerValue] == 0) {
 //            [MBProgressHUD showMBProgressHud:self.view withText:[MySingleton filterNull:responseObj[@"msg"]] withTime:1.0];
-            [MBProgressHUD showMBProgressHud:self.view withText:@"等待平台审核" withTime:1.0];
+            [MBProgressHUD showMBProgressHud:self.view withText:@"等待后台易传平台审核" withTime:1.0];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            });
 //            return ;
         }
-        [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

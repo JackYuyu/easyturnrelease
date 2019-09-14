@@ -134,10 +134,9 @@
     
     [HttpTool put:[NSString stringWithFormat:@"user/staffLogout"] params:params success:^(id responseObj) {
         
-        [_tab reloadData];
         NSLog(@"%@",responseObj);
         //        _products=[NSMutableArray new];
-        [_tab reloadData];
+            [self PostCorpUI];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

@@ -43,19 +43,23 @@
     return _members.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ETAdimiTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    ETAdimiTableViewCell *cell=[[NSBundle mainBundle]loadNibNamed:@"ETAdimiTableViewCell" owner:self options:nil].firstObject;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     ETProductModel* m=[_members objectAtIndex:indexPath.row];
     [cell.userImg sd_setImageWithURL:[NSURL URLWithString:m.headImageUrl]];
     cell.comLab.text=m.title;
     cell.addressLab.text=m.cityName;
+    cell.timeLab.text=m.releaseTime;
     cell.manyLab.text=m.price;
     cell.nameLab.text=m.username;
     
     cell.yifuLab.tag=indexPath.row;
     cell.deleLab.tag=indexPath.row;
-    
+    cell.deleLab.layer.borderWidth=0.5;
+    cell.deleLab.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    [cell.deleLab setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
     NSString* temp=m.tradStatus;
     
     if ([temp isEqualToString:@"1"]) {
@@ -71,7 +75,22 @@
     }
     else if ([temp isEqualToString:@"5"]){
         cell.payLab.text=@"交易完成";
+        [cell.yifuLab setBackgroundColor:kACColorBlue_Theme];
+    }
+    cell.payLab.textColor=[UIColor blueColor];
 
+    if ([temp isEqualToString:@"5"]){
+        [cell.yifuLab setTitle:@"已完成" forState:UIControlStateNormal];
+        [cell.yifuLab setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+        [cell.yifuLab setBackgroundColor:[UIColor whiteColor]];
+        cell.yifuLab.layer.borderWidth=0.5;
+        cell.yifuLab.layer.borderColor=[UIColor lightGrayColor].CGColor;
+    }
+    else
+    {
+        [cell.yifuLab setBackgroundColor:kACColorBlue_Theme];
+        [cell.yifuLab setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     cell.block = ^(NSInteger pid) {
         ETProductModel* p=[_members objectAtIndex:pid];

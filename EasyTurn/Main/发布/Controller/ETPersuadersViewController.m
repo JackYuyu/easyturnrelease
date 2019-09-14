@@ -808,6 +808,7 @@
         _priceText.textColor = [UIColor orangeColor];
         if (_product) {
             NSString* pri=[_product.price stringByReplacingOccurrencesOfString:@".0000" withString:@""];
+            pri=[_product.price stringByReplacingOccurrencesOfString:@".000" withString:@""];
             _priceText.text=pri;
         }
     }
@@ -1243,9 +1244,9 @@
         [self clickImage];
 
     if (_product) {
-        if (!_serviceid) {
+        if (_serviceid==0) {
 
-        _serviceid=_product.serviceId;
+        _serviceid=[_product.serviceId intValue];
         }
         _cityId=_product.cityId;
 

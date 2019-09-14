@@ -434,6 +434,7 @@ typedef NS_ENUM(NSUInteger, ETLoginViewControllerType) {
         model.nickname=[a objectForKey:@"name"];
         model.avatarURLPath=[a objectForKey:@"portrait"];
         model.buddy=[a objectForKey:@"uid"];
+        model.uid=[a objectForKey:@"uid"];
         [model bg_saveOrUpdate];
         [self PostuserinfoUI];
     } failure:^(NSError *error) {

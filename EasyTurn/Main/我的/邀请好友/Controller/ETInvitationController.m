@@ -40,7 +40,13 @@
 
     [self createSubViewsAndConstraints];
 }
-
+-(void)goDymic{
+    if (self.model.userInfo.invitationCodeUtilMe) {
+        _laInvitationCode.text = self.model.userInfo.invitationCodeUtilMe;
+    }else {
+        _laInvitationCode.text = @"暂无邀请码";
+    }
+}
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
     
@@ -101,19 +107,13 @@
         make.height.mas_equalTo(23);
     }];
     
-    if (self.model.userInfo.invitationCodeUtilMe) {
-        laInvitationCode.text = self.model.userInfo.invitationCodeUtilMe;
-    }else {
-        laInvitationCode.text = @"暂无邀请码";
-    }
-    
     UIButton *btnCopy = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnCopy setImage:[UIImage imageNamed:@"我的_邀请好友_复制"] forState:UIControlStateNormal];
     [vInvitation addSubview:btnCopy];
     [btnCopy addTarget:self action:@selector(onClickCopy) forControlEvents:UIControlEventTouchUpInside];
     [btnCopy mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(laInvitationCode);
-        make.left.equalTo(laInvitationCode.mas_right).offset(20);
+        make.left.equalTo(laTips.mas_right).offset(30);
         make.size.mas_equalTo(CGSizeMake(16, 17));
     }];
     
@@ -132,7 +132,11 @@
     laInvitationTitle.text = @"立即\n邀请";
     laInvitationTitle.textColor = kACColorWhite;
     laInvitationTitle.font = kFontSize(20);
+    laInvitationTitle.userInteractionEnabled=YES;
+    UIGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goDymic)];
+    [laInvitationTitle addGestureRecognizer:tap1];
     [vInvitationBox addSubview:laInvitationTitle];
+    
     [laInvitationTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(vInvitationBox);
         make.size.mas_equalTo(CGSizeMake(41, 48));

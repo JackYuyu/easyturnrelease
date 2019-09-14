@@ -89,7 +89,7 @@
 }
 
 - (void)makeCellWithETProductModel:(ETProductModel *)model WithIndexPath:(NSIndexPath *)indexPath {
-    _laTitle.text = [NSString stringWithFormat:@"发布了一条新的求购"];
+    _laTitle.text = [NSString stringWithFormat:@"%@发布了一条新的求购",model.userName];
     _laSubTitle.text = model.title;
     _laTime.text = model.createDate;
     
@@ -109,7 +109,7 @@
         _laTitle = [[UILabel alloc]init];
         _laTitle.text = @"小叮当发布了一条新的求购";
         _laTitle.textColor = kACColorBlackTypeface;
-        _laTitle.font = kFontSize(15);
+        _laTitle.font = kBoldFontSize(15);
     }
     return _laTitle;
 }

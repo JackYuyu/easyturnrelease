@@ -393,6 +393,9 @@
         }else{
             cell.btnPay.hidden = NO;
         }
+        if ([_product.tradStatus isEqualToString:@"3"]&&[_product.userId isEqualToString:b]) {
+            cell.btnPay.hidden = YES;
+        }
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         return cell;
     }

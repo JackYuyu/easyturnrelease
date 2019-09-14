@@ -310,6 +310,7 @@
     self.view.backgroundColor=RGBCOLOR(242, 242, 242);
     [self enableLeftBackWhiteButton];
     [WRNavigationBar wr_setDefaultNavBarTitleColor:kACColorWhite];
+    [self setNavi1];
 //    self.view.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.tab];
     [self PostUI:@"1"];

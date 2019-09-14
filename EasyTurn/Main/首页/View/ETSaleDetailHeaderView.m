@@ -101,7 +101,8 @@
     NSString*str=[MySingleton filterNull:dict[@"price"]];
     double a=[str doubleValue];
     if (a>=10000.0) {
-        label.text = [NSString stringWithFormat:@"¥%.0f万元",a/10000.0];
+        label.text = [NSString stringWithFormat:@"¥%.3f万元",a/10000.0];
+        label.text=[label.text stringByReplacingOccurrencesOfString:@".000" withString:@""];
     }
     else
     {
@@ -112,7 +113,8 @@
             label.text = ppp;
         }
         else{
-        NSString* ppp=[NSString stringWithFormat:@"¥%.0f元",pp];
+        NSString* ppp=[NSString stringWithFormat:@"¥%.3f元",pp];
+            ppp=[ppp stringByReplacingOccurrencesOfString:@".000" withString:@""];
         label.text = ppp;
         }
     }
@@ -210,7 +212,8 @@
     NSString*str=[MySingleton filterNull:dict[@"price"]];
     double a=[str doubleValue];
     if (a>=10000.0) {
-        label.text = [NSString stringWithFormat:@"¥%.0f万元",a/10000.0];
+        label.text = [NSString stringWithFormat:@"¥%.3f万元",a/10000.0];
+        label.text=[label.text stringByReplacingOccurrencesOfString:@".000" withString:@""];
     }
     else
     {
@@ -221,7 +224,8 @@
             label.text = ppp;
         }
         else{
-            NSString* ppp=[NSString stringWithFormat:@"¥%.0f元",pp];
+            NSString* ppp=[NSString stringWithFormat:@"¥%.3f元",pp];
+            ppp=[ppp stringByReplacingOccurrencesOfString:@".000" withString:@""];
             label.text = ppp;
         }
     }

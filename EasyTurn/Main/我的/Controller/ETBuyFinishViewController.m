@@ -253,7 +253,9 @@
                     _label1.textAlignment = NSTextAlignmentLeft;
                     _label1.alpha = 1.0;
                     _label1.delegate=self;
-                    _label1.placeholder=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.text=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.textColor=[UIColor redColor];
+                    
                     _label1.userInteractionEnabled=NO;
                     _label1.layer.borderColor=[UIColor redColor].CGColor;
                     _label1.layer.borderWidth=0.5;
@@ -378,7 +380,8 @@
                     _label1.textAlignment = NSTextAlignmentLeft;
                     _label1.alpha = 1.0;
                     _label1.delegate=self;
-                    _label1.placeholder=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.text=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.textColor=[UIColor redColor];
                     _label1.userInteractionEnabled=NO;
                     _label1.layer.borderColor=[UIColor redColor].CGColor;
                     _label1.layer.borderWidth=0.5;
@@ -505,7 +508,8 @@
                     _label1.textAlignment = NSTextAlignmentLeft;
                     _label1.alpha = 1.0;
                     _label1.delegate=self;
-                    _label1.placeholder=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.text=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.textColor=[UIColor redColor];
                     _label1.userInteractionEnabled=NO;
                     _label1.layer.borderColor=[UIColor redColor].CGColor;
                     _label1.layer.borderWidth=0.5;
@@ -670,7 +674,8 @@
                     _label1.textAlignment = NSTextAlignmentLeft;
                     _label1.alpha = 1.0;
                     _label1.delegate=self;
-                    _label1.placeholder=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.text=[NSString stringWithFormat:@"  ¥%@"  ,_product.price ];
+                    _label1.textColor=[UIColor redColor];
                     _label1.userInteractionEnabled=NO;
                     _label1.layer.borderColor=[UIColor redColor].CGColor;
                     _label1.layer.borderWidth=0.5;

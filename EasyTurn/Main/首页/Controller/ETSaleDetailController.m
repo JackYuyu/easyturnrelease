@@ -460,6 +460,7 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
         model.nickname=[a objectForKey:@"username"];
         model.avatarURLPath=[a objectForKey:@"img"];
         model.buddy=[a objectForKey:@"auroraName"];
+        model.uid=self.detailInfo[@"userId"];
         [model bg_saveOrUpdate];
         EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:[a objectForKey:@"auroraName"] conversationType:EMConversationTypeChat];
         chatController.fromDetailVC=YES;

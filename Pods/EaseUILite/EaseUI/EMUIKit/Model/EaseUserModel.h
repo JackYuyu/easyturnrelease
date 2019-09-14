@@ -29,6 +29,7 @@
 @property (strong, nonatomic) UIImage *avatarImage;
 //小黄车
 @property (strong, nonatomic) NSString *cart;
+@property (strong, nonatomic) NSString *uid;
 
 /*!
  @method

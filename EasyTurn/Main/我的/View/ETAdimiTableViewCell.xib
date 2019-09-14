@@ -57,10 +57,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecR-zx-Kwm">
-                        <rect key="frame" x="30.5" y="88" width="60" height="21"/>
+                        <rect key="frame" x="5.5" y="88" width="110" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="2TU-5z-FXm"/>
-                            <constraint firstAttribute="width" constant="60" id="S2S-sA-Ww8"/>
+                            <constraint firstAttribute="width" constant="110" id="S2S-sA-Ww8"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
@@ -85,13 +85,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifp-Fo-fGx">
-                        <rect key="frame" x="126" y="87" width="44" height="20"/>
+                        <rect key="frame" x="151" y="87" width="44" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="FXR-nd-owo"/>
                             <constraint firstAttribute="width" constant="44" id="ZAY-qi-KxD"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIP-jh-h0K">
@@ -106,8 +106,19 @@
                             <action selector="yifuBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DlC-pc-IGP"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBJ-WF-8ZL">
+                        <rect key="frame" x="265" y="65" width="70" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="5iE-wm-vV4"/>
+                            <constraint firstAttribute="width" constant="70" id="l2a-c4-pu0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="sBJ-WF-8ZL" firstAttribute="centerY" secondItem="SOa-gt-cLq" secondAttribute="centerY" id="1KQ-jD-agO"/>
                     <constraint firstItem="5pL-Kp-5al" firstAttribute="leading" secondItem="3uw-hk-bGV" secondAttribute="trailing" constant="37" id="4wY-TL-Jqr"/>
                     <constraint firstItem="Ifp-Fo-fGx" firstAttribute="leading" secondItem="ecR-zx-Kwm" secondAttribute="trailing" constant="35.5" id="EvL-1G-U2r"/>
                     <constraint firstItem="SOa-gt-cLq" firstAttribute="centerY" secondItem="7rZ-IX-4WQ" secondAttribute="centerY" id="FLP-82-cbz"/>
@@ -118,6 +129,7 @@
                     <constraint firstItem="Jdc-J6-FuO" firstAttribute="leading" secondItem="HIP-jh-h0K" secondAttribute="trailing" constant="10" id="TNz-a1-EgC"/>
                     <constraint firstItem="ecR-zx-Kwm" firstAttribute="top" secondItem="3uw-hk-bGV" secondAttribute="bottom" constant="16" id="Tv9-U2-CfW"/>
                     <constraint firstItem="Ifp-Fo-fGx" firstAttribute="top" secondItem="SOa-gt-cLq" secondAttribute="bottom" constant="5" id="bKA-hy-VsV"/>
+                    <constraint firstItem="sBJ-WF-8ZL" firstAttribute="leading" secondItem="7rZ-IX-4WQ" secondAttribute="trailing" constant="130" id="bzV-lL-AK3"/>
                     <constraint firstItem="3uw-hk-bGV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="jH7-s4-IQ1"/>
                     <constraint firstAttribute="trailing" secondItem="Jdc-J6-FuO" secondAttribute="trailing" constant="15" id="kma-wh-Ina"/>
                     <constraint firstItem="Jdc-J6-FuO" firstAttribute="firstBaseline" secondItem="HIP-jh-h0K" secondAttribute="firstBaseline" id="raD-iJ-q8M"/>
@@ -137,6 +149,7 @@
                 <outlet property="manyLab" destination="Ifp-Fo-fGx" id="a6T-ls-lhD"/>
                 <outlet property="nameLab" destination="ecR-zx-Kwm" id="FdQ-cX-lSM"/>
                 <outlet property="payLab" destination="5pL-Kp-5al" id="ZoL-hn-4nx"/>
+                <outlet property="timeLab" destination="sBJ-WF-8ZL" id="0Ye-mw-bhD"/>
                 <outlet property="userImg" destination="3uw-hk-bGV" id="sP0-Iz-CQY"/>
                 <outlet property="yifuLab" destination="HIP-jh-h0K" id="jPe-9w-8nI"/>
             </connections>
