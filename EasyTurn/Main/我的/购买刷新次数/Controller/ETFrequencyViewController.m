@@ -269,14 +269,14 @@
 
 -(UITableView *)tab {
     if (!_tab) {
-        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
+        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 20, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
         _tab.delegate=self;
         _tab.dataSource=self;
         _tab.rowHeight=60;
         [_tab registerClass:[MEVIPTableViewCell class] forCellReuseIdentifier:@"cell"];
         _tab.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0,0,0,0.01)];
         _tab.sectionFooterHeight =0;
-        UIView* v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 90)];
+        UIView* v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 140)];
         _goPayBtn = [[UIButton alloc]init];
         _goPayBtn.backgroundColor= [UIColor colorWithRed:20/255.0 green:138/255.0 blue:236/255.0 alpha:1.0];
         [_goPayBtn setTitle:@"立即支付" forState:UIControlStateNormal];
@@ -293,7 +293,7 @@
 //            make.height.mas_equalTo(39);
 //        }];
         [_goPayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(0);
+            make.top.mas_equalTo(30);
             make.left.mas_equalTo(15);
             make.right.mas_equalTo(-15);
             make.height.mas_equalTo(39);
@@ -307,9 +307,10 @@
     [super viewDidLoad];
    
     self.title=@"购买次数";
+    self.view.backgroundColor=RGBCOLOR(242, 242, 242);
     [self enableLeftBackWhiteButton];
     [WRNavigationBar wr_setDefaultNavBarTitleColor:kACColorWhite];
-    self.view.backgroundColor=[UIColor whiteColor];
+//    self.view.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.tab];
     [self PostUI:@"1"];
     [self shareView];
@@ -364,10 +365,17 @@
                 make.bottom.mas_equalTo(0);
             }];
         }
+        UIButton* b=[UIButton new];
+        b.tag=0;
+        [self titlesBtnClick:b];
+        
         ETMineModel *m=[_products objectAtIndex:indexPath.row];
-        cell.titleLab.text=m.title;
+        cell.titleLab.text=[NSString stringWithFormat:@"%@刷新",m.condition];
         cell.subTitleLab.text=m.money;
         cell.subTitleLab.textColor=[UIColor colorWithRed:248/255.0 green:124/255.0 blue:43/255.0 alpha:1.0];
+        [cell.titleLab setFont:[UIFont systemFontOfSize:15]];
+        [cell.subTitleLab setFont:[UIFont systemFontOfSize:15]];
+
         [cell.subBtn setTitle:@"" forState:UIControlStateNormal];
         cell.subBtn.backgroundColor=[UIColor orangeColor];
         cell.subBtn.layer.cornerRadius=10;

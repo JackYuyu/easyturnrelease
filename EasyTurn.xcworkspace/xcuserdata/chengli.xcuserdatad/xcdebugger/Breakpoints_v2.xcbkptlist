@@ -9,24 +9,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EasyTurn/Main/&#x4ea4;&#x6613;&#x8be6;&#x60c5;/Controller/ETPayaymentViewController.m"
-            timestampString = "589997339.30146"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETRKongViewController.m"
+            timestampString = "590152942.8129849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "775"
-            endingLineNumber = "775"
-            landmarkName = "-PostStageUI"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "-touchDownBtn:"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ETRKongViewController touchDownBtn:]"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E5%8F%91%E5%B8%83/Controller/ETRKongViewController.m"
+                  timestampString = "590152943.042798"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "536">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__38-[ETRKongViewController touchDownBtn:]_block_invoke_3"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E5%8F%91%E5%B8%83/Controller/ETRKongViewController.m"
+                  timestampString = "590152943.04735"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "276"
+                  endingLineNumber = "276"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -35,29 +57,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EasyTurn/Main/&#x4f01;&#x670d;&#x8005;/Controller/ETBusinessViewController.m"
-            timestampString = "589997339.301783"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETPublishPurchaseSegmentViewController.m"
+            timestampString = "590153068.765379"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-createSubViewsAndConstraints"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETPublishPurchaseSegmentViewController.m"
+            timestampString = "590153165.3186539"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "-topSegmentChanged:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETPublishPurchaseSegmentViewController.m"
+            timestampString = "590153166.032805"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-topSegmentChanged:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x53d1;&#x5e03;/Controller/ETEnterpriseServicesViewController.m"
+            timestampString = "590153190.8121949"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EasyTurn/Main/&#x6211;&#x7684;/&#x8d2d;&#x4e70;&#x5237;&#x65b0;&#x6b21;&#x6570;/Controller/ETFrequencyViewController.m"
-            timestampString = "590009850.682742"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
-            landmarkName = "-goumaiBtn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -121,7 +121,7 @@
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(15);
                 make.left.mas_equalTo(15);
-                make.size.mas_equalTo(CGSizeMake(165, 21));
+                make.size.mas_equalTo(CGSizeMake(265, 21));
             }];
         }else if (indexPath.row==3) {
             UILabel *label = [[UILabel alloc] init];
