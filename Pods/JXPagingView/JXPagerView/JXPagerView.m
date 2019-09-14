@@ -70,6 +70,7 @@
     [super layoutSubviews];
 
     self.mainTableView.frame = self.bounds;
+    self.mainTableView.backgroundColor=[UIColor whiteColor];
 }
 
 - (void)setDefaultSelectedIndex:(NSInteger)defaultSelectedIndex {

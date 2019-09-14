@@ -23,14 +23,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray<ETEnterpriseServicesViewModel *> *arrEnterpriseServicesViewData;
 // 设立
 @property (nonatomic, strong) ETEnterpriseServicesViewModel *establishment;
-// 变更
-@property (nonatomic, strong) ETEnterpriseServicesViewModel *change;
 // 工商管理下的 股权出质 和 其它
 @property (nonatomic, strong) ETEnterpriseServicesViewModel *businessother;
 // 其它类型
 @property (nonatomic, strong) ETEnterpriseServicesViewModel *other;
+// 变更(没有变更内容)
+@property (nonatomic, strong) ETEnterpriseServicesViewModel *change;
+// 变更(有变更内容)
+@property (nonatomic, strong) ETEnterpriseServicesViewModel *updates;
 
 + (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModel;
++ (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:(NSString *)serviceTypeKey purchaseMattersKey:(NSString *)purchaseMattersKey arrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData update:(BOOL)update;
 + (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:(NSString *)serviceTypeKey purchaseMattersKey:(NSString *)purchaseMattersKey arrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData;
 + (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:(NSString *)serviceTypeKey arrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData;
 // 输入服务类型的key 然后返回求购事项的数据

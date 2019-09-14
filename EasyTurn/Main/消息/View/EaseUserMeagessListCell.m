@@ -76,8 +76,9 @@
     }];
     
     [self.laLook mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.vLine.mas_bottom).offset(7);
+//        make.top.equalTo(self.vLine.mas_bottom).offset(7);
         make.left.mas_equalTo(12);
+        make.bottom.mas_equalTo(-7);
     }];
     
     [self.imagevJiantou mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,9 +99,9 @@
     NSDateFormatter *dateFormattershow = [[NSDateFormatter alloc] init];
     [dateFormattershow setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *strDate = [dateFormattershow stringFromDate:houtaiDate];
-    _laTime.text = strDate;
-    
-    
+    NSString* createdate=[model.createDate stringByReplacingOccurrencesOfString:@".000+0000" withString:@""];
+    createdate=[createdate stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    _laTime.text = createdate;
 }
 
 - (UILabel *)laTitle {

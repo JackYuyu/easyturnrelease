@@ -74,6 +74,8 @@
     _mItem.isSelected = !_mItem.isSelected;
     if (_mItem.isSelected) {
         [[MySingleton sharedMySingleton].scopes addObject:_mItem.name];
+    }else if([[MySingleton sharedMySingleton].scopes containsObject:_mItem.name]){
+        [[MySingleton sharedMySingleton].scopes removeObject:_mItem.name];
     }
     [self updateImgvSelectedSelected:_mItem.isSelected];
     if ([_delegate respondsToSelector:@selector(enterpriseServicesScopeBusinessItemTableViewCell:model:)]) {

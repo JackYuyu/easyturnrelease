@@ -56,14 +56,55 @@ static NSString * const bussinessotherKey = @"其它";
 //+ (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithArrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData {
 //
 //}
-
-+ (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:(NSString *)serviceTypeKey purchaseMattersKey:(NSString *)purchaseMattersKey arrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData {
++ (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:(NSString *)serviceTypeKey purchaseMattersKey:(NSString *)purchaseMattersKey arrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData update:(BOOL)update{
     ETEnterpriseServicesViewDataModel *mFilter = [self loadDataSourceETEnterpriseServicesViewDataModel];
     NSMutableArray *arrMuData = [NSMutableArray arrayWithArray:mFilter.arrEnterpriseServicesViewData];
     if ([purchaseMattersKey isEqualToString:establishmentKey]) {
         [arrMuData replaceObjectAtIndex:0 withObject:mFilter.establishment];
     } else if ([purchaseMattersKey isEqualToString:changeKey]) {
-        [arrMuData replaceObjectAtIndex:0 withObject:mFilter.change];
+        if (update) {
+            NSMutableArray<ETEnterpriseServicesViewItemModel *> *muList = [NSMutableArray arrayWithArray:mFilter.updates.list];
+            [mFilter.updates.list enumerateObjectsUsingBlock:^(ETEnterpriseServicesViewItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj.key isEqualToString:PurchasingTypeKey]) {
+                    obj.updates = [MySingleton sharedMySingleton].updates;
+                    if (![obj.updates containsObject:@"企业名称"]) {
+                        ETEnterpriseServicesViewItemModel *item = [muList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title='企业名称'"]].lastObject;
+                        if (item && [muList containsObject:item]) {
+                            [muList removeObject:item];
+                        }
+                    }
+                    if (![obj.updates containsObject:@"住所"]) {
+                        ETEnterpriseServicesViewItemModel *item = [muList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title='住所'"]].lastObject;
+                        if (item && [muList containsObject:item]) {
+                            [muList removeObject:item];
+                        }
+                    }
+                    if (![obj.updates containsObject:@"注册资本"]) {
+                        ETEnterpriseServicesViewItemModel *item = [muList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title='注册资本'"]].lastObject;
+                        if (item && [muList containsObject:item]) {
+                            [muList removeObject:item];
+                        }
+                    }
+                    if (![obj.updates containsObject:@"经营范围"]) {
+                        ETEnterpriseServicesViewItemModel *item = [muList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title='经营范围'"]].lastObject;
+                        if (item && [muList containsObject:item]) {
+                            [muList removeObject:item];
+                        }
+                    }
+                    *stop = YES;
+                }
+            }];
+            mFilter.updates.list = muList;
+        }else{
+            NSMutableArray<ETEnterpriseServicesViewItemModel *> *muList = [NSMutableArray arrayWithArray:mFilter.change.list];
+            [mFilter.change.list enumerateObjectsUsingBlock:^(ETEnterpriseServicesViewItemModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.cellType == ETEnterpriseServicesViewItemModelTypeCheck) {
+                    obj.isSelected = [[MySingleton sharedMySingleton].updates containsObject:obj.title];
+                }
+            }];
+            mFilter.change.list = muList;
+        }
+        [arrMuData replaceObjectAtIndex:0 withObject:update ? mFilter.updates : mFilter.change];
     }  else if (([purchaseMattersKey isEqualToString:equityPledgeKey]) ||
                 ([serviceTypeKey isEqualToString:BusinessServicesKey] && [purchaseMattersKey isEqualToString:bussinessotherKey])) {
         [arrMuData replaceObjectAtIndex:0 withObject:mFilter.businessother];
@@ -91,12 +132,14 @@ static NSString * const bussinessotherKey = @"其它";
                 obj.content = obj.arrListContent.firstObject;
                 obj.value = obj.arrListContent.firstObject;
             }
-            
         }
         [arrMuValues addObject:obj];
     }];
     mSection.list = arrMuValues;
     return mFilter;
+}
++ (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:(NSString *)serviceTypeKey purchaseMattersKey:(NSString *)purchaseMattersKey arrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData {
+    return [self loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:serviceTypeKey purchaseMattersKey:purchaseMattersKey arrOldData:arrOldData update:NO];
 }
 
 + (ETEnterpriseServicesViewDataModel *)loadDataSourceETEnterpriseServicesViewDataModelWithServiceTypeKey:(NSString *)serviceTypeKey arrOldData:(NSArray<ETEnterpriseServicesViewModel *> *)arrOldData {

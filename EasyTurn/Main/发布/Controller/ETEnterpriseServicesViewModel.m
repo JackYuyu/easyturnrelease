@@ -18,5 +18,4 @@
 
 @implementation ETEnterpriseServicesViewItemModel
 
-
 @end

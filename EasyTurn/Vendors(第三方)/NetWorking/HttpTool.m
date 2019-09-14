@@ -24,8 +24,9 @@
     dispatch_once(&onceToken, ^{
         mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@""]];
     });
+  
     [mgr.requestSerializer setValue:token forHTTPHeaderField:@"token"];
-
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     // 2.发送GET请求
@@ -90,6 +91,7 @@
                 
                 [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
             }
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {

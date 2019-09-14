@@ -34,7 +34,6 @@
 
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
-    
     _imgvSelected = [[UIImageView alloc] init];
     [self.contentView addSubview:_imgvSelected];
     UIImage *imgSelect = [UIImage imageNamed:@"circle_select"];
@@ -68,6 +67,16 @@
     }
     _mItem.isSelected = !_mItem.isSelected;
     [self updateImgvSelectedSelected:_mItem.isSelected];
+    
+    if (_mItem.isSelected) {
+        if (![[MySingleton sharedMySingleton].updates containsObject:_mItem.title]) {
+            [[MySingleton sharedMySingleton].updates addObject:_mItem.title];
+        }
+    }else {
+        if([[MySingleton sharedMySingleton].updates containsObject:_mItem.title]) {
+            [[MySingleton sharedMySingleton].updates removeObject:_mItem.title];
+        }
+    }
 }
 
 - (void)updateImgvSelectedSelected:(BOOL)selected {

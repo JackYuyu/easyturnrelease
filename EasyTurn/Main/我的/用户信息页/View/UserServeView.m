@@ -14,7 +14,7 @@
 @property(nonatomic , strong)UITableView *tableView;
 @property(nonatomic , strong)NSMutableArray *array;
 @property(nonatomic , strong)NSMutableArray *dataArray;
-
+@property(nonatomic,strong)UIButton* refchBtn;
 @end
 @implementation UserServeView
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -100,6 +100,9 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArray.count;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 155;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     //    UserSaleViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID" forIndexPath:indexPath];
     //    SaleModel *model = self.dataArray[indexPath.row];
@@ -108,8 +111,52 @@
     //    [cell setSaleModel:model];
     //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //    return cell;
-    
-    return [ETUserListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
+    ETUserListCell* cell=[ETUserListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
+    _refchBtn =[[UIButton alloc]init];
+    [_refchBtn setTitle:@"查看" forState:UIControlStateNormal];
+    _refchBtn.backgroundColor=kACColorBlue_Theme;
+    [_refchBtn addTarget:self action:@selector(viewdetail:) forControlEvents:UIControlEventTouchUpInside];
+
+    //    [_refchBtn setTitle:@"查看" forState:UIControlStateNormal];
+    [cell addSubview:self.refchBtn];
+    _refchBtn.layer.borderWidth=1;
+    _refchBtn.layer.cornerRadius=4;
+    _refchBtn.titleLabel.font=[UIFont systemFontOfSize:13 weight:9];
+    _refchBtn.layer.borderColor=[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0].CGColor;
+    [_refchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(120);
+        make.right.mas_equalTo(-34);
+        make.size.mas_equalTo(CGSizeMake(60, 26));
+    }];
+    return cell;
+}
+-(void)viewdetail:(UIButton*)sender{
+    NSDictionary *dict =[self.dataArray objectAtIndex:sender.tag];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
+    if ([p.tradStatus isEqualToString:@"5"]) {
+        ETBuyFinishViewController* f=[ETBuyFinishViewController new];
+        f.product=p;
+        [self.owner.navigationController pushViewController:f animated:YES];
+    }
+    else{
+        if ([p.releaseTypeId isEqualToString:@"3"]) {
+            ETServiceDetailController * detail=[ETServiceDetailController serviceDetailController:dict];
+            detail.product=p;
+            [self.owner.navigationController pushViewController:detail animated:YES];
+        }
+        else if ([p.releaseTypeId isEqualToString:@"1"]){
+            ETSaleDetailController* detail=[ETSaleDetailController saleDetailController:dict];
+            detail.product=p;
+            [self.owner.navigationController pushViewController:detail animated:YES];
+        }
+        else{
+            ETForBuyDetailController* pur=[ETForBuyDetailController forBuyDetailController:dict];
+            pur.releaseId=p.releaseId;
+            pur.releaseId = dict[@"releaseId"];
+            pur.product = [ETProductModel mj_objectWithKeyValues:dict];
+            [self.owner.navigationController pushViewController:pur animated:YES];
+        }
+    }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dict =[self.dataArray objectAtIndex:indexPath.row];

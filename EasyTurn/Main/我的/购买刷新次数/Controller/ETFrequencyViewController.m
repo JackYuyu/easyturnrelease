@@ -269,13 +269,37 @@
 
 -(UITableView *)tab {
     if (!_tab) {
-        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
+        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 20, Screen_Width, Screen_Height) style:UITableViewStyleGrouped];
         _tab.delegate=self;
         _tab.dataSource=self;
         _tab.rowHeight=60;
         [_tab registerClass:[MEVIPTableViewCell class] forCellReuseIdentifier:@"cell"];
         _tab.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0,0,0,0.01)];
         _tab.sectionFooterHeight =0;
+        UIView* v=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 140)];
+        _goPayBtn = [[UIButton alloc]init];
+        _goPayBtn.backgroundColor= [UIColor colorWithRed:20/255.0 green:138/255.0 blue:236/255.0 alpha:1.0];
+        [_goPayBtn setTitle:@"立即支付" forState:UIControlStateNormal];
+        _goPayBtn.titleLabel.font=[UIFont systemFontOfSize:15];
+        _goPayBtn.layer.cornerRadius = 20;
+        _goPayBtn.userInteractionEnabled=YES;
+        [_goPayBtn addTarget:self action:@selector(stagepay) forControlEvents:UIControlEventTouchUpInside];
+        [v addSubview:_goPayBtn];
+        
+//        [v mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_equalTo(0);
+//            make.left.mas_equalTo(15);
+//            make.right.mas_equalTo(-15);
+//            make.height.mas_equalTo(39);
+//        }];
+        [_goPayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(30);
+            make.left.mas_equalTo(15);
+            make.right.mas_equalTo(-15);
+            make.height.mas_equalTo(39);
+        }];
+        
+        _tab.tableFooterView=v;
     }
     return _tab;
 }
@@ -283,9 +307,10 @@
     [super viewDidLoad];
    
     self.title=@"购买次数";
+    self.view.backgroundColor=RGBCOLOR(242, 242, 242);
     [self enableLeftBackWhiteButton];
     [WRNavigationBar wr_setDefaultNavBarTitleColor:kACColorWhite];
-    self.view.backgroundColor=[UIColor whiteColor];
+//    self.view.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.tab];
     [self PostUI:@"1"];
     [self shareView];
@@ -340,10 +365,17 @@
                 make.bottom.mas_equalTo(0);
             }];
         }
+        UIButton* b=[UIButton new];
+        b.tag=0;
+        [self titlesBtnClick:b];
+        
         ETMineModel *m=[_products objectAtIndex:indexPath.row];
-        cell.titleLab.text=m.title;
+        cell.titleLab.text=[NSString stringWithFormat:@"%@刷新",m.condition];
         cell.subTitleLab.text=m.money;
         cell.subTitleLab.textColor=[UIColor colorWithRed:248/255.0 green:124/255.0 blue:43/255.0 alpha:1.0];
+        [cell.titleLab setFont:[UIFont systemFontOfSize:15]];
+        [cell.subTitleLab setFont:[UIFont systemFontOfSize:15]];
+
         [cell.subBtn setTitle:@"" forState:UIControlStateNormal];
         cell.subBtn.backgroundColor=[UIColor orangeColor];
         cell.subBtn.layer.cornerRadius=10;
@@ -443,20 +475,8 @@
                 make.height.mas_equalTo(15);
             }];
             
-            _goPayBtn = [[UIButton alloc]init];
-            _goPayBtn.backgroundColor= [UIColor colorWithRed:20/255.0 green:138/255.0 blue:236/255.0 alpha:1.0];
-            [_goPayBtn setTitle:@"立即支付" forState:UIControlStateNormal];
-            _goPayBtn.titleLabel.font=[UIFont systemFontOfSize:15];
-            _goPayBtn.layer.cornerRadius = 20;
-            _goPayBtn.userInteractionEnabled=YES;
-            [_goPayBtn addTarget:self action:@selector(stagepay) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:_goPayBtn];
-            [_goPayBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(89);
-                make.left.mas_equalTo(15);
-                make.right.mas_equalTo(-15);
-                make.height.mas_equalTo(39);
-            }];
+            
+
         }
     }
     
@@ -485,6 +505,31 @@
         _twentyRefrech.layer.borderWidth=2;
         _twentyRefrech.layer.borderColor=kACColorRGB(248, 124, 43).CGColor;
       
+    }
+    int a =btn.tag;
+    
+    if ([MySingleton sharedMySingleton].review == 1) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        NSString* productid;
+        if (a==0) {
+            productid=@"EasyTurn.yzqylzpt.refresh10";
+        }
+        if (a==1) {
+            productid=@"EasyTurn.yzqylzpt.refresh20";
+        }
+        UGameManager* mgr= [UGameManager instance];
+        mgr.block = ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        };
+        if (mgr.canProcessPayments) {
+            [mgr purchaseItem:productid];
+        }
+    }else {
+//        [self.view addSubview:self.maskTheView];
+//        [self.view addSubview:self.shareView];
+        ETMineModel* m=[_products objectAtIndex:a];
+        _vipid=m.vipid;
+        _aliprice=[m.money substringFromIndex:1];
     }
 }
 
@@ -528,6 +573,14 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     // 3点击没有颜色改变
     cell.selected = NO;
+    
+    if (indexPath.row==1) {
+        _paytype=2;
+    }
+    if (indexPath.row==2) {
+        _paytype=1;
+    }
+    
 }
 
 - (void)PostUI:(NSString*)a {

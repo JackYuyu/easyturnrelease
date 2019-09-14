@@ -46,8 +46,26 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 
 - (void)viewDidLoad {
     [self.view addSubview:self.tableView];
-    [self requestUserOrderListWithReleaseTypeId:self.releaseTypeId];
+//    @[@"出售", @"服务", @"求购"]
+//    
+//    if (index == 0) {
+//        listView.releaseTypeId = 1;
+//    }else if (index == 1) {
+//        listView.releaseTypeId = 3;
+//        
+//    }else if (index == 2){
+//        listView.releaseTypeId = 2;
+//    }
+    if ([self.title isEqualToString:@"出售"]) {
+        [self requestUserOrderListWithReleaseTypeId:1];
+    }else if ([self.title isEqualToString:@"服务"]) {
+        [self requestUserOrderListWithReleaseTypeId:3];
+    }else if ([self.title isEqualToString:@"求购"]) {
+        [self requestUserOrderListWithReleaseTypeId:2];
+    }
     
+
+
    
 }
 
@@ -82,6 +100,7 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
             NSArray *array = resultObject[@"data"];
             if (array.count == 0) {
                 [weakSelf showEmptyDataView:NO];
+
             }else {
                 [weakSelf.products addObjectsFromArray:array];
                 NSMutableArray *products = [NSMutableArray array];

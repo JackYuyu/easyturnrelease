@@ -304,6 +304,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 @property (nonatomic,copy) void (^block)(NSString* a);
 @property (nonatomic,assign)BOOL cartcontroller;
 @property (nonatomic,strong) NSString* releaseid;
+@property (nonatomic,assign)BOOL fromDetailVC;
+
 @property (weak, nonatomic) id<EaseMessageViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) id<EaseMessageViewControllerDataSource> dataSource;

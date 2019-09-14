@@ -12,6 +12,7 @@
 @synthesize review;
 @synthesize port;
 @synthesize scopes;
+@synthesize updates;
 
 static MySingleton* _sharedMySingleton = nil;
 

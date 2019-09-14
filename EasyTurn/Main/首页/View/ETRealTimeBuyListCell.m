@@ -107,7 +107,7 @@
         //
         
         temp = [self filterNull:dict[@"serviceId"]];
-        if (!temp)
+        if ([temp isEqualToString:@"0"])
         {
             [self.imvPhoto sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"11566120515_.pic_hd"]];
         }

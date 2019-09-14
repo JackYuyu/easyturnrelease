@@ -17,6 +17,22 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 (isPhoneX);})
 
 #define TopHeight     (IPHONE_X?88:64)
+#define Screen_Width [[UIScreen mainScreen]bounds].size.width
+//判断是否是ipad
+#define isPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+//判断iPhone4系列
+#define kiPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhone5系列
+#define kiPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhone6系列
+#define kiPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iphone6+系列
+#define kiPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhoneX
+#define kIsFullScreenIPhone (Screen_Height == 812.f || Screen_Height == 896.f)
+#define kSafeAreaBottomH ((kIsFullScreenIPhone) ? (34) : (0))
+#define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+
 #import "EaseConversationListViewController.h"
 
 #import "EaseEmotionEscape.h"
@@ -27,6 +43,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 #import "EaseLocalDefine.h"
 #import "AFNetworking.h"
 #import "EaseUserModel.h"
+#import "Masonry.h"
 @interface EaseConversationListViewController ()
 @property (nonatomic,strong) NSMutableArray* system;
 @property (nonatomic,strong) NSMutableArray* list;
@@ -39,9 +56,36 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 @property (nonatomic,assign) BOOL cart;
 @property(strong,nonatomic)NSString *releaseId;
 @property(strong,nonatomic)EaseMessageViewController *vc;
+@property(nonatomic,strong)NSString* count;
 @end
 
 @implementation EaseConversationListViewController
+-(void)getcount
+{
+    NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
+    NSString* token=[user objectForKey:@"token"];
+    // 1.获得请求管理者
+    static AFHTTPSessionManager *mgr = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mgr = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:@""]];
+    });
+    [mgr.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+   // 2.发送GET请求
+    [mgr GET:[NSString stringWithFormat:@"%@/%@", @"https://app.yz-vip.cn", @"push/countPushInfo"] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        _count=[NSString stringWithFormat:@"%d", [responseObject[@"data"] intValue] ];
+        NSLog(@"");
+        [self.tableView reloadData];
+
+//        _touserAvat=responseObject[@"data"];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
 -(void)getavatr
 {
     NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
@@ -104,8 +148,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }
     return nil;
 }
-- (void)getMsgToBuyer {
-    
+- (void)getMsgToBuyer:(void(^)(BOOL cart, NSError *error))completion {
     NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
     NSString* token=[user objectForKey:@"token"];
     // 1.获得请求管理者
@@ -131,9 +174,18 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             _vc.releaseid=responseObject[@"data"][@"releaseId"];
             NSUserDefaults* ud=[NSUserDefaults standardUserDefaults];
             [ud setObject:responseObject[@"data"][@"forUserId"] forKey:@"foruserid"];
+            if (completion) {
+                completion(YES, nil);
+            }
+        }else{
+            if (completion) {
+                completion(NO, nil);
+            }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        if (completion) {
+            completion(NO, error);
+        }
     }];
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -145,11 +197,11 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     _system=[NSMutableArray new];
     EaseMessageModel* m=[EaseMessageModel new];
     m.text=@"易转官方消息";
-    m.address=@"欢迎来到易转!";
+    m.address=@"有一条新的平台消息";
     [_system addObject:m];
     EaseMessageModel* m1=[EaseMessageModel new];
     m1.text=@"易转平台求购消息";
-    m1.address=@"很高兴为你们服务!";
+    m1.address=@"有一条求购消息";
     [_system addObject:m1];
     // Do any additional setup after loading the view.
     _list=[EaseMessageModel bg_findAll:@"EaseMessageModel"];
@@ -158,17 +210,20 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
     NSLog(@"");
     _navigationView.hidden=NO;
+    [self getcount];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self unregisterNotifications];
+    _navigationView.hidden=YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"消息";
+//    self.navigationController.navigationBar.hidden=YES;
     _cart=NO;
 //    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width/2, TopHeight)];
 //    _navigationView.backgroundColor = kACColorClear;
@@ -271,7 +326,34 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             cell.avatarView.layer.cornerRadius = 20;
             cell.avatarView.layer.masksToBounds = YES;
             cell.detailLabel.text=msg.address;
+            if ([_count intValue]>0) {
+
+            UIImageView* bad=[UIImageView new];
+            [bad setBackgroundColor:[UIColor redColor]];
+            bad.layer.cornerRadius=10;
+            bad.layer.masksToBounds=YES;
             
+            UILabel* c=[UILabel new];
+            c.text=_count;
+            c.textColor=[UIColor whiteColor];
+            c.font=[UIFont systemFontOfSize:10];
+            [bad addSubview:c];
+            
+            [cell.contentView addSubview:bad];
+            [bad mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(cell.mas_right).mas_equalTo(-30);
+                make.size.mas_equalTo(20,20);
+                make.centerY.mas_equalTo(cell);
+            }];
+            
+            [c mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(10,10);
+                make.center.mas_equalTo(bad);
+            }];
+            }
+            
+            cell.avatarView.showBadge=YES;
+            cell.avatarView.badge=10;
         }
     }
     else{
@@ -339,13 +421,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     if (indexPath.section==0) {
         if (self.block) {
             self.block(indexPath.row);
-            _navigationView.hidden=YES;
+//            _navigationView.hidden=YES;
             return;
         }
 //        EaseSystemController* s=[EaseSystemController new];
 //        [self.navigationController pushViewController:sys animated:YES];
-    }else
-        _navigationView.hidden=YES;;
+    }
+//        _navigationView.hidden=YES;;
     if (_delegate && [_delegate respondsToSelector:@selector(conversationListViewController:didSelectConversationModel:)]) {
         EaseConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
         [_delegate conversationListViewController:self didSelectConversationModel:model];
@@ -353,9 +435,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         EaseConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
         
         _auroraname=model.conversation.conversationId;
-        [self getMsgToBuyer];
         EaseMessageViewController *viewController = [[EaseMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
-        viewController.cartcontroller=YES;
+        viewController.cartcontroller=_cart;
         
 //        viewController.releaseid=_releaseId;
         viewController.block = ^(NSString *a) {
@@ -365,7 +446,11 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         };
         viewController.title = model.title;
         _vc=viewController;
-        [self.navigationController pushViewController:viewController animated:YES];
+        __weak typeof(self) weakself = self;
+        [self getMsgToBuyer:^(BOOL cart, NSError *error) {
+            weakself.vc.cartcontroller = cart;
+            [weakself.navigationController pushViewController:weakself.vc animated:YES];
+        }];
     }
 }
 
@@ -570,6 +655,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         NSDateFormatter* formatter = [[NSDateFormatter alloc]init];
         [formatter setDateFormat:@"YYYY-MM-dd"];
         latestMessageTime = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeInterval]];
+        NSDate* nd=[NSDate dateWithTimeIntervalSince1970:timeInterval];
+        latestMessageTime=[nd formattedTime];
     }
     return latestMessageTime;
 }

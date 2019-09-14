@@ -16,14 +16,14 @@ static NSString * const kETEnterpriseServicesScopeBusinessItemTableViewCellReuse
 static NSString * const kETEnterpriseServicesScopeBusinessSectionHeaderViewReuseID = @"ETEnterpriseServicesScopeBusinessSectionHeaderView";
 
 @interface ETEnterpriseServicesScopeBusinessTableViewCell ()<UITableViewDataSource, UITableViewDelegate, ETEnterpriseServicesScopeBusinessSectionHeaderViewDelegate, ETEnterpriseServicesScopeBusinessItemTableViewCellDelegate>
+@property (nonatomic, strong) UIView *vContainer;
 @property (nonatomic, strong) UILabel *labTitle;
-@property (nonatomic, strong) UIImageView *imgvArrow;
+@property (nonatomic, strong) UILabel *lbContent;
+@property (nonatomic, strong) UIButton *btn_confirm;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *arrMuBusiness;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) ETEnterpriseServicesViewItemModel *mItem;
-//@property (nonatomic, strong) NSMutableArray *arrMuSelected;
-
 @end
 
 @implementation ETEnterpriseServicesScopeBusinessTableViewCell
@@ -39,10 +39,11 @@ static NSString * const kETEnterpriseServicesScopeBusinessSectionHeaderViewReuse
 }
 
 - (void)makeETEnterpriseServicesScopeBusinessTableViewCell:(ETEnterpriseServicesViewItemModel *)mItem indexPath:(NSIndexPath *)indexPath {
-    
+    WeakSelf(self)
     _mItem = mItem;
     _indexPath = indexPath;
     _labTitle.text = mItem.title;
+    [self updateContentInfo];
     CGFloat titlewWidth = [_labTitle.text ak_sizeWithFontEX:_labTitle.font constrainedToSize:CGSizeMake(CGFLOAT_MAX, 15)].width;
     titlewWidth = titlewWidth > 100 ? 100 : titlewWidth;
     [_labTitle mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -53,6 +54,19 @@ static NSString * const kETEnterpriseServicesScopeBusinessSectionHeaderViewReuse
     [_arrMuBusiness addObjectsFromArray:mItem.businessScopeList];
     
     [self.tableView reloadData];
+    
+    CGFloat default_height = 50;
+    if ([MySingleton sharedMySingleton].scopes.count) {
+        default_height = [self.lbContent sizeThatFits:CGSizeMake(SCREEN_WIDTH - 170, MAXFLOAT)].height;
+    }
+    
+    [self.vContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(0);
+        make.width.mas_equalTo(Screen_Width);
+        make.top.equalTo(weakself.contentView);
+        make.height.mas_equalTo(default_height);
+    }];
+    
     if (_mItem.isOpen) {
         __block CGFloat height = 0;
         [_arrMuBusiness enumerateObjectsUsingBlock:^(ETEnterpriseServicesBusinessScopeModel *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -67,73 +81,97 @@ static NSString * const kETEnterpriseServicesScopeBusinessSectionHeaderViewReuse
                 }];
             }
         }];
-        _mItem.cellheight = height + 50;
+        _mItem.cellheight = height + default_height;
     } else {
-        _mItem.cellheight = 50;
+        _mItem.cellheight = default_height;
     }
     [self updateImgvSelectedIsOpen:_mItem.isOpen];
 }
 
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
+    WeakSelf(self)
     
-    UIView *vContainer = [[UIView alloc] init];
-    [self.contentView addSubview:vContainer];
-    [vContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+    _vContainer = [[UIView alloc] init];
+    [self.contentView addSubview:_vContainer];
+    [_vContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.mas_equalTo(0);
         make.width.mas_equalTo(Screen_Width);
-        make.top.equalTo(self.contentView);
+        make.top.equalTo(weakself.contentView);
         make.height.mas_equalTo(50);
     }];
-    
-    _imgvArrow = [[UIImageView alloc] init];
-    UIImage *imgArrow = [UIImage imageNamed:@"arrow_right"];
-    _imgvArrow.image = imgArrow;
-    [vContainer addSubview:_imgvArrow];
-    [_imgvArrow mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.mas_equalTo(-15);
-        make.centerY.equalTo(vContainer);
-        make.size.mas_equalTo(imgArrow.size);
-    }];
-    
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickSectionView:)];
-    [vContainer addGestureRecognizer:tap];
+    [_vContainer addGestureRecognizer:tap];
     
     _labTitle = [[UILabel alloc] init];
     _labTitle.textColor = kACColorRGB(51, 51, 51);
     _labTitle.font = kFontSize(15);
-    [vContainer addSubview:_labTitle];
+    [_vContainer addSubview:_labTitle];
     [_labTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.mas_equalTo(15);
         make.width.mas_equalTo(60);
-        make.centerY.equalTo(vContainer);
+        make.centerY.equalTo(weakself.vContainer);
         make.height.mas_equalTo(15);
     }];
     
     [self.contentView addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(vContainer.mas_bottom);
+        make.top.mas_equalTo(weakself.vContainer.mas_bottom);
         make.leading.trailing.mas_equalTo(0);
         make.bottom.mas_equalTo(0);
+    }];
+    
+    _btn_confirm = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [_btn_confirm setTitle:@"确定" forState:(UIControlStateNormal)];
+    _btn_confirm.titleLabel.font = [UIFont systemFontOfSize:16];
+    [_btn_confirm setTitleColor:[UIColor darkGrayColor] forState:(UIControlStateNormal)];
+    [_btn_confirm addTarget:self action:@selector(confirm:) forControlEvents:(UIControlEventTouchUpInside)];
+    [_vContainer addSubview:_btn_confirm];
+    [_btn_confirm mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.mas_equalTo(-15);
+        make.centerY.equalTo(weakself.vContainer);
+        make.size.mas_equalTo(CGSizeMake(50, 50));
+    }];
+    
+    _lbContent = [UILabel new];
+    _lbContent.numberOfLines = 0;
+    _lbContent.font = [UIFont systemFontOfSize:15];
+    _lbContent.textColor = [UIColor lightGrayColor];
+    _lbContent.text = @"点击进行选择";
+    [_vContainer addSubview:_lbContent];
+    [_lbContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.labTitle.mas_right).offset(15);
+        make.right.equalTo(weakself.btn_confirm.mas_left).offset(-15);
+        make.top.bottom.equalTo(weakself.vContainer);
     }];
     
     [self.tableView registerClass:[ETEnterpriseServicesScopeBusinessItemTableViewCell class] forCellReuseIdentifier:kETEnterpriseServicesScopeBusinessItemTableViewCellReuseID];
     [self.tableView registerClass:[ETEnterpriseServicesScopeBusinessSectionHeaderView class] forHeaderFooterViewReuseIdentifier:kETEnterpriseServicesScopeBusinessSectionHeaderViewReuseID];
 }
 
+#pragma mark - 点击进行选择
+- (void)confirm:(UIButton *)btn{
+    [self updateContentInfo];
+    _mItem.isOpen = !_mItem.isOpen;
+    if ([_delegate respondsToSelector:@selector(enterpriseServicesScopeBusinessTableViewCell:model:indexPath:)]) {
+        [_delegate enterpriseServicesScopeBusinessTableViewCell:self model:_mItem indexPath:_indexPath];
+    }
+}
 
+- (void)updateContentInfo{
+    if ([MySingleton sharedMySingleton].scopes.count) {
+        self.lbContent.textColor = [UIColor blackColor];
+        self.lbContent.text = [[MySingleton sharedMySingleton].scopes componentsJoinedByString:@";"];
+    }else{
+        self.lbContent.textColor = [UIColor lightGrayColor];
+        self.lbContent.text = @"点击进行选择";
+    }
+    self.btn_confirm.hidden = !_mItem.isOpen;
+}
 
 - (void)updateImgvSelectedIsOpen:(BOOL)isOpen {
-    UIImage *imgArrow = nil;
-    if (isOpen) {
-        imgArrow = [UIImage imageNamed:@"arrow_top"];
-    } else {
-        imgArrow = [UIImage imageNamed:@"arrow_right"];
-    }
-    _imgvArrow.image = imgArrow;
-    [_imgvArrow mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(imgArrow.size);
-    }];
+    NSLog(@"%@",isOpen ? @"打开" : @"关闭");
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -153,6 +191,7 @@ static NSString * const kETEnterpriseServicesScopeBusinessSectionHeaderViewReuse
     ETEnterpriseServicesBusinessScopeModel *mSection = _arrMuBusiness[indexPath.section];
     ETEnterpriseServicesBusinessScopeModel *mItem = mSection.list[indexPath.row];
     cell.delegate = self;
+    mItem.isSelected = [[MySingleton sharedMySingleton].scopes containsObject:mItem.name];
     [cell makeETEnterpriseServicesScopeBusinessItemTableViewCellWithModel:mItem];
     return cell;
 }

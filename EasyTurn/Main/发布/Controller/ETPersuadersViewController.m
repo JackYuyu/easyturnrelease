@@ -591,7 +591,7 @@
     if (!_titleText) {
         _titleText = [[UITextField alloc]initWithFrame:CGRectMake(65, 0, Screen_Width-80, 60)];
         _titleText.font = [UIFont systemFontOfSize:15];
-        _titleText.placeholder = @"请输入您要发布的标题(标题有利于推送搜索)";
+        _titleText.placeholder = @"输入服务详细内容(规范内容,禁止敏感词汇)";
         if (_product) {
             _titleText.text=_product.title;
         }
@@ -1177,7 +1177,7 @@
 }
 #pragma mark - 发布
 - (void)PostUI {
-    //    [self clickImage];
+        [self clickImage];
     if (_product) {
         [self PostUpdateUI];
         return;
@@ -1223,21 +1223,24 @@
     [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
         NSString *code = responseObj[@"code"];
         if (code.integerValue == 0)  {
-            [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-            [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
         }
     } failure:^(NSError *error) {
 
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
-    });
+
 }
 #pragma mark - 发布
 - (void)PostUpdateUI {
-    //    [self clickImage];
+        [self clickImage];
 
     if (_product) {
         if (!_serviceid) {
@@ -1287,15 +1290,21 @@
     
     [HttpTool post:[NSString stringWithFormat:@"release/updateService"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"data"];
-        NSLog(@"");
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
-    });;
 }
 -(void)uploadOSS
 {

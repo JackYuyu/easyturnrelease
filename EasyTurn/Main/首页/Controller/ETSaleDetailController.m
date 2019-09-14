@@ -462,6 +462,7 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
         model.buddy=[a objectForKey:@"auroraName"];
         [model bg_saveOrUpdate];
         EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:[a objectForKey:@"auroraName"] conversationType:EMConversationTypeChat];
+        chatController.fromDetailVC=YES;
         chatController.title=[a objectForKey:@"auroraName"];
         [self.navigationController pushViewController:chatController animated:YES];
     } failure:^(NSError *error) {

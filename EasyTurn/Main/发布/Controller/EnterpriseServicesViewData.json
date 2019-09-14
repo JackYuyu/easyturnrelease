@@ -9,7 +9,7 @@
                     "value": "",
                     "title":"标题",
                     "content":"",
-                    "placeholder":"请在这里输入标题"
+                    "placeholder":"输入要发布的需求(规范内容,禁止敏感词汇)"
                 },
                 {
                     "cellType": 2,
@@ -55,7 +55,7 @@
                     "value": "",
                     "title":"行业特点",
                     "content":"",
-                    "placeholder":"例如科技"
+                    "placeholder":"例如科技类"
                 },
                 {
                     "cellType": 2,
@@ -421,6 +421,83 @@
                 "popTableMaxWidth":120,
                 "arrListContent":[
                 ]
+            }
+        ]
+    },
+    "updates" : {
+        "sectionType": "ETEnterpriseServicesViewSectionFirst",
+        "list": [
+            {
+                "cellType": 1,
+                "key": "title",
+                "value": "",
+                "title":"标题",
+                "content":"",
+                "placeholder":"请在这里输入标题"
+            },
+            {
+                "cellType": 2,
+                "key": "serviceId",
+                "value": "工商服务",
+                "title":"服务类型",
+                "content":"工商服务",
+                "placeholder":"",
+                "popTableMaxWidth":150,
+                "arrListContent":[
+                    "工商服务",
+                    "财务服务",
+                    "行政许可服务",
+                    "金融服务",
+                    "资质服务",
+                    "知产服务",
+                    "法律服务",
+                    "综合服务"
+                ]
+            },
+            {
+                "cellType": 2,
+                "key": "proceed",
+                "value": "设立",
+                "title":"求购事项",
+                "content":"设立",
+                "placeholder":"",
+                "popTableMaxWidth":120,
+                "arrListContent":[
+                ]
+            },
+            {
+                "cellType": 1,
+                "key": "待定",
+                "value": "",
+                "title":"公司名称",
+                "content":"",
+                "placeholder":"请输入您要变更的公司名称"
+            },
+            {
+                "cellType": 4,
+                "key": "regUrl",
+                "value": "",
+                "title":"注册地址",
+                "content":"",
+                "placeholder":"",
+                "selectFirst":"自供",
+                "selectSecond":"企服者提供"
+            },
+            {
+                "cellType": 1,
+                "key": "capital",
+                "value": "",
+                "title":"注册资本",
+                "content":"",
+                "placeholder":"请填写"
+            },
+            {
+                "cellType": 3,
+                "key": "business",
+                "value": "",
+                "title":"经营范围",
+                "content":"",
+                "placeholder":""
             }
         ]
     }

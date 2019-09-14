@@ -136,6 +136,10 @@
     self.laAddress.text = model.cityName;
     self.laTime.text = model.releaseTime;
     self.laStatus.text = [NSString stringWithFormat:@"浏览%@次",model.browse];
+    if (![MySingleton filterNull:model.browse]) {
+        self.laStatus.text = [NSString stringWithFormat:@"浏览%@次",@"0"];
+
+    }
     if ([model.releaseTypeId isEqualToString:@"1"]) {
         self.laSubTitle.text = [NSString stringWithFormat:@"经营范围:%@",model.information];
     }

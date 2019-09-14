@@ -10,6 +10,7 @@
 #import "OTDynamicGridView.h"
 #import "ETMineGridCollectionCell.h"
 #import "ETMineViewModel.h"
+#import "PublicFunc.h"
 static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
 @interface ETMineHeaderView ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) UIImageView *imagevHeader;
@@ -82,7 +83,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
         make.right.mas_equalTo(0);
         make.size.mas_equalTo(CGSizeMake(15, 15));
     }];
-    
+
     [self.laName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.imagevHeader);
         make.left.equalTo(self.imagevHeader.mas_right).offset(15);
@@ -198,6 +199,18 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
     }
     
     self.laName.text = model.userInfo.name;
+    CGFloat h= [PublicFunc textWidthFromString:self.laName.text height:30 fontsize:14];
+    [self.laName mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.imagevHeader);
+        make.left.mas_equalTo(95);
+        make.width.mas_equalTo(h);
+        make.height.mas_equalTo(21);
+    }];
+    [self.imagevUserType mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.laName);
+        make.left.equalTo(self).offset(85+h+20);
+        make.size.mas_equalTo(CGSizeMake(27, 12));
+    }];
     if (model.userInfo.vip == nil) {
         self.laVip.text = @"您还不是易转会员";
     }else{
@@ -209,10 +222,11 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
     if ([model.userInfo.isChecked isEqualToString:@"0"]) {
         self.laIdAuthentication.text = @"未认证";
     }else if ([model.userInfo.isChecked isEqualToString:@"1"]) {
-        self.laIdAuthentication.text = @"个人认证";
+        self.laIdAuthentication.text = @"个人认证中";
     }else if ([model.userInfo.isChecked isEqualToString:@"2"]) {
         self.laIdAuthentication.text = @"员工认证中";
-    }else if ([model.userInfo.isChecked isEqualToString:@"3"]) {
+    }
+    else if ([model.userInfo.isChecked isEqualToString:@"3"]) {
         self.laIdAuthentication.text = @"法人认证中";
     }
     else if ([model.userInfo.isChecked isEqualToString:@"4"]) {

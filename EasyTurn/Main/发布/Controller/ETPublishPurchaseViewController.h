@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //2.block传值  typedef void(^returnBlock)();
 typedef void(^dismissBlock) (void);
-
+/// 企业流转
 @interface ETPublishPurchaseViewController : ACViewController
 @property (nonatomic, strong) ETProductModel *product;
 

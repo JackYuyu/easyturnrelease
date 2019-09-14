@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - ETEnterpriseServicesViewItemModelTypePopList赋值字段
 // 最大宽度
 @property (nonatomic, assign) CGFloat popTableMaxWidth;
+@property (nonatomic, strong) NSArray *updates;
 #pragma mark - ETEnterpriseServicesViewItemModelTypeSelect赋值字段
 @property (nonatomic, copy) NSString *selectFirst;
 @property (nonatomic, copy) NSString *selectSecond;
@@ -74,7 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger reloadSection;
 #pragma mark - ETEnterpriseServicesViewItemModelTypeSwitch && ETEnterpriseServicesViewItemModelTypeScopeBusiness
 @property (nonatomic, assign) BOOL isOpen;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -299,7 +299,7 @@ static NSString * const CustomTableViewCellID = @"cell";
         
         [_tab reloadData];
         NSLog(@"%@",responseObj);
-        [MBProgressHUD showMBProgressHud:self withText:@"审核成功" withTime:1.0];
+        [MBProgressHUD showMBProgressHud:self.view withText:@"审核成功" withTime:1.0];
         //        _products=[NSMutableArray new];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

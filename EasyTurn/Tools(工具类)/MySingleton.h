@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString *toUserid;
 @property (nonatomic, retain) UIImage *port;
 @property (nonatomic, retain) NSMutableArray *scopes;
+@property (nonatomic, retain) NSMutableArray *updates;
 @property (nonatomic, retain) NSString *releaseId;
 
 

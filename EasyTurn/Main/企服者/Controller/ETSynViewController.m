@@ -83,7 +83,7 @@
                              @"cityId" : @(_cityId),
                              @"type" : @(_order),
                              @"page" : @(1),
-                             @"size" : @(10)
+                             @"size" : @(100)
                              
                              };
     [HttpTool get:[NSString stringWithFormat:@"release/findReleasesByPriceAndCity"] params:params success:^(id responseObj) {

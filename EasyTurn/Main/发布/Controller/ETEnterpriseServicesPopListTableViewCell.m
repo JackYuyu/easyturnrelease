@@ -17,7 +17,10 @@ static CGFloat const btnPopListViewMaxWidth = 280;
 @interface ETEnterpriseServicesPopListTableViewCell ()<PopTableListViewDelegate>
 @property (nonatomic, strong) UILabel *labTitle;
 @property (nonatomic, strong) OTButton *btnPopListView;
+@property (nonatomic, strong) UIButton *btn_confirm;
+@property (nonatomic, strong) UILabel *lb_update;
 @property (nonatomic, strong) ETEnterpriseServicesViewItemModel *mItem;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @end
 
 @implementation ETEnterpriseServicesPopListTableViewCell
@@ -30,9 +33,10 @@ static CGFloat const btnPopListViewMaxWidth = 280;
     return self;
 }
 
-- (void)makeETEnterpriseServicesPopListTableViewCellWithModel:(ETEnterpriseServicesViewItemModel *)mItem {
+- (void)makeETEnterpriseServicesPopListTableViewCellWithModel:(ETEnterpriseServicesViewItemModel *)mItem indexPath:(nonnull NSIndexPath *)indexPath{
     _mItem = mItem;
     _labTitle.text = mItem.title;
+    _indexPath = indexPath;
     if (mItem.content.length == 0) {
         mItem.content = mItem.arrListContent.count > 0 ? mItem.arrListContent.firstObject : @"";
     }
@@ -49,10 +53,40 @@ static CGFloat const btnPopListViewMaxWidth = 280;
     [_btnPopListView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(btnPopListViewWidth);
     }];
-    _mItem.cellheight = 50;
+    if ([mItem.title isEqualToString:@"求购事项"] && [mItem.content isEqualToString:@"变更"]) {
+        if (_mItem.updates.count) {
+            WeakSelf(self)
+            _lb_update.hidden = NO;
+            _lb_update.text = [NSString stringWithFormat:@"您所要变更的事项:\n%@",[_mItem.updates componentsJoinedByString:@";"]];
+//            self.contentView.backgroundColor = [UIColor greenColor];
+            
+            CGFloat update_h = [_lb_update sizeThatFits:CGSizeMake(SCREEN_WIDTH - 30, MAXFLOAT)].height;
+            [_lb_update mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.leading.mas_equalTo(15);
+                make.trailing.mas_equalTo(-15);
+                make.top.equalTo(weakself.labTitle.mas_bottom);
+                make.height.mas_equalTo(update_h);
+            }];
+            
+            _mItem.cellheight = 50 + update_h;
+        }else{
+            _mItem.cellheight = 50;
+            _lb_update.hidden = YES;
+//            self.contentView.backgroundColor = [UIColor whiteColor];
+        }
+        _btn_confirm.hidden = NO;
+    }else{
+        _mItem.cellheight = 50;
+        _btn_confirm.hidden = YES;
+        _lb_update.hidden = YES;
+//        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
+//    _labTitle.backgroundColor = [UIColor redColor];
+//    _lb_update.backgroundColor = [UIColor orangeColor];
 }
 
 - (void)createSubviews {
+    WeakSelf(self)
     _labTitle = [[UILabel alloc] init];
     _labTitle.textColor = kACColorRGB(51, 51, 51);
     _labTitle.font = kFontSize(15);
@@ -60,8 +94,8 @@ static CGFloat const btnPopListViewMaxWidth = 280;
     [_labTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.mas_equalTo(15);
         make.width.mas_equalTo(60);
-        make.centerY.equalTo(self.contentView);
-        make.height.mas_equalTo(15);
+        make.top.mas_equalTo(0);
+        make.height.mas_equalTo(50);
     }];
     
     _btnPopListView = [[OTButton alloc] init];
@@ -73,12 +107,46 @@ static CGFloat const btnPopListViewMaxWidth = 280;
     [_btnPopListView setImage:[UIImage imageNamed:@"fullarrow_down"] forState:UIControlStateNormal];
     [self.contentView addSubview:_btnPopListView];
     [_btnPopListView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.labTitle.mas_trailing).offset(40);
+        make.leading.equalTo(weakself.labTitle.mas_trailing).offset(40);
         make.width.mas_equalTo(10);
-        make.centerY.equalTo(self.contentView);
+        make.centerY.equalTo(weakself.labTitle);
         make.height.mas_equalTo(15);
     }];
     [_btnPopListView addTarget:self action:@selector(onClickBtnPopListView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _btn_confirm = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [_btn_confirm setTitle:@"确定" forState:(UIControlStateNormal)];
+    _btn_confirm.titleLabel.font = [UIFont systemFontOfSize:16];
+    [_btn_confirm setTitleColor:[UIColor darkGrayColor] forState:(UIControlStateNormal)];
+    [_btn_confirm addTarget:self action:@selector(confirm:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.contentView addSubview:_btn_confirm];
+    [_btn_confirm mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.trailing.mas_equalTo(-15);
+        make.centerY.equalTo(weakself.labTitle);
+        make.size.mas_equalTo(CGSizeMake(50, 50));
+    }];
+    
+    _lb_update = [UILabel new];
+    _lb_update.font = kFontSize(15);
+    _lb_update.textColor = kACColorRGB(51, 51, 51);
+    _lb_update.text = @"您所要变更的事项:";
+    _lb_update.numberOfLines = 0;
+    [self.contentView addSubview:_lb_update];
+    [_lb_update mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.mas_equalTo(15);
+        make.trailing.mas_equalTo(-15);
+        make.top.equalTo(weakself.labTitle.mas_bottom);
+        make.height.mas_equalTo(15);
+    }];
+}
+
+- (void)confirm:(UIButton *)btn{
+    _mItem.updates = [[[MySingleton sharedMySingleton] updates] copy];
+    NSLog(@"%@",_mItem.updates);
+    _lb_update.text = [NSString stringWithFormat:@"您所要变更的事项:\n%@",[_mItem.updates componentsJoinedByString:@";"]];
+    if ([_delegate respondsToSelector:@selector(enterpriseServicesPopListTableViewCell:selectPopViewListWithModel:indexPath:update:)]) {
+        [_delegate enterpriseServicesPopListTableViewCell:self selectPopViewListWithModel:_mItem indexPath:_indexPath update:YES];
+    }
 }
 
 - (PopTableListView *)createPopViewWithArrayList:(NSArray<NSString *> *)arrList {
@@ -90,12 +158,14 @@ static CGFloat const btnPopListViewMaxWidth = 280;
 }
 
 - (void)onClickBtnPopListView:(UIButton *)sender {
+    [self.ak_viewController.view endEditing:YES];
     PopView *popView = [PopView popUpContentView:[self createPopViewWithArrayList:_mItem.arrListContent] direct:PopViewDirection_PopUpBottom onView:sender];
     popView.backgroundColor = [UIColor clearColor];
 }
 
 #pragma mark - PopTableListViewDelegate
 - (void)selectType:(NSString *)name type:(NSString *)type {
+    [self.ak_viewController.view endEditing:YES];
     [PopView hidenPopView];
     _mItem.content = name;
     _mItem.value = name;
@@ -106,8 +176,8 @@ static CGFloat const btnPopListViewMaxWidth = 280;
         make.width.mas_equalTo(btnPopListViewWidth);
     }];
     
-    if ([_delegate respondsToSelector:@selector(enterpriseServicesPopListTableViewCell:selectPopViewListWithModel:)]) {
-        [_delegate enterpriseServicesPopListTableViewCell:self selectPopViewListWithModel:_mItem];
+    if ([_delegate respondsToSelector:@selector(enterpriseServicesPopListTableViewCell:selectPopViewListWithModel:indexPath:update:)]) {
+        [_delegate enterpriseServicesPopListTableViewCell:self selectPopViewListWithModel:_mItem indexPath:_indexPath update:NO];
     }
 }
 

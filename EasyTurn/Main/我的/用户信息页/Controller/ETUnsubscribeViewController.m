@@ -137,6 +137,7 @@
         [_tab reloadData];
         NSLog(@"%@",responseObj);
         //        _products=[NSMutableArray new];
+        [_tab reloadData];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

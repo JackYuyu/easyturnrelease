@@ -11,6 +11,7 @@
 #import "MyOrderCell.h"
 #import "ETProductModel.h"
 #import "ETPaymentStagesVC.h"
+#import "ETPaymentStagesCartVC.h"
 #import "ETBuyFinishViewController.h"
 @interface ETMyOrderVC ()<UITableViewDataSource,UITableViewDelegate,CFSegmentedControlDataSource,CFSegmentedControlDelegate>
 @property (nonatomic, strong) NSArray *segmentTitles;
@@ -248,12 +249,20 @@
             [_counts addObject:temp];
         }
         NSLog(@"");
-        ETPaymentStagesVC *payVC=[ETPaymentStagesVC paymentStagesVC:_counts.count];
-        payVC.product=p;
-        payVC.finalPrice= p.price;
-        payVC.releaseOrderId=p.releaseOrderId;
-        [self.navigationController pushViewController:payVC animated:YES];
-        
+        if ([p.releaseTypeId isEqualToString:@"2"]) {
+            ETPaymentStagesCartVC *payVC=[ETPaymentStagesCartVC paymentStagesCartVC:_counts.count];
+            payVC.product=p;
+            payVC.finalPrice= p.price;
+            payVC.releaseOrderId=p.releaseOrderId;
+            [self.navigationController pushViewController:payVC animated:YES];
+        }
+        else{
+            ETPaymentStagesVC *payVC=[ETPaymentStagesVC paymentStagesVC:_counts.count];
+            payVC.product=p;
+            payVC.finalPrice= p.price;
+            payVC.releaseOrderId=p.releaseOrderId;
+            [self.navigationController pushViewController:payVC animated:YES];
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];

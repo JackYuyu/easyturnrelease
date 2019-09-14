@@ -31,8 +31,40 @@
 
 #define KHintAdjustY    50
 
-#define IOS_VERSION [[UIDevice currentDevice] systemVersion]>=9.0
 
+#define IPHONE_X \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
+#define TopHeight     (IPHONE_X?88:64)
+#define Screen_Width [[UIScreen mainScreen]bounds].size.width
+//判断是否是ipad
+#define isPad ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+//判断iPhone4系列
+#define kiPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhone5系列
+#define kiPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhone6系列
+#define kiPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iphone6+系列
+#define kiPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhoneX
+#define kIsFullScreenIPhone (Screen_Height == 812.f || Screen_Height == 896.f)
+#define kSafeAreaBottomH ((kIsFullScreenIPhone) ? (34) : (0))
+#define IS_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+#define IOS_VERSION [[UIDevice currentDevice] systemVersion]>=9.0
+#define kNavBarHeight_StateBarH ((IS_IPHONE_X == YES || IS_IPHONE_Xr == YES || IS_IPHONE_Xs == YES || IS_IPHONE_Xs_Max == YES) ? 88.0 : 64.0)
+
+//判断iPHoneXr
+#define IS_IPHONE_Xr ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhoneXs
+#define IS_IPHONE_Xs ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+//判断iPhoneXs Max
+#define IS_IPHONE_Xs_Max ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !isPad : NO)
+#define StatusBarHeight (IPHONE_X?44:20)
 typedef enum : NSUInteger {
     EMRequestRecord,
     EMCanRecord,
@@ -73,7 +105,9 @@ typedef enum : NSUInteger {
 @property(strong,nonatomic)NSString *touserAvat;
 @property(strong,nonatomic)NSString *touserNick;
 @property(strong,nonatomic)NSString *cartuid;
-
+@property (nonatomic, strong) UIButton *leftButton;
+@property (nonatomic,strong) UIView * retView;
+@property (nonatomic,strong)UILabel *headtitle;
 @end
 
 @implementation EaseMessageViewController
@@ -131,6 +165,7 @@ typedef enum : NSUInteger {
         _touserNick=responseObject[@"data"][@"username"];
         [self.tableView reloadData];
         self.title=_touserNick;
+        _headtitle.text=_touserNick;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
@@ -157,9 +192,32 @@ typedef enum : NSUInteger {
     
     return self;
 }
+-(void)cancelClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
+    _retView.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.view addSubview:_retView];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(7, StatusBarHeight+7, 44, 44);
+    [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateHighlighted];
+    [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateSelected];
+    _leftButton=btn;
+    [_leftButton addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [_retView addSubview:_leftButton];
+    
+    UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, StatusBarHeight+7, 172, 25)];
+    headtitle.textColor=[UIColor blackColor];
+    headtitle.font=[UIFont systemFontOfSize:14];
+//    headtitle.text=self.title;
+    _headtitle=headtitle;
+    [_retView addSubview:headtitle];
+
     EMConversation* conv=self.conversation;
     NSDictionary* d=self.conversation.latestMessage.ext;
     if (_cartcontroller) {
@@ -366,6 +424,8 @@ typedef enum : NSUInteger {
     [[EMCDDeviceManager sharedInstance] disableProximitySensor];
         _button.hidden=YES;
         _mbutton.hidden=YES;
+    [_retView removeFromSuperview];
+    [_leftButton removeFromSuperview];
 }
 
 #pragma mark - chatroom
@@ -1346,7 +1406,7 @@ typedef enum : NSUInteger {
     }
     NSDictionary* d=model.message.ext;
     if (d) {
-        _releaseid=[d objectForKey:@"uid"];
+//        _releaseid=[d objectForKey:@"uid"];
     }
     return sendCell;
 }

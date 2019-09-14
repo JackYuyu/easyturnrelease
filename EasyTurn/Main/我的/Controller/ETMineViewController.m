@@ -25,6 +25,7 @@
 #import "ETInvitationController.h"
 #import "ETFrequencyViewController.h"
 #import "WXApiManagerShare.h"
+#import "ETVIPViewController.h"
 static NSString *const kETMineViewCell = @"ETMineViewCell";
 @interface ETMineViewController ()<ETMineHeaderViewDelegate, JXPagerViewDelegate, JXCategoryViewDelegate, ETMineListViewControllerDelegate>
 ///根控制器
@@ -34,7 +35,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 ///横向滚动条
 @property (nonatomic, strong) JXCategoryTitleView *categoryView;
 ///横向滚动条标题名称
-@property (nonatomic, strong) NSArray <NSString *> *titles;
+@property (nonatomic, strong) NSMutableArray <NSString *> *titles;
 @property (nonatomic, strong) ETMineListViewController *listView;
 @property (nonatomic, assign) NSInteger pageNumber;
 ///数据源
@@ -52,6 +53,8 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 @property (nonatomic,strong) UIView * shareView1;
 @property (nonatomic,strong) UILabel * lab1;
 @property (nonatomic,strong) UILabel *lab;
+@property (nonatomic,assign) int myselect;
+
 @end
 
 @implementation ETMineViewController
@@ -75,6 +78,8 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self reloadTitles];
     [self requestUserInfo];
     [self createSubViewsAndConstraints];
     [self shareView];
@@ -88,11 +93,16 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestUserInfoRefreshing) name:FaBuChengGongRefresh_Mine object:nil];
 }
 
+- (void)reloadTitles{
+    self.titles = [NSMutableArray arrayWithArray:@[@"出售", @"服务", @"求购"]];
+    [self requestUserOrderListWithReleaseTypeId:1];
+    [self requestUserOrderListWithReleaseTypeId:2];
+    [self requestUserOrderListWithReleaseTypeId:3];
+}
 
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
     
-    _titles = @[@"出售", @"服务", @"求购"];
     _userHeaderView = [[ETMineHeaderView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 421)];
     _userHeaderView.delegate = self;
     
@@ -117,7 +127,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     
     self.categoryView.contentScrollView = self.pagingView.listContainerView.collectionView;
     
-    self.navigationController.interactivePopGestureRecognizer.enabled = (self.categoryView.selectedIndex == 0);
+    self.navigationController.interactivePopGestureRecognizer.enabled = (self.categoryView.selectedIndex == _myselect);
     
     __weak typeof(self)weakSelf = self;
     self.pagingView.mainTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -158,9 +168,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     [ETMineViewModel requestUserInfoWithUid:uid WithSuccess:^(id request, STResponseModel *response, id resultObject) {
         [IANshowLoading hideLoadingForView:self.view];
         if (response.code == 0) {
-            self.categoryView.titles = @[@"出售", @"服务", @"求购"];
-            self.categoryView.defaultSelectedIndex = self.categoryViewSelectedIndex;
-            [self.categoryView reloadData];
+            [self reloadTitles];
             [self.pagingView reloadData];
             [weakSelf.pagingView.mainTableView.mj_header endRefreshing];
             
@@ -259,8 +267,14 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 }
 
 -(void)eTMineHeaderviewOnClickPayVip {
+    if ([MySingleton sharedMySingleton].review==1) {
+        ETVIPViewController *vc = [[ETVIPViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
     ETViphuiyuanViewController *vc = [[ETViphuiyuanViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - JXPagingViewDelegate
@@ -289,15 +303,16 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     ETMineListViewController *listView = [[ETMineListViewController alloc] init];
     listView.naviController = self.navigationController;
     listView.delegate = self;
-    if (index == 0) {
-        listView.releaseTypeId = 1;
-        
-    }else if (index == 1) {
-        listView.releaseTypeId = 3;
-        
-    }else if (index == 2){
-         listView.releaseTypeId = 2;
-    }
+//    if (index == 0) {
+//        listView.releaseTypeId = 1;
+//    }else if (index == 1) {
+//        listView.releaseTypeId = 3;
+//
+//    }else if (index == 2){
+//         listView.releaseTypeId = 2;
+//    }
+    listView.title = self.titles[index];
+//    listView.releaseTypeId=_myselect;
     return listView;
 }
 
@@ -611,4 +626,47 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+#pragma mark - 请求网络
+- (void)requestUserOrderListWithReleaseTypeId:(NSInteger)releaseTypeId {
+    //赋值初始值
+    self.pageNumber = 1;
+    [ETMineViewModel requestUserOrderListWithPage:self.pageNumber WithPageSize:1 ReleaseTypeId:releaseTypeId WithSuccess:^(id request, STResponseModel *response, id resultObject) {
+        self.categoryView.defaultSelectedIndex = self.categoryView.defaultSelectedIndex;
+        if (response.code == 0) {
+            NSArray *array = resultObject[@"data"];
+            if (array.count == 0) {
+                switch (releaseTypeId) {
+                    case 1:
+                        if ([self.titles containsObject:@"出售"]) {
+                            [self.titles removeObject:@"出售"];
+                        }
+                        break;
+                    case 2:
+                        if ([self.titles containsObject:@"求购"]) {
+                            [self.titles removeObject:@"求购"];
+                        }
+                        break;
+                    case 3:
+                        if ([self.titles containsObject:@"服务"]) {
+                            [self.titles removeObject:@"服务"];
+                        }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }else {
+                
+            }
+        }else{
+            [self.titles removeAllObjects];
+        }
+        self.categoryView.titles = self.titles;
+        [self.categoryView reloadData];
+    } failure:^(id request, NSError *error) {
+        
+    }];
+}
 @end
+

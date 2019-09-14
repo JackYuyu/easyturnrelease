@@ -14,7 +14,7 @@
     [button.titleLabel setFont:[UIFont fontWithName:@"SFUIText-Regular" size:12.0]];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //    [button setImage:[UIImage imageNamed:@"login_btn_-account"] forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor blackColor]];
+    [button setBackgroundColor:[UIColor redColor]];
     [self setUpButtonTitleAndImageLocation:button];
 }
 
