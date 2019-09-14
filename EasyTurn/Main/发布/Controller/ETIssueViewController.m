@@ -272,9 +272,9 @@
                     item.cid = keys[index][@"cid"];
                     NSLog(@"");
                     
-//                                        NSArray *area = [cityDic objectForKey:item.name];
+                                        NSArray *area = [tmp objectForKey:item.name];
 //                                // 配置第三极数据
-//                                [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
+//                                [item1 loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
 //                                    item.name = area[index];
 //                                }];
                 }];
