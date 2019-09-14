@@ -210,6 +210,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
     NSLog(@"");
     _navigationView.hidden=NO;
+    [self getcount];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -224,7 +225,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     self.title = @"消息";
 //    self.navigationController.navigationBar.hidden=YES;
     _cart=NO;
-    [self getcount];
 //    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width/2, TopHeight)];
 //    _navigationView.backgroundColor = kACColorClear;
 //    [self.view addSubview:_navigationView];

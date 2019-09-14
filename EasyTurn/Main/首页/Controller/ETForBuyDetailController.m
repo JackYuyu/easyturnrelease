@@ -478,7 +478,7 @@ static NSString* const kShareFailedText = @"分享失败";
         
         [HttpTool put:[NSString stringWithFormat:@"collect/myDel"] params:params success:^(NSDictionary *response) {
             [IANshowLoading hideLoadingForView:self.view];
-            [MBProgressHUD showMBProgressHud:self.view withText:@"已取消" withTime:1];
+            [MBProgressHUD showMBProgressHud:self.view withText:@"收藏取消" withTime:1];
             [weakself.detailInfo setObject:@(0) forKey:@"isCollect"];
             [weakself.toolView refreshIsCollected:[[MySingleton filterNull:weakself.detailInfo[@"isCollect"]] boolValue]];
             NSLog(@"");
@@ -490,7 +490,7 @@ static NSString* const kShareFailedText = @"分享失败";
     else{
         [HttpTool put:[NSString stringWithFormat:@"collect/myAdd"] params:params success:^(NSDictionary *response) {
             [IANshowLoading hideLoadingForView:self.view];
-            [MBProgressHUD showMBProgressHud:self.view withText:@"已收藏" withTime:1];
+            [MBProgressHUD showMBProgressHud:self.view withText:@"收藏成功" withTime:1];
             [weakself.detailInfo setObject:@(1) forKey:@"isCollect"];
             [weakself.toolView refreshIsCollected:[[MySingleton filterNull:weakself.detailInfo[@"isCollect"]] boolValue]];
             NSLog(@"");
