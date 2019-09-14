@@ -76,8 +76,9 @@
     }];
     
     [self.laLook mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.vLine.mas_bottom).offset(7);
+//        make.top.equalTo(self.vLine.mas_bottom).offset(7);
         make.left.mas_equalTo(12);
+        make.bottom.mas_equalTo(-7);
     }];
     
     [self.imagevJiantou mas_makeConstraints:^(MASConstraintMaker *make) {

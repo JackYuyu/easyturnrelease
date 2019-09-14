@@ -1544,7 +1544,7 @@
         [self PostUI1];
         return;
     }
-    //    [self clickImage];
+        [self clickImage];
     _surebtn.enabled=NO;
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDate *date = [NSDate date];
@@ -1585,22 +1585,26 @@
     [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
         NSString *code = responseObj[@"code"];
         if (code.integerValue == 0)  {
-            [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-            [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
         }
     } failure:^(NSError *error) {
         
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-    });
 }
 - (void)PostUpdateUI {
     if (_myindex==1) {
         [self PostUI1];
         return;
     }
-    //    [self clickImage];
+        [self clickImage];
     _surebtn.enabled=NO;
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDate *date = [NSDate date];
@@ -1641,18 +1645,25 @@
                              };
     
     [HttpTool post:[NSString stringWithFormat:@"release/updateService"] params:params success:^(id responseObj) {
-        NSDictionary* a=responseObj[@"data"];
-        NSLog(@"");
+        NSDictionary* a=responseObj[@"data"];NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-    });
 }
 #pragma mark - 发布
 - (void)PostUI1 {
-    //    [self clickImage];
+        [self clickImage];
     if (_product) {
         [self PostUpdateUI1];
         return;
@@ -1697,18 +1708,25 @@
     [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"data"];
         NSLog(@"");
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
-    });
 }
 #pragma mark - 发布
 - (void)PostUpdateUI1 {
-    //    [self clickImage];
+        [self clickImage];
     
     if (_product) {
 //        _serviceid=_product.serviceId;
@@ -1754,14 +1772,21 @@
     [HttpTool post:[NSString stringWithFormat:@"release/updateService"] params:params success:^(id responseObj) {
         NSDictionary* a=responseObj[@"data"];
         NSLog(@"");
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
-    });;
 }
 //- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 //    return [self validateNumber:string];

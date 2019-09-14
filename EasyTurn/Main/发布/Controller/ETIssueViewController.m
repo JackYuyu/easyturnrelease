@@ -1448,10 +1448,12 @@
 {
     [self.view addSubview:self.maskTheView];
     [self.view addSubview:self.shareView];
+    [self shareViewController];
     _lab1.text=@"发布信息的分类应严格按照平台分类填写,否则平台将其视为无效信息并删除,因此造成的一切损失由用户承担.";
 }
 #pragma mark - 发布
 - (void)PostUI {
+    [self clickImage];
     if (_product) {
         [self PostUpdateUI];
         return;
@@ -1499,24 +1501,28 @@
                              @"userId" : @(0),
                              @"validId" : @(0)
                              };
-    
+    WEAKSELF
     [HttpTool post:[NSString stringWithFormat:@"release/releaseService"] params:params success:^(id responseObj) {
         NSString *code = responseObj[@"code"];
         if (code.integerValue == 0)  {
-           
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
         }
     } failure:^(NSError *error) {
     
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
-    });
+    
 }
 #pragma mark - 发布
 - (void)PostUpdateUI {
-    //    [self clickImage];
+    [self clickImage];
     _surebtn.enabled=NO;
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDate *date = [NSDate date];
@@ -1573,18 +1579,20 @@
     [HttpTool post:[NSString stringWithFormat:@"release/updateService"] params:params success:^(id responseObj) {
         NSString *code = responseObj[@"code"];
         if (code.integerValue == 0)  {
-            [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-            [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
-    });
 }
 //- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 //    return [self validateNumber:string];

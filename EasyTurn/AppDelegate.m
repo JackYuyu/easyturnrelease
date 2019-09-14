@@ -35,7 +35,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [JJException configExceptionCategory:JJExceptionGuardAll];
-        [JJException startGuardException];
+//        [JJException startGuardException];
     [self review];
     //[[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
     [WXApi registerApp:@"wx6aa68fa297ad59ee"];
@@ -238,12 +238,12 @@
                                             if (!aError) {
                                                 NSLog(@"登录成功");
                                                 
-//                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                                                    dispatch_async(dispatch_get_main_queue(), ^{
-//                                                        [[EMClient sharedClient].chatManager loadAllConversationsFromDB];
-//                                                        
-//                                                    });
-//                                                    });
+                                                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                                        [[EMClient sharedClient].chatManager loadAllConversationsFromDB];
+                                                        
+                                                    });
+                                                    });
                                                 //iOS8 注册APNS
                                                 if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
                                                     [application registerForRemoteNotifications];

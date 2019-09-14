@@ -216,11 +216,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 {
     [super viewWillDisappear:animated];
     [self unregisterNotifications];
+    _navigationView.hidden=YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"消息";
+//    self.navigationController.navigationBar.hidden=YES;
     _cart=NO;
     [self getcount];
 //    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width/2, TopHeight)];
@@ -419,13 +421,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     if (indexPath.section==0) {
         if (self.block) {
             self.block(indexPath.row);
-            _navigationView.hidden=YES;
+//            _navigationView.hidden=YES;
             return;
         }
 //        EaseSystemController* s=[EaseSystemController new];
 //        [self.navigationController pushViewController:sys animated:YES];
-    }else
-        _navigationView.hidden=YES;;
+    }
+//        _navigationView.hidden=YES;;
     if (_delegate && [_delegate respondsToSelector:@selector(conversationListViewController:didSelectConversationModel:)]) {
         EaseConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
         [_delegate conversationListViewController:self didSelectConversationModel:model];

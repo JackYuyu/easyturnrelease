@@ -85,7 +85,7 @@
         if (indexPath.row==0) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.product.title]attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",self.product.title]attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
                                                  
                 label.attributedText = string;
                 label.textAlignment = NSTextAlignmentLeft;
@@ -101,7 +101,7 @@
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             label.text=[NSString stringWithFormat:@"注册时间：%@",self.product.releaseTime];
-            label.font=[UIFont systemFontOfSize:13];
+            label.font=[UIFont systemFontOfSize:15];
             label.textAlignment = NSTextAlignmentLeft;
             label.alpha = 1.0;
             [cell addSubview:label];
@@ -114,7 +114,7 @@
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             label.text=[NSString stringWithFormat:@"注册地址：%@",self.product.cityName];
-            label.font=[UIFont systemFontOfSize:13];
+            label.font=[UIFont systemFontOfSize:15];
             label.textAlignment = NSTextAlignmentLeft;
             label.alpha = 1.0;
             [cell addSubview:label];
@@ -126,7 +126,7 @@
         }else if (indexPath.row==3) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"卖家电话：%@",self.product.linkmanMobil] attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"卖家电话：%@",self.product.linkmanMobil] attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
             
             label.attributedText = string;
             label.textAlignment = NSTextAlignmentLeft;
@@ -140,7 +140,7 @@
         }else if (indexPath.row==4) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"最终定价："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"最终定价："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
             
             label.attributedText = string;
             label.textAlignment = NSTextAlignmentLeft;
@@ -149,35 +149,36 @@
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(21);
                 make.left.mas_equalTo(14);
-                make.size.mas_equalTo(CGSizeMake(74, 21));
+                make.size.mas_equalTo(CGSizeMake(84, 21));
             }];
             
             UIView *view = [[UIView alloc] init];
-            view.layer.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0].CGColor;
+//            view.layer.backgroundColor = [UIColor colorWithRed:237/255.0 green:237/255.0 blue:237/255.0 alpha:1.0].CGColor;
             view.layer.cornerRadius = 5;
             [cell addSubview:view];
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(15);
                 make.left.mas_equalTo(89);
-                make.size.mas_equalTo(CGSizeMake(91, 34));
+                make.size.mas_equalTo(CGSizeMake(191, 34));
             }];
             
             _label1 = [[UITextField alloc] init];
             _label1.textAlignment = NSTextAlignmentLeft;
             _label1.alpha = 1.0;
             _label1.delegate=self;
+            _label1.placeholder=@"请输入最终交易金额";
             [view addSubview:_label1];
             [_label1 mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.mas_equalTo(6);
                 make.left.mas_equalTo(9);
-                make.right.mas_equalTo(-9);
+                make.width.mas_equalTo(191);
                 make.height.mas_equalTo(21);
             }];
         }else if (indexPath.row==5) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
             
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"订单编号："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"订单编号："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
             
             NSString* orderid;
             if (_product.releaseOrderId) {
@@ -199,7 +200,7 @@
         if (indexPath.row==0) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"支付方式"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"支付方式"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
             label.attributedText = string;
             label.textAlignment = NSTextAlignmentLeft;
             label.alpha = 1.0;
@@ -213,7 +214,7 @@
         }else if (indexPath.row==1) {
             UILabel *label = [[UILabel alloc] init];
             label.numberOfLines = 0;
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"支付状态"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"支付状态"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 15],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
             label.attributedText = string;
             label.textAlignment = NSTextAlignmentLeft;
             label.alpha = 1.0;

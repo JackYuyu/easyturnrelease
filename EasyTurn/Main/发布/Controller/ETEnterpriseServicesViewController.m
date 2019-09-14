@@ -387,20 +387,27 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
 #pragma mark - 请求发布的接口
 - (void)requestBusinessPublicWithModel:(ETEnterpriseServicesViewRequestModel *)mRequest {
     [HttpTool post:@"release/buyService" params:_dics success:^(id responseObj) {
-        NSString *code = [responseObj objectForKey:@"code"];
-        if (code.integerValue == 0) {
-            AMLog(@"发布成功");
-            [MBProgressHUD showSuccess:@"分享成功" toView:[UIApplication sharedApplication].keyWindow.rootViewController.view ];
+//        if (code.integerValue == 0) {
+//            AMLog(@"发布成功");
+//            [MBProgressHUD showSuccess:@"分享成功" toView:[UIApplication sharedApplication].keyWindow.rootViewController.view ];
+//        }
+        
+        NSString *code = responseObj[@"code"];
+        if (code.integerValue == 0)  {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self cancelClick];
+                [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
+                [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
+            });
+        }
+        else{
+            UIAlertView* alert=[[UIAlertView alloc] initWithTitle:@"提示" message:responseObj[@"msg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
         }
     } failure:^(NSError *error) {
         AMLog(@"发布失败");
         [MBProgressHUD showError:@"发布失败" toView:[UIApplication sharedApplication].keyWindow.rootViewController.view ];
     }];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self cancelClick];
-        [MBProgressHUD showSuccess:@"发布成功" toView:self.view];
-        [[NSNotificationCenter defaultCenter]postNotificationName:FaBuChengGongRefresh_Mine object:nil];
-    });
 }
 //取消按钮点击方法
 -(void)cancelClick{

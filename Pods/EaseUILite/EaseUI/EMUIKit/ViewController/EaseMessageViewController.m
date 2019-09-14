@@ -107,6 +107,7 @@ typedef enum : NSUInteger {
 @property(strong,nonatomic)NSString *cartuid;
 @property (nonatomic, strong) UIButton *leftButton;
 @property (nonatomic,strong) UIView * retView;
+@property (nonatomic,strong)UILabel *headtitle;
 @end
 
 @implementation EaseMessageViewController
@@ -164,6 +165,7 @@ typedef enum : NSUInteger {
         _touserNick=responseObject[@"data"][@"username"];
         [self.tableView reloadData];
         self.title=_touserNick;
+        _headtitle.text=_touserNick;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
@@ -193,6 +195,7 @@ typedef enum : NSUInteger {
 -(void)cancelClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
@@ -211,7 +214,8 @@ typedef enum : NSUInteger {
     UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, StatusBarHeight+7, 172, 25)];
     headtitle.textColor=[UIColor blackColor];
     headtitle.font=[UIFont systemFontOfSize:14];
-    headtitle.text=self.title;
+//    headtitle.text=self.title;
+    _headtitle=headtitle;
     [_retView addSubview:headtitle];
 
     EMConversation* conv=self.conversation;
@@ -420,6 +424,8 @@ typedef enum : NSUInteger {
     [[EMCDDeviceManager sharedInstance] disableProximitySensor];
         _button.hidden=YES;
         _mbutton.hidden=YES;
+    [_retView removeFromSuperview];
+    [_leftButton removeFromSuperview];
 }
 
 #pragma mark - chatroom

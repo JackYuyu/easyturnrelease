@@ -9,7 +9,7 @@
                     "value": "",
                     "title":"标题",
                     "content":"",
-                    "placeholder":"请在这里输入标题"
+                    "placeholder":"输入要发布的需求(规范内容,禁止敏感词汇)"
                 },
                 {
                     "cellType": 2,
@@ -55,7 +55,7 @@
                     "value": "",
                     "title":"行业特点",
                     "content":"",
-                    "placeholder":"例如科技"
+                    "placeholder":"例如科技类"
                 },
                 {
                     "cellType": 2,

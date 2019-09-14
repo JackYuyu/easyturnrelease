@@ -35,16 +35,17 @@
 @property(nonatomic,strong) UIButton *lawBtn;
 @property(nonatomic,strong) UIButton *synthesizeBtn;
 @property(nonatomic,strong) UIButton *moreBtn;
+@property(nonatomic,strong)UIView* navigationView;
 @end
 
 @implementation ETEnterpriseServiceController
 - (void)viewWillAppear:(BOOL)animated {
-    [super.navigationController setNavigationBarHidden:YES animated:TRUE];
+//    [super.navigationController setNavigationBarHidden:YES animated:TRUE];
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super.navigationController setNavigationBarHidden:NO animated:TRUE];
+//    [super.navigationController setNavigationBarHidden:NO animated:TRUE];
     
 }
 - (void)viewDidLoad {
@@ -54,6 +55,10 @@
     //    self.navigationController.navigationBarHidden=YES;
     self.navigationController.navigationBar.barTintColor=[UIColor clearColor];
     self.view.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+    
+    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, TopHeight)];
+    _navigationView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+    [self.navigationController.view addSubview:_navigationView];
     
     [self.view addSubview:self.topImg];
     

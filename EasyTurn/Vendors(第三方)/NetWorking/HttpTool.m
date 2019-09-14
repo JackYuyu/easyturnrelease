@@ -91,6 +91,7 @@
                 
                 [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
             }
+            success(responseObject);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
