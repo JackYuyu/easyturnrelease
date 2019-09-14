@@ -138,19 +138,22 @@ static NSString * const CustomTableViewCellID = @"cell";
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *deleteAction;
     deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"拒绝" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+          deleteAction.backgroundColor=kACColorRGB(236, 67, 58);
         [tableView setEditing:NO animated:YES];//退出编辑模式，隐藏左滑菜单
         member* m =[_products objectAtIndex:indexPath.row];
         _uid=m.userId;
         [self PostRefuseInfoUI];
     }];
+  
     if (indexPath.row == 0) {//在不同的cell上添加不同的按钮
         UITableViewRowAction *shareAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"同意" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+              shareAction.backgroundColor = kACColorRGB(148, 193, 254);
             [tableView setEditing:NO animated:YES];//退出编辑模式，隐藏左滑菜单
             member* m =[_products objectAtIndex:indexPath.row];
             _uid=m.userId;
             [self PostAgreeInfoUI];
         }];
-        shareAction.backgroundColor = [UIColor blueColor];
+      
         return @[deleteAction,shareAction];
     }
     return @[deleteAction];

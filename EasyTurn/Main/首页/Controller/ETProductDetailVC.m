@@ -1012,7 +1012,7 @@ static NSString* const kShareFailedText = @"分享失败";
         
         [HttpTool put:[NSString stringWithFormat:@"collect/myAdd"] params:params success:^(NSDictionary *response) {
             //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-            [MBProgressHUD showMBProgressHud:self.view withText:@"已收藏" withTime:1];
+            [MBProgressHUD showMBProgressHud:self.view withText:@"收藏成功" withTime:1];
             NSLog(@"");
         } failure:^(NSError *error) {
             NSLog(@"");
@@ -1033,7 +1033,7 @@ static NSString* const kShareFailedText = @"分享失败";
     
     [HttpTool put:[NSString stringWithFormat:@"collect/myDel"] params:params success:^(NSDictionary *response) {
         //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-        [MBProgressHUD showMBProgressHud:self.view withText:@"取消收藏" withTime:1];
+        [MBProgressHUD showMBProgressHud:self.view withText:@"收藏取消" withTime:1];
         NSLog(@"");
     } failure:^(NSError *error) {
         NSLog(@"");

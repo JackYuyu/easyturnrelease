@@ -32,7 +32,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.title=@"访问记录";
     [self enableLeftBackWhiteButton];
     self.view.backgroundColor=[UIColor whiteColor];
