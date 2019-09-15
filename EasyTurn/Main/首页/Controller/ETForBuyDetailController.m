@@ -70,7 +70,7 @@ static NSString* const kShareFailedText = @"分享失败";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"求购详情";
-    self.title=@"求购详情";
+    self.title = @"求购详情";
     [self.view addSubview:self.tableView];
     self.tableView.backgroundColor = RGBACOLOR(242, 242, 242, 1);
     self.tableView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height-50-BottomSafeHeightGap);
@@ -90,7 +90,7 @@ static NSString* const kShareFailedText = @"分享失败";
         }
     }];
     self.toolView.blockvip = ^{
-        [self vipAction];
+        [weakself vipAction];
     };
     [self.view addSubview:self.toolView];
     [self.toolView refreshIsCollected:[[MySingleton filterNull:self.detailInfo[@"isCollect"]] boolValue]];
@@ -115,19 +115,20 @@ static NSString* const kShareFailedText = @"分享失败";
     [self getEditController];
     UserInfoModel* info=[UserInfoModel loadUserInfoModel];
     if ([info.uid isEqualToString:_product.userId]) {
-        self.toolView.hidden=YES;
+        self.toolView.hidden = YES;
+        self.tableView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height-BottomSafeHeightGap);
+    }else{
+        self.tableView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height-50-BottomSafeHeightGap);
     }
 }
--(void)vipAction
-{
-    
+
+- (void)vipAction {
     NSLog(@"点击了tapView");
-    //    ETVIPViewController* v=[ETVIPViewController new];
     ETViphuiyuanViewController* v=[ETViphuiyuanViewController new];
     [self.navigationController pushViewController:v animated:YES];
-    
 }
-- (UITableView *)tableView{
+
+- (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -143,21 +144,16 @@ static NSString* const kShareFailedText = @"分享失败";
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0)];
-        //        WeakSelf(self);
-        //        _tableView.mj_header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
-        //            [weakself requestData:YES];
-        //        }];
     }
     return _tableView;
 }
 
-- (void)setupNav{
+- (void)setupNav {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(7, StatusBarHeight+7, 44, 44);
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateHighlighted];
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateSelected];
-    //    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [btn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
     self.btnBack = btn;
     
@@ -166,7 +162,6 @@ static NSString* const kShareFailedText = @"分享失败";
     [btn setImage:[UIImage imageNamed:@"WechatIMG23"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"WechatIMG23"] forState:UIControlStateHighlighted];
     [btn setImage:[UIImage imageNamed:@"WechatIMG23"] forState:UIControlStateSelected];
-    //    [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
     [btn addTarget:self action:@selector(shareBtn) forControlEvents:UIControlEventTouchUpInside];
     self.btnRight = btn;
     
@@ -177,19 +172,17 @@ static NSString* const kShareFailedText = @"分享失败";
     self.labelTitle.text = @"求购详情";
     
     [self.view addSubview:self.btnBack];
-    //    [self.view addSubview:self.labelTitle];
     [self.view addSubview:self.btnRight];
 }
 
--(void)goshare
-{
+- (void)goshare {
     [self.view addSubview:self.maskTheView];
     [self.view addSubview:self.shareView];
 }
--(void)share
-{
+
+- (void)share {
     UIImage *image = [UIImage imageNamed:@"res2.png"];
-    UIImage* imageData = UIImageJPEGRepresentation(image, 0.7);
+    UIImage *imageData = UIImageJPEGRepresentation(image, 0.7);
     
     WXImageObject *imageObject = [WXImageObject object];
     imageObject.imageData = imageData;
@@ -207,28 +200,19 @@ static NSString* const kShareFailedText = @"分享失败";
     [WXApi sendReq:req];
 }
 //分享微信方法
--(void)shareBtn
-{
-    UserInfoModel* info=[UserInfoModel loadUserInfoModel];
+- (void)shareBtn {
+    UserInfoModel *info = [UserInfoModel loadUserInfoModel];
     if ([info.uid isEqualToString:_product.userId]) {
         [self moreEdit];
-    }
-    else{
-        WeakSelf(self);
-        //        [MySingleton showAlertWithIsActionSheet:NO title:nil msg:@"分享一次赠送刷新次数6次(每天10次机会)" btnTitles:@[@"确定"] vc:self click:^(NSInteger tag) {
-        //            [weakself.view addSubview:weakself.maskTheView];
-        //            [weakself.view addSubview:weakself.shareView];
-        //        }];
-        [weakself.view addSubview:weakself.maskTheView];
-        [weakself.view addSubview:weakself.shareView];
+    } else {
+        [self.view addSubview:self.maskTheView];
+        [self.view addSubview:self.shareView];
     }
 }
--(void)moreEdit
-{
+- (void)moreEdit {
     [self.view addSubview:_maskEditView];
 }
--(void)goedit
-{
+- (void)goedit {
     if ([_product.releaseTypeId isEqualToString:@"1"]) {
         ETIssueViewController* issue=[ETIssueViewController new];
         issue.product=_product;
@@ -340,9 +324,9 @@ static NSString* const kShareFailedText = @"分享失败";
     
 }
 
--(void)getEditController
-{
-    _edit=[UIButton new];
+- (void)getEditController {
+    WEAKSELF
+    _edit = [UIButton new];
     [_edit setBackgroundImage:[UIImage imageNamed:@"edit_形状"] forState:UIControlStateNormal];
     [_edit setTitle:@"编辑" forState:UIControlStateNormal];
     [_edit.titleLabel setFont:[UIFont systemFontOfSize:12]];
@@ -350,14 +334,13 @@ static NSString* const kShareFailedText = @"分享失败";
     [_maskEditView addSubview:_edit];
     
     [_edit mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(30,30);
+        make.size.mas_equalTo(CGSizeMake(30, 30));
         make.top.mas_equalTo(64);
         make.left.mas_equalTo(15);
     }];
+    
     [_edit.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        //        make.size.mas_equalTo(30,60);
-        make.bottom.mas_equalTo(_edit).offset(30);
-        //        make.left.mas_equalTo(15);
+        make.bottom.mas_equalTo(weakSelf.edit).offset(30);
     }];
     
     _moreshare=[UIButton new];
@@ -368,46 +351,37 @@ static NSString* const kShareFailedText = @"分享失败";
     
     [_maskEditView addSubview:_moreshare];
     [_moreshare mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(30,30);
+        make.size.mas_equalTo(CGSizeMake(30, 30));
         make.top.mas_equalTo(64);
-        make.left.mas_equalTo(_edit.mas_right).offset(15);
+        make.left.mas_equalTo(weakSelf.edit.mas_right).offset(15);
     }];
     [_moreshare.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        //        make.size.mas_equalTo(30,60);
-        make.bottom.mas_equalTo(_moreshare).offset(30);
-        //        make.left.mas_equalTo(15);
+        make.bottom.mas_equalTo(weakSelf.moreshare).offset(30);
     }];
 }
--(void)delfav1
-{
-    //    NSMutableDictionary* dic=[NSMutableDictionary new];
-    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
-    long long a=[p.releaseId longLongValue];
-    NSUserDefaults* user=[NSUserDefaults standardUserDefaults];
-    NSString* token=[user objectForKey:@"token"];
+- (void)delfav1 {
+    ETProductModel *p = [ETProductModel mj_objectWithKeyValues:self.detailInfo];
+    long long a = [p.releaseId longLongValue];
+    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+    NSString *token = [user objectForKey:@"token"];
     NSDictionary *params = @{
                              @"id" : @(a)
                              };
-    NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     
     [HttpTool get:[NSString stringWithFormat:@"user/shareReleaseById"] params:params success:^(NSDictionary *response) {
-        _share=response[@"data"];
-        //        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-        NSLog(@"");
+        _share = response[@"data"];
         [_tableView reloadData];
-        if (_select==0) {
-            
-            [[WXApiManagerShare sharedManager] sendLinkContent:[[NSURL URLWithString:[NSString stringWithFormat:@"%@",_share]] absoluteString]
-                                                         Title:self.title
-                                                   Description:kShareDescText
-                                                       AtScene:WXSceneSession];
-        }
-        if (_select==1) {
-            
+        if (_select) {
             [[WXApiManagerShare sharedManager] sendLinkContent:[[NSURL URLWithString:[NSString stringWithFormat:@"%@",_share]] absoluteString]
                                                          Title:self.title
                                                    Description:kShareDescText
                                                        AtScene:WXSceneTimeline];
+        }else{
+            [[WXApiManagerShare sharedManager] sendLinkContent:[[NSURL URLWithString:[NSString stringWithFormat:@"%@",_share]] absoluteString]
+                                                         Title:self.title
+                                                   Description:kShareDescText
+                                                       AtScene:WXSceneSession];
         }
     } failure:^(NSError *error) {
         NSLog(@"");
@@ -475,8 +449,6 @@ static NSString* const kShareFailedText = @"分享失败";
     NSData *data =    [NSJSONSerialization dataWithJSONObject:params options:NSUTF8StringEncoding error:nil];
     WeakSelf(self);
     if (isCollect) {
-        
-        
         [HttpTool put:[NSString stringWithFormat:@"collect/myDel"] params:params success:^(NSDictionary *response) {
             [IANshowLoading hideLoadingForView:self.view];
             [MBProgressHUD showMBProgressHud:self.view withText:@"收藏取消" withTime:1];
@@ -536,7 +508,6 @@ static NSString* const kShareFailedText = @"分享失败";
         weakself.detailInfo = [NSMutableDictionary dictionaryWithDictionary:responseObj[@"data"]];
         [weakself.toolView refreshIsCollected:[[MySingleton filterNull:weakself.detailInfo[@"isCollect"]] boolValue]];
         
-        //
         UserInfoModel* m=[UserInfoModel loadUserInfoModel];
         ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
         if ([m.uid isEqualToString:p.userId]) {
@@ -547,32 +518,10 @@ static NSString* const kShareFailedText = @"分享失败";
         NSLog(@"%@",error);
         [IANshowLoading hideLoadingForView:self.view];
     }];
-    //    WeakSelf(self);
-    //    NSDictionary *params = @{
-    //                             @"releaseTypeId":@(2)
-    //                             };
-    //
-    //    [HttpTool get:[NSString stringWithFormat:@"release/releaseList"] params:params success:^(id responseObj) {
-    //        [weakself handleData:responseObj isFailed:NO];
-    //        NSLog(@"%@",responseObj);
-    //    } failure:^(NSError *error) {
-    //        NSLog(@"%@",error);
-    //        [weakself handleData:nil isFailed:YES];
-    //    }];
 }
 
 - (void)handleData:(NSDictionary *)responseObj isFailed:(BOOL)isFailed{
     [IANshowLoading hideLoadingForView:self.view];
-    //    if (self.tableView.mj_header) {
-    //        [self.tableView.mj_header endRefreshing];
-    //    }
-    //    if (responseObj && [responseObj isKindOfClass:[NSDictionary class]]) {
-    //        NSArray *array = [responseObj objectForKey:@"data"][@"rows"];
-    //        if(array && ![array isKindOfClass:[NSNull class]]){
-    //            [self.arrayData addObjectsFromArray:array];
-    //            [self.tableView reloadData];
-    //        }
-    //    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -594,10 +543,7 @@ static NSString* const kShareFailedText = @"分享失败";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0&&indexPath.row==0) {
-        //        int a=[EaseTextView numberOfLinesForMessage:self.detailInfo[@"business"]]+1;
-        //
-        //        return 10*kScaleX+[UIFont systemFontOfSize:13].lineHeight+10*kScaleX+[UIFont systemFontOfSize:15 weight:UIFontWeightMedium].lineHeight*a+10*kScaleX+1;
+    if (indexPath.section == 0 && indexPath.row == 0) {
         return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"detail"]];
     }
     return [ETSaleAndServiceDetailCell cellHeight];
@@ -631,17 +577,14 @@ static NSString* const kShareFailedText = @"分享失败";
     [dict setObject:@(1) forKey:@"lines"];
     [dict setObject:@([UIFont systemFontOfSize:15 weight:UIFontWeightMedium].lineHeight) forKey:@"subHeight"];
     if (indexPath.section == 0) {
-        NSString* temp = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
-        if ([temp isEqualToString:@"0"])
-        {
-        
+        NSString *temp = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
+        if ([temp isEqualToString:@"0"]){
         switch (indexPath.row) {
             case 0:
             {
                 [dict setObject:@"详细内容" forKey:@"title"];
                 [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"detail"]] forKey:@"subTitle"];
                 [dict setObject:@(0) forKey:@"radiusState"];
-                //                int a=[EaseTextView numberOfLinesForMessage:self.detailInfo[@"business"]]+1;
                 [dict setObject:@(0) forKey:@"lines"];
                 [dict setObject:@([self subFirstHight:self.detailInfo[@"detail"]]) forKey:@"subHeight"];
             }
@@ -654,16 +597,13 @@ static NSString* const kShareFailedText = @"分享失败";
             }
                 break;
         }
-        }
-        else{
-            
+        }else{
             switch (indexPath.row) {
                 case 0:
                 {
                     [dict setObject:@"服务类型" forKey:@"title"];
                     [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"detail"]] forKey:@"subTitle"];
                     NSString *serviceId = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
-                    NSString *title = @"";
                     if (!serviceId) {
                         serviceId = @"";
                     }
@@ -708,10 +648,8 @@ static NSString* const kShareFailedText = @"分享失败";
                     else if ([serviceId isEqualToString:@"8"])
                     {
                         [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"法律服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
-
                     }
                     [dict setObject:@(0) forKey:@"radiusState"];
-                    //                int a=[EaseTextView numberOfLinesForMessage:self.detailInfo[@"business"]]+1;
                     [dict setObject:@(0) forKey:@"lines"];
                     [dict setObject:@([self subFirstHight:self.detailInfo[@"detail"]]) forKey:@"subHeight"];
                 }
@@ -840,19 +778,14 @@ static NSString* const kShareFailedText = @"分享失败";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //    if (indexPath.section == 1) {
-    //        [self chatAction];
-    //    }
-    if (indexPath.section==1) {
+    if (indexPath.section == 1) {
         UserMegViewController *megVC=[[UserMegViewController alloc]init];
         megVC.name=_toUser.name;
         megVC.photoImg=_toUser.portrait;
         [MySingleton sharedMySingleton].toUserid=_toUser.uid;
         [self.navigationController pushViewController:megVC animated:YES];
-
     }
 }
-
 - (NSString *)taxTitle{
     NSString *taxId = [MySingleton filterNull:self.detailInfo[@"taxId"]];
     if (!taxId) {
@@ -909,8 +842,7 @@ static NSString* const kShareFailedText = @"分享失败";
     return title;
     
 }
--(void)PostInfoUI
-{
+- (void)PostInfoUI{
     ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
     
     NSDictionary *params = @{
@@ -921,11 +853,9 @@ static NSString* const kShareFailedText = @"分享失败";
         if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
             return;
         }
-        //        _products=[NSMutableArray new];
-        NSDictionary* a=responseObj[@"data"];
-        UserInfoModel* info=[UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
-        _toUser=info;
-        NSLog(@"");
+        NSDictionary *a = responseObj[@"data"];
+        UserInfoModel *info = [UserInfoModel mj_objectWithKeyValues:responseObj[@"data"][@"userInfo"]];
+        _toUser = info;
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -940,4 +870,5 @@ static NSString* const kShareFailedText = @"分享失败";
     size.height = MAX(size.height, [UIFont systemFontOfSize:15 weight:UIFontWeightMedium].lineHeight);
     return size.height;
 }
+
 @end

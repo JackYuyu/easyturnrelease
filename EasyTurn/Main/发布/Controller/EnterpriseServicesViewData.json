@@ -43,7 +43,7 @@
                 },
                 {
                     "cellType": 3,
-                    "key": "business",
+                    "key": "scope",
                     "value": "",
                     "title":"经营范围",
                     "content":"",
@@ -190,7 +190,7 @@
             },
             {
                 "cellType": 3,
-                "key": "business",
+                "key": "scope",
                 "value": "",
                 "title":"经营范围",
                 "content":"",
@@ -467,7 +467,7 @@
             },
             {
                 "cellType": 1,
-                "key": "待定",
+                "key": "asset",
                 "value": "",
                 "title":"公司名称",
                 "content":"",
@@ -486,14 +486,14 @@
             {
                 "cellType": 1,
                 "key": "capital",
-                "value": "",
+                "value": "capital",
                 "title":"注册资本",
                 "content":"",
                 "placeholder":"请填写"
             },
             {
                 "cellType": 3,
-                "key": "business",
+                "key": "scope",
                 "value": "",
                 "title":"经营范围",
                 "content":"",

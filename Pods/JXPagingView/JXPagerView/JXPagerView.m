@@ -293,7 +293,7 @@
     }
 }
 
-#pragma mark - JXPagingListContainerViewDelegate
+#pragma mark - JXPagerListContainerViewDelegate
 
 - (NSInteger)numberOfRowsInListContainerView:(JXPagerListContainerView *)listContainerView {
     if (self.delegate == nil) {

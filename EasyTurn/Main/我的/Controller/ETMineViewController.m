@@ -37,7 +37,6 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 ///横向滚动条标题名称
 @property (nonatomic, strong) NSMutableArray <NSString *> *titles;
 @property (nonatomic, strong) ETMineListViewController *listView;
-@property (nonatomic, assign) NSInteger pageNumber;
 ///数据源
 @property (nonatomic, strong) NSMutableArray<UserInfosReleaseModel *> *arrDataSource;
 ///item选择当前索引
@@ -56,7 +55,6 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 @property (nonatomic,assign) int myselect;
 
 @end
-
 @implementation ETMineViewController
 
 - (NSMutableArray <UserInfosReleaseModel *> *)arrDataSource {
@@ -94,15 +92,20 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 }
 
 - (void)reloadTitles{
-    self.titles = [NSMutableArray arrayWithArray:@[@"出售", @"服务", @"求购"]];
-    [self requestUserOrderListWithReleaseTypeId:1];
-    [self requestUserOrderListWithReleaseTypeId:2];
-    [self requestUserOrderListWithReleaseTypeId:3];
+    self.titles = [NSMutableArray array];
+    dispatch_group_t group = dispatch_group_create();
+    [self requestUserOrderListWithReleaseTypeId:1 group:group];
+    [self requestUserOrderListWithReleaseTypeId:2 group:group];
+    [self requestUserOrderListWithReleaseTypeId:3 group:group];
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        self.categoryView.titles = self.titles;
+        [self.categoryView reloadData];
+        [self.pagingView reloadData];
+    });
 }
 
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
-    
     _userHeaderView = [[ETMineHeaderView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 421)];
     _userHeaderView.delegate = self;
     
@@ -168,10 +171,9 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     [ETMineViewModel requestUserInfoWithUid:uid WithSuccess:^(id request, STResponseModel *response, id resultObject) {
         [IANshowLoading hideLoadingForView:self.view];
         if (response.code == 0) {
-            [self reloadTitles];
             [self.pagingView reloadData];
+            [self reloadTitles];
             [weakSelf.pagingView.mainTableView.mj_header endRefreshing];
-            
         }else{
             if (response.msg.length > 0) {
                 [[ACToastView toastView:YES] showErrorWithStatus:response.msg];
@@ -277,7 +279,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     }
 }
 
-#pragma mark - JXPagingViewDelegate
+#pragma mark - JXPagerViewDelegate
 - (UIView *)tableHeaderViewInPagerView:(JXPagerView *)pagerView {
     return self.userHeaderView;
 }
@@ -303,16 +305,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     ETMineListViewController *listView = [[ETMineListViewController alloc] init];
     listView.naviController = self.navigationController;
     listView.delegate = self;
-//    if (index == 0) {
-//        listView.releaseTypeId = 1;
-//    }else if (index == 1) {
-//        listView.releaseTypeId = 3;
-//
-//    }else if (index == 2){
-//         listView.releaseTypeId = 2;
-//    }
     listView.title = self.titles[index];
-//    listView.releaseTypeId=_myselect;
     return listView;
 }
 
@@ -321,7 +314,6 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 - (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
     self.categoryViewSelectedIndex = index;
     self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
-
 }
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickedItemContentScrollViewTransitionToIndex:(NSInteger)index {
@@ -623,50 +615,43 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 }
 
 - (void)dealloc {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - 请求网络
-- (void)requestUserOrderListWithReleaseTypeId:(NSInteger)releaseTypeId {
-    //赋值初始值
-    self.pageNumber = 1;
-    [ETMineViewModel requestUserOrderListWithPage:self.pageNumber WithPageSize:1 ReleaseTypeId:releaseTypeId WithSuccess:^(id request, STResponseModel *response, id resultObject) {
-        self.categoryView.defaultSelectedIndex = self.categoryView.defaultSelectedIndex;
+#pragma mark - 获取我的动态数据
+- (void)requestUserOrderListWithReleaseTypeId:(NSInteger)releaseTypeId group:(dispatch_group_t)group {
+    dispatch_group_enter(group);
+    [ETMineViewModel requestUserOrderListWithPage:1 WithPageSize:1 ReleaseTypeId:releaseTypeId WithSuccess:^(id request, STResponseModel *response, id resultObject) {
+        dispatch_group_leave(group);
         if (response.code == 0) {
             NSArray *array = resultObject[@"data"];
-            if (array.count == 0) {
+            if (array.count > 0) {
                 switch (releaseTypeId) {
                     case 1:
-                        if ([self.titles containsObject:@"出售"]) {
-                            [self.titles removeObject:@"出售"];
+                        if (![self.titles containsObject:@"出售"]) {
+                            [self.titles addObject:@"出售"];
                         }
                         break;
                     case 2:
-                        if ([self.titles containsObject:@"求购"]) {
-                            [self.titles removeObject:@"求购"];
+                        if (![self.titles containsObject:@"求购"]) {
+                            [self.titles addObject:@"求购"];
                         }
                         break;
                     case 3:
-                        if ([self.titles containsObject:@"服务"]) {
-                            [self.titles removeObject:@"服务"];
+                        if (![self.titles containsObject:@"服务"]) {
+                            [self.titles addObject:@"服务"];
                         }
                         break;
                         
                     default:
                         break;
                 }
-            }else {
-                
             }
-        }else{
-            [self.titles removeAllObjects];
         }
-        self.categoryView.titles = self.titles;
-        [self.categoryView reloadData];
     } failure:^(id request, NSError *error) {
-        
+        dispatch_group_leave(group);
     }];
 }
+
 @end
 

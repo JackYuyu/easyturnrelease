@@ -40,10 +40,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *industrial;
 /// 银行开户(1.自开 2.代开)
 @property (nonatomic, strong) NSNumber *bank;
-///注册地址(1.自供 2.企服这提供);
+///注册地址(1.自供 2.企服这提供)
 @property (nonatomic, copy) NSString *regUrl;
-///备注需求内容;
+///备注需求内容
 @property (nonatomic, copy) NSString *remarks;
+///（求购）经营范围
+@property (nonatomic, copy) NSString *scope;
+/// 公司名称
+@property (nonatomic, copy) NSString *asset;
+
 
 + (NSNumber *)serviceIdFromServiesKey:(NSString *)serviesKey;
 + (NSNumber *)taxIdFromTaxKey:(NSString *)taxKey;

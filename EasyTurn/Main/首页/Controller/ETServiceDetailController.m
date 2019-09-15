@@ -89,7 +89,7 @@ static NSString* const kShareFailedText = @"分享失败";
         }
     }];
     self.toolView.blockvip = ^{
-        [self vipAction];
+        [weakself vipAction];
     };
     [self.view addSubview:self.toolView];
     [self.toolView refreshIsCollected:[[MySingleton filterNull:self.detailInfo[@"isCollect"]] boolValue]];
@@ -114,10 +114,13 @@ static NSString* const kShareFailedText = @"分享失败";
     [self getEditController];
     UserInfoModel* info=[UserInfoModel loadUserInfoModel];
     if ([info.uid isEqualToString:_product.userId]) {
-        self.toolView.hidden=YES;
+        self.toolView.hidden = YES;
+        self.tableView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height-BottomSafeHeightGap);
+    }else{
+        self.tableView.frame = CGRectMake(0, 0, Screen_Width, Screen_Height-50-BottomSafeHeightGap);
     }
 }
--(void)vipAction
+- (void)vipAction
 {
     
     NSLog(@"点击了tapView");
