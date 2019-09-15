@@ -13,8 +13,7 @@
     UIBarButtonItem *_rightBarButtonItem;
     BOOL showTabWhenGoBack;
 }
-@property (nonatomic, strong) UIButton *leftButton;
-@property (nonatomic,strong) UIView * retView;
+
 @end
 
 @implementation ACViewController
@@ -45,47 +44,47 @@
 
 -(void)setNavi{
     
-    _retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
-    _retView.backgroundColor = kACColorBlue_Theme;
-    [self.navigationController.view addSubview:_retView];
+    _retViewN = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
+    _retViewN.backgroundColor = kACColorBlue_Theme;
+    [self.navigationController.view addSubview:_retViewN];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(7, StatusBarHeight+7, 44, 44);
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateHighlighted];
     [btn setImage:[UIImage imageNamed:@"nav_leftBack"] forState:UIControlStateSelected];
-    _leftButton=btn;
-    [_leftButton addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
-    [_retView addSubview:_leftButton];
+    _leftButtonN=btn;
+    [_leftButtonN addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [_retViewN addSubview:_leftButtonN];
     
     UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, StatusBarHeight+7, 72, 25)];
     headtitle.textColor=kACColorWhite;
     headtitle.text=@"";
-    [_retView addSubview:headtitle];
+    [_retViewN addSubview:headtitle];
 }
 -(void)setNavi1{
     
-    _retView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
-    _retView.backgroundColor = [UIColor whiteColor];
-    [self.navigationController.view addSubview:_retView];
+    _retViewN = [[UIView alloc]initWithFrame:CGRectMake(0, 0,Screen_Width,kNavBarHeight_StateBarH)];
+    _retViewN.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.view addSubview:_retViewN];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(7, StatusBarHeight+7, 44, 44);
     [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateHighlighted];
     [btn setImage:[UIImage imageNamed:@"nav_leftBlackBack_Black"] forState:UIControlStateSelected];
-    _leftButton=btn;
-    [_leftButton addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
-    [_retView addSubview:_leftButton];
+    _leftButtonN=btn;
+    [_leftButtonN addTarget:self action:@selector(cancelClick) forControlEvents:(UIControlEventTouchUpInside)];
+    [_retViewN addSubview:_leftButtonN];
     
     UILabel *headtitle=[[UILabel alloc]initWithFrame:CGRectMake(Screen_Width/2-36, StatusBarHeight+7, 72, 25)];
     headtitle.textColor=[UIColor blackColor];
     headtitle.text=@"购买次数";
-    [_retView addSubview:headtitle];
+    [_retViewN addSubview:headtitle];
 }
 -(void)cancelClick
 {
-    [_retView removeFromSuperview];
+    [_retViewN removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (SSNavigationController *)acNaviController {

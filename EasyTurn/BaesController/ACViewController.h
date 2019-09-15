@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UIViewController *vcSource;
 @property (nonatomic, strong, readonly) UIView *vSafeAreaContainer;
 @property (nonatomic, strong) WRCustomNavigationBar *customNavBar;
+@property (nonatomic, strong) UIButton *leftButtonN;
+@property (nonatomic,strong) UIView * retViewN;
 - (void)enableLeftBackButton;
 - (void)enableLeftBackWhiteButton;
 - (void)enableLeftBackButtonShowTab:(BOOL)showTab;

@@ -214,9 +214,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     _navigationView.hidden=NO;
     [self getcount];
     
-    if (_hint) {
-        _bad.hidden=YES;
-    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -305,8 +302,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier = [EaseConversationCell cellIdentifierWithModel:nil];
-    EaseConversationCell *cell = (EaseConversationCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+//    EaseConversationCell *cell = (EaseConversationCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    EaseConversationCell *cell=[[EaseConversationCell alloc] init];
     // Configure the cell...
     if (cell == nil) {
         cell = [[EaseConversationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -351,6 +348,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
                 c.textAlignment=UITextAlignmentCenter;
             [bad addSubview:c];
                 _bad=bad;
+                _bad.hidden=NO;
 
             [cell.contentView addSubview:bad];
             [bad mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -363,6 +361,10 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
                 make.size.mas_equalTo(10,10);
                 make.center.mas_equalTo(bad);
             }];
+            }
+            else{
+                [_bad removeFromSuperview];
+//                _bad.hidden=YES;
             }
             
             cell.avatarView.showBadge=YES;
@@ -434,7 +436,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     if (indexPath.section==0) {
         if (indexPath.row==1) {
             _hint=@"暂无最新求购消息";
-            _bad.hidden=YES;
+//            _bad.hidden=YES;
         }
         if (self.block) {
             self.block(indexPath.row);
