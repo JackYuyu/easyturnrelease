@@ -311,7 +311,6 @@
     [self enableLeftBackWhiteButton];
     [WRNavigationBar wr_setDefaultNavBarTitleColor:kACColorWhite];
     [self setNavi1];
-//    self.view.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.tab];
     [self PostUI:@"1"];
     [self shareView];

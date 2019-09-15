@@ -224,10 +224,10 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
     }else if ([model.userInfo.isChecked isEqualToString:@"1"]) {
         self.laIdAuthentication.text = @"个人认证";
     }else if ([model.userInfo.isChecked isEqualToString:@"2"]) {
-        self.laIdAuthentication.text = @"员工认证";
+        self.laIdAuthentication.text = @"员工认证中";
     }
     else if ([model.userInfo.isChecked isEqualToString:@"3"]) {
-        self.laIdAuthentication.text = @"法人认证";
+        self.laIdAuthentication.text = @"法人认证中";
     }
     else if ([model.userInfo.isChecked isEqualToString:@"4"]) {
         self.laIdAuthentication.text = @"企业认证";
