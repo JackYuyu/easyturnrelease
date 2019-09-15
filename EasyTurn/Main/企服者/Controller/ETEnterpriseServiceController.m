@@ -35,19 +35,18 @@
 @property(nonatomic,strong) UIButton *lawBtn;
 @property(nonatomic,strong) UIButton *synthesizeBtn;
 @property(nonatomic,strong) UIButton *moreBtn;
-@property(nonatomic,strong)UIView* navigationView;
 @end
 
 @implementation ETEnterpriseServiceController
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super.navigationController setNavigationBarHidden:YES animated:TRUE];
-//
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [super.navigationController setNavigationBarHidden:NO animated:TRUE];
-//
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super.navigationController setNavigationBarHidden:YES animated:TRUE];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super.navigationController setNavigationBarHidden:NO animated:TRUE];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -55,10 +54,6 @@
     //    self.navigationController.navigationBarHidden=YES;
     self.navigationController.navigationBar.barTintColor=[UIColor clearColor];
     self.view.backgroundColor=[UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
-    
-    _navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen]bounds].size.width, TopHeight)];
-    _navigationView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
-    [self.navigationController.view addSubview:_navigationView];
     
     [self.view addSubview:self.topImg];
     
@@ -83,7 +78,7 @@
     //    [self.view addSubview:self.topImg];
     if (IS_IPHONE_Xs_Max) {
         [_topImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(TopHeight-81);
+            make.top.mas_equalTo(TopHeight-31);
             make.left.mas_equalTo(21);
             make.size.mas_equalTo(CGSizeMake(80, 25));
         }];
@@ -91,177 +86,66 @@
         [_topLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topImg.mas_bottom).with.offset(20);
             make.left.mas_equalTo(21);
-            make.size.mas_equalTo(CGSizeMake(300, 17));
+            make.size.mas_equalTo(CGSizeMake(260, 17));
         }];
-
+        
         [_businessBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+80);
+            make.top.mas_equalTo(kStatusBarHeight+20+80);
             make.left.mas_equalTo(16);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
         
         [_taxationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+80);
+            make.top.mas_equalTo(kStatusBarHeight+20+80);
             make.right.mas_equalTo(-15);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
         
         [_administrationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+180);
+            make.top.mas_equalTo(kStatusBarHeight+20+180);
             make.left.mas_equalTo(16);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
         
         [_financialBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+180);
+            make.top.mas_equalTo(kStatusBarHeight+20+180);
             make.right.mas_equalTo(-15);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
         
         [_intelligenceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+280);
+            make.top.mas_equalTo(kStatusBarHeight+20+280);
             make.left.mas_equalTo(16);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
-
+        
         [_puzzleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+280);
+            make.top.mas_equalTo(kStatusBarHeight+20+280);
             make.right.mas_equalTo(-15);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
         
         [_lawBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+380);
+            make.top.mas_equalTo(kStatusBarHeight+20+380);
             make.left.mas_equalTo(16);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
         
         [_synthesizeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+380);
+            make.top.mas_equalTo(kStatusBarHeight+20+380);
             make.right.mas_equalTo(-15);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
         
         [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+480);
+            make.top.mas_equalTo(kStatusBarHeight+20+480);
             make.left.mas_equalTo(16);
             make.size.mas_equalTo(CGSizeMake(200, 112));
         }];
     }
-    else if(IPHONE_X) {
-    [_topImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(TopHeight-81);
-        make.left.mas_equalTo(21);
-        make.size.mas_equalTo(CGSizeMake(70, 20));
-    }];
-    
-    [_topLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topImg.mas_bottom).with.offset(10);
-        make.left.mas_equalTo(21);
-        make.size.mas_equalTo(CGSizeMake(260, 17));
-    }];
-    
-    
-    
-    //    [_businessImg mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(26);
-    //        make.left.mas_equalTo(35);
-    //        make.right.mas_equalTo(-35);
-    //        make.height.mas_equalTo(70);
-    //    }];
-    
-    [_businessBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+50);
-        make.left.mas_equalTo(36);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    //    [_taxationImg mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(26);
-    //        make.left.mas_equalTo(35);
-    //        make.right.mas_equalTo(-35);
-    //        make.height.mas_equalTo(70);
-    //    }];
-    
-    [_taxationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+50);
-        make.right.mas_equalTo(-35);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    
-    //    [_administrationImg mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(32);
-    //        make.left.mas_equalTo(20);
-    //        make.right.mas_equalTo(-20);
-    //        make.height.mas_equalTo(70);
-    //    }];
-    
-    [_administrationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+150);
-        make.left.mas_equalTo(36);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    
-    //    [_financialImg mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(32);
-    //        make.left.mas_equalTo(35);
-    //        make.right.mas_equalTo(-35);
-    //        make.height.mas_equalTo(70);
-    //    }];
-    
-    [_financialBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+150);
-        make.right.mas_equalTo(-35);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    
-    
-    //    [_intelligenceImg mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(26);
-    //        make.left.mas_equalTo(35);
-    //        make.right.mas_equalTo(-35);
-    //        make.height.mas_equalTo(70);
-    //    }];
-    
-    [_intelligenceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+250);
-        make.left.mas_equalTo(36);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    
-    //    [_puzzleImg mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.mas_equalTo(26);
-    //        make.left.mas_equalTo(35);
-    //        make.right.mas_equalTo(-35);
-    //        make.height.mas_equalTo(70);
-    //    }];
-    
-    [_puzzleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+250);
-        make.right.mas_equalTo(-35);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    
-    [_lawBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+350);
-        make.left.mas_equalTo(36);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    
-    [_synthesizeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+350);
-        make.right.mas_equalTo(-35);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    
-    [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(kStatusBarHeight+450);
-        make.left.mas_equalTo(36);
-        make.size.mas_equalTo(CGSizeMake(150, 72));
-    }];
-    }
-    else{
+    else {
         [_topImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(TopHeight-61);
+            make.top.mas_equalTo(TopHeight-31);
             make.left.mas_equalTo(21);
             make.size.mas_equalTo(CGSizeMake(70, 20));
         }];
@@ -269,7 +153,7 @@
         [_topLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.topImg.mas_bottom).with.offset(10);
             make.left.mas_equalTo(21);
-            make.size.mas_equalTo(CGSizeMake(260, 17));
+            make.size.mas_equalTo(CGSizeMake(230, 17));
         }];
         
         
@@ -282,7 +166,7 @@
         //    }];
         
         [_businessBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+50);
+            make.top.mas_equalTo(kStatusBarHeight+20+50);
             make.left.mas_equalTo(36);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
@@ -294,7 +178,7 @@
         //    }];
         
         [_taxationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+50);
+            make.top.mas_equalTo(kStatusBarHeight+20+50);
             make.right.mas_equalTo(-35);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
@@ -307,7 +191,7 @@
         //    }];
         
         [_administrationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+150);
+            make.top.mas_equalTo(kStatusBarHeight+20+150);
             make.left.mas_equalTo(36);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
@@ -320,7 +204,7 @@
         //    }];
         
         [_financialBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+150);
+            make.top.mas_equalTo(kStatusBarHeight+20+150);
             make.right.mas_equalTo(-35);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
@@ -334,7 +218,7 @@
         //    }];
         
         [_intelligenceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+250);
+            make.top.mas_equalTo(kStatusBarHeight+20+250);
             make.left.mas_equalTo(36);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
@@ -347,25 +231,25 @@
         //    }];
         
         [_puzzleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+250);
+            make.top.mas_equalTo(kStatusBarHeight+20+250);
             make.right.mas_equalTo(-35);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
         
         [_lawBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+350);
+            make.top.mas_equalTo(kStatusBarHeight+20+350);
             make.left.mas_equalTo(36);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
         
         [_synthesizeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+350);
+            make.top.mas_equalTo(kStatusBarHeight+20+350);
             make.right.mas_equalTo(-35);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];
         
         [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(kStatusBarHeight+450);
+            make.top.mas_equalTo(kStatusBarHeight+20+450);
             make.left.mas_equalTo(36);
             make.size.mas_equalTo(CGSizeMake(150, 72));
         }];

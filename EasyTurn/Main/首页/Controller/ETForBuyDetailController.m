@@ -543,8 +543,11 @@ static NSString* const kShareFailedText = @"分享失败";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"detail"]];
+//    if (indexPath.section == 0 && indexPath.row == 0) {
+//        return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"detail"]];
+//    }
+    if (indexPath.section==0&&(indexPath.row==1||indexPath.row==7)) {
+        return [ETSaleAndServiceDetailCell cellHeightLines:indexPath.row==1?self.detailInfo[@"scope"]:self.detailInfo[@"remarks"]];
     }
     return [ETSaleAndServiceDetailCell cellHeight];
 }
@@ -652,8 +655,8 @@ static NSString* const kShareFailedText = @"分享失败";
                         [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"法律服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
                     }
                     [dict setObject:@(0) forKey:@"radiusState"];
-                    [dict setObject:@(0) forKey:@"lines"];
-                    [dict setObject:@([self subFirstHight:self.detailInfo[@"detail"]]) forKey:@"subHeight"];
+//                    [dict setObject:@(0) forKey:@"lines"];
+//                    [dict setObject:@([self subFirstHight:self.detailInfo[@"scope"]]) forKey:@"subHeight"];
                 }
                     break;
                 case 1:
@@ -665,6 +668,8 @@ static NSString* const kShareFailedText = @"分享失败";
                         temp=@"暂无";
                     [dict setObject:temp forKey:@"subTitle"];
                     [dict setObject:@(2) forKey:@"radiusState"];
+                    [dict setObject:@(0) forKey:@"lines"];
+                    [dict setObject:@([self subFirstHight:self.detailInfo[@"scope"]]) forKey:@"subHeight"];
                 }
                     break;
                 case 2:
@@ -758,6 +763,8 @@ static NSString* const kShareFailedText = @"分享失败";
                         [dict setObject:@"暂无" forKey:@"subTitle"];
 
                     [dict setObject:@(2) forKey:@"radiusState"];
+                    [dict setObject:@(0) forKey:@"lines"];
+                    [dict setObject:@([self subFirstHight:self.detailInfo[@"remarks"]]) forKey:@"subHeight"];
                 }
                     break;
                 default:

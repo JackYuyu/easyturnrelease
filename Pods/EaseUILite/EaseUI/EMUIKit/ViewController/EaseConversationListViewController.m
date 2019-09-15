@@ -344,7 +344,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             UILabel* c=[UILabel new];
             c.text=_count;
             c.textColor=[UIColor whiteColor];
-            c.font=[UIFont systemFontOfSize:10];
+            c.font=[UIFont systemFontOfSize:8];
                 c.textAlignment=UITextAlignmentCenter;
             [bad addSubview:c];
                 _bad=bad;

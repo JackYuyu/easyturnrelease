@@ -74,7 +74,7 @@
     self.tab.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0)];
     [self.view bringSubviewToFront:self.segment];
     [self PostUI];
-    [self setNavi];
+//    [self setNavi];
 
 }
 #pragma mark - 企服者
