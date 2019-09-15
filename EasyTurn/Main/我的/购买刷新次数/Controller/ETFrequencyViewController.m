@@ -303,6 +303,9 @@
     }
     return _tab;
 }
+-(void)viewWillDisappear{
+    [self.retViewN removeFromSuperview];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
    
@@ -606,7 +609,8 @@
 
 #pragma mark - 去支付
 - (void)stagepay {
-   
+    [self.retViewN removeFromSuperview];
+
     [self requestWithPayType:_paytype];
     [self clickImage];
 }
