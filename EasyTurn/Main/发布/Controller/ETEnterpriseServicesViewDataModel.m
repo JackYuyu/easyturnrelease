@@ -74,7 +74,7 @@ static NSString * const bussinessotherKey = @"其它";
                         }
                     }
                     if (![obj.updates containsObject:@"住所"]) {
-                        ETEnterpriseServicesViewItemModel *item = [muList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title='住所'"]].lastObject;
+                        ETEnterpriseServicesViewItemModel *item = [muList filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"title='注册地址'"]].lastObject;
                         if (item && [muList containsObject:item]) {
                             [muList removeObject:item];
                         }

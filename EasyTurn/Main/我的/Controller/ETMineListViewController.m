@@ -46,31 +46,18 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 
 - (void)viewDidLoad {
     [self.view addSubview:self.tableView];
-//    @[@"出售", @"服务", @"求购"]
-//    
-//    if (index == 0) {
-//        listView.releaseTypeId = 1;
-//    }else if (index == 1) {
-//        listView.releaseTypeId = 3;
-//        
-//    }else if (index == 2){
-//        listView.releaseTypeId = 2;
-//    }
     if ([self.title isEqualToString:@"出售"]) {
+        self.releaseTypeId = 1;
         [self requestUserOrderListWithReleaseTypeId:1];
     }else if ([self.title isEqualToString:@"服务"]) {
+        self.releaseTypeId = 3;
         [self requestUserOrderListWithReleaseTypeId:3];
     }else if ([self.title isEqualToString:@"求购"]) {
+        self.releaseTypeId = 2;
         [self requestUserOrderListWithReleaseTypeId:2];
     }
-    
-
-
-   
 }
-
 - (void)showEmptyDataView:(BOOL)isHidden {
-    
     UIView *showEmptyDataView = [[UIView alloc]init];
     [self.view addSubview:showEmptyDataView];
     [showEmptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,7 +87,6 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
             NSArray *array = resultObject[@"data"];
             if (array.count == 0) {
                 [weakSelf showEmptyDataView:NO];
-
             }else {
                 [weakSelf.products addObjectsFromArray:array];
                 NSMutableArray *products = [NSMutableArray array];
@@ -108,7 +94,6 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
                 weakSelf.arrDataSource = [UserInfosReleaseModel mj_objectArrayWithKeyValuesArray:products];
                 [weakSelf.tableView reloadData];
             }
-
         }else{
             if (response.msg.length > 0) {
                 [[ACToastView toastView:YES] showErrorWithStatus:response.msg];
@@ -175,18 +160,14 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
         ETSaleDetailController *vc = [ETSaleDetailController saleDetailController:dict];
         vc.product = [ETProductModel mj_objectWithKeyValues:dict];
         [self.naviController pushViewController:vc animated:YES];
-        
     }else if (self.releaseTypeId == 3) {
         //服务
         NSDictionary *dict =[_products objectAtIndex:indexPath.row];
         ETServiceDetailController * detail = [ETServiceDetailController serviceDetailController:dict];
         detail.product = [ETProductModel mj_objectWithKeyValues:dict];
         [self.naviController pushViewController:detail animated:YES];
-        
     }else if (self.releaseTypeId == 2) {
         //求购
-
-//        ETPoctoryqgViewController *detail = [ETPoctoryqgViewController new];
         NSDictionary *dict =[_products objectAtIndex:indexPath.row];
         ETForBuyDetailController* detail=[ETForBuyDetailController forBuyDetailController:dict];
 
@@ -223,7 +204,4 @@ static NSString *const kETMineListViewCell = @"ETMineListViewCell";
 - (UIView *)listView {
     return self.view;
 }
-
-
-
 @end

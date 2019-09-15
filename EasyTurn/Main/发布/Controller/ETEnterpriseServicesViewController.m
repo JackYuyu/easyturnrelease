@@ -137,7 +137,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
             } else if ([mItem.key isEqualToString:@"regUrl"]) {
                  NSNumber *trueValue = [ETEnterpriseServicesViewRequestModel remarksFromRemarkKey:mItem.value];
                 [muDict setValue:trueValue forKey:@"regUrl"];
-            } else if ([mItem.key isEqualToString:@"business"]) {
+            } else if ([mItem.key isEqualToString:@"scope"]) {
                 if (mItem.isSelected) {
                     [arrCheckValue addObject:mItem.title];
                 }
@@ -153,7 +153,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
                     
                 }];
                 NSString *trueValue = [arrValue componentsJoinedByString:@","];
-                [muDict setValue:trueValue forKey:@"business"];
+                [muDict setValue:trueValue forKey:@"scope"];
             }
             else {
                 [muDict setValue:mItem.value forKey:mItem.key];
@@ -172,7 +172,7 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
     [muDict setValue:@(2) forKey:@"releaseTypeId"];
     _dics=[NSDictionary new];
     _dics=[muDict mutableCopy];
-    
+    NSLog(@"求购参数:%@",_dics);
     _mRequest = [ETEnterpriseServicesViewRequestModel mj_objectWithKeyValues:muDict];
     _mRequest.releaseTypeId = @(2);
     [self requestBusinessPublicWithModel:_mRequest];
