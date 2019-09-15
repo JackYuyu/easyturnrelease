@@ -98,6 +98,17 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     [self requestUserOrderListWithReleaseTypeId:2 group:group];
     [self requestUserOrderListWithReleaseTypeId:3 group:group];
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        NSArray *titles = [self.titles copy];
+        [self.titles removeAllObjects];
+        if ([titles containsObject:@"出售"]) {
+            [self.titles addObject:@"出售"];
+        }
+        if ([titles containsObject:@"服务"]) {
+            [self.titles addObject:@"服务"];
+        }
+        if ([titles containsObject:@"求购"]) {
+            [self.titles addObject:@"求购"];
+        }
         self.categoryView.titles = self.titles;
         [self.categoryView reloadData];
         [self.pagingView reloadData];
@@ -126,6 +137,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
     self.categoryView.indicators = @[lineView];
     
     _pagingView = [[JXPagerView alloc] initWithDelegate:self];
+    _pagingView.listContainerView.collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.pagingView];
     
     self.categoryView.contentScrollView = self.pagingView.listContainerView.collectionView;

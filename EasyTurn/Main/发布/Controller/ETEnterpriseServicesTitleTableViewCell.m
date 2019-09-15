@@ -34,12 +34,19 @@
     [_labTitle mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(titlewWidth);
     }];
+    _tfContent.placeholder = mItem.placeholder;
     if (mItem.content.length > 0) {
         _tfContent.text = mItem.content;
     } else {
-        _tfContent.placeholder = mItem.placeholder;
+        _tfContent.text = nil;
     }
     mItem.cellheight = 50;
+    if ([mItem.title isEqualToString:@"联系人"] ||
+        [mItem.title isEqualToString:@"联系电话"]) {
+        self.tfContent.textAlignment = NSTextAlignmentRight;
+    }else{
+        self.tfContent.textAlignment = NSTextAlignmentLeft;
+    }
 }
 
 - (void)createSubviews {
