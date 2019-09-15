@@ -34,6 +34,7 @@
     picker.commitHandler = handler;
     picker.autoHandler = autoHandler;
     [picker loadDates:datas];
+    
     return picker;
 }
 
@@ -93,6 +94,9 @@
     if (self.backgroundImage) {
         [self insertSubview:self.backgroundImageView atIndex:0];
     }
+    [_pickerView selectRow:4 inComponent:0 animated:YES];
+    [_pickerView selectRow:4 inComponent:1 animated:YES];
+
 }
 
 #pragma mark - 按钮点击事件

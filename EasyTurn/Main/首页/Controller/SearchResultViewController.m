@@ -104,6 +104,9 @@
         if (responseObj && [responseObj isKindOfClass:[NSDictionary class]]) {
             NSArray *array = responseObj[@"data"][@"releaseList"];
             if(array && ![array isKindOfClass:[NSNull class]]){
+                if (array.count==0) {
+                    [self showEmptyDataView:NO];
+                }
                 [_products addObjectsFromArray:array];
                 [_tableView reloadData];
             }
@@ -113,7 +116,27 @@
     }];
 }
 
-
+- (void)showEmptyDataView:(BOOL)isHidden {
+    
+    UIView *showEmptyDataView = [[UIView alloc]init];
+    [self.view addSubview:showEmptyDataView];
+    [showEmptyDataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(10);
+        make.centerX.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(143, 132));
+    }];
+    
+    UIImageView *imagevEmptyData = [[UIImageView alloc]init];
+    imagevEmptyData.hidden = isHidden;
+    imagevEmptyData.image = [UIImage imageNamed:@"我的_我的动态_空数据页面"];
+    [self.view addSubview:imagevEmptyData];
+    [imagevEmptyData mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(10);
+        make.centerX.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(143, 132));
+    }];
+    _tableView.tableFooterView=[[UIView alloc] initWithFrame:CGRectZero];
+}
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

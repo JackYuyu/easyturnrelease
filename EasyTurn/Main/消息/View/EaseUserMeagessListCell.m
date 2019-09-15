@@ -54,6 +54,7 @@
         make.top.mas_equalTo(18);
         make.left.mas_equalTo(10);
         make.height.mas_equalTo(21);
+        make.width.mas_equalTo(SCREEN_WIDTH-170);
     }];
     
     [self.laSubTitle mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -318,7 +318,7 @@
     label.frame = CGRectMake((viewClips.frame.size.width-120)/2, yTemp+kScaleX*20, 120, label.font.pointSize+20);
     
     NSString* temp = [MySingleton filterNull:dict[@"serviceId"]];
-    if ([temp isEqualToString:@"0"])
+    if ([temp isEqualToString:@"0"]||!temp)
     {
         label.text=@"企业流转";
     }

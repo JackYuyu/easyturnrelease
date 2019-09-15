@@ -35,6 +35,16 @@
     }
     return _tab;
 }
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+////    self.retViewN.hidden=YES;
+//    [super.navigationController setNavigationBarHidden:YES animated:TRUE];
+//
+//}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super.navigationController setNavigationBarHidden:NO animated:TRUE];
+//
+//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self enableLeftBackWhiteButton];
@@ -125,6 +135,8 @@
     
     NSDictionary *dict =[_products objectAtIndex:indexPath.row];
     ETServiceDetailController* p=[ETServiceDetailController serviceDetailController:dict];
+    
+//    [self.navigationController setNavigationBarHidden:YES];
     [self.navigationController pushViewController:p animated:YES];
 }
 /*

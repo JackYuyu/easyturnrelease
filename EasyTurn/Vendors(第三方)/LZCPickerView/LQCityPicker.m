@@ -68,8 +68,8 @@ static CGFloat const lz_contentHeight = 346.0;
         self.frame = [[UIScreen mainScreen] bounds];
         self.backgroundColor = [UIColor clearColor];
         [self backgroundLayer];
-        self.titleAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor blueColor]};
-        self.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor blueColor]};
+        self.titleAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor blackColor]};
+        self.textAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor blackColor]};
         __weak typeof(self) ws = self;
         [self.pickerView didSelectedHandler:^(NSArray<LQPickerItem *> *objs, NSString *dsc) {
             [ws dismiss];

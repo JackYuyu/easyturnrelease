@@ -531,7 +531,7 @@ static NSString* const kShareFailedText = @"分享失败";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         NSString* temp = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
-        if ([temp isEqualToString:@"0"])
+        if ([temp isEqualToString:@"0"]||!temp)
         {
         return 2;
         }
@@ -577,8 +577,10 @@ static NSString* const kShareFailedText = @"分享失败";
     [dict setObject:@(1) forKey:@"lines"];
     [dict setObject:@([UIFont systemFontOfSize:15 weight:UIFontWeightMedium].lineHeight) forKey:@"subHeight"];
     if (indexPath.section == 0) {
-        NSString *temp = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
-        if ([temp isEqualToString:@"0"]){
+        NSString* temp = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
+        if ([temp isEqualToString:@"0"]||!temp)
+        {
+
         switch (indexPath.row) {
             case 0:
             {
