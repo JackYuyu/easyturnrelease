@@ -11,6 +11,8 @@
 		00079E51230918390051D8D2 /* UGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 00079E4F230918380051D8D2 /* UGameManager.m */; };
 		00079E532309201F0051D8D2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00079E522309201F0051D8D2 /* StoreKit.framework */; };
 		00079E592309B6AF0051D8D2 /* ETHomeHeaderViewLoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 00079E582309B6AF0051D8D2 /* ETHomeHeaderViewLoc.m */; };
+		000B985C232F483800F4367C /* ETFrequencyViewAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000B985B232F483800F4367C /* ETFrequencyViewAppController.m */; };
+		000B985F232F4ACB00F4367C /* MEVIPTableViewCell0.m in Sources */ = {isa = PBXBuildFile; fileRef = 000B985D232F4ACB00F4367C /* MEVIPTableViewCell0.m */; };
 		0014E077231AD16B00FA3C13 /* FSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0014E076231AD16B00FA3C13 /* FSBaseModel.m */; };
 		0014E07A231BA54500FA3C13 /* ETPoctoryqgServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0014E078231BA54500FA3C13 /* ETPoctoryqgServiceViewController.m */; };
 		00199B9722F17C2B00FACC24 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 00199B9022F17C2B00FACC24 /* WXApiResponseHandler.m */; };
@@ -461,6 +463,10 @@
 		00079E522309201F0051D8D2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		00079E572309B6AE0051D8D2 /* ETHomeHeaderViewLoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHomeHeaderViewLoc.h; sourceTree = "<group>"; };
 		00079E582309B6AF0051D8D2 /* ETHomeHeaderViewLoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHomeHeaderViewLoc.m; sourceTree = "<group>"; };
+		000B985A232F483700F4367C /* ETFrequencyViewAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETFrequencyViewAppController.h; sourceTree = "<group>"; };
+		000B985B232F483800F4367C /* ETFrequencyViewAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFrequencyViewAppController.m; sourceTree = "<group>"; };
+		000B985D232F4ACB00F4367C /* MEVIPTableViewCell0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEVIPTableViewCell0.m; sourceTree = "<group>"; };
+		000B985E232F4ACB00F4367C /* MEVIPTableViewCell0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEVIPTableViewCell0.h; sourceTree = "<group>"; };
 		0014E075231AD16B00FA3C13 /* FSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseModel.h; sourceTree = "<group>"; };
 		0014E076231AD16B00FA3C13 /* FSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseModel.m; sourceTree = "<group>"; };
 		0014E078231BA54500FA3C13 /* ETPoctoryqgServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPoctoryqgServiceViewController.m; sourceTree = "<group>"; };
@@ -2792,6 +2798,8 @@
 			children = (
 				2E077B1322F45C5D004D31E1 /* ETFrequencyViewController.h */,
 				2E077B1422F45C5D004D31E1 /* ETFrequencyViewController.m */,
+				000B985A232F483700F4367C /* ETFrequencyViewAppController.h */,
+				000B985B232F483800F4367C /* ETFrequencyViewAppController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2799,6 +2807,8 @@
 		2E0B357A231CFA0D001A9BDB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				000B985E232F4ACB00F4367C /* MEVIPTableViewCell0.h */,
+				000B985D232F4ACB00F4367C /* MEVIPTableViewCell0.m */,
 				2E1CDA8022EAD09600174F08 /* ETMETableViewCell.h */,
 				2E1CDA8722EAD09600174F08 /* ETMETableViewCell.m */,
 			);
@@ -3545,6 +3555,7 @@
 				2E4B89B72311719200030FAF /* ETManageTableViewCell.m in Sources */,
 				00A9462F23181DF2003A2B66 /* DCCycleScrollViewFlowLayout.m in Sources */,
 				A6A5449622F737A100C7FDC5 /* PopAnimationTool.m in Sources */,
+				000B985F232F4ACB00F4367C /* MEVIPTableViewCell0.m in Sources */,
 				00079E592309B6AF0051D8D2 /* ETHomeHeaderViewLoc.m in Sources */,
 				00986D042323B1CD00B1131E /* ETEnterpriseServicesViewController.m in Sources */,
 				00986CD72321310300B1131E /* ExpandCell.m in Sources */,
@@ -3611,6 +3622,7 @@
 				007FADAB22E05228001EC5F2 /* UIWindow+LGAlertView.m in Sources */,
 				2E0C6E96231B733000D28C37 /* ETViphuiyuanModel.m in Sources */,
 				00E5C31C22EDCD7E00009241 /* FBSearchViewController.m in Sources */,
+				000B985C232F483800F4367C /* ETFrequencyViewAppController.m in Sources */,
 				00841590231FA140009589A5 /* TZImagePickerController.m in Sources */,
 				005C95A722FC3DDD00DD448C /* DWTagList.m in Sources */,
 				00079E4E2307EF040051D8D2 /* EaseSyetemController.m in Sources */,

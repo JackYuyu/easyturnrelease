@@ -24,6 +24,7 @@
 #import "ETViphuiyuanViewController.h"
 #import "ETInvitationController.h"
 #import "ETFrequencyViewController.h"
+#import "ETFrequencyViewAppController.h"
 #import "WXApiManagerShare.h"
 #import "ETVIPViewController.h"
 static NSString *const kETMineViewCell = @"ETMineViewCell";
@@ -248,8 +249,14 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 }
 
 - (void)eTMineHeaderviewOnClickPayRefreshCount {
+    if ([MySingleton sharedMySingleton].review==1) {
+        ETFrequencyViewAppController* vc=[[ETFrequencyViewAppController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
     ETFrequencyViewController *vc = [[ETFrequencyViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - 请求网络 - 签到
