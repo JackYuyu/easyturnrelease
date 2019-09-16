@@ -269,6 +269,20 @@
                         make.bottom.mas_equalTo(0);
                     }];
                 }else if (indexPath.row==6) {
+                    UILabel *label1 = [[UILabel alloc] init];
+                    label1.numberOfLines = 0;
+                    NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:@"订单编号："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+                    
+                    label1.attributedText = string1;
+                    label1.textAlignment = NSTextAlignmentLeft;
+                    label1.alpha = 1.0;
+                    [cell addSubview:label1];
+                    [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.mas_equalTo(21);
+                        make.left.mas_equalTo(14);
+                        make.size.mas_equalTo(CGSizeMake(74, 21));
+                    }];
+                    
                     UILabel *label = [[UILabel alloc] init];
                     label.numberOfLines = 0;
                     label.lineBreakMode = NSLineBreakByCharWrapping;
@@ -289,8 +303,8 @@
                     label.alpha = 1.0;
                     [cell addSubview:label];
                     [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.mas_equalTo(0);
-                        make.left.mas_equalTo(15);
+                        make.top.mas_equalTo(-20);
+                        make.left.mas_equalTo(85);
                         make.size.mas_equalTo(CGSizeMake(230, 90));
                     }];
                 }
@@ -395,6 +409,20 @@
                         make.bottom.mas_equalTo(0);
                     }];
                 }else if (indexPath.row==5) {
+                    UILabel *label1 = [[UILabel alloc] init];
+                    label1.numberOfLines = 0;
+                    NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:@"订单编号："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+                    
+                    label1.attributedText = string1;
+                    label1.textAlignment = NSTextAlignmentLeft;
+                    label1.alpha = 1.0;
+                    [cell addSubview:label1];
+                    [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.mas_equalTo(21);
+                        make.left.mas_equalTo(14);
+                        make.size.mas_equalTo(CGSizeMake(74, 21));
+                    }];
+                    
                     UILabel *label = [[UILabel alloc] init];
                     label.numberOfLines = 0;
                     label.lineBreakMode = NSLineBreakByCharWrapping;
@@ -415,8 +443,8 @@
                     label.alpha = 1.0;
                     [cell addSubview:label];
                     [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.mas_equalTo(0);
-                        make.left.mas_equalTo(15);
+                        make.top.mas_equalTo(-20);
+                        make.left.mas_equalTo(85);
                         make.size.mas_equalTo(CGSizeMake(230, 90));
                     }];
                 }
@@ -523,6 +551,20 @@
                         make.bottom.mas_equalTo(0);
                     }];
                 }else if (indexPath.row==5) {
+                    UILabel *label1 = [[UILabel alloc] init];
+                    label1.numberOfLines = 0;
+                    NSMutableAttributedString *string1 = [[NSMutableAttributedString alloc] initWithString:@"订单编号："attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]}];
+                    
+                    label1.attributedText = string1;
+                    label1.textAlignment = NSTextAlignmentLeft;
+                    label1.alpha = 1.0;
+                    [cell addSubview:label1];
+                    [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.mas_equalTo(21);
+                        make.left.mas_equalTo(14);
+                        make.size.mas_equalTo(CGSizeMake(74, 21));
+                    }];
+                    
                     UILabel *label = [[UILabel alloc] init];
                     label.numberOfLines = 0;
                     label.lineBreakMode = NSLineBreakByCharWrapping;
@@ -543,8 +585,8 @@
                     label.alpha = 1.0;
                     [cell addSubview:label];
                     [label mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.mas_equalTo(0);
-                        make.left.mas_equalTo(15);
+                        make.top.mas_equalTo(-20);
+                        make.left.mas_equalTo(85);
                         make.size.mas_equalTo(CGSizeMake(230, 90));
                     }];
                 }
@@ -698,7 +740,7 @@
                     label1.alpha = 1.0;
                     [cell addSubview:label1];
                     [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.mas_equalTo(41);
+                        make.top.mas_equalTo(21);
                         make.left.mas_equalTo(14);
                         make.size.mas_equalTo(CGSizeMake(74, 21));
                     }];
