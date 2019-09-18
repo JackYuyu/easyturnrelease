@@ -49,48 +49,6 @@ static NSString *const kETHomeHeaderAutoScrollCell = @"ETHomeHeaderAutoScrollCel
         make.height.mas_equalTo(0);
     }];
     
-//    _vSearch = [[UIView alloc]init];
-//    _vSearch.backgroundColor = kACColorWhite;
-//    [_vSearch addCornerRadiusWithRadius:4.0f];
-//    [vBackground addSubview:_vSearch];
-//    [_vSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(10);
-//        make.left.mas_equalTo(15);
-//        make.right.mas_equalTo(-15);
-//        make.height.mas_equalTo(47);
-//    }];
-//    
-//    UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickSearch)];
-//    [_vSearch addGestureRecognizer:tap];
-//    
-//    _btnSearch = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_btnSearch setBackgroundImage:[UIImage imageNamed:@"首页_搜索"] forState:UIControlStateNormal];
-//    [_vSearch addSubview:_btnSearch];
-//    [_btnSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.vSearch);
-//        make.left.mas_equalTo(13);
-//    }];
-//    
-//    _laSearch = [[UILabel alloc]init];
-//    _laSearch.text = @"请输入你要搜索的内容";
-//    _laSearch.textColor = kACColorRGB(153, 153, 153);
-//    _laSearch.font = kFontSize(14);
-//    [_vSearch addSubview:_laSearch];
-//    [_laSearch mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.vSearch);
-//        make.left.equalTo(self.btnSearch.mas_right).offset(4);
-//    }];
-    
-//    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, Screen_Width, self.height) delegate:self placeholderImage:nil];
-//    _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
-//    _cycleScrollView.autoScrollTimeInterval = 5.0;
-//    [self addSubview:_cycleScrollView];
-//    _cycleScrollView.hidden=YES;
-//    [_cycleScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(vBackground.mas_bottom);
-//        make.left.right.mas_equalTo(0);
-//        make.height.mas_equalTo(210);
-//    }];
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, Screen_Width, self.height) delegate:self placeholderImage:nil];
     _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     _cycleScrollView.autoScrollTimeInterval = 5.0;
@@ -207,6 +165,6 @@ static NSString *const kETHomeHeaderAutoScrollCell = @"ETHomeHeaderAutoScrollCel
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     if ([_delegate respondsToSelector:@selector(slideshowHeadViewDidSelectItemAtIndex:)]) {
         [_delegate slideshowHeadViewDidSelectItemAtIndex:index];
-    }
+    }    
 }
 @end

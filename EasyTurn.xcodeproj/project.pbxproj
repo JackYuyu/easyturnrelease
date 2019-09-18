@@ -1864,6 +1864,7 @@
 		007FAD5722E04503001EC5F2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2E13653C22F02CF40083E850 /* YHSegmentViewConstant.h */,
 				00986D402325354100B1131E /* ETPublishPurchaseSegmentViewController.h */,
 				00986D412325354100B1131E /* ETPublishPurchaseSegmentViewController.m */,
 				00986D022323B1CD00B1131E /* ETEnterpriseServicesViewController.h */,
@@ -2875,7 +2876,6 @@
 			children = (
 				2E13653A22F02CF40083E850 /* YHSegmentView.h */,
 				2E13653B22F02CF40083E850 /* YHSegmentView.m */,
-				2E13653C22F02CF40083E850 /* YHSegmentViewConstant.h */,
 			);
 			path = YHSegmentView;
 			sourceTree = "<group>";
