@@ -10,8 +10,8 @@
 #import <AliyunOSSiOS/OSSService.h>
 
 @implementation OSSImageUploader
-static NSString *const AccessKey = @"LTAIEh4I4DOD1ciJ";
-static NSString *const SecretKey = @"SwKSEaXy6rJWmXMZTbADSNj0G2dFT3";
+static NSString *const AccessKey = @"LTAI4FgHxbakaqfxeuhUWVMr";
+static NSString *const SecretKey = @"NwgXabYnue786mwP1za5fDclEkzzS2";
 static NSString *const BucketName = @"yizhuanvip";
 static NSString *const AliYunHost = @"http://oss-cn-beijing.aliyuncs.com/";
 

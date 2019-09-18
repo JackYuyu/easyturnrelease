@@ -368,7 +368,7 @@
         _tab.delegate=self;
         _tab.dataSource=self;
         _tab.rowHeight=60;
-        [_tab registerClass:[MEVIPTableViewCell class] forCellReuseIdentifier:@"cell"];
+        [_tab registerClass:[MEVIPTableViewCell0 class] forCellReuseIdentifier:@"cell"];
         _tab.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0,0,0,0.01)];
         _tab.sectionFooterHeight =0;
     }

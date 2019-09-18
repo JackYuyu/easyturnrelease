@@ -14,6 +14,7 @@
 #import "ETSaleDetailController.h"
 #import "ETPoctoryqgViewController.h"
 #import "XMRefreshFooter.h"
+#import "ETForBuyDetailController.h"
 @interface ETFootViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tab;
 @property(nonatomic,strong)UIButton *loadingBtn;
@@ -118,12 +119,19 @@
         [self.navigationController pushViewController:detail animated:YES];
     }
     else{
-        ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
-        ETProductModel* p=[ETProductModel mj_objectWithKeyValues:temp];
-        pur.releaseId=p.releaseId;
-        pur.releaseId = temp[@"releaseId"];
-        pur.product = [ETProductModel mj_objectWithKeyValues:temp];
-        [self.navigationController pushViewController:pur animated:YES];
+//        ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];
+//        ETProductModel* p=[ETProductModel mj_objectWithKeyValues:temp];
+//        pur.releaseId=p.releaseId;
+//        pur.releaseId = temp[@"releaseId"];
+//        pur.product = [ETProductModel mj_objectWithKeyValues:temp];
+//        [self.navigationController pushViewController:pur animated:YES];
+        
+//        NSDictionary *dict =[_products objectAtIndex:indexPath.row];
+        ETForBuyDetailController* detail=[ETForBuyDetailController forBuyDetailController:temp];
+        
+        detail.releaseId = temp[@"releaseId"];
+        detail.product = [ETProductModel mj_objectWithKeyValues:temp];
+        [self.navigationController pushViewController:detail animated:YES];
     }
 }
 

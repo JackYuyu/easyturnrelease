@@ -81,7 +81,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         _count=[NSString stringWithFormat:@"%d", [responseObject[@"data"] intValue] ];
         NSLog(@"");
-        [self.tableView reloadData];
+//        [self.tableView reloadData];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 
 //        _touserAvat=responseObject[@"data"];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -404,6 +405,11 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         {
             [self getavatr];
         }
+        if (_touserAvat&&![_touserNick isKindOfClass:[NSNull class]]) {
+            model.avatarURLPath=_touserAvat;
+            model.title=_touserNick;
+            cell.model=model;
+        }
 //        else
 //        {
 //            model.title=_touserNick;
@@ -500,6 +506,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     [[EMClient sharedClient].chatManager deleteConversation:model.conversation.conversationId isDeleteMessages:YES completion:nil];
     [self.dataArray removeObjectAtIndex:aIndexPath.row];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:aIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView reloadData];
 }
 
 - (id)setupCellEditActions:(NSIndexPath *)aIndexPath

@@ -94,8 +94,9 @@
     if (self.backgroundImage) {
         [self insertSubview:self.backgroundImageView atIndex:0];
     }
-    [_pickerView selectRow:4 inComponent:0 animated:YES];
+    [_pickerView selectRow:1 inComponent:0 animated:YES];
     [_pickerView selectRow:4 inComponent:1 animated:YES];
+    [_pickerView selectRow:4 inComponent:2 animated:YES];
 
 }
 

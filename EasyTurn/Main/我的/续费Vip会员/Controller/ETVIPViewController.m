@@ -8,6 +8,7 @@
 
 #import "ETVIPViewController.h"
 #import "MEVIPTableViewCell.h"
+#import "MEVIPTableViewCell0.h"
 #import "ETProductModel.h"
 #import "ETMineModel.h"
 #import "WXApiRequestHandler.h"
@@ -229,7 +230,7 @@
         _tab.delegate=self;
         _tab.dataSource=self;
         _tab.rowHeight=60;
-        [_tab registerClass:[MEVIPTableViewCell class] forCellReuseIdentifier:@"cell"];
+        [_tab registerClass:[MEVIPTableViewCell0 class] forCellReuseIdentifier:@"cell"];
          _tab.tableFooterView = [[UIView alloc]init];
     }
     return _tab;
@@ -256,7 +257,7 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MEVIPTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    MEVIPTableViewCell0*cell=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     ETMineModel *m=[_products objectAtIndex:indexPath.row];
     cell.titleLab.text=m.title;
     cell.subTitleLab.text=m.money;

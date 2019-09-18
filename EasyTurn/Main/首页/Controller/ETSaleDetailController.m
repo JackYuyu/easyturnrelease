@@ -525,6 +525,11 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
             UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"免费查看次数已用尽！您可以选择充值会员来开启无限查看权限！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             alter.delegate=self;
             [alter show];
+            UserInfoModel* m=[UserInfoModel loadUserInfoModel];
+            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
+            if ([m.uid isEqualToString:p.userId]) {
+                [self.btnRight setImage:[UIImage imageNamed:@"sale_更多"] forState:UIControlStateNormal];
+            }
             return;
         }
         if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
@@ -657,6 +662,7 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
                 [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"asset"]] forKey:@"subTitle"];
                 [dict setObject:@(1) forKey:@"radiusState"];
                 [dict setObject:@(0) forKey:@"lines"];
+                [dict setObject:@([self subFirstHight:self.detailInfo[@"asset"]]) forKey:@"subHeight"];
             }
                 break;
             case 3:

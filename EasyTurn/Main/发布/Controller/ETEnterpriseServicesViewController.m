@@ -265,24 +265,74 @@ static NSString * const kETEnterpriseServicesCheckTableViewCellReuseID = @"ETEnt
 }
 
 - (NSArray*)loadAddressData {
-   NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"dynamic_city.plist" ofType:nil]];
-    NSArray *provinces = dic[@"data"][@"list"];
+//   NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"dynamic_city.plist" ofType:nil]];
+//    NSArray *provinces = dic[@"data"][@"list"];
     NSMutableArray *arrMuProvince = [NSMutableArray array];
-    for (NSDictionary *tmp in provinces) {
-        // 创建第一级数据
-        LQPickerItem *itemProvince = [[LQPickerItem alloc]init];
-        NSString *provinceName = tmp[@"name"];
-        itemProvince.name = provinceName;
-        NSArray *arr = tmp[@"list"];
-        // 配置第二级数据
-        [itemProvince loadData:arr.count config:^(LQPickerItem *item, NSInteger index) {
-            NSDictionary *cidDict = arr[index];
-            item.name = cidDict[@"name"];
-            item.cid = cidDict[@"cid"];
-        }];
+//    for (NSDictionary *tmp in provinces) {
+//        // 创建第一级数据
+//        LQPickerItem *itemProvince = [[LQPickerItem alloc]init];
+//        NSString *provinceName = tmp[@"name"];
+//        itemProvince.name = provinceName;
+//        NSArray *arr = tmp[@"list"];
+//        // 配置第二级数据
+//        [itemProvince loadData:arr.count config:^(LQPickerItem *item, NSInteger index) {
+//            NSDictionary *cidDict = arr[index];
+//            item.name = cidDict[@"name"];
+//            item.cid = cidDict[@"cid"];
+//            // 配置第三极数据
+//            NSArray *area = [cidDict objectForKey:item.name];
+//            [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
+//                item.name = area[index];
+//                item.cid = cidDict[@"cid"];
+//
+//            }];
+//        }];
+//
+//        [arrMuProvince addObject:itemProvince];
+//    }
+    ///
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"dynamic_city" ofType:@"plist"];
+    
+    NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSArray *provinces = dic[@"data"][@"list"];
+    
+    for (NSDictionary *provinceDic in provinces) {
         
-        [arrMuProvince addObject:itemProvince];
+        // 创建第一级数据
+        LQPickerItem *item1 = [[LQPickerItem alloc]init];
+        item1.name = provinceDic[@"name"];
+        item1.cid = provinceDic[@"cid"];
+        
+        NSArray *arrCitys = [provinceDic objectForKey:@"list"];
+        
+        if (arrCitys && arrCitys.count>0) {
+            NSMutableArray *arrayCitys = [NSMutableArray array];
+            for (NSDictionary *cityDict in arrCitys) {
+                
+                LQPickerItem *item2 = [[LQPickerItem alloc]init];
+                item2.name = cityDict[@"name"];
+                item2.cid = cityDict[@"cid"];
+                
+                NSArray *arrArea = [cityDict objectForKey:@"list"];
+                if (arrArea && arrArea.count>0) {
+                    NSMutableArray *arrayAreas = [NSMutableArray array];
+                    for (NSDictionary *areaDic in arrArea) {
+                        LQPickerItem *item3 = [[LQPickerItem alloc]init];
+                        item3.name = areaDic[@"name"];
+                        item3.cid = areaDic[@"cid"];
+                        [arrayAreas addObject:item3];
+                    }
+                    item2.datas = arrayAreas;
+                }
+                [arrayCitys addObject:item2];
+            }
+            item1.datas = arrayCitys;
+        }
+        
+        [arrMuProvince addObject:item1];
     }
+    
+    
     return arrMuProvince;
 }
 

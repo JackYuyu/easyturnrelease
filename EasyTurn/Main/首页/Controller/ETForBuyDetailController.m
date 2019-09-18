@@ -500,6 +500,11 @@ static NSString* const kShareFailedText = @"分享失败";
             UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"免费查看次数已用尽！您可以选择充值会员来开启无限查看权限！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
             alter.delegate=self;
             [alter show];
+            UserInfoModel* m=[UserInfoModel loadUserInfoModel];
+            ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
+            if ([m.uid isEqualToString:p.userId]) {
+                [self.btnRight setImage:[UIImage imageNamed:@"sale_更多"] forState:UIControlStateNormal];
+            }
             return;
         }
         if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
@@ -536,7 +541,13 @@ static NSString* const kShareFailedText = @"分享失败";
         return 2;
         }
         else{
+            //股权出质
+            if ([self.detailInfo[@"proceed"] isEqualToString:@"股权出质"]||[self.detailInfo[@"proceed"] isEqualToString:@"其它"]) {
+                return 4;
+            }
+            else{
             return 8;
+            }
         }
     }
     return 1;
@@ -546,9 +557,27 @@ static NSString* const kShareFailedText = @"分享失败";
 //    if (indexPath.section == 0 && indexPath.row == 0) {
 //        return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"detail"]];
 //    }
+    NSString* temp=[MySingleton filterNull:self.detailInfo[@"proceed"]];
+    if ([temp isEqualToString:@"股权出质"]||[temp isEqualToString:@"其它"]) {
+        if (indexPath.section==0&&indexPath.row==1) {
+            return [ETSaleAndServiceDetailCell cellHeightLines:indexPath.row==0?self.detailInfo[@"proceed"]:self.detailInfo[@"detail"]];
+        }
+        if (indexPath.section==0&&indexPath.row==3) {
+            return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"remarks"]];
+        }
+    }
     if (indexPath.section==0&&(indexPath.row==1||indexPath.row==7)) {
         return [ETSaleAndServiceDetailCell cellHeightLines:indexPath.row==1?self.detailInfo[@"scope"]:self.detailInfo[@"remarks"]];
     }
+    if (indexPath.section==0&&(indexPath.row==0)) {
+        if ([temp isEqualToString:@"股权出质"]||[temp isEqualToString:@"其它"]) {
+            return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"proceed"]];
+        }
+        else{
+            return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"detail"]];
+        }
+    }
+    
     return [ETSaleAndServiceDetailCell cellHeight];
 }
 
@@ -603,6 +632,109 @@ static NSString* const kShareFailedText = @"分享失败";
                 break;
         }
         }else{
+            //股权出质
+            if ([self.detailInfo[@"proceed"] isEqualToString:@"股权出质"]||[self.detailInfo[@"proceed"] isEqualToString:@"其它"]) {
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        [dict setObject:@"服务类型" forKey:@"title"];
+                        [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"detail"]] forKey:@"subTitle"];
+                        NSString *serviceId = [MySingleton filterNull:self.detailInfo[@"serviceId"]];
+                        if (!serviceId) {
+                            serviceId = @"";
+                        }
+                        if ([serviceId isEqualToString:@"0"]) {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"综合服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                        }
+                        else if ([serviceId isEqualToString:@"1"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"工商服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                            
+                        }
+                        else if ([serviceId isEqualToString:@"2"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"财税服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                            
+                        }
+                        else if ([serviceId isEqualToString:@"3"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"行政服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                            
+                        }
+                        else if ([serviceId isEqualToString:@"4"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"金融服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                            
+                        }
+                        else if ([serviceId isEqualToString:@"5"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"资质服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                            
+                        }
+                        else if ([serviceId isEqualToString:@"6"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"综合服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                            
+                        }
+                        else if ([serviceId isEqualToString:@"7"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"知产服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                            
+                        }
+                        else if ([serviceId isEqualToString:@"8"])
+                        {
+                            [dict setObject:[NSString stringWithFormat:@"%@-%@" ,@"法律服务",self.detailInfo[@"proceed"]] forKey:@"subTitle"];
+                        }
+                        [dict setObject:@(0) forKey:@"radiusState"];
+                        //                    [dict setObject:@(0) forKey:@"lines"];
+                        //                    [dict setObject:@([self subFirstHight:self.detailInfo[@"scope"]]) forKey:@"subHeight"];
+                    }
+                        break;
+                    case 1:
+                    {
+                        [dict setObject:@"基本详情" forKey:@"title"];
+                        NSString* temp=[NSString stringWithFormat:@"%@",self.detailInfo[@"detail"]];
+                        temp=[temp stringByReplacingOccurrencesOfString:@"<null>" withString:@""];
+                        if ([temp isEqualToString:@""])
+                            temp=@"暂无";
+                        [dict setObject:temp forKey:@"subTitle"];
+                        [dict setObject:@(2) forKey:@"radiusState"];
+                        [dict setObject:@(0) forKey:@"lines"];
+                        [dict setObject:@([self subFirstHight:self.detailInfo[@"detail"]]) forKey:@"subHeight"];
+                    }
+                        break;
+                    case 2:
+                    {
+                        [dict setObject:@"求购区域" forKey:@"title"];
+                        [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"cityName"]] forKey:@"subTitle"];
+                        if ([self.detailInfo[@"cityName"] isEqualToString:@""])
+                            [dict setObject:@"暂无" forKey:@"subTitle"];
+                        
+                        [dict setObject:@(2) forKey:@"radiusState"];
+                    }
+                        break;
+                    case 3:
+                    {
+                        [dict setObject:@"备注" forKey:@"title"];
+                        [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"remarks"]] forKey:@"subTitle"];
+                        if ([self.detailInfo[@"remarks"] isKindOfClass:[NSNull class]])
+                            [dict setObject:@"暂无" forKey:@"subTitle"];
+                        
+                        [dict setObject:@(2) forKey:@"radiusState"];
+                        [dict setObject:@(0) forKey:@"lines"];
+                        [dict setObject:@([self subFirstHight:self.detailInfo[@"remarks"]]) forKey:@"subHeight"];
+                    }
+                        break;
+                        default:
+                    {
+                        
+                    }
+                        break;
+
+                }
+            }
+            else{
+            //原来
             switch (indexPath.row) {
                 case 0:
                 {
@@ -775,7 +907,7 @@ static NSString* const kShareFailedText = @"分享失败";
                 }
                     break;
             }
-            
+        }//股权
         }
     }
     else{

@@ -50,7 +50,9 @@
     [cell.userImg sd_setImageWithURL:[NSURL URLWithString:m.headImageUrl]];
     cell.comLab.text=m.title;
     cell.addressLab.text=m.cityName;
-    cell.timeLab.text=m.releaseTime;
+    NSString* time=m.releaseTime;
+    time=[time substringToIndex:time.length-9];
+    cell.timeLab.text=time;
     cell.manyLab.text=m.price;
     cell.nameLab.text=m.username;
     

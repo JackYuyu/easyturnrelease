@@ -51,7 +51,7 @@
     //统一设置导航栏
     [self setUpNavigationBar];
     //启动页延时
-    [NSThread sleepForTimeInterval:2];
+    [NSThread sleepForTimeInterval:5];
     _app=application;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     if ([ud boolForKey:kIsWelcomeKey] == NO) {

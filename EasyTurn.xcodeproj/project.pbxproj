@@ -13,6 +13,7 @@
 		00079E592309B6AF0051D8D2 /* ETHomeHeaderViewLoc.m in Sources */ = {isa = PBXBuildFile; fileRef = 00079E582309B6AF0051D8D2 /* ETHomeHeaderViewLoc.m */; };
 		000B985C232F483800F4367C /* ETFrequencyViewAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000B985B232F483800F4367C /* ETFrequencyViewAppController.m */; };
 		000B985F232F4ACB00F4367C /* MEVIPTableViewCell0.m in Sources */ = {isa = PBXBuildFile; fileRef = 000B985D232F4ACB00F4367C /* MEVIPTableViewCell0.m */; };
+		000B9862232FBD2100F4367C /* BorrowCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 000B9860232FBD2100F4367C /* BorrowCardViewController.m */; };
 		0014E077231AD16B00FA3C13 /* FSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0014E076231AD16B00FA3C13 /* FSBaseModel.m */; };
 		0014E07A231BA54500FA3C13 /* ETPoctoryqgServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0014E078231BA54500FA3C13 /* ETPoctoryqgServiceViewController.m */; };
 		00199B9722F17C2B00FACC24 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 00199B9022F17C2B00FACC24 /* WXApiResponseHandler.m */; };
@@ -467,6 +468,8 @@
 		000B985B232F483800F4367C /* ETFrequencyViewAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETFrequencyViewAppController.m; sourceTree = "<group>"; };
 		000B985D232F4ACB00F4367C /* MEVIPTableViewCell0.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEVIPTableViewCell0.m; sourceTree = "<group>"; };
 		000B985E232F4ACB00F4367C /* MEVIPTableViewCell0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEVIPTableViewCell0.h; sourceTree = "<group>"; };
+		000B9860232FBD2100F4367C /* BorrowCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorrowCardViewController.m; sourceTree = "<group>"; };
+		000B9861232FBD2100F4367C /* BorrowCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorrowCardViewController.h; sourceTree = "<group>"; };
 		0014E075231AD16B00FA3C13 /* FSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseModel.h; sourceTree = "<group>"; };
 		0014E076231AD16B00FA3C13 /* FSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseModel.m; sourceTree = "<group>"; };
 		0014E078231BA54500FA3C13 /* ETPoctoryqgServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETPoctoryqgServiceViewController.m; sourceTree = "<group>"; };
@@ -2953,6 +2956,8 @@
 				2E7161A622E97AED008B72CF /* UIView+HHAddition.h */,
 				2E7161A722E97AED008B72CF /* UIView+HHAddition.m */,
 				2E7161A822E97AED008B72CF /* MarqueeView.m */,
+				000B9861232FBD2100F4367C /* BorrowCardViewController.h */,
+				000B9860232FBD2100F4367C /* BorrowCardViewController.m */,
 			);
 			path = Marquee;
 			sourceTree = "<group>";
@@ -3526,6 +3531,7 @@
 				00986D192323D75100B1131E /* ETEnterpriseServicesSwitchTableViewCell.m in Sources */,
 				2E0F6BC622EC7FC50031AFC7 /* ETIssueViewController.m in Sources */,
 				2E1CDA9A22EAD09600174F08 /* MEVIPTableViewCell.m in Sources */,
+				000B9862232FBD2100F4367C /* BorrowCardViewController.m in Sources */,
 				0084158F231FA140009589A5 /* TZPhotoPreviewCell.m in Sources */,
 				00E5C31D22EDCD7E00009241 /* SearchResultViewController.m in Sources */,
 				0084155D231F9F64009589A5 /* ZZCutCircle.m in Sources */,

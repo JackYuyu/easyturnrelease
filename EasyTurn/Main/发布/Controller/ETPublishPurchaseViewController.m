@@ -201,38 +201,79 @@
     [self shareView];
     [self shareViewController];
 }
-
 - (void)loadAddressData{
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"Address" ofType:@"plist"];
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"dynamic_city" ofType:@"plist"];
     
     NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
+    NSArray *provinces = dic[@"data"][@"list"];
     
-    NSArray *provinces = [dic allKeys];
-    
-    for (NSString *tmp in provinces) {
+    for (NSDictionary *provinceDic in provinces) {
         
         // 创建第一级数据
         LQPickerItem *item1 = [[LQPickerItem alloc]init];
-        item1.name = tmp;
+        item1.name = provinceDic[@"name"];
+        item1.cid = provinceDic[@"cid"];
         
-        NSArray *arr = [dic objectForKey:tmp];
-        NSDictionary *cityDic = [arr firstObject];
+        NSArray *arrCitys = [provinceDic objectForKey:@"list"];
         
-        NSArray *keys = cityDic.allKeys;
-        // 配置第二级数据
-        [item1 loadData:keys.count config:^(LQPickerItem *item, NSInteger index) {
-            
-            item.name = keys[index];
-            NSArray *area = [cityDic objectForKey:item.name];
-            //            // 配置第三极数据
-            //            [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
-            //                item.name = area[index];
-            //            }];
-        }];
+        if (arrCitys && arrCitys.count>0) {
+            NSMutableArray *arrayCitys = [NSMutableArray array];
+            for (NSDictionary *cityDict in arrCitys) {
+                
+                LQPickerItem *item2 = [[LQPickerItem alloc]init];
+                item2.name = cityDict[@"name"];
+                item2.cid = cityDict[@"cid"];
+                
+                NSArray *arrArea = [cityDict objectForKey:@"list"];
+                if (arrArea && arrArea.count>0) {
+                    NSMutableArray *arrayAreas = [NSMutableArray array];
+                    for (NSDictionary *areaDic in arrArea) {
+                        LQPickerItem *item3 = [[LQPickerItem alloc]init];
+                        item3.name = areaDic[@"name"];
+                        item3.cid = areaDic[@"cid"];
+                        [arrayAreas addObject:item3];
+                    }
+                    item2.datas = arrayAreas;
+                }
+                [arrayCitys addObject:item2];
+            }
+            item1.datas = arrayCitys;
+        }
         
         [self.dataSource addObject:item1];
     }
 }
+//- (void)loadAddressData{
+//    NSString *path = [[NSBundle mainBundle]pathForResource:@"Address" ofType:@"plist"];
+//
+//    NSDictionary *dic = [[NSDictionary alloc]initWithContentsOfFile:path];
+//
+//    NSArray *provinces = [dic allKeys];
+//
+//    for (NSString *tmp in provinces) {
+//
+//        // 创建第一级数据
+//        LQPickerItem *item1 = [[LQPickerItem alloc]init];
+//        item1.name = tmp;
+//
+//        NSArray *arr = [dic objectForKey:tmp];
+//        NSDictionary *cityDic = [arr firstObject];
+//
+//        NSArray *keys = cityDic.allKeys;
+//        // 配置第二级数据
+//        [item1 loadData:keys.count config:^(LQPickerItem *item, NSInteger index) {
+//
+//            item.name = keys[index];
+//            NSArray *area = [cityDic objectForKey:item.name];
+//                        // 配置第三极数据
+//                        [item loadData:area.count config:^(LQPickerItem *item, NSInteger index) {
+//                            item.name = area[index];
+//                        }];
+//        }];
+//
+//        [self.dataSource addObject:item1];
+//    }
+//}
 
 //添加取消按钮->
 -(void)addCancelBtn{
@@ -1668,6 +1709,7 @@
         [self PostUpdateUI1];
         return;
     }
+
     _surebtn.enabled=NO;
     NSMutableDictionary* dic=[NSMutableDictionary new];
     NSDate *date = [NSDate date];

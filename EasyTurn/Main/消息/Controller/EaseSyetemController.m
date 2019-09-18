@@ -154,13 +154,13 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
 
 -(void)PostUI {
     WEAKSELF
-    [HttpTool get:[NSString stringWithFormat:@"search/messageList"] params:nil success:^(id responseObj) {
+    [HttpTool get:[NSString stringWithFormat:@"search/messageList2"] params:nil success:^(id responseObj) {
         if ([responseObj[@"data"] isKindOfClass:[NSNull class]]) {
             return;
         }
         self.arrayData=[NSMutableArray new];
         weakSelf.products=[NSMutableArray array];
-        for (NSDictionary* prod in responseObj[@"data"][@"content"]) {
+        for (NSDictionary* prod in responseObj[@"data"]) {
             ETProductModel *p = [ETProductModel mj_objectWithKeyValues:prod];
             [weakSelf.products addObject:p];
         }
@@ -181,7 +181,7 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
                 [_tab scrollToRowAtIndexPath:indexpath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
             }
         }
-        [self.arrayData addObjectsFromArray:responseObj[@"data"][@"content"]];
+        [self.arrayData addObjectsFromArray:responseObj[@"data"]];
 
     } failure:^(NSError *error) {
       

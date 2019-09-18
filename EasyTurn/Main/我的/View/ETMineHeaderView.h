@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ETMineHeaderView : UIView
 - (void)makeMineHeaderViewWithETMineViewModel:(ETMineViewModel *)model;
 @property (nonatomic, weak) id<ETMineHeaderViewDelegate> delegate;
+@property (nonatomic, strong) UIImageView *imagevUserType;
+
 @end
 
 NS_ASSUME_NONNULL_END

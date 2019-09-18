@@ -120,6 +120,8 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 - (void)createSubViewsAndConstraints {
     _userHeaderView = [[ETMineHeaderView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 421)];
     _userHeaderView.delegate = self;
+    _userHeaderView.imagevUserType.hidden=YES;
+
     
     _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 40)];
     self.categoryView.titles = self.titles;
@@ -185,7 +187,8 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
         [IANshowLoading hideLoadingForView:self.view];
         if (response.code == 0) {
             [self.pagingView reloadData];
-            [self reloadTitles];
+            //点刷新跳掉问题
+//            [self reloadTitles];
             [weakSelf.pagingView.mainTableView.mj_header endRefreshing];
         }else{
             if (response.msg.length > 0) {
@@ -659,6 +662,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
                     case 3:
                         if (![self.titles containsObject:@"服务"]) {
                             [self.titles addObject:@"服务"];
+                            _userHeaderView.imagevUserType.hidden=NO;
                         }
                         break;
                         

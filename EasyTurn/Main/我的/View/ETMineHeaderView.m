@@ -16,7 +16,7 @@ static NSString *kETMineGridCollectionCell = @"ETMineGridCollectionCell";
 @property (nonatomic, strong) UIImageView *imagevHeader;
 @property (nonatomic, strong) UIImageView *imagevUserEdit;
 @property (nonatomic, strong) UILabel *laName;
-@property (nonatomic, strong) UIImageView *imagevUserType;
+//@property (nonatomic, strong) UIImageView *imagevUserType;
 @property (nonatomic, strong) UILabel *laVip;
 @property (nonatomic, strong) UILabel *laIdAuthentication;
 @property (nonatomic, strong) UIButton *btnPayVip;

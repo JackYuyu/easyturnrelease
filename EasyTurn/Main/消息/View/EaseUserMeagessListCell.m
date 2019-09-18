@@ -58,9 +58,10 @@
     }];
     
     [self.laSubTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.laTitle.mas_bottom).offset(9);
+        make.top.equalTo(self.laTitle.mas_bottom).offset(0);
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-5);
+        make.height.mas_equalTo(44);
     }];
     
     [self.laTime mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,14 +96,17 @@
     _laTime.text = model.createDate;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-DD'T'HH:mm:ss.sssZ"];
+    [dateFormatter setDateFormat:@"YYYY-MM-DD HH:mm:ss"];
     NSDate *houtaiDate = [dateFormatter dateFromString:model.createDate];
     NSDateFormatter *dateFormattershow = [[NSDateFormatter alloc] init];
-    [dateFormattershow setDateFormat:@"yyyy-MM-dd HH:mm"];
+    [dateFormattershow setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *strDate = [dateFormattershow stringFromDate:houtaiDate];
     NSString* createdate=[model.createDate stringByReplacingOccurrencesOfString:@".000+0000" withString:@""];
     createdate=[createdate stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     _laTime.text = createdate;
+    //
+
+    NSLog(@"");
 }
 
 - (UILabel *)laTitle {

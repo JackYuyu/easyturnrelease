@@ -32,6 +32,7 @@
 #import "ETSaleDetailVC.h"
 #import "ETServiceDetailController.h"
 
+#import "BorrowCardViewController.h"
 @interface ETHomeViewController ()<UITableViewDelegate, UITableViewDataSource, ETHomeHeaderViewDelegate,CLLocationManagerDelegate>
 {
     CLLocationManager* manager;
@@ -50,6 +51,9 @@
 //广告
 @property (nonatomic,strong) UIView * maskTheView;
 @property (nonatomic,strong) UIView * shareView;
+//
+@property (nonatomic, strong) NSMutableArray* adUrls;
+
 @end
 
 @implementation ETHomeViewController
@@ -135,7 +139,7 @@
         for (ETProductModel*p in _serviceIdarr) {
             [arr1 addObject:p.title];
         }
-        MarqueeView *marqueeView =[[MarqueeView alloc]initWithFrame:CGRectMake(0, 290-32-32-42, 250, 30) withTitle:_dylists];
+        MarqueeView *marqueeView =[[MarqueeView alloc]initWithFrame:CGRectMake(0, 290-32-32-42, Screen_Width-100, 30) withTitle:_dylists];
         marqueeView.titleColor = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1.0];
         marqueeView.titleFont = [UIFont systemFontOfSize:12];
         __weak MarqueeView *marquee = marqueeView;
@@ -204,6 +208,7 @@
     _products=[NSMutableArray new];
     [self postDylist];
     self.serviceIdarr=[NSMutableArray array];
+    self.adUrls=[NSMutableArray array];
     [self createSubViewsAndConstraints];
     [self requestDate];
     [self location];
@@ -404,6 +409,7 @@
             NSMutableArray *imageGroupArray = [NSMutableArray array];
             [model.adList enumerateObjectsUsingBlock:^(AdListModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [imageGroupArray addObject:obj.image];
+                [_adUrls addObject:obj.url];
             }];
             weakSelf.vHomeHeader.imageGroupArray = imageGroupArray;
             [weakSelf.tbHome reloadData];
@@ -464,7 +470,15 @@
 }
 
 - (void)slideshowHeadViewDidSelectItemAtIndex:(NSInteger)index {
-    
+    NSString* urls=[_adUrls objectAtIndex:index];
+    NSLog(@"");
+    if (index==1||index==5) {
+
+    BorrowCardViewController* ad=[[BorrowCardViewController alloc] init];
+        ad.index=index;
+    ad.url=urls;
+    [self.navigationController pushViewController:ad animated:YES];
+    }
 }
 -(void)getJimName
 {
