@@ -37,16 +37,14 @@
     [self.editionButton addSubview:self.triangleImg];
     [self.yizhuanImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(86);
-        make.left.mas_equalTo(105);
-        make.right.mas_equalTo(-105);
-        make.height.mas_equalTo(59);
+        make.centerX.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(160, 59));
     }];
     
     [self.editionLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(161);
-        make.left.mas_equalTo(146);
-        make.right.mas_equalTo(-146);
-        make.height.mas_equalTo(24);
+        make.top.equalTo(self.yizhuanImg.mas_bottom).offset(16);
+        make.centerX.equalTo(self.view);
+        make.size.mas_equalTo(CGSizeMake(79, 24));
     }];
     
     [self.editionButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,23 +55,23 @@
     }];
     
     [self.agreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(356);
+        make.top.equalTo(self.editionButton.mas_bottom).offset(82);
         make.left.mas_equalTo(52);
-        make.right.mas_equalTo(-53);
+        make.right.mas_equalTo(-52);
         make.height.mas_equalTo(18);
     }];
     
     [self.comLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(386);
+        make.top.equalTo(self.agreementBtn.mas_bottom).offset(11);
         make.left.mas_equalTo(129);
-        make.right.mas_equalTo(-130);
+        make.right.mas_equalTo(-129);
         make.height.mas_equalTo(18);
     }];
     
     [self.rightLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(402);
+        make.top.equalTo(self.comLab.mas_bottom);
         make.left.mas_equalTo(39);
-        make.right.mas_equalTo(-40);
+        make.right.mas_equalTo(-39);
         make.height.mas_equalTo(18);
     }];
     
@@ -93,28 +91,28 @@
 
 - (UIImageView *)yizhuanImg {
     if (!_yizhuanImg) {
-        _yizhuanImg=[[UIImageView alloc]init];
-        _yizhuanImg.image=[UIImage imageNamed:@"易转logo-1"];
+        _yizhuanImg = [[UIImageView alloc] init];
+        _yizhuanImg.image = [UIImage imageNamed:@"易转logo-1"];
     }
     return _yizhuanImg;
 }
 
 - (UILabel *)editionLab {
     if (!_editionLab) {
-        _editionLab=[[UILabel alloc]init];
+        _editionLab = [[UILabel alloc] init];
         NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
         CFShow((__bridge CFTypeRef)(infoDictionary));
         NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-        _editionLab.text=[NSString stringWithFormat:@"易转%@",app_Version];
-        _editionLab.textColor=[UIColor blackColor];
+        _editionLab.text = [NSString stringWithFormat:@"易转%@",app_Version];
+        _editionLab.textColor = [UIColor blackColor];
     }
     return _editionLab;
 }
 
 - (UIButton *)editionButton {
     if (!_editionButton) {
-        _editionButton=[[UIButton alloc]init];
-        _editionButton.backgroundColor=[UIColor whiteColor];
+        _editionButton = [[UIButton alloc]init];
+        _editionButton.backgroundColor = [UIColor whiteColor];
         [_editionButton addTarget:self action:@selector(edition) forControlEvents:UIControlEventTouchUpInside];
         
     }
@@ -136,7 +134,7 @@
                                                              //响应事件
                                                              NSLog(@"action = %@", action);
                                                              [self PostUI:cancelAction];
-    
+                                                             
                                                          }];
     
     [alert addAction:defaultAction];
@@ -145,7 +143,7 @@
 }
 
 - (void)PostUI:(NSString*)a {
-    NSMutableDictionary* dic=[NSMutableDictionary new];
+    NSMutableDictionary *dic = [NSMutableDictionary new];
     NSDictionary *params = @{
                              };
     
@@ -158,9 +156,9 @@
 //每一天进行一次版本判断
 - (BOOL)judgeNeedVersionUpdate {
     
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     
-        [formatter setDateFormat:@"yyyy-MM-dd"];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     
         //获取年-月-日
     
@@ -183,9 +181,9 @@
 
 - (UIButton *)agreementBtn {
     if (!_agreementBtn) {
-        _agreementBtn=[[UIButton alloc]init];
-//        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"《软件许可及服务协议》 和 《隐私保护指引》"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:47/255.0 green:134/255.0 blue:251/255.0 alpha:1.0]}];
-        NSString*str=[[NSString alloc]initWithFormat:@"《软件许可及服务协议》 和 《隐私保护指引》"];
+        _agreementBtn = [[UIButton alloc]init];
+        //        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:@"《软件许可及服务协议》 和 《隐私保护指引》"attributes: @{NSFontAttributeName: [UIFont fontWithName:@"PingFangSC-Regular" size: 13],NSForegroundColorAttributeName: [UIColor colorWithRed:47/255.0 green:134/255.0 blue:251/255.0 alpha:1.0]}];
+        NSString*str = [[NSString alloc]initWithFormat:@"《软件许可及服务协议》 和 《隐私保护指引》"];
         [_agreementBtn setTitle:[NSString stringWithFormat:@"%@", str] forState:UIControlStateNormal];
         _agreementBtn.titleLabel.font=[UIFont systemFontOfSize:13];
         [_agreementBtn setTitleColor:[UIColor colorWithRed:47/255.0 green:134/255.0 blue:251/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -236,14 +234,9 @@
     }
     return _triangleImg;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)dealloc{
+    NSLog(@"%@ --- dealloc", NSStringFromClass([self class]));
 }
-*/
 
 @end
+
