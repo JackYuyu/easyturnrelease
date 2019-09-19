@@ -28,10 +28,11 @@
 
 - (UITableView *)tab {
     if (!_tab) {
-        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStylePlain];
+        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-123) style:UITableViewStylePlain];
         _tab.delegate=self;
         _tab.dataSource=self;
         _tab.rowHeight=123;
+        _tab.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
         [_tab registerClass:[ETEnterpriseServiceTableViewCell1 class] forCellReuseIdentifier:@"cell"];
     }
     return _tab;
