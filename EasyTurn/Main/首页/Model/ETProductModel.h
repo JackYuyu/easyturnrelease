@@ -76,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 //
 @property (strong, nonatomic) NSString *timestr;
 @property (nonatomic,copy) NSString* userName;
+//
+@property (nonatomic,copy) NSString* freePush;
 
 @end
 

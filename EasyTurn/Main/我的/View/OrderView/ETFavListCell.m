@@ -199,6 +199,10 @@
             float pp =[temp floatValue];
             self.labelTag.text = [NSString stringWithFormat:@"¥%.2f",pp];
             self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
+            NSString* typeid = [self filterNull:dict[@"releaseTypeId"]];
+            if ([typeid isEqualToString:@"2"]) {
+                self.labelTag.text = @"未填";
+            }
         }
         
         self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],[self filterNull:dict[@"releaseTime"]]];

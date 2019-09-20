@@ -205,7 +205,11 @@
             self.labelTag.text=@"未填";
         }
         
+        NSString* aa=[self filterNull:dict[@"releaseTime"]];
         self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],[self filterNull:dict[@"releaseTime"]]];
+        if (!aa) {
+            self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],@""];
+        }
         if ([dict[@"cityName"] isKindOfClass:[NSNull class]]) {
             self.labelAddress.text = @"";
         }

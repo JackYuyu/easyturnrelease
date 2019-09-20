@@ -72,7 +72,7 @@
         
         //
         self.labelTag = [[UILabel alloc] init];
-        self.labelTag.font = [UIFont systemFontOfSize:16];
+        self.labelTag.font = [UIFont systemFontOfSize:14];
         self.labelTag.frame = CGRectMake(CGRectGetMinX(self.labelTitle.frame), CGRectGetMaxY(self.labelAddress.frame)+8, (self.labelTitle.frame.size.width-10)/2, self.labelTag.font.lineHeight);
 //        self.labelTag.textColor = RGBACOLOR(102, 102, 102, 1);
         self.labelTag.textColor = RGBACOLOR(248, 124, 43, 1);

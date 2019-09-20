@@ -224,6 +224,10 @@
                         LQPickerItem *item3 = [[LQPickerItem alloc]init];
                         item3.name = areaDic[@"name"];
                         item3.cid = areaDic[@"cid"];
+                        if ([item1.name isEqualToString:@"全部地区"]) {
+                            item3.name = @"";
+                            item3.cid = item1.cid;
+                        }
                         [arrayAreas addObject:item3];
                     }
                     item2.datas = arrayAreas;
