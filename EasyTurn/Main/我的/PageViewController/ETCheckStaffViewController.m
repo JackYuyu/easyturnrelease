@@ -10,7 +10,7 @@
 #import "ETunsTableViewCell.h"
 #import "member.h"
 #import "CustomTableViewCell.h"
-#import "NSObject+Category.h"
+//#import "NSObject+Category.h"
 static NSString * const CustomTableViewCellID = @"cell";
 
 @interface ETCheckStaffViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -101,9 +101,26 @@ static NSString * const CustomTableViewCellID = @"cell";
     [cell.bankImage sd_setImageWithURL:[NSURL URLWithString:m.image]];
     cell.label.text=m.realName;
     cell.labelUid.text=m.userId;
+    
+    UIButton * shareButton = [UIButton new];
+    [shareButton setTitle:@"同意" forState:UIControlStateNormal];
+    [shareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [shareButton setBackgroundColor:[UIColor redColor]];
+    shareButton.tag=indexPath.row;
+    [shareButton addTarget:self action:@selector(agree:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview: shareButton];
+    [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.size.mas_equalTo(100,103);
+    }];
     return cell;
 }
-
+-(void)agree:(UIButton*)sender{
+    member* m =[_products objectAtIndex:sender.tag];
+    _uid=m.userId;
+    [self PostAgreeInfoUI];
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 103;
@@ -189,14 +206,28 @@ static NSString * const CustomTableViewCellID = @"cell";
                 if (subView.subviews.count >= 2 && section == 0) {//表示有两个按钮
                     UIButton * deleteButton = subView.subviews[1];
                     UIButton * shareButton = subView.subviews[0];
-                    [self setUpDeleteButton:deleteButton];
-                    [self setUpShareButton:shareButton];
+//                    [self setUpDeleteButton:deleteButton];
+//                    [self setUpShareButton:shareButton];
                 }
             }
         }
     }
 }
 
+- (void)setUpShareButton:(UIButton *)button {
+    [button.titleLabel setFont:[UIFont fontWithName:@"SFUIText-Regular" size:12.0]];
+    [button setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+    //    [button setImage:[UIImage imageNamed:@"login_btn_message"] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor blueColor]];
+    [self setUpButtonTitleAndImageLocation:button];
+}
+
+- (void)setUpButtonTitleAndImageLocation:(UIButton *)button {
+    CGSize imageSize = button.imageView.image.size;
+    CGSize titleSize = [button.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: button.titleLabel.font}];
+    button.titleEdgeInsets = UIEdgeInsetsMake(imageSize.height/2, -imageSize.width/2, -imageSize.height/2, imageSize.width/2);
+    button.imageEdgeInsets = UIEdgeInsetsMake(-titleSize.height/2, titleSize.width/2, titleSize.height/2, titleSize.width/2);
+}
 //结束编辑左滑删除
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -297,7 +328,8 @@ static NSString * const CustomTableViewCellID = @"cell";
     
     [HttpTool get:[NSString stringWithFormat:@"user/checkedStaff"] params:params success:^(id responseObj) {
         
-        [_tab reloadData];
+//        [_tab reloadData];
+        [self PostInfoUI];
         NSLog(@"%@",responseObj);
         [MBProgressHUD showMBProgressHud:self.view withText:@"审核成功" withTime:1.0];
         //        _products=[NSMutableArray new];

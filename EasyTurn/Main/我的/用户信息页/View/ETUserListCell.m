@@ -160,21 +160,7 @@
             self.labelTag.text=@"求购";
         }
         //
-        temp = [self filterNull:dict[@"tradStatus"]];
-        if ([temp isEqualToString:@"1"]) {
-            self.labelTag.text=@"等待卖家确认";
-        }else if ([temp isEqualToString:@"2"]){
-                self.labelTag.text=@"卖家已确认";
-        }
-        else if ([temp isEqualToString:@"3"]){
-            self.labelTag.text=@"支付已完成";
-        }
-        else if ([temp isEqualToString:@"4"]){
-            self.labelTag.text=@"卖家已发起交易完成";
-        }
-        else if ([temp isEqualToString:@"5"]){
-            self.labelTag.text=@"已下架";
-        }
+
         
         temp = [NSString stringWithFormat:@"浏览 %ld次",[[self filterNull:dict[@"browse"]] integerValue]];
 //        self.labelBrowse.text = temp;
@@ -192,17 +178,40 @@
 
         }
         
+        //这段挪到下面
+        if ([temp isEqualToString:@"1"]) {
+            self.labelPrice.text=@"等待卖家确认";
+        }else if ([temp isEqualToString:@"2"]){
+            self.labelPrice.text=@"卖家已确认";
+        }
+        else if ([temp isEqualToString:@"3"]){
+            self.labelPrice.text=@"支付已完成";
+        }
+        else if ([temp isEqualToString:@"4"]){
+            self.labelPrice.text=@"卖家已发起交易完成";
+        }
+        else if ([temp isEqualToString:@"5"]){
+            self.labelPrice.text=@"已下架";
+        }
+        
         temp = [self filterNull:dict[@"price"]];
                 double a=[temp doubleValue];
         if (a>=10000.0) {
-            self.labelTag.text = [NSString stringWithFormat:@"¥%.0f万",a/10000.0];
+            self.labelTag.text = [NSString stringWithFormat:@"¥%.3f万",a/10000.0];
+            if ([self.labelTag.text containsString:@"."]) {
+                self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@"00万" withString:@"万"];
+                
+                self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@"0万" withString:@"万"];
+                
+            }
         }
         else
         {
             float pp =[temp floatValue];
             self.labelTag.text = [NSString stringWithFormat:@"¥%.2f",pp];
+            self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
         }
-        self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
+
         
         self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],[self filterNull:dict[@"releaseTime"]]];
         if ([dict[@"cityName"] isKindOfClass:[NSNull class]]) {

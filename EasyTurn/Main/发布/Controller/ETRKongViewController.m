@@ -37,14 +37,8 @@
 
 @property (nonatomic,strong) UIButton *fanhuiBtn;
 
-//added by zhichao.li
-@property (nonatomic, strong) NSTimer *timer;
 
 @property (nonatomic, strong) NSMutableArray *itemButtons;
-
-@property(assign,nonatomic)NSUInteger upIndex;
-
-@property(assign,nonatomic)NSUInteger downIndex;
 
 @property(strong,nonatomic)UIImageView *closeImgView;
 
@@ -106,8 +100,7 @@
     [self insertCloseImg];
     
     //定时器控制每个按钮弹出的时间
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(popupBtn) userInfo:nil repeats:YES];
-    
+    [self popupBtn];
     //添加手势点击事件
     UITapGestureRecognizer *touch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchesBegan:)];
     [self.view addGestureRecognizer:touch];
@@ -116,11 +109,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    
-    [UIView animateWithDuration:0.6 animations:^{
-        
-        _closeImgView.transform = CGAffineTransformRotate(_closeImgView.transform, M_PI);
-    }];
 }
 
 //关闭图片
@@ -139,34 +127,42 @@
 }
 
 - (void)popupBtn{
+    self.view.userInteractionEnabled = NO;
+    WeakSelf(self);
+    [self setUpOneBtnAnimComplete:^{
+        weakself.view.userInteractionEnabled = YES;
+    }];
     
-    if (_upIndex == self.itemButtons.count) {
-        
-        [self.timer invalidate];
-        
-        _upIndex = 0;
-        
-        return;
-    }
-    
-    PublishMenuButton *btn = self.itemButtons[_upIndex];
-    
-    [self setUpOneBtnAnim:btn];
-    
-    _upIndex++;
 }
 
 //设置按钮从第一个开始向上滑动显示
-- (void)setUpOneBtnAnim:(UIButton *)btn
+- (void)setUpOneBtnAnimComplete:(void (^)(void))completion
 {
+    WeakSelf(self);
+    __block NSInteger tempIndex = 0;
     
-    [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        btn.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished){
+    [UIView animateWithDuration:0.6 animations:^{
         
-        //获取当前显示的菜单控件的索引
-        _downIndex = self.itemButtons.count - 1;
+        weakself.closeImgView.transform = CGAffineTransformRotate(weakself.closeImgView.transform, M_PI);
     }];
+    
+    for (NSInteger i = 0; i<self.itemButtons.count; i++) {
+        UIButton *btn = self.itemButtons[i];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC*(i+1))), dispatch_get_main_queue(), ^{
+            tempIndex ++;
+            [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                btn.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finished){
+                if (tempIndex == 3) {
+                    if (completion) {
+                        completion();
+                    }
+                }
+                
+            }];
+        });
+    }
+    
     
 }
 
@@ -256,52 +252,31 @@
 - (void)touchDownBtn:(PublishMenuButton *)btn{
     
     //根据选中的不同按钮的tag判断进入相应的界面->
-    
+    WeakSelf(self);
     if (btn.tag == 1000) {
-
+        
         //发布出售
         ETIssueViewController *vc = [[ETIssueViewController alloc]init];
         [vc toDissmissSelf:^{
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
-            [UIView animateWithDuration:0 animations:^{
-                self->_closeImgView.transform = CGAffineTransformRotate(self->_closeImgView.transform, -M_PI_2*1.5);
-            }];
+            [weakself returnUpVC];
         }];
         UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:vc];
         [self presentViewController:nvc animated:YES completion:nil];
-//        [self.navigationController pushViewController:vc animated:YES];
-       
+        //        [self.navigationController pushViewController:vc animated:YES];
+        
     }else if(btn.tag == 1001){
         ETPublishPurchaseSegmentViewController *vcPublishPurchaseSegment = [[ETPublishPurchaseSegmentViewController alloc] init];
         [vcPublishPurchaseSegment toDissmissSelf:^{
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
-            [UIView animateWithDuration:0 animations:^{
-                self->_closeImgView.transform = CGAffineTransformRotate(self->_closeImgView.transform, -M_PI_2*1.5);
-            }];
+            [weakself returnUpVC];
         }];
         UINavigationController *naviRoot = [[UINavigationController alloc]initWithRootViewController:vcPublishPurchaseSegment];
         [self presentViewController:naviRoot animated:YES completion:nil];
-        return;
-//        #warning geweiTestCode
-        //发布求购
-        ETPublishPurchaseViewController *vc = [[ETPublishPurchaseViewController alloc]init];
-        [vc toDissmissSelf:^{
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
-            [UIView animateWithDuration:0 animations:^{
-                self->_closeImgView.transform = CGAffineTransformRotate(self->_closeImgView.transform, -M_PI_2*1.5);
-            }];
-        }];
-        UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:vc];
-        [self presentViewController:nvc animated:YES completion:nil];
     }else{
-  
+        
         //企服者
         ETPersuadersViewController *vc = [[ETPersuadersViewController alloc]init];
         [vc toDissmissSelf:^{
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
-            [UIView animateWithDuration:0 animations:^{
-                self->_closeImgView.transform = CGAffineTransformRotate(self->_closeImgView.transform, -M_PI_2*1.5);
-            }];
+            [weakself returnUpVC];
         }];
         UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:vc];
         [self presentViewController:nvc animated:YES completion:nil];
@@ -311,6 +286,9 @@
     [UIView animateWithDuration:0.5 animations:^{
         btn.transform = CGAffineTransformMakeScale(2.0, 2.0);
         btn.alpha = 0;
+    } completion:^(BOOL finished) {
+        btn.alpha = 1;
+        btn.transform = CGAffineTransformIdentity;
     }];
     
 }
@@ -318,46 +296,76 @@
 
 //设置按钮从后往前下落
 - (void)returnUpVC{
+    self.view.userInteractionEnabled = NO;
+    WeakSelf(self);
+    [self setDownOneBtnAnimComplete:^{
+        weakself.view.userInteractionEnabled = YES;
+        if (weakself.dismissBlock) {
+            weakself.dismissBlock();
+        }
+    }];
     
-    if (_downIndex == -1) {
-        
-        [self.timer invalidate];
-        
-        return;
-    }
     
-    PublishMenuButton *btn = self.itemButtons[_downIndex];
     
-    [self setDownOneBtnAnim:btn];
-    
-    _downIndex--;
 }
 
 //按钮下滑并返回上一个控制器
-- (void)setDownOneBtnAnim:(UIButton *)btn
+- (void)setDownOneBtnAnimComplete:(void (^)(void))completion
 {
+    WeakSelf(self);
     
-    [UIView animateWithDuration:0.6 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         
-        btn.transform = CGAffineTransformMakeTranslation(0, self.view.bounds.size.height);
-        
+        weakself.closeImgView.transform = CGAffineTransformRotate(weakself.closeImgView.transform, -M_PI_2*1.5);
     } completion:^(BOOL finished) {
         
-        [self dismissViewControllerAnimated:NO completion:nil];
-        
     }];
+    __block NSInteger tempIndex = 0;
+    for (NSInteger i = 0; i<self.itemButtons.count; i++) {
+        UIButton *btn = self.itemButtons[i];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1*NSEC_PER_SEC*(i+1))), dispatch_get_main_queue(), ^{
+            tempIndex ++;
+            [UIView animateWithDuration:0.6 animations:^{
+                btn.transform = CGAffineTransformMakeTranslation(0, weakself.view.bounds.size.height);
+            } completion:^(BOOL finished){
+                if (tempIndex == 3) {
+                    if (completion) {
+                        completion();
+                    }
+                }
+            }];
+            
+        });
+    }
+    
+    
+    //    WeakSelf(self);
+    //    UIButton *btn = self.itemButtons[btnIndex];
+    //    [UIView animateWithDuration:0.6 animations:^{
+    //
+    //        btn.transform = CGAffineTransformMakeTranslation(0, weakself.view.bounds.size.height);
+    //
+    //    } completion:^(BOOL finished) {
+    //
+    //        if (btnIndex == weakself.itemButtons.count-1) {
+    //            if (completion) {
+    //                completion();
+    //            }
+    //        }
+    //        else{
+    //            [weakself setDownOneBtnAnim:btnIndex+1 complete:completion];
+    //        }
+    //
+    //
+    //    }];
     
 }
 
 //点击事件返回上一控制器,并且旋转145弧度关闭按钮
 -(void)touchesBegan:(UITapGestureRecognizer *)touches{
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(returnUpVC) userInfo:nil repeats:YES];
+    [self returnUpVC];
     
-    [UIView animateWithDuration:0.3 animations:^{self->
-        
-        _closeImgView.transform = CGAffineTransformRotate(_closeImgView.transform, -M_PI_2*1.5);
-    }];
     
 }
 

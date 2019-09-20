@@ -613,17 +613,29 @@
 
 #pragma mark - 完成发布
 //完成发布
+//-(void)finishPublish{
+//    //2.block传值
+//    if (self.mDismissBlock != nil) {
+//        self.mDismissBlock();
+//    }
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//    if (_product) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//}
 -(void)finishPublish{
     //2.block传值
-    if (self.mDismissBlock != nil) {
-        self.mDismissBlock();
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
     if (_product) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
     }
+    WeakSelf(self);
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (weakself.mDismissBlock) {
+            weakself.mDismissBlock();
+        }
+    }];
+    
 }
-
 //block声明方法
 -(void)toDissmissSelf:(dismissBlock)block{
     self.mDismissBlock = block;
@@ -850,7 +862,7 @@
         _priceText.textColor = [UIColor orangeColor];
         if (_product) {
             NSString* pri=[_product.price stringByReplacingOccurrencesOfString:@".0000" withString:@""];
-            pri=[_product.price stringByReplacingOccurrencesOfString:@".000" withString:@""];
+            pri=[pri stringByReplacingOccurrencesOfString:@".000" withString:@""];
             _priceText.text=pri;
         }
     }
@@ -1254,7 +1266,7 @@
                              //                             @"lowerPrice" : @([_priceRangeLeftText.text intValue]),
                              @"price" : _priceText.text,
                              @"releaseId" : @(0),
-                             @"releaseTime" : strDate,
+//                             @"releaseTime" : strDate,
                              @"releaseTypeId" : @(3),
                              @"selectId" : @(0),
                              @"serviceId" : @(_serviceid),
@@ -1320,7 +1332,7 @@
                              @"linkmanName" : _contactText.text,
                              //                             @"lowerPrice" : @([_priceRangeLeftText.text intValue]),
                              @"price" : _priceText.text,
-                             @"releaseTime" : strDate,
+//                             @"releaseTime" : strDate,
                              @"releaseTypeId" : @(3),
                              @"selectId" : @(0),
                              @"serviceId" : @(_serviceid),

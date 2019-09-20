@@ -29,7 +29,7 @@
 }
 - (UITableView *)tab {
     if (!_tab) {
-        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 30, Screen_Width, Screen_Height-150) style:UITableViewStylePlain];
+        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 30, Screen_Width, Screen_Height-150-20) style:UITableViewStylePlain];
         _tab.delegate=self;
         _tab.dataSource=self;
         _tab.rowHeight=150;

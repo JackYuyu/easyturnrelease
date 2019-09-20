@@ -28,6 +28,7 @@
 @property (nonatomic, strong) SSNavigationController *navRelease;
 @property (nonatomic, strong) SSNavigationController *navMessage;
 @property (nonatomic, strong) SSNavigationController *navMine;
+@property (nonatomic, strong) ETRKongViewController *issueVC;
 @end
 
 @implementation MainViewController
@@ -37,6 +38,22 @@ static MainViewController *vcMain = nil;
     return vcMain;
 }
 
+- (void)toIssueVC{
+    WeakSelf(self);
+    if (!self.issueVC) {
+        ETRKongViewController*et=[[ETRKongViewController alloc]init];
+        self.issueVC = et;
+        et.dismissBlock = ^{
+            [weakself.issueVC.view removeFromSuperview];
+            weakself.issueVC = nil;
+        };
+        UIImage *image = [self imageWithCaputureView:self.view];
+        et.backImg = image;
+        [self.view addSubview:self.issueVC.view];
+    }
+    
+    
+}
 -(void)viewWillAppear:(BOOL)animated{
     
     self.navigationController.navigationBar.hidden = YES;
@@ -253,10 +270,11 @@ static MainViewController *vcMain = nil;
     }
     
     if ([viewController.tabBarItem.title isEqualToString:@"发布"]){
-        ETRKongViewController*et=[[ETRKongViewController alloc]init];
-        UIImage *image = [self imageWithCaputureView:self.view];
-        et.backImg = image;
-        [self presentViewController:et animated:NO completion:nil];
+//        ETRKongViewController*et=[[ETRKongViewController alloc]init];
+//        UIImage *image = [self imageWithCaputureView:self.view];
+//        et.backImg = image;
+//        [self presentViewController:et animated:NO completion:nil];
+        [self toIssueVC];
     }
 }
 
@@ -287,10 +305,11 @@ static MainViewController *vcMain = nil;
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         UIViewController *vcTemp = ((UINavigationController *)viewController).viewControllers.firstObject;
         if ([vcTemp isKindOfClass:[ETReleaseViewController  class]]) {
-            ETRKongViewController*et=[[ETRKongViewController alloc]init];
-            UIImage *image = [self imageWithCaputureView:self.view];
-            et.backImg = image;
-            [self presentViewController:et animated:NO completion:nil];
+//            ETRKongViewController*et=[[ETRKongViewController alloc]init];
+//            UIImage *image = [self imageWithCaputureView:self.view];
+//            et.backImg = image;
+//            [self presentViewController:et animated:NO completion:nil];
+            [self toIssueVC];
             return NO;
         }
     }

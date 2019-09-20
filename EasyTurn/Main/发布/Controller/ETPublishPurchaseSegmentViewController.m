@@ -57,16 +57,42 @@
     self.navigationItem.title = @"发布求购";
     self.navigationController.navigationBar.hidden = NO;
     [self enableLeftBackWhiteButton];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
+//取消按钮点击方法
+-(void)cancelClick{
+    [self finishPublish];
+}
+
+- (void)onClickBtnBack:(UIButton *)btn {
+    [self finishPublish];
+}
+
+#pragma mark - 完成发布
+//完成发布
+-(void)finishPublish{
+    WeakSelf(self);
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (weakself.mDismissBlock) {
+            weakself.mDismissBlock();
+        }
+    }];
+    
+}
 #pragma mark - createSubViewsAndConstraints
 - (void)createSubViewsAndConstraints {
     [self.view addSubview:self.segment];
+    WeakSelf(self);
+
     ETEnterpriseServicesViewController *vcEnterpriseServices = [[ETEnterpriseServicesViewController alloc] init];
+//    vcEnterpriseServices.block = ^{
+//        if (self.mDismissBlock) {
+//            self.mDismissBlock();
+//        }
+//    };
     vcEnterpriseServices.block = ^{
-        if (self.mDismissBlock) {
-            self.mDismissBlock();
-        }
+        [weakself finishPublish];
     };
     [self addChildViewController:vcEnterpriseServices];
     _vEnterpriseServices = vcEnterpriseServices.view;
@@ -94,13 +120,15 @@
         make.top.mas_equalTo(self.segment.mas_bottom);
         make.leading.bottom.trailing.mas_equalTo(0);
     }];
-    WeakSelf(self);
+//    WeakSelf(self);
+//    [vcPublishPurchase toDissmissSelf:^{
+//        if (weakself.mDismissBlock) {
+//            weakself.mDismissBlock();
+//        }
+//    }];
     [vcPublishPurchase toDissmissSelf:^{
-        if (weakself.mDismissBlock) {
-            weakself.mDismissBlock();
-        }
+        [weakself finishPublish];
     }];
-    
 }
 
 - (UISegmentedControl *)segment{
@@ -149,9 +177,9 @@
 -(void)toDissmissSelf:(dismissBlock)block{
     self.mDismissBlock = block;
 }
-- (void)onClickBtnBack:(UIButton *)btn{
-    if (self.mDismissBlock) {
-        self.mDismissBlock();
-    }
-}
+//- (void)onClickBtnBack:(UIButton *)btn{
+//    if (self.mDismissBlock) {
+//        self.mDismissBlock();
+//    }
+//}
 @end

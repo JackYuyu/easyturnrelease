@@ -4,7 +4,7 @@
 #import "UserSaleViewCell.h"
 #import "SaleModel.h"
 #import "ETProductModel.h"
-#import "ETUserListCell.h"
+#import "ETUserListSCell.h"
 #import "ETBuyFinishViewController.h"
 #import "ETForBuyDetailController.h"
 #import "ETServiceDetailController.h"
@@ -111,11 +111,19 @@
     //    [cell setSaleModel:model];
     //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //    return cell;
-    ETUserListCell* cell=[ETUserListCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
+    ETUserListSCell* cell=[ETUserListSCell dynamicListCell:tableView dict:_dataArray[indexPath.row]];
     _refchBtn =[[UIButton alloc]init];
     [_refchBtn setTitle:@"查看" forState:UIControlStateNormal];
     _refchBtn.backgroundColor=kACColorBlue_Theme;
     [_refchBtn addTarget:self action:@selector(viewdetail:) forControlEvents:UIControlEventTouchUpInside];
+
+    NSDictionary *dict =[self.dataArray objectAtIndex:indexPath.row];
+    ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
+
+    NSString* temp = p.tradStatus;
+    if ([temp isEqualToString:@"1"]|[temp isEqualToString:@"2"]||[temp isEqualToString:@"3"]||[temp isEqualToString:@"4"]||[temp isEqualToString:@"5"]) {
+        _refchBtn.backgroundColor=[UIColor lightGrayColor];
+    }
 
     //    [_refchBtn setTitle:@"查看" forState:UIControlStateNormal];
     [cell addSubview:self.refchBtn];
