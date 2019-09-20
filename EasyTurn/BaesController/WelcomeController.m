@@ -49,10 +49,13 @@
     control.numberOfPages = strArr.count;
 //    [self.view addSubview:control];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake((XH_SCREEN_WIDTH-120)/2, XH_SCREEN_HEIGHT-90-15, 120, 36)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake((XH_SCREEN_WIDTH-120)/2, XH_SCREEN_HEIGHT-90-55, 120, 46)];
     _btn = btn;
     if (IS_IPHONE_5) {
         btn.y = XH_SCREEN_HEIGHT-90+28;
+    }
+    if (IS_IPHONE_Xs_Max) {
+        btn.y = XH_SCREEN_HEIGHT-90-85;
     }
     [btn setTitle:@"立即体验" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];

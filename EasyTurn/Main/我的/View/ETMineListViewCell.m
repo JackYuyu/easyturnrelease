@@ -147,7 +147,7 @@
     NSString *temp = model.price;
     double price = [temp doubleValue];
     if (price >= 10000.0) {
-        self.laPrice.text = [NSString stringWithFormat:@"¥%.3f万",price/10000.0];
+        self.laPrice.text = [NSString stringWithFormat:@"¥%.0f万",price/10000.0];
         
     }else {
         float price =[temp floatValue];

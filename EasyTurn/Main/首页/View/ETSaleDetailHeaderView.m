@@ -103,6 +103,10 @@
     if (a>=10000.0) {
         label.text = [NSString stringWithFormat:@"¥%.3f万元",a/10000.0];
         label.text=[label.text stringByReplacingOccurrencesOfString:@".000" withString:@""];
+        if ([label.text containsString:@"."]) {
+        label.text=[label.text stringByReplacingOccurrencesOfString:@"00万元" withString:@"万元"];
+        label.text=[label.text stringByReplacingOccurrencesOfString:@"0万元" withString:@"万元"];
+        }
     }
     else
     {
@@ -214,6 +218,10 @@
     if (a>=10000.0) {
         label.text = [NSString stringWithFormat:@"¥%.3f万元",a/10000.0];
         label.text=[label.text stringByReplacingOccurrencesOfString:@".000" withString:@""];
+        if ([label.text containsString:@"."]) {
+            label.text=[label.text stringByReplacingOccurrencesOfString:@"00万元" withString:@"万元"];
+            label.text=[label.text stringByReplacingOccurrencesOfString:@"0万元" withString:@"万元"];
+        }
     }
     else
     {

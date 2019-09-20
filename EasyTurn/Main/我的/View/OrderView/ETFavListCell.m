@@ -186,14 +186,20 @@
         temp = [self filterNull:dict[@"price"]];
                 double a=[temp doubleValue];
         if (a>=10000.0) {
-            self.labelTag.text = [NSString stringWithFormat:@"¥%.0f万",a/10000.0];
+            self.labelTag.text = [NSString stringWithFormat:@"¥%.3f万",a/10000.0];
+            if ([self.labelTag.text containsString:@"."]) {
+                self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@"00万" withString:@"万"];
+                
+                self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@"0万" withString:@"万"];
+                
+            }
         }
         else
         {
             float pp =[temp floatValue];
             self.labelTag.text = [NSString stringWithFormat:@"¥%.2f",pp];
+            self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
         }
-        self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".00" withString:@""];
         
         self.labelAddress.text = [NSString stringWithFormat:@"%@  %@",[self filterNull:dict[@"cityName"]],[self filterNull:dict[@"releaseTime"]]];
         if ([dict[@"cityName"] isKindOfClass:[NSNull class]]) {

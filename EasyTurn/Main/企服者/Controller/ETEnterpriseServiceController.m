@@ -40,12 +40,12 @@
 @implementation ETEnterpriseServiceController
 - (void)viewWillAppear:(BOOL)animated {
     [super.navigationController setNavigationBarHidden:YES animated:TRUE];
-    
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super.navigationController setNavigationBarHidden:NO animated:TRUE];
-    
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

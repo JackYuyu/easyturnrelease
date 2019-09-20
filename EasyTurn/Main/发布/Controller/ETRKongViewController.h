@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**需要模糊效果的图片*/
 @property(strong,nonatomic)UIImage *backImg;
-
+@property(copy,nonatomic)void (^dismissBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END
