@@ -27,7 +27,8 @@
 
 - (UITableView *)tab {
     if (!_tab) {
-        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height) style:UITableViewStylePlain];
+        _tab=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, Screen_Width, Screen_Height-123) style:UITableViewStylePlain];
+        _tab.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
         _tab.delegate=self;
         _tab.dataSource=self;
         _tab.rowHeight=123;

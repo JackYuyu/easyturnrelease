@@ -217,8 +217,8 @@
 
         UserInfoModel* info=[UserInfoModel loadUserInfoModel];
         if ([info.isChecked isEqualToString:@"4"]) {
-            UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请企业法人付款" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            
+
+            UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请企业法人付款" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];            
             [alter show];
             return;
         }

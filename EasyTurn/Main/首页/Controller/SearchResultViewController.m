@@ -217,6 +217,7 @@
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
         tableView.delegate = self;
         tableView.dataSource = self;
+        tableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
         [tableView registerClass:[ETEnterpriseServiceTableViewCell1 class] forCellReuseIdentifier:@"cell"];
         
         _tableView = tableView;

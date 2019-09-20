@@ -31,7 +31,6 @@
 - (void)reloadSecondSectionIndexPath:(NSIndexPath *)indexPath {
     self.indexPath = indexPath;
     [self addSubview:self.bankImage];
-
     [self addSubview:self.label];
 }
 
