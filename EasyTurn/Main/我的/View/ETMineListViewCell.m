@@ -141,14 +141,20 @@
 
     }
     if ([model.releaseTypeId isEqualToString:@"1"]) {
-        self.laSubTitle.text = [NSString stringWithFormat:@"经营范围:%@",model.information];
+        self.laSubTitle.text = [NSString stringWithFormat:@"经营范围:%@",model.business];
     }
-
+    if (!model.detail) {
+        self.laSubTitle.text = [NSString stringWithFormat:@"经营范围:%@",model.scope];
+    }
     NSString *temp = model.price;
     double price = [temp doubleValue];
     if (price >= 10000.0) {
-        self.laPrice.text = [NSString stringWithFormat:@"¥%.0f万",price/10000.0];
-        
+        self.laPrice.text = [NSString stringWithFormat:@"¥%.3f万元",price/10000.0];
+        self.laPrice.text=[self.laPrice.text stringByReplacingOccurrencesOfString:@".000" withString:@""];
+        if ([self.laPrice.text containsString:@"."]) {
+            self.laPrice.text=[self.laPrice.text stringByReplacingOccurrencesOfString:@"00万元" withString:@"万元"];
+            self.laPrice.text=[self.laPrice.text stringByReplacingOccurrencesOfString:@"0万元" withString:@"万元"];
+        }
     }else {
         float price =[temp floatValue];
         self.laPrice.text = [NSString stringWithFormat:@"¥%.2f",price];

@@ -61,5 +61,133 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x6211;&#x7684;/Controller/ETBuyFinishViewController.m"
+            timestampString = "590857384.160701"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x6211;&#x7684;/Controller/ETBuyFinishViewController.m"
+            timestampString = "590857384.160849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "768"
+            endingLineNumber = "768"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ETBuyFinishViewController tableView:cellForRowAtIndexPath:]"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
+                  timestampString = "590854917.628314"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "768"
+                  endingLineNumber = "768"
+                  offsetFromSymbolStart = "32004">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61-[ETBuyFinishViewController tableView:cellForRowAtIndexPath:]_block_invoke_42"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
+                  timestampString = "590854917.630206"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "769"
+                  endingLineNumber = "769"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x6211;&#x7684;/Controller/ETBuyFinishViewController.m"
+            timestampString = "590857384.1609091"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "782"
+            endingLineNumber = "782"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ETBuyFinishViewController tableView:cellForRowAtIndexPath:]"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
+                  timestampString = "590854917.6348259"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "782"
+                  endingLineNumber = "782"
+                  offsetFromSymbolStart = "32160">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61-[ETBuyFinishViewController tableView:cellForRowAtIndexPath:]_block_invoke_44"
+                  moduleName = "EasyTurn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
+                  timestampString = "590854917.636525"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "783"
+                  endingLineNumber = "783"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyTurn/Main/&#x6211;&#x7684;/&#x7528;&#x6237;&#x4fe1;&#x606f;&#x9875;/View/UserSaleView.m"
+            timestampString = "590857384.16096"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

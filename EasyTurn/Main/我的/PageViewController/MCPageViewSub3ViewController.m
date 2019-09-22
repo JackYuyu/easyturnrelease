@@ -212,6 +212,11 @@
             [_members addObject:m];
             
         }
+        if (_members.count==0) {
+            if (a==0) {
+                [MBProgressHUD showMBProgressHud:self.view withText:@"全部订单暂无数据" withTime:1];
+            }
+        }
         [_tab reloadData];
         NSLog(@"");
     } failure:^(NSError *error) {

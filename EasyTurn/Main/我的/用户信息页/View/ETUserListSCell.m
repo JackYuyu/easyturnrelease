@@ -194,15 +194,23 @@
         }
         //这段挪到下面
         if ([temp isEqualToString:@"1"]) {
-            self.labelPrice.text=@"等待卖家确认";
+//            self.labelPrice.text=@"等待卖家确认";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }else if ([temp isEqualToString:@"2"]){
-            self.labelPrice.text=@"卖家已确认";
+//            self.labelPrice.text=@"卖家已确认";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }
         else if ([temp isEqualToString:@"3"]){
-            self.labelPrice.text=@"支付已完成";
+//            self.labelPrice.text=@"支付已完成";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }
         else if ([temp isEqualToString:@"4"]){
-            self.labelPrice.text=@"卖家已发起交易完成";
+//            self.labelPrice.text=@"卖家已发起交易完成";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }
         else if ([temp isEqualToString:@"5"]){
             if ([dict[@"releaseTypeId"] isEqualToString:@"3"]) {
@@ -218,6 +226,7 @@
                 double a=[temp doubleValue];
         if (a>=10000.0) {
             self.labelTag.text = [NSString stringWithFormat:@"¥%.3f万",a/10000.0];
+            self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".000" withString:@""];
             if ([self.labelTag.text containsString:@"."]) {
                 self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@"00万" withString:@"万"];
                 

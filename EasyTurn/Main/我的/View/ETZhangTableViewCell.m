@@ -49,7 +49,7 @@
         [_numberLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(32);
             make.right.mas_equalTo(-14);
-            make.size.mas_equalTo(CGSizeMake(55, 25));
+            make.size.mas_equalTo(CGSizeMake(85, 25));
         }];
         
     }

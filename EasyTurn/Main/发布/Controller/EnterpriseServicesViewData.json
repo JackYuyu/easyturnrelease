@@ -115,7 +115,7 @@
                     "key":"remarks",
                     "title": "备注需求内容",
                     "value": "",
-                    "placeholder":"请选择"
+                    "placeholder":""
                 },
                 {
                     "cellType": 6,

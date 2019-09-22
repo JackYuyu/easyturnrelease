@@ -84,6 +84,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *releaseTime;
 @property (nonatomic, copy) NSString *price;
 @property (nonatomic, copy) NSString *browse;
+@property (nonatomic, copy) NSString *scope;
+@property (nonatomic, copy) NSString *business;
+
 ///0显示浏览次数 1等待卖家确认 2卖家已确认
 @property (nonatomic, copy) NSString *tradStatus;
 @property (nonatomic, copy) NSString *detail;

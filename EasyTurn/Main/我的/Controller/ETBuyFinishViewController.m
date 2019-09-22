@@ -740,7 +740,7 @@
                     label1.alpha = 1.0;
                     [cell addSubview:label1];
                     [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.top.mas_equalTo(21);
+                        make.top.mas_equalTo(35);
                         make.left.mas_equalTo(14);
                         make.size.mas_equalTo(CGSizeMake(74, 21));
                     }];
@@ -764,12 +764,27 @@
                     label.textAlignment = NSTextAlignmentLeft;
                     label.alpha = 1.0;
                     [cell addSubview:label];
+                    if (_products.count==1) {
+                        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.mas_equalTo(0);
+                            make.left.mas_equalTo(85);
+                            make.size.mas_equalTo(CGSizeMake(230, 90));
+                        }];
+                    }
+                    else if (_products.count==2) {
+                        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.mas_equalTo(-10);
+                            make.left.mas_equalTo(85);
+                            make.size.mas_equalTo(CGSizeMake(230, 90));
+                        }];
+                    }
+                    else{
                     [label mas_makeConstraints:^(MASConstraintMaker *make) {
                         make.top.mas_equalTo(-20);
                         make.left.mas_equalTo(85);
                         make.size.mas_equalTo(CGSizeMake(230, 90));
                     }];
-                    
+                    }
 //                    UILabel *title = [[UILabel alloc] init];
 //                    title.text=@"订单编号: ";
 //                    [cell addSubview:title];

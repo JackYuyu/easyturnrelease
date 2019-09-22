@@ -582,13 +582,13 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 6;
+        return 7;
     }
     return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section==0&&(indexPath.row==0 || indexPath.row==2)) {
+    if (indexPath.section==0&&(indexPath.row==0 || indexPath.row==2 || indexPath.row==3)) {
         
 //        CGFloat h= [PublicFunc textHeightFromString:self.detailInfo[@"business"] width:Screen_Width-30 fontsize:18];
 //        return h+10;
@@ -603,7 +603,14 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
 //        int a=[EaseTextView numberOfLinesForMessage:self.detailInfo[@"business"]]+1;
 //
 //        return 10*kScaleX+[UIFont systemFontOfSize:13].lineHeight+10*kScaleX+[UIFont systemFontOfSize:15 weight:UIFontWeightMedium].lineHeight*a+10*kScaleX+1;
-        return [ETSaleAndServiceDetailCell cellHeightLines:indexPath.row==0?self.detailInfo[@"business"]:self.detailInfo[@"asset"]];
+        if (indexPath.section==0&&(indexPath.row==3))
+            {
+                return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"information"]];
+            }
+            else
+            {
+                return [ETSaleAndServiceDetailCell cellHeightLines:indexPath.row==0?self.detailInfo[@"business"]:self.detailInfo[@"asset"]];
+            }
     }
     return [ETSaleAndServiceDetailCell cellHeight];
 }
@@ -667,12 +674,21 @@ ETProductModel* p=[ETProductModel mj_objectWithKeyValues:self.detailInfo];
                 break;
             case 3:
             {
+                [dict setObject:@"其他信息" forKey:@"title"];
+                [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"information"]] forKey:@"subTitle"];
+                [dict setObject:@(1) forKey:@"radiusState"];
+                [dict setObject:@(0) forKey:@"lines"];
+                [dict setObject:@([self subFirstHight:self.detailInfo[@"information"]]) forKey:@"subHeight"];
+            }
+                break;
+            case 4:
+            {
                 [dict setObject:@"纳税类型" forKey:@"title"];
                 [dict setObject:[self taxTitle] forKey:@"subTitle"];
                 [dict setObject:@(1) forKey:@"radiusState"];
             }
                 break;
-            case 4:
+            case 5:
             {
                 [dict setObject:@"成立时间" forKey:@"title"];
                 [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"releaseTime"]] forKey:@"subTitle"];

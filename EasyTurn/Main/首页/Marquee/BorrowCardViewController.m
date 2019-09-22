@@ -85,7 +85,6 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
-
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nonnull NSError *)error {

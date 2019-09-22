@@ -211,6 +211,9 @@
         }
         
         self.labelBrowse.text = [NSString stringWithFormat:@"经营范围:%@",[self filterNull:dict[@"business"]] ];
+        if (![self filterNull:dict[@"business"]]) {
+            self.labelBrowse.text = [NSString stringWithFormat:@"经营范围:%@",dict[@"scope"]];
+        }
         NSString* typeid = [self filterNull:dict[@"releaseTypeId"]];
         if ([typeid isEqualToString:@"3"]) {
             self.labelBrowse.text = [NSString stringWithFormat:@"详细内容:%@",[self filterNull:dict[@"detail"]] ];

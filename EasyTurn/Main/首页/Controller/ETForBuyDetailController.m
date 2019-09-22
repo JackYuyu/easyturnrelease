@@ -546,7 +546,7 @@ static NSString* const kShareFailedText = @"分享失败";
                 return 4;
             }
             else{
-            return 8;
+            return 9;
             }
         }
     }
@@ -566,8 +566,13 @@ static NSString* const kShareFailedText = @"分享失败";
             return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"remarks"]];
         }
     }
-    if (indexPath.section==0&&(indexPath.row==1||indexPath.row==7)) {
-        return [ETSaleAndServiceDetailCell cellHeightLines:indexPath.row==1?self.detailInfo[@"scope"]:self.detailInfo[@"remarks"]];
+    if (indexPath.section==0&&(indexPath.row==1||indexPath.row==8||indexPath.row==2)) {
+        if (indexPath.row==2) {
+            return [ETSaleAndServiceDetailCell cellHeightLines:self.detailInfo[@"industrial"]];
+        }
+        else{
+            return [ETSaleAndServiceDetailCell cellHeightLines:indexPath.row==1?self.detailInfo[@"scope"]:self.detailInfo[@"remarks"]];
+        }
     }
     if (indexPath.section==0&&(indexPath.row==0)) {
         if ([temp isEqualToString:@"股权出质"]||[temp isEqualToString:@"其它"]) {
@@ -806,6 +811,19 @@ static NSString* const kShareFailedText = @"分享失败";
                     break;
                 case 2:
                 {
+                    [dict setObject:@"行业特点" forKey:@"title"];
+                    NSString* temp=[NSString stringWithFormat:@"%@",self.detailInfo[@"industrial"]];
+                    temp=[temp stringByReplacingOccurrencesOfString:@"<null>" withString:@""];
+                    if ([temp isEqualToString:@""])
+                        temp=@"暂无";
+                    [dict setObject:temp forKey:@"subTitle"];
+                    [dict setObject:@(2) forKey:@"radiusState"];
+                    [dict setObject:@(0) forKey:@"lines"];
+                    [dict setObject:@([self subFirstHight:self.detailInfo[@"industrial"]]) forKey:@"subHeight"];
+                }
+                    break;
+                case 3:
+                {
                     [dict setObject:@"纳税类型" forKey:@"title"];
                     NSString* temp1 = [MySingleton filterNull:self.detailInfo[@"taxId"]];
                     if (temp1) {
@@ -827,7 +845,7 @@ static NSString* const kShareFailedText = @"分享失败";
                     [dict setObject:@(2) forKey:@"radiusState"];
                 }
                     break;
-                case 3:
+                case 4:
                 {
                     [dict setObject:@"注册资本" forKey:@"title"];
                     [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"capital"]] forKey:@"subTitle"];
@@ -836,7 +854,7 @@ static NSString* const kShareFailedText = @"分享失败";
                     [dict setObject:@(2) forKey:@"radiusState"];
                 }
                     break;
-                case 4:
+                case 5:
                 {
                     [dict setObject:@"银行开户" forKey:@"title"];
                     NSString* temp1 = [MySingleton filterNull:self.detailInfo[@"bank"]];
@@ -858,7 +876,7 @@ static NSString* const kShareFailedText = @"分享失败";
                     [dict setObject:@(2) forKey:@"radiusState"];
                 }
                     break;
-                case 5:
+                case 6:
                 {
                     [dict setObject:@"注册地址" forKey:@"title"];
                     NSString* temp1 = [MySingleton filterNull:self.detailInfo[@"regUrl"]];
@@ -877,7 +895,7 @@ static NSString* const kShareFailedText = @"分享失败";
                     [dict setObject:@(2) forKey:@"radiusState"];
                 }
                     break;
-                case 6:
+                case 7:
                 {
                     [dict setObject:@"求购区域" forKey:@"title"];
                     [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"cityName"]] forKey:@"subTitle"];
@@ -887,7 +905,7 @@ static NSString* const kShareFailedText = @"分享失败";
                     [dict setObject:@(2) forKey:@"radiusState"];
                 }
                     break;
-                case 7:
+                case 8:
                 {
                     [dict setObject:@"备注" forKey:@"title"];
                     [dict setObject:[NSString stringWithFormat:@"%@",self.detailInfo[@"remarks"]] forKey:@"subTitle"];

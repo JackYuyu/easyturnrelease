@@ -96,6 +96,9 @@
                         [_members addObject:m];
 
                     }
+        if (_members.count==0) {
+                [MBProgressHUD showMBProgressHud:self.view withText:@"员工列表暂无数据" withTime:1];
+        }
         [_tab reloadData];
         NSLog(@"");
     } failure:^(NSError *error) {

@@ -167,44 +167,55 @@
         self.labelPrice.text=temp;
         temp = [self filterNull:dict[@"tradStatus"]];
         if ([temp isEqualToString:@"5"]){
-            if ([dict[@"releaseTypeId"] isEqualToString:@"3"]) {
-                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
-            }
-            else{
-            self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
-//            self.labelPrice.text=@"已下架";
-            }
+            self.labelPrice.text=@"已下架";
+
+//            if ([dict[@"releaseTypeId"] isEqualToString:@"3"]) {
+//                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+//            }
+//            else{
+//            self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+////            self.labelPrice.text=@"已下架";
+//            }
             
 
         }
         
         //这段挪到下面
         if ([temp isEqualToString:@"1"]) {
-            self.labelPrice.text=@"等待卖家确认";
+//            self.labelPrice.text=@"等待卖家确认";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }else if ([temp isEqualToString:@"2"]){
-            self.labelPrice.text=@"卖家已确认";
+//            self.labelPrice.text=@"卖家已确认";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }
         else if ([temp isEqualToString:@"3"]){
-            self.labelPrice.text=@"支付已完成";
+//            self.labelPrice.text=@"支付已完成";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }
         else if ([temp isEqualToString:@"4"]){
-            self.labelPrice.text=@"卖家已发起交易完成";
+//            self.labelPrice.text=@"卖家已发起交易完成";
+            self.labelPrice.text=@"交易中";
+            [self.labelPrice setTextColor:[UIColor blueColor]];
         }
         else if ([temp isEqualToString:@"5"]){
-//            self.labelPrice.text=@"已下架";
-            if ([dict[@"releaseTypeId"] isEqualToString:@"3"]) {
-                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
-            }
-            else{
-                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
-                //            self.labelPrice.text=@"已下架";
-            }
+            self.labelPrice.text=@"已下架";
+//            if ([dict[@"releaseTypeId"] isEqualToString:@"3"]) {
+//                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+//            }
+//            else{
+//                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+//                //            self.labelPrice.text=@"已下架";
+//            }
         }
         
         temp = [self filterNull:dict[@"price"]];
                 double a=[temp doubleValue];
         if (a>=10000.0) {
             self.labelTag.text = [NSString stringWithFormat:@"¥%.3f万",a/10000.0];
+            self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@".000" withString:@""];
             if ([self.labelTag.text containsString:@"."]) {
                 self.labelTag.text=[self.labelTag.text stringByReplacingOccurrencesOfString:@"00万" withString:@"万"];
                 
