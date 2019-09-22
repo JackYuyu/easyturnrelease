@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self PostUI];
     [self judgeNeedVersionUpdate];
     // Do any additional setup after loading the view.
     self.title=@"关于易转";
@@ -109,6 +110,130 @@
     return _editionLab;
 }
 
+- (void)shareAppVersionAlert {
+    
+       
+    
+         if(![self judgeNeedVersionUpdate])  return ;
+    
+        //App内info.plist文件里面版本号
+    
+        NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    
+        NSString *appVersion = infoDict[@"CFBundleShortVersionString"];
+    
+        NSString *bundleId   = infoDict[@"CFBundleIdentifier"];
+    
+        NSString *urlString =  [NSString stringWithFormat:@"https://itunes.apple.com/cn/lookup?id=1474345893"];
+    
+        NSURL *urlStr = [NSURL URLWithString:urlString];
+    
+        //创建请求体
+    
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:urlStr];
+    
+        [NSURLConnection sendAsynchronousRequest:urlRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+                if (connectionError) {
+            
+                        //            NSLog(@"connectionError->%@", connectionError.localizedDescription);
+            
+                        return ;
+            
+                    }
+        
+                NSError *error;
+        
+                NSDictionary *resultsDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+        
+                NSLog(@"resultsDict +++:%@", resultsDict);
+        
+                if (error) {
+            
+                        //            NSLog(@"error->%@", error.localizedDescription);
+            
+                        return;
+            
+                    }
+        
+                NSArray *sourceArray = resultsDict[@"results"];
+        
+                if (sourceArray.count >= 1) {
+            
+                        //AppStore内最新App的版本号
+            
+                        NSDictionary *sourceDict = sourceArray[0];
+            
+                        NSString *newVersion = sourceDict[@"version"];
+            
+                        NSLog(@"newVersion:%@",newVersion);
+            
+                       
+            
+                        if ([newVersion floatValue]*1000>[appVersion floatValue]*1000)
+                
+                            {
+                    
+                                    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"提示:\n您的App不是最新版本，请问是否更新" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                                    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+                                            //                    [alertVc dismissViewControllerAnimated:YES completion:nil];
+                        
+                                        }];
+                    
+                                    [alertVc addAction:action1];
+                    
+                                    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        
+                                            //跳转到AppStore，该App下载界面
+                        
+                                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:sourceDict[@"trackViewUrl"]]];
+                        
+                                        }];
+                    
+                                    [alertVc addAction:action2];
+                    
+                                    [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alertVc animated:YES completion:nil];
+                    
+                                }
+            
+                    }
+        
+            }];
+    
+}
+
+
+
+//每天进行一次版本判断
+
+- (BOOL)judgeNeedVersionUpdate {
+    
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+        //获取年-月-日
+    
+        NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    
+        NSString *currentDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentDate"];
+    
+        if ([currentDate isEqualToString:dateString]) {
+         [MBProgressHUD showMBProgressHud:[UIApplication sharedApplication].keyWindow.rootViewController.view withText:@"当前已是最新版本!" withTime:2];
+        [_editionLab setEnabled:NO];
+                return NO;
+        
+            }
+    
+        [[NSUserDefaults standardUserDefaults] setObject:dateString forKey:@"currentDate"];
+    
+        return YES;
+    
+}
+
+
 - (UIButton *)editionButton {
     if (!_editionButton) {
         _editionButton = [[UIButton alloc]init];
@@ -120,29 +245,30 @@
 }
 
 - (void)edition {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
-                                                                   message:@"版本升级"
-                                                            preferredStyle: UIAlertActionStyleCancel];
-    
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"稍后下载" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              //响应事件
-                                                              NSLog(@"action = %@", action);
-                                                          }];
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"立即更新" style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * action) {
-                                                             //响应事件
-                                                             NSLog(@"action = %@", action);
-                                                             [self PostUI:cancelAction];
-                                                             
-                                                         }];
-    
-    [alert addAction:defaultAction];
-    [alert addAction:cancelAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    [self shareAppVersionAlert];  
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+//                                                                   message:@"版本升级"
+//                                                            preferredStyle: UIAlertActionStyleCancel];
+//
+//    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"稍后下载" style:UIAlertActionStyleDefault
+//                                                          handler:^(UIAlertAction * action) {
+//                                                              //响应事件
+//                                                              NSLog(@"action = %@", action);
+//                                                          }];
+//    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"立即更新" style:UIAlertActionStyleDefault
+//                                                         handler:^(UIAlertAction * action) {
+//                                                             //响应事件
+//                                                             NSLog(@"action = %@", action);
+//                                                             [self PostUI:cancelAction];
+//
+//                                                         }];
+//
+//    [alert addAction:defaultAction];
+//    [alert addAction:cancelAction];
+//    [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)PostUI:(NSString*)a {
+- (void)PostUI {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     NSDictionary *params = @{
                              };
@@ -153,31 +279,6 @@
         NSLog(@"%@",error);
     }];
 }
-//每一天进行一次版本判断
-- (BOOL)judgeNeedVersionUpdate {
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    
-        //获取年-月-日
-    
-        NSString *dateString = [formatter stringFromDate:[NSDate date]];
-    
-        NSString *currentDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentDate"];
-    
-        if ([currentDate isEqualToString:dateString]) {
-        
-                return NO;
-        
-            }
-    
-        [[NSUserDefaults standardUserDefaults] setObject:dateString forKey:@"currentDate"];
-    
-        return YES;
-    
-}
-
 
 - (UIButton *)agreementBtn {
     if (!_agreementBtn) {

@@ -309,7 +309,6 @@
     
     UIImage *image = [UIImage imageNamed:@"location_分组 2"];
     [button setImage:image forState:UIControlStateNormal];
-    button.imageView.backgroundColor = [UIColor yellowColor];
     [button.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(15);
         make.left.mas_equalTo(0);
