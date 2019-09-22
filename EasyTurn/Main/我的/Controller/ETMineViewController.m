@@ -68,6 +68,7 @@ static NSString *const kETMineViewCell = @"ETMineViewCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    [self reloadTitles ];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

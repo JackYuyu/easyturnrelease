@@ -123,6 +123,7 @@
     NSString* temp = p.tradStatus;
     if ([temp isEqualToString:@"1"]|[temp isEqualToString:@"2"]||[temp isEqualToString:@"3"]||[temp isEqualToString:@"4"]||[temp isEqualToString:@"5"]) {
         _refchBtn.backgroundColor=[UIColor lightGrayColor];
+        _refchBtn.enabled=NO;
     }
 
     //    [_refchBtn setTitle:@"查看" forState:UIControlStateNormal];
@@ -169,6 +170,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dict =[self.dataArray objectAtIndex:indexPath.row];
     ETProductModel* p=[ETProductModel mj_objectWithKeyValues:dict];
+    NSString* temp = p.tradStatus;
+    if ([temp isEqualToString:@"5"]) {
+        return;
+    }
     //    ETCartViewController* pur=[ETCartViewController new];
     
     //    ETPoctoryqgViewController* pur=[ETPoctoryqgViewController new];

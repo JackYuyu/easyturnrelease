@@ -172,7 +172,7 @@
             }
             else{
             self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
-            self.labelPrice.text=@"已下架";
+//            self.labelPrice.text=@"已下架";
             }
             
 
@@ -191,7 +191,14 @@
             self.labelPrice.text=@"卖家已发起交易完成";
         }
         else if ([temp isEqualToString:@"5"]){
-            self.labelPrice.text=@"已下架";
+//            self.labelPrice.text=@"已下架";
+            if ([dict[@"releaseTypeId"] isEqualToString:@"3"]) {
+                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+            }
+            else{
+                self.labelPrice.text=[NSString stringWithFormat:@"已交易%@单",dict[@"freePush"]];
+                //            self.labelPrice.text=@"已下架";
+            }
         }
         
         temp = [self filterNull:dict[@"price"]];

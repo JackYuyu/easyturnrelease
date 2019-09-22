@@ -110,9 +110,9 @@ static NSString * const CustomTableViewCellID = @"cell";
     [shareButton addTarget:self action:@selector(agree:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview: shareButton];
     [shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(0);
+        make.top.mas_equalTo(10);
         make.right.mas_equalTo(0);
-        make.size.mas_equalTo(100,103);
+        make.size.mas_equalTo(100,93);
     }];
     return cell;
 }

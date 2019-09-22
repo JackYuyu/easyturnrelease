@@ -140,7 +140,9 @@ static NSString *const kEaseUserMeagessListCell = @"EaseUserMeagessListCell";
 //    ETProductModel* p=[_products objectAtIndex:indexPath.row];
 //    ETPoctoryqgViewController* qg=[[ETPoctoryqgViewController alloc] init];
 //    qg.releaseId=p.releaseId;
-    
+    if (_index==0) {
+        return;
+    }
     NSDictionary *dict =[self.arrayData objectAtIndex:indexPath.row];
 
     ETForBuyDetailController* pur=[ETForBuyDetailController forBuyDetailController:dict];

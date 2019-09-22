@@ -244,6 +244,10 @@
                         LQPickerItem *item3 = [[LQPickerItem alloc]init];
                         item3.name = areaDic[@"name"];
                         item3.cid = areaDic[@"cid"];
+                        if ([item1.name isEqualToString:@"全部地区"]) {
+                            item3.name = @"";
+                            item3.cid = item1.cid;
+                        }
                         [arrayAreas addObject:item3];
                     }
                     item2.datas = arrayAreas;
@@ -1554,7 +1558,7 @@
                              //                             @"lowerPrice" : @([_priceRangeLeftText.text intValue]),
                              @"price" : @([_priceText.text intValue]),
                              @"releaseId" : @(0),
-                             @"releaseTime" : strDate,
+                             @"releaseTime" : self.timeLabel.text,
                              @"releaseTypeId" : @(1),
                              @"selectId" : @(_selectId),
                              @"serviceId" : @(0),
