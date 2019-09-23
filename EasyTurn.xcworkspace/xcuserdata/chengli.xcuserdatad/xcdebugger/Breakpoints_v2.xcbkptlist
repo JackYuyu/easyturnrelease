@@ -36,16 +36,6 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
@@ -100,7 +90,7 @@
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
-                  timestampString = "590854917.628314"
+                  timestampString = "590865568.371544"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "768"
@@ -115,7 +105,7 @@
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
-                  timestampString = "590854917.630206"
+                  timestampString = "590865568.373605"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "769"
@@ -148,7 +138,7 @@
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
-                  timestampString = "590854917.6348259"
+                  timestampString = "590865568.380722"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "782"
@@ -163,7 +153,7 @@
                   moduleName = "EasyTurn"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chengli/easyturnrelease/EasyTurn/Main/%E6%88%91%E7%9A%84/Controller/ETBuyFinishViewController.m"
-                  timestampString = "590854917.636525"
+                  timestampString = "590865568.383067"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "783"
@@ -180,13 +170,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyTurn/Main/&#x6211;&#x7684;/&#x7528;&#x6237;&#x4fe1;&#x606f;&#x9875;/View/UserSaleView.m"
-            timestampString = "590857384.16096"
+            timestampString = "590860964.700948"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

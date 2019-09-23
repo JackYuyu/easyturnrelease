@@ -200,6 +200,9 @@
     
     [self shareView];
     [self shareViewController];
+    if (_product) {
+        self.segment.selectedSegmentIndex = 0;
+    }
 }
 - (void)loadAddressData{
     NSString *path = [[NSBundle mainBundle]pathForResource:@"dynamic_city" ofType:@"plist"];
